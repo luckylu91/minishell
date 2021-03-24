@@ -56,7 +56,8 @@ BONUS = ft_lstadd_front.c \
 		ft_lstmap.c \
 		ft_lstnew.c \
 		ft_lstcat.c \
-		ft_lstclear.c
+		ft_lstclear.c \
+		ft_lstany.c
 
 OBJS = $(SRCS:.c=.o)
 
