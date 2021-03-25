@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 14:36:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 14:57:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define AST_H
 
 #include "libft.h"
+#include "to_block.h"
 
 typedef struct	s_ast
 {
@@ -53,9 +54,8 @@ typedef struct	s_ast
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			char			*redir_op; // doivent etre ensenble lors de la tokenisation
 			char			*target;
-		}
+		}					redir_expr;
 	}						expr;
-
 }				t_ast;
 
 #endif
