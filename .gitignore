@@ -1,3 +1,4 @@
 a.out
 *.o
 testalacon.c
+*.swp
