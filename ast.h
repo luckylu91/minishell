@@ -48,6 +48,12 @@ typedef struct	s_ast
 			t_list			*text_list; // ast::text_expr list
 			t_list			*redir_list; // ast::redir_expr list
 		}					command_expr;
+		struct				s_redir_expr
+		{
+			int				fildes; //    doivent etre ensenble lors de la tokenisation
+			char			*redir_op; // doivent etre ensenble lors de la tokenisation
+			char			*target;
+		}
 	}						expr;
 
 }				t_ast;
