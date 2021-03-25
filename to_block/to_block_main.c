@@ -6,7 +6,7 @@
 /*   By: hgallien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:24:39 by hgallien          #+#    #+#             */
-/*   Updated: 2021/03/25 14:39:09 by hgallien         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 14:56:51 by hgallien         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 #include "to_block.h"
@@ -51,29 +51,41 @@ void	handle_space(t_var_toblock *var, t_list **final_l,t_list **temp_l, char *li
 		}
 }
 
-void	temp_to_final(t_list **final_l, t_list *temp_l, enum flags f)
+void	temp_to_final(t_list **final_l, t_list **temp_l, enum flags f)
 {
 	char *str;
 	t_list *parcour_l;
+	t_list *temp_lbis;
+	temp_lbis = *temp_l;
 	int i;
 
+	printf("dqns temp_to final 1\n");
 	i = 0;
-	str = malloc(sizeof(char) * ft_lstsize(temp_l));
-	while (temp_l != NULL)
+	str = malloc(sizeof(char) * ft_lstsize(*temp_l));
+
+	printf("dqns temp_to final 1,2\n");
+	while (temp_lbis != NULL)
 	{
-		str[i] = *((char*)temp_l->content);
+
+	printf("dqns temp_to final 2\n");
+		str[i] = *((char*)temp_lbis->content);
 		i++;
-		parcour_l = temp_l;
-		temp_l = temp_l->next;
+		parcour_l = temp_lbis;
+		temp_lbis = temp_lbis->next;
+
+	printf("dqns temp_to final 3\n");
 		free(parcour_l);
 	}
+	printf("dans temp final %s\n",str);
+	
+	*temp_l = NULL;
 	ft_lstadd_back(final_l, ft_lstnew(new_block(str, f)));
 }
 
 void	handle_separator(t_var_toblock *var, char *line, t_list **final_l, t_list **temp_l)
 {
 	printf("dans handle sep |%c|\n",line[var->i]);
-	temp_to_final(final_l, *temp_l, var->f);
+	temp_to_final(final_l, temp_l, var->f);
 	if(line[var->i] == ' ')
 	{
 

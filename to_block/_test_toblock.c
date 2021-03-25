@@ -9,7 +9,7 @@ int main(int ag, char *av[])
 	to_block(av[1], &final_l);
 	while(final_l != NULL)
 	{
-//		printf("dedans %s\n",((t_block*)(final_l->content))->str);
+		printf("dedans %s\n",((t_block*)(final_l->content))->str);
 		final_l = final_l->next;
 	}
 }
