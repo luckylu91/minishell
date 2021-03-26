@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   _ast_recurs_asc_draft.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/25 15:58:23 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/25 17:25:26 by lzins            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ast.h"
-#include <stdlib.h>
+#include "block_api.h"
 
 t_status parse_cmdseq(t_ast **ast, t_list *tokens)
 {
@@ -35,18 +47,18 @@ t_status parse_cmdchain(t_list **tokens, t_ast **cmdchain_ast)
 	t_block *chainop;
 
 	*cmdchain_ast = NULL;
-	status = status_ok;
+	status = STATUS_OK;
 	chainop = NULL;
-	while (status == status_ok)
+	while (status == STATUS_OK)
 	{
 		status = parse_cmd(tokens, &cmd_ast);
-		if (!cmd_ast || status != status_ok)
+		if (!cmd_ast || status != STATUS_OK)
 			break;
 		addback_cmd_ast(cmdchain_ast, chainop);
 		lst_step(tokens);
 		if (!is_chainop(*tokens))
 			break ;
-		chainop = block_dup(*tokens);
+		chainop = dup_block(*tokens);
 		lst_step(tokens);
 	}
 	return (status);
@@ -60,24 +72,24 @@ t_status parse_cmd(t_list **tokens, t_ast **cmd_ast)
 	*cmd_ast = NULL;
 	if (is_beg(*tokens))
 		identify_semicolon(tokens);
-	parse_text(tokens, &text_ast);
-	if (!text_ast)
+	parse_text(tokens, &next_ast);
+	if (!next_ast)
 		return (unexpected_token_error(to_str(*tokens)));
-	*cmd_ast = create_cmd_ast(text_ast);
-	status = status_ok;
-	while (status == status_ok)
+	*cmd_ast = create_cmd_ast(next_ast);
+	status = STATUS_OK;
+	while (status == STATUS_OK)
 	{
 		status = parse_redir(tokens, &next_ast);
-		if (status == status_ok && !next_ast)
+		if (status == STATUS_OK && !next_ast)
 			status = parse_text(tokens, &next_ast);
 		if (!next_ast)
 			break;
 		addback_txt_redir_ast(cmd_ast, next_ast);
 		skip_spaces(tokens);
 	}
-	if (status != status_ok)
+	if (status != STATUS_OK)
 		return (unexpected_token_error(*tokens));
-	return (status_ok);
+	return (STATUS_OK);
 }
 
 t_status parse_redir(t_list **tokens, t_ast **redir_ast)
@@ -94,7 +106,7 @@ t_status parse_redir(t_list **tokens, t_ast **redir_ast)
 		else
 			return (unexpected_token_error(to_str((*tokens)->next)));
 	}
-	return (status_ok);
+	return (STATUS_OK);
 }
 
 int is_text(t_list *tokens)
@@ -102,7 +114,7 @@ int is_text(t_list *tokens)
 	t_block *token;
 
 	token = token_at(tokens);
-	if (!token->is_special || token->is_wildcard)
+	if (!is_special(token) || is_wildcard(token))
 		return (1);
 	return (0);
 }
@@ -113,8 +125,8 @@ t_status	parse_text(t_list **tokens, t_ast **text_ast)
 	*text_ast = NULL;
 	while (is_text(*tokens))
 	{
-		addback_text_ast(text_ast, *tokens);
+		addback_textblock_ast(text_ast, *tokens);
 		lst_step(tokens, 1);
 	}
-	return (status_ok);
+	return (STATUS_OK);
 }

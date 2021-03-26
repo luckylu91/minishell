@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 14:57:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 17:19:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 #define AST_H
 
 #include "libft.h"
-#include "to_block.h"
+#include "block_api.h"
+#include "ast_alloc.h"
+#include "ast_add.h"
+
+typedef enum	{
+	STATUS_OK, STATUS_ERROR
+}	t_status;
+
+typedef enum	e_ast_type
+{
+	string_expr, text_expr, redir_expr,
+	unary_expr, binary_expr, command_expr
+}				t_ast_type;
 
 typedef struct	s_ast
 {
-	enum e_type
-	{
-		string_expr, text_expr, redir_expr,
-		unary_expr, binary_expr, command_expr
-	}	type;
+	t_ast_type				type;
 	union u_expr
 	{
 		t_block				*string_expr;

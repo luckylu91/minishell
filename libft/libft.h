@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 14:33:05 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 17:32:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ t_list				*ft_lstcat(t_list *lst1, t_list *lst2);
 int					ft_lstany(t_list *lst, int (*booleval)(void *content));
 t_list				*ft_lststep(t_list *lst, size_t n_steps);
 t_list				*ft_lstskip(t_list *lst, int (*skip)(void *content));
+int					ft_lstadd_back_content(t_list **alst, void *content);
 
 #endif

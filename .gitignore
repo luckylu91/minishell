@@ -1,4 +1,6 @@
 a.out
 *.o
 testalacon.c
-*.swp
+*.a
+.vscode
+.DS_Store
