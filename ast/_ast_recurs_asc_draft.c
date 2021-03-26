@@ -6,11 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 15:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:25:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:05:45 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_api.h"
 #include "block_api.h"
 
 t_status parse_cmdseq(t_ast **ast, t_list *tokens)

@@ -6,11 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 16:37:47 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:32:48 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:06:43 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_api.h"
 
 int	add_textitem_totext(t_ast **text_ast, t_list *item_lst)
 {

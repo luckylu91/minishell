@@ -2,6 +2,7 @@
 #define BLOCK_API
 
 #include "to_block.h"
+#include <stdlib.h>
 
 t_block	*block_at(t_list *block_lst);
 

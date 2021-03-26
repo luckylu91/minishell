@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ast.h"
+#include "ast_api.h"
 
 char *block_flags_str(t_block *block)
 {
@@ -51,17 +51,23 @@ int test1()
 {
 	t_list *blocks;
 
+	blocks = NULL;
 	ft_lstadd_back_content(&blocks, create_block(none, "UnBloc"));
 	print_block_list(blocks);
+	ft_lstclear(&blocks, &destroy_block);
+	return (0);
 }
 
 int test2()
 {
 	t_list *blocks;
 
+	blocks = NULL;
 	ft_lstadd_back_content(&blocks, create_block(none, "Bloc1"));
 	ft_lstadd_back_content(&blocks, create_block(none, "Bloc2"));
 	print_block_list(blocks);
+	ft_lstclear(&blocks, &destroy_block);
+	return (0);
 }
 
 int main()

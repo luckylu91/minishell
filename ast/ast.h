@@ -6,17 +6,12 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:19:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:04:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 #define AST_H
-
-#include "libft.h"
-#include "block_api.h"
-#include "ast_alloc.h"
-#include "ast_add.h"
 
 typedef enum	{
 	STATUS_OK, STATUS_ERROR
@@ -35,12 +30,6 @@ typedef struct	s_ast
 	{
 		t_block				*string_expr;
 		t_list				*text_expr; // t_block list
-		struct				s_redir_expr
-		{
-			int				fildes;
-			char			*redir_op;
-			char			*file_name;
-		}					redir_expr;
 		struct				s_unary_expr
 		{
 			char			*op_name;
@@ -61,7 +50,7 @@ typedef struct	s_ast
 		{
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			char			*redir_op; // doivent etre ensenble lors de la tokenisation
-			char			*target;
+			char			*file_name;
 		}					redir_expr;
 	}						expr;
 }				t_ast;

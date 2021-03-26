@@ -6,11 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:44:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:44:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:06:29 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "block_api.h"
 
 t_block *create_block(enum flags f, char *str)
 {

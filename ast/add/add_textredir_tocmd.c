@@ -6,11 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:08:59 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:38:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:06:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_api.h"
 
 static t_list *text_list(t_ast *cmd_ast)
 {

@@ -6,11 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:22:11 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:23:38 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:06:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_api.h"
 
 int	create_ast_if_needed(t_ast_type type, t_ast **result_ast)
 {

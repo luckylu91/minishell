@@ -6,15 +6,15 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:16:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:22:37 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:07:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_api.h"
 
 int	create_ast(t_ast_type type, t_ast **result_ast)
 {
 	*result_ast = NULL;
 	if (type == text_expr)
-		....
+		//....
 }

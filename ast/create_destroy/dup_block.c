@@ -6,11 +6,12 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 16:39:12 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 17:21:24 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 10:22:19 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "block_api.h"
+#include "ast_alloc.h"
 
 t_block	*dup_block(t_block *block)
 {
