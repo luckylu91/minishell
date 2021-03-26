@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 10:04:18 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:55:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,30 @@ typedef struct	s_ast
 	t_ast_type				type;
 	union u_expr
 	{
-		t_block				*string_expr;
-		t_list				*text_expr; // t_block list
+		t_block				*string;
+		t_list				*text; // t_block list
 		struct				s_unary_expr
 		{
 			char			*op_name;
 			struct s_ast	*target;
-		}					unary_expr;
+		}					unary;
 		struct				s_binary_expr
 		{
 			char			*op_name;
 			struct s_ast	*left;
 			struct s_ast	*right;
-		}					binary_expr;
+		}					binary;
 		struct				s_command_expr
 		{
 			t_list			*text_list; // ast::text_expr list
 			t_list			*redir_list; // ast::redir_expr list
-		}					command_expr;
+		}					command;
 		struct				s_redir_expr
 		{
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			char			*redir_op; // doivent etre ensenble lors de la tokenisation
 			char			*file_name;
-		}					redir_expr;
+		}					redir;
 	}						expr;
 }				t_ast;
 

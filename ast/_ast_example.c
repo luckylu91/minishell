@@ -9,7 +9,7 @@ t_ast	*new_ast_str(char *str)
 
 	ast = calloc(sizeof(t_ast), 1);
 	ast->type = string_expr;
-	ast->expr.string_expr = strdup(str);
+	ast->expr.string = strdup(str);
 	return (ast);
 }
 
@@ -20,7 +20,7 @@ t_ast	*new_ast_unary(char *name, t_ast *target)
 
 	ast = calloc(1, sizeof(t_ast));
 	ast->type = unary_expr;
-	expr = &(ast->expr.unary_expr);
+	expr = &(ast->expr.unary);
 	expr->op_name = strdup(name);
 	expr->target = target;
 	return (ast);
@@ -34,7 +34,7 @@ t_ast	*new_ast_binary(char *name, t_ast *left, t_ast *right)
 
 	ast = calloc(1, sizeof(t_ast));
 	ast->type = binary_expr;
-	expr = &(ast->expr.binary_expr);
+	expr = &(ast->expr.binary);
 	expr->op_name = strdup(name);
 	expr->left = left;
 	expr->right = right;
@@ -59,18 +59,18 @@ char	*full_concat_aggragation(t_ast *ast)
 	char				*res;
 	struct s_unary_expr	*uexpr;
 	if (ast->type == string_expr)
-		return (strdup(ast->expr.string_expr));
+		return (strdup(ast->expr.string));
 	else if (ast->type == unary_expr)
 	{
-		uexpr = &(ast->expr.unary_expr);
+		uexpr = &(ast->expr.unary);
 		if (strcmp(uexpr->op_name, "$") == 0 && uexpr->target->type == string_expr)
-			return (getenv(uexpr->target->expr.string_expr));
+			return (getenv(uexpr->target->expr.string));
 	}
 	else if (ast->type == binary_expr)
 		return (
 			ft_strjoin(
-				full_concat_aggragation(ast->expr.binary_expr.left),
-				full_concat_aggragation(ast->expr.binary_expr.right)
+				full_concat_aggragation(ast->expr.binary.left),
+				full_concat_aggragation(ast->expr.binary.right)
 			)
 		);
 	return (NULL);

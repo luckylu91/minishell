@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 15:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 10:05:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 11:41:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_status parse_cmdseq(t_ast **ast, t_list *tokens)
 	t_ast *ast_cmdchain;
 	t_status status;
 
-	parse_semicol(&tokens); // only advance if one is found
+	identify_semicol(&tokens); // only advance if one is found
 	status = in_progress;
 	*ast = NULL;
 	while (*tokens)
@@ -34,10 +34,10 @@ int identify_semicol(t_list **tokens)
 {
 	if (is_semicol(*tokens))
 	{
-		(*tokens) = (*tokens)->next
-		return (recognized);
+		ft_lststep(tokens, 1);
+		return (1);
 	}
-	return (not_recognized);
+	return (0);
 }
 
 t_status parse_cmdchain(t_list **tokens, t_ast **cmdchain_ast)
@@ -55,11 +55,11 @@ t_status parse_cmdchain(t_list **tokens, t_ast **cmdchain_ast)
 		if (!cmd_ast || status != STATUS_OK)
 			break;
 		addback_cmd_ast(cmdchain_ast, chainop);
-		lst_step(tokens);
+		ft_lststep(tokens, 1);
 		if (!is_chainop(*tokens))
 			break ;
 		chainop = dup_block(*tokens);
-		lst_step(tokens);
+		ft_lststep(tokens, 1);
 	}
 	return (status);
 }
@@ -101,7 +101,7 @@ t_status parse_redir(t_list **tokens, t_ast **redir_ast)
 		if (is_text((*tokens)->next))
 		{
 			*redir_ast = create_redir_ast(*tokens, (*tokens)->next);
-			lst_step(tokens, 2);
+			ft_lststep(tokens, 2);
 		}
 		else
 			return (unexpected_token_error(to_str((*tokens)->next)));
@@ -126,7 +126,7 @@ t_status	parse_text(t_list **tokens, t_ast **text_ast)
 	while (is_text(*tokens))
 	{
 		addback_textblock_ast(text_ast, *tokens);
-		lst_step(tokens, 1);
+		ft_lststep(tokens, 1);
 	}
 	return (STATUS_OK);
 }

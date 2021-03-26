@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:08:59 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 10:06:39 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 14:06:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static t_list *text_list(t_ast *cmd_ast)
 {
-	return (&cmd_ast->expr.command_expr.text_list);
+	return (&cmd_ast->expr.command.text_list);
 }
 
 static t_list *redir_list(t_ast *cmd_ast)
 {
-	return (&cmd_ast->expr.command_expr.redir_list);
+	return (&cmd_ast->expr.command.redir_list);
 }
 
 int	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast)
 {
-	if (!create_ast_if_needed(command_expr, cmd_ast))
+	if (!create_ast_if_needed(cmd_ast, command_expr))
 		return (0);
 	// non NULL of text_redir_ast checked before in parse_cmd
 	if (text_redir_ast->type == text_expr
