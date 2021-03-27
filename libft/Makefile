@@ -43,7 +43,8 @@ SRCS =	ft_all_in.c \
 		ft_strtrim.c \
 		ft_tolower.c \
 		ft_toupper.c \
-		ft_any.c
+		ft_any.c \
+		ft_strindex.c
 
 BONUS = ft_lstadd_front.c \
 		ft_lstadd_back.c \
