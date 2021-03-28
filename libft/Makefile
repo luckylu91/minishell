@@ -55,6 +55,7 @@ BONUS = ft_lstadd_front.c \
 		ft_lstfind.c \
 		ft_lstlast.c \
 		ft_lstiter.c \
+		ft_lstreviter.c \
 		ft_lstmap.c \
 		ft_lstnew.c \
 		ft_lstcat.c \
