@@ -6,7 +6,7 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 12:33:40 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/28 12:45:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ t_list				*ft_lstremove(t_list **alst, void *content,
 						size_t content_size);
 void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+void				ft_lstiter_arg(t_list *lst, void *arg,
+									void (*f)(void *cont, void *arg));
 void				ft_lstreviter(t_list *lst, void (*f)(void *));
+void				ft_lstreviter_arg(t_list *lst, void *arg,
+										void (*f)(void *cont, void *arg));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 t_list				*ft_lstcat(t_list *lst1, t_list *lst2);
