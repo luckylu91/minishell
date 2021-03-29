@@ -1,12 +1,12 @@
 #include "ast_api.h"
 
-char *charpointer_str(char *str)
-{
-	if (str)
-		return (ft_strdup(str));
-	else
-		return (ft_strdup("null_str"));
-}
+// char *charpointer_str(char *str)
+// {
+// 	if (str)
+// 		return (ft_strdup(str));
+// 	else
+// 		return (ft_strdup("null_str"));
+// }
 
 static char	*ast_type_str(t_ast *ast)
 {
@@ -43,19 +43,36 @@ static void	print_text_ast(t_ast *ast)
 
 static void	print_redir_ast(t_ast *ast)
 {
-	char *op_str = NULL;
-	char *fname_str = NULL;
-
-	op_str = charpointer_str(ast->expr.redir.redir_op);
-	fname_str = charpointer_str(ast->expr.redir.file_name);
+	// op_str = charpointer_str(ast->expr.redir.redir_op);
+	// fname_str = charpointer_str(ast->expr.redir.file_name);
 
 	printf("fd: %d | op: \"%s\" | fname: \"%s\"",
 		ast->expr.redir.fildes,
-		op_str,
-		fname_str);
-	free(op_str);
-	free(fname_str);
+		ast->expr.redir.redir_op->str,
+		ast->expr.redir.file_name->str);
 }
+
+static void print_txt_ast_sep(void *txt_ast, void *sep)
+{
+	print_text_ast(txt_ast);
+	ft_putstr_fd(sep, STDOUT_FILENO);
+}
+
+static void print_red_ast_sep(void *red_ast, void *sep)
+{
+	print_redir_ast(red_ast);
+	ft_putstr_fd(sep, STDOUT_FILENO);
+}
+
+void	print_command_ast(t_ast *ast)
+{
+	printf("[");
+	ft_lstiter_arg(ast->expr.command.text_list, " space ", print_txt_ast_sep);
+	printf("/ redirs : ");
+	ft_lstiter_arg(ast->expr.command.redir_list, " ", print_red_ast_sep);
+	printf("]");
+}
+
 
 // void	print_unary_ast(t_ast *ast)
 // {
@@ -63,11 +80,6 @@ static void	print_redir_ast(t_ast *ast)
 // }
 
 // void	print_binary_ast(t_ast *ast)
-// {
-
-// }
-
-// void	print_command_ast(t_ast *ast)
 // {
 
 // }
@@ -91,9 +103,11 @@ static void	print_ast_content(t_ast *ast)
 		// 	return (ft_strdup("unary"));
 		// case binary_expr:
 		// 	return (ft_strdup("binary"));
-		// case command_expr:
-		// 	return (ft_strdup("command"));
-		default:
+		case command_expr:
+			print_command_ast(ast);
+			break ;
+		default :
+			break ;
 	}
 }
 

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intindex.c                                      :+:      :+:    :+:   */
+/*   ft_lstdup_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/28 13:31:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 13:59:47 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/28 14:05:57 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/28 14:09:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_intindex(const int *array, size_t n, int val)
+int	ft_lstdup_back(t_list **alst, void *aval, size_t size)
 {
-	size_t i;
+	void *aval_copy;
 
-	i = 0;
-	while (i < n)
+	aval_copy = malloc(size);
+	if (!aval_copy)
+		return (-1);
+	ft_memcpy(aval_copy, aval, size);
+	if (!ft_lstadd_back_content(alst, aval_copy))
 	{
-		if (array[i] == val)
-			return ((int)i);
-		i++;
+		free(aval_copy);
+		return (-1);
 	}
-	return (-1);
+	return (1);
 }

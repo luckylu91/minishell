@@ -31,13 +31,11 @@ void	print_block(void *block_ptr)
 	flags_str = block_flags_str(block);
 	block_str = block->str ? ft_strdup(block->str) : ft_strdup("__null_str__");
 	if (!flags_str || !block_str)
-	{
-		free(flags_str);
-		free(block_str);
-		fprintf(stderr, "Malloc error in print_block");
-		return ft_strdup("<malloc error>");
-	}
-	printf("<(%s)%s>", flags_str, block_str);
+		fprintf(stderr, "<malloc error>");
+	else
+		printf("<(%s)%s>", flags_str, block_str);
+	free(flags_str);
+	free(block_str);
 }
 
 static void	print_block_and_arrow(void *block_ptr)

@@ -6,18 +6,18 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:08:59 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 14:06:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 13:57:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
 
-static t_list *text_list(t_ast *cmd_ast)
+static t_list **text_list(t_ast *cmd_ast)
 {
 	return (&cmd_ast->expr.command.text_list);
 }
 
-static t_list *redir_list(t_ast *cmd_ast)
+static t_list **redir_list(t_ast *cmd_ast)
 {
 	return (&cmd_ast->expr.command.redir_list);
 }

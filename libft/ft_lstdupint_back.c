@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intindex.c                                      :+:      :+:    :+:   */
+/*   ft_lstdupint_back.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/28 13:31:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 13:59:47 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/28 14:10:04 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/28 14:11:24 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_intindex(const int *array, size_t n, int val)
+int	ft_lstdupint_back(t_list **alst, int k)
 {
-	size_t i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (array[i] == val)
-			return ((int)i);
-		i++;
-	}
-	return (-1);
+	return ft_lstdup_back(alst, &k, sizeof(int));
 }

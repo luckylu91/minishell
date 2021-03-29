@@ -6,28 +6,26 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 16:37:47 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 14:06:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 14:08:19 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
 
-int	add_textitem_totext(t_ast **text_ast, t_list *item_lst)
+int	add_textitem_totext(t_ast **text_ast, t_block *block)
 {
-	t_block	*item;
-	t_block	*item_copy;
+	t_block	*block_copy;
 
 	// no need to protect text_ast
 	if (!create_ast_if_needed(text_ast, text_expr))
 		return (0);
-	item = block_at(item_lst);
-	item_copy = dup_block(item);
-	if (!item_copy)
+	block_copy = dup_block(block);
+	if (!block_copy)
 		return (0);
-	if (!ft_lstadd_back_content(&(*text_ast)->expr.text, item_copy))
+	if (!ft_lstadd_back_content(&(*text_ast)->expr.text, block_copy))
 	{
-		block_destroy(item_copy);
+		destroy_block(block_copy);
 		return (0);
 	}
-	return (1); 
+	return (1);
 }

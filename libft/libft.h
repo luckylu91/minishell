@@ -6,7 +6,7 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 13:37:04 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/28 14:14:31 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ int					ft_any(void *array, size_t len, size_t size,
 								int (*booleval)(void*));
 int					ft_strindex(const char *s, int c);
 int					ft_intindex(const int *array, size_t n, int val);
+int					ft_lstdup_back(t_list **alst, void *aval, size_t size);
+int					ft_lstdupint_back(t_list **alst, int k);
 
 #endif

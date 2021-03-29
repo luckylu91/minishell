@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/26 13:55:14 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 15:24:42 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef enum	{
 typedef enum	e_ast_type
 {
 	string_expr, text_expr, redir_expr,
-	unary_expr, binary_expr, command_expr
+	unary_expr, binary_expr, command_expr,
+	// cmdchain_expr, cmdseq_expr // binary operations
 }				t_ast_type;
 
 typedef struct	s_ast
@@ -30,14 +31,16 @@ typedef struct	s_ast
 	{
 		t_block				*string;
 		t_list				*text; // t_block list
+		// t_list				*cmdchain; // cmd_ast list
+		// t_list				*cmdseq; // cmdchain_ast list
 		struct				s_unary_expr
 		{
-			char			*op_name;
+			t_block			*op_name;
 			struct s_ast	*target;
 		}					unary;
 		struct				s_binary_expr
 		{
-			char			*op_name;
+			t_block			*op_name;
 			struct s_ast	*left;
 			struct s_ast	*right;
 		}					binary;
@@ -49,10 +52,11 @@ typedef struct	s_ast
 		struct				s_redir_expr
 		{
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
-			char			*redir_op; // doivent etre ensenble lors de la tokenisation
-			char			*file_name;
+			t_block			*redir_op; // doivent etre ensenble lors de la tokenisation
+			t_block			*file_name;
 		}					redir;
 	}						expr;
+	void					(*destruct)(struct s_ast *self);
 }				t_ast;
 
 #endif

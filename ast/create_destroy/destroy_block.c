@@ -10,3 +10,8 @@ void destroy_block(void *block_ptr)
 	free(block->str);
 	free(block);
 }
+
+void	destroy_block_lst(t_list **block_lst)
+{
+	ft_lstclear(block_lst, destroy_block);
+}
