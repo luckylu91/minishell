@@ -38,7 +38,9 @@ static void	print_string_ast(t_ast *ast)
 
 static void	print_text_ast(t_ast *ast)
 {
+	printf("(");
 	print_block_list(ast->expr.text);
+	printf(")");
 }
 
 static void	print_redir_ast(t_ast *ast)
@@ -46,7 +48,7 @@ static void	print_redir_ast(t_ast *ast)
 	// op_str = charpointer_str(ast->expr.redir.redir_op);
 	// fname_str = charpointer_str(ast->expr.redir.file_name);
 
-	printf("fd: %d | op: \"%s\" | fname: \"%s\"",
+	printf("(fd: %d | op: \"%s\" | fname: \"%s\")",
 		ast->expr.redir.fildes,
 		ast->expr.redir.redir_op->str,
 		ast->expr.redir.file_name->str);
@@ -66,11 +68,11 @@ static void print_red_ast_sep(void *red_ast, void *sep)
 
 void	print_command_ast(t_ast *ast)
 {
-	printf("[");
-	ft_lstiter_arg(ast->expr.command.text_list, " space ", print_txt_ast_sep);
-	printf("/ redirs : ");
+	printf("[[");
+	ft_lstiter_arg(ast->expr.command.text_list, " ", print_txt_ast_sep);
+	printf("END_ARGS / redirs : ");
 	ft_lstiter_arg(ast->expr.command.redir_list, " ", print_red_ast_sep);
-	printf("]");
+	printf("END_REDIRS]]");
 }
 
 
@@ -119,7 +121,7 @@ void	print_ast(t_ast *ast)
 	if (!ast)
 		return ;
 	type_str = ast_type_str(ast);
-	printf("(%s, ", type_str);
+	printf("{ast_type:%s, ", type_str);
 	print_ast_content(ast);
-	printf(")");
+	printf("}");
 }

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/29 16:54:55 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 18:47:46 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ static void lststr_cat_sep(char *str, t_list *lst, char *sep)
 	lststr_cat_sep(str, lst->next, sep);
 }
 
+static size_t	ft_strlen_null(char *str)
+{
+	if (str)
+		return (ft_strlen(str));
+	else
+		return (0);
+}
+
 char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 {
 	int		n;
@@ -49,8 +57,8 @@ char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 	char	*res;
 
 	n = ft_lstsize(lst);
-	left_len = ft_strlen(left);
-	right_len = ft_strlen(right);
+	left_len = ft_strlen_null(left);
+	right_len = ft_strlen_null(right);
 	tot_len = lststr_cat_len(lst) + left_len + right_len;
 	if (n > 0)
 		tot_len += (n - 1) * ft_strlen(sep);

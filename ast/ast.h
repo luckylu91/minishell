@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/29 15:24:42 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 19:03:19 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_ast
 		{
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			t_block			*redir_op; // doivent etre ensenble lors de la tokenisation
-			t_block			*file_name;
+			t_block			*file_name; //text_expr
 		}					redir;
 	}						expr;
 	void					(*destruct)(struct s_ast *self);
