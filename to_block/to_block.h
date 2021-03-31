@@ -6,7 +6,7 @@
 /*   By: hgallien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:45:58 by hgallien          #+#    #+#             */
-/*   Updated: 2021/03/25 17:07:21 by hgallien         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:36:00 by hgallien         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-enum flags {none, error, space, spe};
+enum flags {none, error, space, spe, dollar, dollar_num};
  void    to_block(char *line, t_list **final_l);
 typedef struct s_var_toblock
 {
