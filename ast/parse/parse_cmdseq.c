@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_add.h                                          :+:      :+:    :+:   */
+/*   parse_cmdseq.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 16:50:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 12:14:07 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/31 11:20:23 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/31 11:55:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_ADD_H
-#define AST_ADD_H
-
 #include "ast_api.h"
 
-int	add_textitem_totext(t_ast **text_ast, t_block *block);
-int	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast);
-int add_cmd_tochain(t_ast **cmdchain_ast, t_ast *cmd_ast, t_block *chainop);
+t_status	parse_cmdseq(t_ast **ast, t_list *tokens)
+{
+	t_ast *ast_cmdchain;
+	t_status status;
 
-#endif
+	*ast = NULL;
+	if (!create_ast(ast, binary_expr))
+		return (STATUS_ERROR);
+	while (tokens)
+		if (parse_cmdchain(&ast_cmdchain, &tokens) != STATUS_OK)
+			return (STATUS_ERROR);
+		if (is_eof_lst(tokens))
+			return (STATUS_OK);
+		if (!identify_semicol(&tokens))
+			return (unexpected_token_error(tokens));
+	return (STATUS_OK);
+}

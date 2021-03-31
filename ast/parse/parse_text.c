@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_add.h                                          :+:      :+:    :+:   */
+/*   parse_text.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 16:50:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 12:14:07 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/31 11:20:00 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/31 14:26:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_ADD_H
-#define AST_ADD_H
 
 #include "ast_api.h"
 
-int	add_textitem_totext(t_ast **text_ast, t_block *block);
-int	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast);
-int add_cmd_tochain(t_ast **cmdchain_ast, t_ast *cmd_ast, t_block *chainop);
-
-#endif
+t_status	parse_text(t_ast **text_ast, t_list **tokens)
+{
+	skip_spaces(tokens); ////
+	*text_ast = NULL;
+	while (*tokens && !is_eof_lst(*tokens) && is_text_lst(*tokens))
+	{
+		add_textitem_totext(text_ast, block_at(*tokens));
+		*tokens = ft_lststep(*tokens, 1);
+	}
+	return (STATUS_OK);
+}
