@@ -24,7 +24,7 @@ static int is_redirop_str(char *str)
 
 int	is_redirop(t_block *block)
 {
-	(block && is_special(block) && is_redirop_str(block->str));
+	return (block && is_special(block) && is_redirop_str(block->str));
 }
 
 int	is_redirop_lst(t_list *block_lst)

@@ -7,6 +7,8 @@
 #include "ast_add.h"
 #include "ast_alloc.h"
 #include "ast_print.h"
+#include "ast_parse.h"
+#include "errors.h"
 #include <stdio.h>
 #include <stdlib.h>
 

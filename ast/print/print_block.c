@@ -24,18 +24,18 @@ void	print_block(void *block_ptr)
 {
 	t_block	*block = (t_block*)block_ptr;
 	char	*flags_str = NULL;
-	char	*block_str = NULL;
 
 	if (!block)
+	{
+		printf("<null_block>");
 		return ;
+	}
 	flags_str = block_flags_str(block);
-	block_str = block->str ? ft_strdup(block->str) : ft_strdup("__null_str__");
-	if (!flags_str || !block_str)
+	if (!flags_str)
 		fprintf(stderr, "<malloc error>");
 	else
-		printf("<(%s)%s>", flags_str, block_str);
+		printf("<(%s)%s>", flags_str, block->str);
 	free(flags_str);
-	free(block_str);
 }
 
 static void	print_block_and_arrow(void *block_ptr)

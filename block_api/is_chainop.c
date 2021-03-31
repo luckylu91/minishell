@@ -9,7 +9,7 @@ static int is_chainop_str(char *str)
 
 int	is_chainop(t_block *block)
 {
-	(block && is_special(block) && is_chainop_str(block->str));
+	return (block && is_special(block) && is_chainop_str(block->str));
 }
 
 int	is_chainop_lst(t_list *block_lst)
