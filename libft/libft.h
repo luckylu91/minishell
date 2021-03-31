@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/25 14:33:05 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 16:55:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,27 @@ t_list				*ft_lstremove(t_list **alst, void *content,
 						size_t content_size);
 void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+void				ft_lstiter_arg(t_list *lst, void *arg,
+									void (*f)(void *cont, void *arg));
+void				ft_lstreviter(t_list *lst, void (*f)(void *));
+void				ft_lstreviter_arg(t_list *lst, void *arg,
+										void (*f)(void *cont, void *arg));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 t_list				*ft_lstcat(t_list *lst1, t_list *lst2);
 int					ft_lstany(t_list *lst, int (*booleval)(void *content));
+int					ft_lstany2(t_list *lst, void *ref,
+								int (*booleval)(void *cont, void *ref));
 t_list				*ft_lststep(t_list *lst, size_t n_steps);
 t_list				*ft_lstskip(t_list *lst, int (*skip)(void *content));
+int					ft_lstadd_back_content(t_list **alst, void *content);
+int					ft_any(void *array, size_t len, size_t size,
+								int (*booleval)(void*));
+int					ft_strindex(const char *s, int c);
+int					ft_intindex(const int *array, size_t n, int val);
+int					ft_lstdup_back(t_list **alst, void *aval, size_t size);
+int					ft_lstdupint_back(t_list **alst, int k);
+char				*ft_lststrjoin(t_list *lst, char *sep, char *left,
+									char *right);
 
 #endif

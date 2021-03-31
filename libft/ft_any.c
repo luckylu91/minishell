@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstany.c                                        :+:      :+:    :+:   */
+/*   ft_any.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 15:31:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/27 02:47:15 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/27 11:15:13 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/27 11:31:09 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_lstany(t_list *lst, int (*booleval)(void *content))
+int	ft_any(void *array, size_t len, size_t size, int (*booleval)(void*))
 {
-	while (lst)
+	size_t i;
+
+	i = 0;
+	while (i < len)
 	{
-		if ((*booleval)(lst->content))
+		if ((*booleval)(array))
 			return (1);
-		lst = lst->next;
+		array += size;
 	}
 	return (0);
 }

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstany.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back_content.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 15:31:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/27 02:47:15 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/25 17:30:52 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/25 17:31:52 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_lstany(t_list *lst, int (*booleval)(void *content))
+int	ft_lstadd_back_content(t_list **alst, void *content)
 {
-	while (lst)
-	{
-		if ((*booleval)(lst->content))
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
+	t_list *new_elem;
+
+	if (!alst)
+		return (0);
+	new_elem = ft_lstnew(content);
+	if (!new_elem)
+		return (0);
+	ft_lstadd_back(alst, new_elem);
+	return (1);
 }

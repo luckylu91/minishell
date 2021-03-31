@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstany.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter_arg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 15:31:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/27 02:47:15 by lzins            ###   ########lyon.fr   */
+/*   Created: 2020/11/24 14:12:04 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/28 12:39:41 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_lstany(t_list *lst, int (*booleval)(void *content))
+void	ft_lstiter_arg(t_list *lst, void *arg, void (*f)(void *cont, void *arg))
 {
-	while (lst)
+	while (lst != NULL)
 	{
-		if ((*booleval)(lst->content))
-			return (1);
+		(*f)(lst->content, arg);
 		lst = lst->next;
 	}
-	return (0);
 }

@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstany.c                                        :+:      :+:    :+:   */
+/*   ft_lstreviter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 15:31:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/27 02:47:15 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/03/28 12:30:43 by lzins             #+#    #+#             */
+/*   Updated: 2021/03/28 12:41:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_lstany(t_list *lst, int (*booleval)(void *content))
+void	ft_lstreviter(t_list *lst, void (*f)(void *))
 {
-	while (lst)
-	{
-		if ((*booleval)(lst->content))
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
+	if (!lst)
+		return ;
+	ft_lstreviter(lst->next, f);
+	(*f)(lst->content);
 }
