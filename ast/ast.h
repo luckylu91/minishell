@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 19:03:19 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 23:58:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef enum	{
 typedef enum	e_ast_type
 {
 	string_expr, text_expr, redir_expr,
-	unary_expr, binary_expr, command_expr,
+	unary_expr, binary_expr, command_expr
 	// cmdchain_expr, cmdseq_expr // binary operations
 }				t_ast_type;
 

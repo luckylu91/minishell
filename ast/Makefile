@@ -1,4 +1,4 @@
-SUBDIRS = $(shell find .. -type d | grep -Ev "(.git|.vscode)")
+SUBDIRS = $(shell find .. -type d | grep -Ev "(.git|.vscode|to_block)")
 IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -L../libft -lft
 SRCS = $(addprefix add/, add_textitem_totext.c add_textredir_tocmd.c add_cmd_tochain.c)
@@ -8,7 +8,7 @@ SRCS += $(addprefix parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c pars
 SRCS += $(addprefix print/, print_ast.c print_block.c)
 SRCS += $(addprefix ../block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c)
 SRCS += $(addprefix errors/, unexpected_token.c)
-OBJS = $(SRCS:%.c=%.o) 
+OBJS = $(SRCS:%.c=%.o)
 LIBFT = ../libft/libft.a
 
 $(LIBFT):

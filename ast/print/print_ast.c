@@ -68,7 +68,7 @@ static void print_red_ast_sep(void *red_ast, void *sep)
 
 void	print_command_ast(t_ast *ast)
 {
-	printf("[[");
+	printf("[[args: ");
 	ft_lstiter_arg(ast->expr.command.text_list, " ", print_txt_ast_sep);
 	printf("END_ARGS / redirs : ");
 	ft_lstiter_arg(ast->expr.command.redir_list, " ", print_red_ast_sep);
@@ -81,10 +81,15 @@ void	print_command_ast(t_ast *ast)
 
 // }
 
-// void	print_binary_ast(t_ast *ast)
-// {
-
-// }
+void	print_binary_ast(t_ast *ast)
+{
+	print_ast(ast->expr.binary.left);
+	printf("\n");
+	print_block(ast->expr.binary.op_name);
+	printf("\n");
+	print_ast(ast->expr.binary.right);
+	printf("\n");
+}
 
 static void	print_ast_content(t_ast *ast)
 {
@@ -103,8 +108,9 @@ static void	print_ast_content(t_ast *ast)
 			break ;
 		// case unary_expr:
 		// 	return (ft_strdup("unary"));
-		// case binary_expr:
-		// 	return (ft_strdup("binary"));
+		case binary_expr:
+			print_binary_ast(ast);
+			break;
 		case command_expr:
 			print_command_ast(ast);
 			break ;
