@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_overflows.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 07:51:49 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/01 14:28:49 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/01 14:16:25 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/01 14:28:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "limits.h"
 
-int			ft_atoi(const char *str)
+int			ft_atoi_overflows(const char *str)
 {
 	long	res;
 	long	sgn;
@@ -31,7 +32,9 @@ int			ft_atoi(const char *str)
 	while (*str >= '0' && *str <= '9')
 	{
 		res = res * 10 + (*str - '0');
+		if (sgn * res > (long)INT_MAX || sgn * res < (long)INT_MIN)
+			return (1);
 		str++;
 	}
-	return (sgn * res);
+	return (0);
 }
