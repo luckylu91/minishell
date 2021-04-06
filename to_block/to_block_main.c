@@ -147,6 +147,7 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	//printf("start $\n");
 	t_list *env_var;
 	char *str;
+	char **env;
 	var->i = var->i + 1;
 	env_var = NULL;
 	if (line[var->i] == '\'' || line[var->i] == '\"')
@@ -166,9 +167,12 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	}
 	else
 	{
+
 		//	printf(" else$\n");
 		if (*temp_l != NULL)
 			temp_to_final(final_l, temp_l, none);
+		
+		
 		while (ft_isalnum(line[var->i]) || line[var->i] =='_')
 		{	
 			ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
@@ -176,8 +180,27 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 		}
 		str = list_to_string(env_var);
 	//		printf("DANS $ str = %s\n",str);
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		//ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		env = ft_split(str, " ");
+
+		ft_lstadd_back(final_l, ft_lstnew(new_block(str, none)));
 	}
+}
+
+void	env_integration(t_list **temp_l, t_list **final_l, char **env)
+{
+	int i;
+	int j;
+
+	i = i;
+	j = 0;
+	while (env[0][j])
+	{
+		ft_lstadd_back(temp_l, ft_lstnew(&env[0][j]));
+		j++;
+	}
+	
+
 }
 void	in_back_slash(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 {
@@ -295,6 +318,8 @@ void	redirection(t_var_toblock *var, char *line, t_list **final_l, t_list **temp
 	temp_to_final(final_l, temp_l, spe);
 	var->i = var->i + 1;
 }
+
+
 
 int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 {

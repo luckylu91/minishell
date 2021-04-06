@@ -91,19 +91,20 @@ void 	ft_test_combo_quote()
 }
 int main(int ag, char *av[])
 {
-	char b[1];
+	//char b[1];
+	int i;
 	int r;
-
 	r = 1;
+	i = 1;
 //	while(r)
 //	{
 //		read(0, b, 1);
 //	printf("|%s| ici\n",b);
 //	}
 //
-	ft_test_combo_quote();
-	ft_test_redirection();
-	ft_test_dollar();
-	ft_test_dollar_bs();
-
+//	ft_test_combo_quote();
+//	ft_test_redirection();
+//	ft_test_dollar();
+//	ft_test_dollar_bs();
+	//ft_test("echo a > b | ls pourqoui -pas > lalali ; cat $NOOOOON");
 }
