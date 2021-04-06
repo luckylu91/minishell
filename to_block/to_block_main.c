@@ -30,7 +30,7 @@ t_block		*new_block(char *c, enum flags f)
 	b = malloc(sizeof(t_block*));
 	if(!(b))
 		return (NULL);
-	b->str = c;
+	b->str = ft_strdup(c);
 	b->f = f;
 	return (b);
 }
@@ -321,6 +321,7 @@ int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 void 	to_block(char *line, t_list **final_l)
 {
 	printf("####\n|%s|\n####\n",line);
+	
 	t_var_toblock var;
 	t_list	*temp_l;
 	temp_l = NULL;
