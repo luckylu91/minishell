@@ -1,4 +1,4 @@
-SUBDIRS = $(shell find . -type d | grep -Ev "(.git|.vscode)")
+SUBDIRS = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM)")
 IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -Llibft -lft
 DBFLAGS = -g3 -fsanitize=address
@@ -9,6 +9,7 @@ SRCS += $(addprefix ast/parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c 
 SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c)
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
+SRCS +=	$(addprefix semantic/, dir_utils.c)
 SRCS += $(addprefix to_block/, to_block_main.c)
 OBJS = $(SRCS:%.c=%.o)
 LIBFT = libft/libft.a
@@ -28,10 +29,10 @@ _%:	_%.c $(OBJS) $(LIBFT)
 	gcc $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
 
 clean:
-	make -C ../libft clean
+	make -C libft clean
 	rm -f $(OBJS)
 
 fclean: clean
-	make -C ../libft fclean
+	make -C libft fclean
 
 .PHONY: all libft clean fclean

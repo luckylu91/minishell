@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/29 16:54:55 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 17:20:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,13 @@ static int lststr_cat_len(t_list *lst)
 	return (ft_strlen((char*)lst->content) + lststr_cat_len(lst->next));
 }
 
-static char *strcat_and_move(char *str, char *addition)
-{
-	while (*addition)
-	{
-		*str = *addition;
-		str++;
-		addition++;
-	}
-	return (str);
-}
-
 static void lststr_cat_sep(char *str, t_list *lst, char *sep)
 {
 	if (!lst)
 		return ;
-	str = strcat_and_move(str, (char*)lst->content);
+	str = ft_strcat_and_move(str, (char*)lst->content);
 	if (lst->next)
-		str = strcat_and_move(str, sep);
+		str = ft_strcat_and_move(str, sep);
 	lststr_cat_sep(str, lst->next, sep);
 }
 
@@ -58,9 +47,9 @@ char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 	if (!res)
 		return (NULL);
 	if (left)
-		strcat_and_move(res, left);
+		ft_strcat_and_move(res, left);
 	lststr_cat_sep(res + left_len, lst, sep);
 	if (right)
-		strcat_and_move(res + (tot_len - right_len), right);
+		ft_strcat_and_move(res + (tot_len - right_len), right);
 	return (res);
 }

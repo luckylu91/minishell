@@ -27,8 +27,8 @@ int main()
 		parse_cmdseq(&ast_lst, block_lst);
 		print_ast_list(ast_lst);
 
-		// destroy_block_lst(&block_lst);
-		block_lst = NULL;
+		destroy_block_lst(&block_lst);
+		// block_lst = NULL;
 		destroy_ast_list(&ast_lst);
 		printf("\n\n\n");
 		line++;
