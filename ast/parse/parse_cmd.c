@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:20:04 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/01 23:44:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 13:43:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ t_status	parse_cmd(t_ast **cmd_ast, t_list **tokens)
 	t_status status;
 
 	*cmd_ast = NULL;
-	// if (is_beg(*tokens))
-	// 	identify_semicolon(tokens);
-	parse_text(&next_ast, tokens);
-	if (!next_ast)
-		return (unexpected_token_error(*tokens));
-	if (add_textredir_tocmd(cmd_ast, next_ast) == -1)
-		return (-1);
+	// parse_text(&next_ast, tokens);
+	// if (!next_ast)
+	// 	return (unexpected_token_error(*tokens));
+	// if (add_textredir_tocmd(cmd_ast, next_ast) == -1)
+	// 	return (-1);
 	status = STATUS_OK;
 	while (status == STATUS_OK)
 	{
