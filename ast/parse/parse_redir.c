@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:19:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 19:03:42 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:00:05 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ t_status parse_redir(t_ast **redir_ast, t_list **tokens)
 		else
 			return (unexpected_token_error((*tokens)->next));
 	}
-	return (STATUS_OK);
+	else
+		return (STATUS_OK);
 }

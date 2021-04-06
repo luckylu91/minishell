@@ -15,8 +15,10 @@ char	*block_flags_str(t_block *block)
 			return (ft_strdup("space"));
 		case spe:
 			return (ft_strdup("spe"));
+		case dollar:
+			return (ft_strdup("dollar"));
 		default:
-			return (ft_strdup("invalid_flag"));
+			return (ft_strdup("INVALID_FLAG"));
 	}
 }
 
