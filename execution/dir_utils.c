@@ -1,11 +1,6 @@
-// #include <stdlib.h>
-#include <dirent.h>
-#include <sys/errno.h>
-#include <string.h>
-#include <stdio.h>
-#include "libft.h"
+#include "semantic.h"
 
-static DIR	*opendir_err(char *dir_name)
+DIR	*opendir_err(char *dir_name)
 {
 	DIR	*dir_stream;
 
@@ -13,6 +8,12 @@ static DIR	*opendir_err(char *dir_name)
 	if (!dir_stream)
 		printf("%s\n", strerror(errno));
 	return (dir_stream);
+}
+
+int	closedir_err(DIR *dir)
+{
+	if (closedir(dir) == -1)
+		printf("%s\n", strerror(errno));
 }
 
 char	*pathjoin(char *dirname, char *fname)
@@ -29,26 +30,26 @@ char	*pathjoin(char *dirname, char *fname)
 	return (res);
 }
 
-int list_content(char *dir_name, t_list **fname_lst)
-{
-	DIR	*dir_stream;
-	struct dirent	*file;
-	char	*fname;
+// int	list_content(char *dir_name, t_list **fname_lst)
+// {
+// 	DIR	*dir_stream;
+// 	struct dirent	*file;
+// 	char	*fname;
 
-	*fname_lst = NULL;
-	dir_stream = opendir_err(dir_name);
-	if (!dir_stream)
-		return (-1);
-	file = readdir(dir_stream);
-	while (file)
-	{
-		fname = pathjoin(dir_name, file->d_name);
-		if (!fname || !ft_lstadd_back_content(fname_lst, fname))
-		{
-			ft_lstclear(fname_lst, free);
-			return (-1);
-		}
-		file = readdir(dir_stream);
-	}
-	return (1);
-}
+// 	*fname_lst = NULL;
+// 	dir_stream = opendir_err(dir_name);
+// 	if (!dir_stream)
+// 		return (-1);
+// 	file = readdir(dir_stream);
+// 	while (file)
+// 	{
+// 		fname = pathjoin(dir_name, file->d_name);
+// 		if (!fname || !ft_lstadd_back_content(fname_lst, fname))
+// 		{
+// 			ft_lstclear(fname_lst, free);
+// 			return (-1);
+// 		}
+// 		file = readdir(dir_stream);
+// 	}
+// 	return (1);
+// }
