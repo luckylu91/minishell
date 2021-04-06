@@ -36,7 +36,7 @@ void	print_block(void *block_ptr)
 	if (!flags_str)
 		fprintf(stderr, "<malloc error>");
 	else
-		printf("<(%s)%s>", flags_str, block->str);
+		printf("<(%s)'%s'>", flags_str, block->str);
 	free(flags_str);
 }
 

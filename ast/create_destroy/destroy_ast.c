@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 13:10:43 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/01 23:58:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 14:58:31 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	destroy_text_ast(t_ast *nnull_ast)
 void	destroy_redir_ast(t_ast *nnull_ast)
 {
 	destroy_block(nnull_ast->expr.redir.redir_op);
-	destroy_block(nnull_ast->expr.redir.file_name);
+	destroy_text_ast(nnull_ast->expr.redir.file_name);
 }
 
 void	destroy_unary_ast(t_ast *nnull_ast)
@@ -65,6 +65,15 @@ void	destroy_ast(t_ast **ast)
 	*ast = NULL;
 }
 
+static void	destroy_ast_ptr(void *ast)
+{
+	destroy_ast((t_ast**)&ast);
+}
+
+void	destroy_ast_list(t_list **ast_lst)
+{
+	ft_lstclear(ast_lst, destroy_ast_ptr);
+}
 // void destroy_ast(t_ast *ast)
 // {
 // 	if (!ast)

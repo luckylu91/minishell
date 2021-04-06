@@ -4,3 +4,4 @@ testalacon.c
 *.a
 .vscode
 .DS_Store
+*.dSYM

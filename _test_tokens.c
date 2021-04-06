@@ -1,15 +1,36 @@
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "to_block.h"
+#include "ast_api.h"
 
-int null_or_empty(void *str)
+int main()
 {
-	if (!str || *(char*)str == '\0')
-		return (1);
-	return (0);
-}
+	char **line;
+	char *lines[10] = 
+	{
+		// "echo a>b",
+		// "echo a >b",
+		// "echo a> b",
+		"echo a > b | ls pourqoui -pas > lalali ; cat $NOOOOON",
+		NULL
+	};
+	t_list *block_lst;
+	t_list *ast_lst;
 
-int test_no_empty(t_list *tokens)
-{
-	return (!ft_lstany(tokens, null_or_empty));
+	setbuf(stdout, NULL);
+
+	line = lines;
+	while (*line)
+	{
+		to_block(*line, &block_lst);
+		print_block_list(block_lst);
+		printf("\n");
+
+		parse_cmdseq(&ast_lst, block_lst);
+		print_ast_list(ast_lst);
+
+		destroy_block_lst(&block_lst);
+		// block_lst = NULL;
+		destroy_ast_list(&ast_lst);
+		printf("\n\n\n");
+		line++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/01 23:58:38 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 14:38:58 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_ast
 		{
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			t_block			*redir_op; // doivent etre ensenble lors de la tokenisation
-			t_block			*file_name; //text_expr
+			struct s_ast	*file_name; //text_expr
 		}					redir;
 	}						expr;
 	void					(*destruct)(struct s_ast *self);

@@ -48,10 +48,11 @@ static void	print_redir_ast(t_ast *ast)
 	// op_str = charpointer_str(ast->expr.redir.redir_op);
 	// fname_str = charpointer_str(ast->expr.redir.file_name);
 
-	printf("(fd: %d | op: \"%s\" | fname: \"%s\")",
+	printf("(fd: %d | op: \"%s\" | fname: \"",
 		ast->expr.redir.fildes,
-		ast->expr.redir.redir_op->str,
-		ast->expr.redir.file_name->str);
+		ast->expr.redir.redir_op->str);
+	print_text_ast(ast->expr.redir.file_name);
+	printf(")");
 }
 
 static void print_txt_ast_sep(void *txt_ast, void *sep)
@@ -130,4 +131,22 @@ void	print_ast(t_ast *ast)
 	printf("{ast_type:%s, ", type_str);
 	print_ast_content(ast);
 	printf("}");
+}
+
+static void print_ast_ptr(void *ast_ptr)
+{
+	printf("---\n");
+	print_ast((t_ast*)ast_ptr);
+	printf("\n");
+}
+
+void	print_ast_list(t_list *ast_lst)
+{
+	if (!ast_lst)
+		printf("---\nEMPTY_AST\n---\n");
+	else
+	{
+		ft_lstiter(ast_lst, print_ast_ptr);
+		printf("---\n");
+	}
 }

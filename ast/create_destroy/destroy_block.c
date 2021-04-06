@@ -7,7 +7,9 @@ void destroy_block(void *block_ptr)
 	block = (t_block*)block_ptr;
 	if (!block)
 		return ;
+	// printf("free '%s'\t", block->str);
 	free(block->str);
+	// printf("free block\n");
 	free(block);
 }
 

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_text.c                                          :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/06 11:56:10 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/06 17:15:09 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/06 17:27:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "block_api.h"
+#include "libft.h"
 
-int	is_text(t_block *block)
+void	ft_strcat(char *s1, char *s2)
 {
-	return (block && (block->f == none || block->f == dollar));
-}
-
-int	is_text_lst(t_list *block_lst)
-{
-	return (is_text(block_at(block_lst)));
+	if (!s1 || !s2)
+		return ;
+	while (*s2)
+	{
+		*s1 = *s2;
+		s1++;
+		s2++;
+	}
 }
