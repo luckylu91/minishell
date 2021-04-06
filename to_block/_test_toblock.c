@@ -40,7 +40,8 @@ void	ft_test_redirection()
 	ft_test("$a3> patate");
 	ft_test("$\"a3\"> patate");
 	ft_test("$\'a3\'> patate");
-
+	ft_test("ls 33> test.txt");
+	ft_test("ls t33> test.txt");
 }
 void	ft_test_dollar()
 {
@@ -91,9 +92,9 @@ void 	ft_test_combo_quote()
 int main(int ag, char *av[])
 {
 
-	ft_test_combo_quote();
+//	ft_test_combo_quote();
 	ft_test_redirection();
-	ft_test_dollar();
-	ft_test_dollar_bs();
+//	ft_test_dollar();
+//	ft_test_dollar_bs();
 
 }

@@ -1,4 +1,4 @@
-SUBDIRS = $(shell find .. -type d | grep -Ev "(.git|.vscode|to_block)")
+SUBDIRS = $(shell find .. -type d | grep -Ev "(.git|.vscode)")
 IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -L../libft -lft
 SRCS = $(addprefix add/, add_textitem_totext.c add_textredir_tocmd.c add_cmd_tochain.c)
