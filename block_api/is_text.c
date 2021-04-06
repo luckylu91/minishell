@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 11:12:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:56:10 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_text(t_block *block)
 {
-	return (!is_special(block) || is_wildcard(block));
+	return (block && (block->f == none || block->f == dollar));
 }
 
 int	is_text_lst(t_list *block_lst)

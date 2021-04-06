@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:16:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 19:03:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 14:34:26 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,25 @@ int	new_string_ast(t_ast **result_ast, t_block *string_block)
 	return (1);
 }
 
-int	new_redir_ast(t_ast **result_ast, t_block *redir_op, t_block *file_name)
+int	new_redir_ast(t_ast **result_ast, t_block *redir_op, t_ast *file_name)
 {
-	int	fd;
+	int		fd;
 	char	*symbol_begin;
-	t_block *redir_op_copy;
-	t_block *file_name_copy;
+	t_block	*redir_op_copy;
+	// t_ast	*file_name_copy;
 
 	*result_ast = NULL;
 	if (!create_ast(result_ast, redir_expr))
 		return (0);
 	parse_redirop(redir_op, &fd, &symbol_begin);
 	redir_op_copy = create_block(spe, symbol_begin);
-	file_name_copy = dup_block(file_name);
+	// file_name_copy = dup_block(file_name);
 	(*result_ast)->expr.redir.fildes = fd;
-	(*result_ast)->expr.redir.file_name = file_name_copy;
+	// (*result_ast)->expr.redir.file_name = file_name_copy;
+	(*result_ast)->expr.redir.file_name = file_name;
 	(*result_ast)->expr.redir.redir_op = redir_op_copy;
-	if (!file_name_copy || !redir_op_copy)
-		return (0);
+	// if (!file_name_copy || !redir_op_copy)
+	// 	return (0);
 	return (1);
 }
 
