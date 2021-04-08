@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-enum flags {none, error, space, spe, dollar, dollar_num};
+enum flags {none, error, space, spe, dollar, dollar_num, dollar_dquote};
  void    to_block(char *line, t_list **final_l);
 typedef struct s_var_toblock
 {

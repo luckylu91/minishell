@@ -147,7 +147,6 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	//printf("start $\n");
 	t_list *env_var;
 	char *str;
-	char **env;
 	var->i = var->i + 1;
 	env_var = NULL;
 	if (line[var->i] == '\'' || line[var->i] == '\"')
@@ -181,13 +180,11 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 		str = list_to_string(env_var);
 	//		printf("DANS $ str = %s\n",str);
 		//ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
-		env = ft_split(str, " ");
-
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, none)));
+		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
 	}
 }
 
-void	env_integration(t_list **temp_l, t_list **final_l, char **env)
+/*void	env_integration(t_list **temp_l, t_list **final_l, char **env)
 {
 	int i;
 	int j;
@@ -201,7 +198,7 @@ void	env_integration(t_list **temp_l, t_list **final_l, char **env)
 	}
 	
 
-}
+}*/
 void	in_back_slash(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 {
 	var->i = var->i + 1;
@@ -267,7 +264,7 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 		}
 		str = list_to_string(env_var);
 		//	printf("DANS $ str = %s\n",str);
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_dquote)));
 		//printf("end $ c = %c \n", line[var->i]);
 	}
 }
