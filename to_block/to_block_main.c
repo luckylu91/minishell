@@ -109,7 +109,7 @@ void	handle_separator(t_var_toblock *var, char *line, t_list **final_l, t_list *
 		//	printf("dans handle space\n");
 		while (line[var->i] == ' ')
 			var->i = var->i + 1;
-		if(line[var->i] != '\n' && line[var->i] != '\0')
+		//if(line[var->i] != '\n' && line[var->i] != '\0')
 			ft_lstadd_back(final_l, ft_lstnew(new_block(" ", space)));
 	}
 	else if (line[var->i] == ';')
