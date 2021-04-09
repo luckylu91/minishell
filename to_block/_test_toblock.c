@@ -82,6 +82,10 @@ void	ft_test_dollar_bs()
 void 	ft_test_combo_quote()
 {
 	printf("\nTEST COMBO QUOTE \n");
+
+	ft_test(" ls ");
+
+	ft_test(" ls \" \" ");
 	ft_test("\"\'s\'\"");
 	ft_test("\"\\\'\"");
 	ft_test("\"\\\"\"");
@@ -106,9 +110,9 @@ int main(int ag, char *av[])
 //	printf("|%s| ici\n",b);
 //	}
 //
-//	ft_test_combo_quote();
+	ft_test_combo_quote();
 //	ft_test_redirection();
-	ft_test_dollar();
-	ft_test_dollar_bs();
+//	ft_test_dollar();
+//	ft_test_dollar_bs();
 	//ft_test("echo a > b | ls pourqoui -pas > lalali ; cat $NOOOOON");
 }
