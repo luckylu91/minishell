@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 15:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 14:51:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 13:49:31 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,17 @@ t_list	*tokens2(void)
 	t_list *tokens = NULL;
 
 	ft_lstadd_back_content(&tokens, create_block(none, "Bloc1"));
-	ft_lstadd_back_content(&tokens, create_block(spe, "*"));
+	ft_lstadd_back_content(&tokens, create_block(spe, ";"));
 	ft_lstadd_back_content(&tokens, create_block(none, "Bloc2"));
+	return (tokens);
+}
+
+t_list	*tokens3(void)
+{
+	t_list *tokens = NULL;
+
+	ft_lstadd_back_content(&tokens, create_block(none, "Bloc1"));
+	ft_lstadd_back_content(&tokens, create_block(dollar, "env_var"));
 	return (tokens);
 }
 
@@ -54,10 +63,7 @@ int build_print_destroy_ast(t_list *tokens)
 	print_ast(ast);
 	printf("\n");
 	printf("Next token : ");
-	if (tokens_moving)
-		printf("NULL");
-	else
-		print_block(block_at(tokens_moving));
+	print_block(block_at(tokens_moving));
 	printf("\n\t---\n");
 	destroy_ast(&ast);
 	return (1);
@@ -82,4 +88,5 @@ int main()
 	test_build(tokens01);
 	test_build(tokens1);
 	test_build(tokens2);
+	test_build(tokens3);
 }

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 17:42:00 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 18:56:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 13:52:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ void	tokens3(t_list **tokens)
 	ft_lstadd_back_content(tokens, create_block(none, "redir_file2"));
 	ft_lstadd_back_content(tokens, create_block(none, "arg3"));
 	ft_lstadd_back_content(tokens, create_block(none, "arg4"));
+}
+
+void	tokens4(t_list **tokens)
+{
+	*tokens = NULL;
+	ft_lstadd_back_content(tokens, create_block(spe, ">"));
+	ft_lstadd_back_content(tokens, create_block(none, "redir_file1"));
+	ft_lstadd_back_content(tokens, create_block(spe, ">>"));
+	ft_lstadd_back_content(tokens, create_block(none, "redir_file2"));
+	ft_lstadd_back_content(tokens, create_block(none, "ls"));
+	ft_lstadd_back_content(tokens, create_block(spe, "<"));
+	ft_lstadd_back_content(tokens, create_block(none, "redir_file3"));
+	ft_lstadd_back_content(tokens, create_block(space, " "));
+	ft_lstadd_back_content(tokens, create_block(none, "arg"));
 }
 
 int build_print_destroy_ast(t_list *tokens)
@@ -93,5 +107,7 @@ int main()
 	tokens2(&tokens);
 	test_build(tokens);
 	tokens3(&tokens);
+	test_build(tokens);
+	tokens4(&tokens);
 	test_build(tokens);
 }

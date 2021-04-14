@@ -15,8 +15,10 @@ char	*block_flags_str(t_block *block)
 			return (ft_strdup("space"));
 		case spe:
 			return (ft_strdup("spe"));
+		case dollar:
+			return (ft_strdup("dollar"));
 		default:
-			return (ft_strdup("invalid_flag"));
+			return (ft_strdup("INVALID_FLAG"));
 	}
 }
 
@@ -34,7 +36,7 @@ void	print_block(void *block_ptr)
 	if (!flags_str)
 		fprintf(stderr, "<malloc error>");
 	else
-		printf("<(%s)%s>", flags_str, block->str);
+		printf("<(%s)'%s'>", flags_str, block->str);
 	free(flags_str);
 }
 

@@ -46,7 +46,11 @@ SRCS =	ft_all_in.c \
 		ft_any.c \
 		ft_strindex.c \
 		ft_intindex.c \
-		ft_splitlen.c
+		ft_splitlen.c \
+		ft_isspace.c \
+		ft_atoi_overflows.c \
+		ft_strcat.c \
+		ft_strcat_and_move.c
 
 BONUS = ft_lstadd_front.c \
 		ft_lstadd_back.c \

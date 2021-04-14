@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_atoi_overflows.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 15:09:18 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 15:09:27 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/01 14:16:25 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/01 14:28:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "limits.h"
 
-t_list	*ft_lstnew(void *content)
+int			ft_atoi_overflows(const char *str)
 {
-	t_list	*l;
+	long	res;
+	long	sgn;
 
-	if ((l = malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	l->content = content;
-	l->next = NULL;
-	return (l);
+	res = 0;
+	sgn = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
+	{
+		sgn = -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - '0');
+		if (sgn * res > (long)INT_MAX || sgn * res < (long)INT_MIN)
+			return (1);
+		str++;
+	}
+	return (0);
 }

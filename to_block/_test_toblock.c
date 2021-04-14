@@ -12,6 +12,8 @@ char	*block_flags_str(t_block *block)
 			return (ft_strdup("dollar"));
 		case dollar_num:
 			return (ft_strdup("dollar_num"));
+		case dollar_dquote:
+			return (ft_strdup("dollar_dquote"));
 		case error:
 			return (ft_strdup("error"));
 		case space:
@@ -40,12 +42,15 @@ void	ft_test_redirection()
 	ft_test("$a3> patate");
 	ft_test("$\"a3\"> patate");
 	ft_test("$\'a3\'> patate");
-
+	ft_test("ls 33> test.txt");
+	ft_test("ls t33> test.txt");
 }
 void	ft_test_dollar()
 {
 
 	printf("\n TEST DOLLAR\n");
+
+	ft_test("\"$test\"");
 	ft_test("try $test ");
 	ft_test("try    \\$test");
 	ft_test("try $\'test\'");
@@ -53,7 +58,7 @@ void	ft_test_dollar()
 	ft_test("try$test");
 
 	ft_test("\'try\'$test");
-	ft_test("\"try\'$test");
+	ft_test("\"try\'$test\"");
 	ft_test("try a$\"test\"");
 	ft_test("try a$test");
 	ft_test("try $");
@@ -77,6 +82,10 @@ void	ft_test_dollar_bs()
 void 	ft_test_combo_quote()
 {
 	printf("\nTEST COMBO QUOTE \n");
+
+	ft_test(" ls ");
+
+	ft_test(" ls \" \" ");
 	ft_test("\"\'s\'\"");
 	ft_test("\"\\\'\"");
 	ft_test("\"\\\"\"");
@@ -90,10 +99,20 @@ void 	ft_test_combo_quote()
 }
 int main(int ag, char *av[])
 {
-
+	//char b[1];
+	int i;
+	int r;
+	r = 1;
+	i = 1;
+//	while(r)
+//	{
+//		read(0, b, 1);
+//	printf("|%s| ici\n",b);
+//	}
+//
 	ft_test_combo_quote();
-	ft_test_redirection();
-	ft_test_dollar();
-	ft_test_dollar_bs();
-
+//	ft_test_redirection();
+//	ft_test_dollar();
+//	ft_test_dollar_bs();
+	//ft_test("echo a > b | ls pourqoui -pas > lalali ; cat $NOOOOON");
 }

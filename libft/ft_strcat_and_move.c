@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strcat_and_move.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 06:02:55 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/23 06:06:11 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/06 17:20:20 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/06 17:20:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+char	*ft_strcat_and_move(char *str, char *addition)
 {
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+	while (*addition)
+	{
+		*str = *addition;
+		str++;
+		addition++;
+	}
+	return (str);
 }

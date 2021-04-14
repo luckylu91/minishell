@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 04:46:10 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 17:13:27 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/06 17:15:09 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/06 17:27:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	ft_strcat(char *s1, char *s2)
 {
-	unsigned char	*dst_uc;
-	unsigned char	*src_uc;
-	size_t			i;
-
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	dst_uc = (unsigned char*)dst;
-	src_uc = (unsigned char*)src;
-	i = 0;
-	while (i < n)
+	if (!s1 || !s2)
+		return ;
+	while (*s2)
 	{
-		dst_uc[i] = src_uc[i];
-		i++;
+		*s1 = *s2;
+		s1++;
+		s2++;
 	}
-	return (dst);
 }

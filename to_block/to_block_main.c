@@ -30,7 +30,7 @@ t_block		*new_block(char *c, enum flags f)
 	b = malloc(sizeof(t_block*));
 	if(!(b))
 		return (NULL);
-	b->str = c;
+	b->str = ft_strdup(c);
 	b->f = f;
 	return (b);
 }
@@ -109,7 +109,7 @@ void	handle_separator(t_var_toblock *var, char *line, t_list **final_l, t_list *
 		//	printf("dans handle space\n");
 		while (line[var->i] == ' ')
 			var->i = var->i + 1;
-		if(line[var->i] != '\n' && line[var->i] != '\0')
+		//if(line[var->i] != '\n' && line[var->i] != '\0')
 			ft_lstadd_back(final_l, ft_lstnew(new_block(" ", space)));
 	}
 	else if (line[var->i] == ';')
@@ -166,9 +166,12 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	}
 	else
 	{
+
 		//	printf(" else$\n");
 		if (*temp_l != NULL)
 			temp_to_final(final_l, temp_l, none);
+		
+		
 		while (ft_isalnum(line[var->i]) || line[var->i] =='_')
 		{	
 			ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
@@ -176,9 +179,26 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 		}
 		str = list_to_string(env_var);
 	//		printf("DANS $ str = %s\n",str);
+		//ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
 		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
 	}
 }
+
+/*void	env_integration(t_list **temp_l, t_list **final_l, char **env)
+{
+	int i;
+	int j;
+
+	i = i;
+	j = 0;
+	while (env[0][j])
+	{
+		ft_lstadd_back(temp_l, ft_lstnew(&env[0][j]));
+		j++;
+	}
+	
+
+}*/
 void	in_back_slash(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 {
 	var->i = var->i + 1;
@@ -244,7 +264,7 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 		}
 		str = list_to_string(env_var);
 		//	printf("DANS $ str = %s\n",str);
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_dquote)));
 		//printf("end $ c = %c \n", line[var->i]);
 	}
 }
@@ -286,7 +306,7 @@ void	redirection(t_var_toblock *var, char *line, t_list **final_l, t_list **temp
 {
 	if (*temp_l != NULL)
 		temp_to_final( final_l, temp_l, none);
-	if (ft_isdigit(line[var->i]))
+	while (ft_isdigit(line[var->i]))
 	{
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
 		var->i = var->i + 1;
@@ -295,21 +315,47 @@ void	redirection(t_var_toblock *var, char *line, t_list **final_l, t_list **temp
 	temp_to_final(final_l, temp_l, spe);
 	var->i = var->i + 1;
 }
+
+
+
+int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
+{
+	int i;
+
+	i = var->i;
+	if (line[var->i] == '>' || line[var->i] == '<')
+		return (1);
+	if (temp_l == NULL)
+	{
+		if (ft_isdigit(line[i]))
+		{
+			while (ft_isdigit(line[i]))
+				{
+					i++;
+				}
+			if(line[i] == '>' || line[i] == '<')
+				return (1);
+		}
+	}
+	return (0);
+}
+
 void 	to_block(char *line, t_list **final_l)
 {
 	printf("####\n|%s|\n####\n",line);
+	
 	t_var_toblock var;
 	t_list	*temp_l;
 	temp_l = NULL;
 	var.i = 0;
 	var.spe = 0;
 	var.end_while = 1;
-	while (var.end_while && var.i <15)
+	while (var.end_while) 
 	{
 		//printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
 		if (is_separator(&line[var.i]))
 			handle_separator(&var, line, final_l, &temp_l);
-		else if ((line[var.i] == '>' || line[var.i + 1] == '<' )|| (temp_l == NULL && ft_isdigit(line[var.i]) && (line[var.i + 1] == '>' || line[var.i + 1] == '<')))
+		else if (test_redir(line, &var, temp_l))
 			redirection(&var, line, final_l, &temp_l);
 		else if (line[var.i] == '\'')
 			in_quote(line, &var, &temp_l);
@@ -321,7 +367,6 @@ void 	to_block(char *line, t_list **final_l)
 			in_back_slash(line, &var, final_l, &temp_l);
 		else
 		{
-
 			//	printf("ici nothing\n");
 			ft_lstadd_back(&temp_l, ft_lstnew(&line[var.i]));
 			//	printf("la \n");
