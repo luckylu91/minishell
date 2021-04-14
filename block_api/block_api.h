@@ -1,8 +1,24 @@
 #ifndef BLOCK_API
 #define BLOCK_API
 
-#include "to_block.h"
 #include <stdlib.h>
+
+#include "libft.h"
+#include <unistd.h>
+
+enum flags {none, error, space, spe, dollar, dollar_num};
+typedef struct s_var_toblock
+{
+	int i;
+	int spe;
+	int end_while;
+	enum flags f;
+}				t_var_toblock;
+typedef struct		s_block
+{
+	char *str;
+	enum flags f;
+}					t_block;
 
 t_block	*block_at(t_list *block_lst);
 
