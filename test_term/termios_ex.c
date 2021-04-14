@@ -9,6 +9,8 @@ int            terminal_descriptor = -1;
 struct termios terminal_original;
 struct termios terminal_settings;
 
+
+
 /* Restore terminal to original settings
 */
 void terminal_done(void)
@@ -24,6 +26,7 @@ void terminal_signal(int signum)
 	if (terminal_descriptor != -1)
 		tcsetattr(terminal_descriptor, TCSANOW, &terminal_original);
 
+	printf("exit\n");
 	/* exit() is not async-signal safe, but _exit() is.
 	 * Use the common idiom of 128 + signal number for signal exits.
 	 * Alternative approach is to reset the signal to default handler,
@@ -86,7 +89,7 @@ int terminal_init(void)
 #ifdef SIGXCPU
 		sigaction(SIGXCPU, &act, NULL) ||
 #endif
-#ifdef SIGXFSZ    
+#ifdef SIGXFSZ
 		sigaction(SIGXFSZ, &act, NULL) ||
 #endif
 #ifdef SIGIO
@@ -108,7 +111,8 @@ int terminal_init(void)
 	terminal_settings.c_iflag &= ~ISTRIP;
 
 	/* Do not do newline translation on input. */
-	terminal_settings.c_iflag &= ~(INLCR | IGNCR | ICRNL);
+	// terminal_settings.c_iflag &= ~(INLCR | IGNCR | ICRNL);
+	terminal_settings.c_iflag &= ~(INLCR | IGNCR);
 
 #ifdef IUCLC
 	/* Do not do uppercase-to-lowercase mapping on input. */

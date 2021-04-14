@@ -6,7 +6,7 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/14 23:04:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 23:14:09 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void lststr_cat_sep(char *str, t_list *lst, char *sep)
 
 char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 {
+	int	n;
 	size_t	left_len;
 	size_t	right_len;
 	size_t	tot_len;
@@ -40,7 +41,8 @@ char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 	left_len = ft_strlen(left);
 	right_len = ft_strlen(right);
 	tot_len = lststr_cat_len(lst) + left_len + right_len;
-	tot_len += (ft_lstsize(lst)- 1) * ft_strlen(sep);
+	if (n > 0)
+		tot_len += (n - 1) * ft_strlen(sep);
 	res = ft_calloc(tot_len + 1, sizeof(char));
 	if (!res)
 		return (NULL);
