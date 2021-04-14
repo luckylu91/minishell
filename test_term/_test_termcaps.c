@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <curses.h>
 #include <term.h>
+#include <termios.h>
 #include <unistd.h>
-
+#include <fcntl.h> // open
+#include <string.h>
+#include <errno.h>
+#include "termios_ex.h"
 #include "libft.h"
 
 typedef enum	e_termcaps
@@ -17,18 +21,6 @@ typedef enum	e_termcaps
 	MODIF_ERASE_CAP,
 	NUMBER_OF_CAPS
 }				t_termcaps;
-
-// typedef struct	s_termcaps
-// {
-// 	char	*cols_cap;
-// 	char	*lines_cap;
-// 	char	*color_cap;
-// 	char	*underline_cap;
-// 	char	*curs_mov_cap;
-// 	char	*clear_cap;
-// 	char	*modif_erase_cap;
-// 	char	*overstrike_cap;
-// }				t_termcaps;
 
 int	ft_putchar(int c)
 {
@@ -104,39 +96,71 @@ void	move_to(char **tc, int i, int j)
 	tputs(tgoto(tc[MOVE_CAP], i, j), 1, ft_putchar);
 }
 
-int main(int argc, char **argv)
+void print_escape_sequence(char *str, int fd)
 {
-	int ret = init_term();
+	unsigned i = 0;
 
-	/* On évite les warnings pour variables non utilisées. */
-	(void)argc;
-	(void)argv;
+	while (i < 4)
+	{
+		if (str[i] == '\x1b')
+			ft_putstr_fd("ESC", fd);
+		else
+			ft_putchar_fd(str[i], fd);
+		++i;
+	}
+}
 
-	if (ret != 0)
-		return ret;
+// int tgetflag(char *id);
+// char *tgetstr(char *id, char **area); (set area to NULL)
+// int tputs(const char *str, int affcnt, int (*putc)(int));
+// char *tparm(char *str, ...); (ex tputs(tparm(color_cap, COLOR), 1, putchar))
+// char *tgoto(const char *cap, int col, int row); (ex tputs(tgoto(cm_cap, 5, 5), 1, putchar))
 
-	int column_count = tgetnum("co");
-	int line_count = tgetnum("li");
-
-	printf("#columns = %d\n", column_count);
-	printf("#lines   = %d\n", line_count);
-
-	// int tgetflag(char *id);
-	// char *tgetstr(char *id, char **area); (set area to NULL)
-	// int tputs(const char *str, int affcnt, int (*putc)(int));
-	// char *tparm(char *str, ...); (ex tputs(tparm(color_cap, COLOR), 1, putchar))
-	// char *tgoto(const char *cap, int col, int row); (ex tputs(tgoto(cm_cap, 5, 5), 1, putchar))
-
+int main()
+{
+	int ret;
 	char **tc;
+	int	c;
+	int	tty_fd;
+	struct termios term_attr;
+
+	ret = init_term();
+	if (ret != 0)
+		return (ret);
 
 	tc = init_termcaps();
 	if (!tc)
 		return (-1);
-	printf("Line 1\n");
-	// clear_line(tc);
-	// printf("Line 2\n");
-	move_to(tc, 0, 0);
-	while (1);
 
-	return 0;
+	if (terminal_init()) {
+		if (errno == ENOTTY)
+			fprintf(stderr, "This program requires a terminal.\n");
+		else
+			fprintf(stderr, "Cannot initialize terminal: %s.\n", strerror(errno));
+		return EXIT_FAILURE;
+	}
+
+	printf("STDIN : %s\n", isatty(STDIN_FILENO) ? "IS TTY" : "ISN'T TTY");
+	printf("STDOUT : %s\n", isatty(STDOUT_FILENO) ? "IS TTY" : "ISN'T TTY");
+	printf("STDERR : %s\n", isatty(STDERR_FILENO) ? "IS TTY" : "ISN'T TTY");
+	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
+	tty_fd = open(ttyname(STDIN_FILENO), O_RDWR);
+	if (tty_fd < 0)
+	{
+		printf("Cannot open tty of STDIN (%s)\n", ttyname(STDIN_FILENO));
+		return (-1);
+	}
+
+	while (1)
+	{
+		ret = read(tty_fd, &c, sizeof(int));
+		if (ret == -1)
+			return (ret);
+		if (ft_isprint(c))
+			ft_putchar_fd((char)c, tty_fd);
+		else
+			print_escape_sequence((char*)&c, tty_fd);
+	}
+
+	return (0);
 }
