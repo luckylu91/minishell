@@ -1,4 +1,4 @@
-#include "semantic.h"
+#include "search.h"
 
 char	*search_cmd(char **path_dirnames, char *cmd_name)
 {

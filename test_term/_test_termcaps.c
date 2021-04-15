@@ -100,7 +100,7 @@ void print_escape_sequence(char *str, int fd)
 {
 	unsigned i = 0;
 
-	while (i < 4)
+	while (i < 4 && str[i])
 	{
 		if (str[i] == '\x1b')
 			ft_putstr_fd("ESC", fd);
@@ -110,11 +110,56 @@ void print_escape_sequence(char *str, int fd)
 	}
 }
 
+void redirect_special(char* str, int fd)
+{
+	if (str[0] == '\x1b' && str[1] == '[')
+	{
+		if (str[2] == 'A')
+			ft_putstr_fd("UP", fd);
+		if (str[2] == 'B')
+			ft_putstr_fd("DOWN", fd);
+		if (str[2] == 'C')
+			ft_putstr_fd("RIGHT", fd);
+		if (str[2] == 'D')
+			ft_putstr_fd("LEFT", fd);
+	}
+}
+
+void	*bigger_calloc(void *ptr, size_t size, size_t incr)
+{
+	void *ptr_new;
+
+	if (!ptr)
+		return (ft_calloc(1, size + incr));
+	ptr_new = malloc(size + incr);
+	if (ptr_new)
+	{
+		ft_memcpy(ptr_new, ptr, size);
+		ft_bzero(ptr_new + size, incr);
+	}
+	free(ptr);
+	return (ptr_new);
+}
+
+void process_line(char *line)
+{
+	if (!line)
+		return ;
+	if (ft_strcmp(line, "exit") == 0)
+	{
+		free(line);
+		exit(0);
+	}
+	free(line);
+}
+
 // int tgetflag(char *id);
 // char *tgetstr(char *id, char **area); (set area to NULL)
 // int tputs(const char *str, int affcnt, int (*putc)(int));
 // char *tparm(char *str, ...); (ex tputs(tparm(color_cap, COLOR), 1, putchar))
 // char *tgoto(const char *cap, int col, int row); (ex tputs(tgoto(cm_cap, 5, 5), 1, putchar))
+
+#define LINE_BUFFER 80
 
 int main()
 {
@@ -123,6 +168,8 @@ int main()
 	int	c;
 	int	tty_fd;
 	struct termios term_attr;
+	char *line;
+	int i;
 
 	ret = init_term();
 	if (ret != 0)
@@ -151,15 +198,36 @@ int main()
 		return (-1);
 	}
 
+	line = NULL;
+	i = 0;
 	while (1)
 	{
 		ret = read(tty_fd, &c, sizeof(int));
 		if (ret == -1)
 			return (ret);
 		if (ft_isprint(c))
+		{
+			if (i % LINE_BUFFER == 0)
+				line = bigger_calloc(line, i, 80);
+			if (!line)
+				return (-1);
+			line[i] = c;
+			i++;
 			ft_putchar_fd((char)c, tty_fd);
+		}
 		else
-			print_escape_sequence((char*)&c, tty_fd);
+		{
+			if (c == '\n')
+			{
+				ft_putchar_fd('\n', tty_fd);
+				process_line(line);
+				line = NULL;
+				i = 0;
+				continue ;
+			}
+			redirect_special((char*)&c, tty_fd);
+			//print_escape_sequence((char*)&c, tty_fd);
+		}
 	}
 
 	return (0);
