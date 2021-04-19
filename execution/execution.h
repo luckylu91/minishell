@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 14:43:48 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 17:52:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,10 @@
 #include <errno.h>
 
 int	replace_unquoted(t_block *env_block, t_list **replacement);
+typedef struct s_both_fd
+{
+	redir in;
+	redir out;
+}				both_fd;
 
 #endif
