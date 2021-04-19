@@ -20,4 +20,10 @@
 #include <string.h>
 #include <errno.h>
 
+typedef struct s_both_fd
+{
+	redir in;
+	redir out'
+}				both_fd;
+
 #endif
