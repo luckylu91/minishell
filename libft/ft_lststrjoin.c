@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lststrjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/06 17:20:04 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/14 23:14:09 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void lststr_cat_sep(char *str, t_list *lst, char *sep)
 
 char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 {
-	int		n;
+	int	n;
 	size_t	left_len;
 	size_t	right_len;
 	size_t	tot_len;

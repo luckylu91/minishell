@@ -1,4 +1,4 @@
-#include "semantic.h"
+#include "searchdir.h"
 
 int	dir_contains(char *dir_name, char *fname)
 {

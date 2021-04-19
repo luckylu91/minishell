@@ -1,4 +1,4 @@
-#include "semantic.h"
+#include "searchdir.h"
 
 DIR	*opendir_err(char *dir_name)
 {
@@ -13,7 +13,11 @@ DIR	*opendir_err(char *dir_name)
 int	closedir_err(DIR *dir)
 {
 	if (closedir(dir) == -1)
+	{
 		printf("%s\n", strerror(errno));
+		return (-1);
+	}
+	return (1);
 }
 
 char	*pathjoin(char *dirname, char *fname)
