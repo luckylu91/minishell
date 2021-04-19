@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:34 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/16 13:57:55 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/19 11:30:23 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	cd(char **argv)
+int	pwd(char **argv)
 {
-	int ret;
+	char *working_dir;
 
-	ret = 0;
-	if (!argv[1])
-		ret = chdir("~");
-	else if (!argv[2])
-		ret = chdir(argv[1]);
-	else
+	working_dir = getcwd(NULL, 0);
+	if (!working_dir)
 	{
-		error_message("bash: cd: too many arguments"); // bash: cd: ...
-		return (1); // needed for $?
+		error_message_errno("pwd", strerror(errno)); // cd: ...
+		return (-1);
 	}
-	if (ret)
-		error_message_errno("cd", strerror(errno)); // cd: ...
-	return (ret);
+	ft_putendl_fd(working_dir, STDOUT_FILENO);
+	free(working_dir);
+	return (0);
 }

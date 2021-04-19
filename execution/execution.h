@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/15 14:05:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 11:28:30 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #define EXECUTION_H
 
 #include "libft.h"
-#include "search.h"
+#include "searchdir.h"
+#include "error.h"
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 #endif

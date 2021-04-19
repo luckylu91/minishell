@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:34 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/19 11:21:17 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/19 11:30:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "error.h"
 
-int	cd(char **argv)
+int	error_message(char *message)
 {
-	int ret;
+	ft_putstr_fd(message, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	return (-1);
+}
 
-	ret = 0;
-	if (!argv[1])
-		ret = chdir("~");
-	else if (!argv[2])
-		ret = chdir(argv[1]);
-	else
+int	error_message_errno(char *prefix, char *errno_str)
+{
+	if (prefix)
 	{
-		error_message("bash: cd: too many arguments"); // bash: cd: ...
-		return (1); // needed for $?
+		ft_putstr_fd(prefix, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
 	}
-	if (ret)
-		error_message_errno("cd", strerror(errno)); // cd: ...
-	return (ret);
+	ft_putstr_fd(errno_str, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	return (-1);
 }

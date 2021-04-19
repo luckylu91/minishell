@@ -1,4 +1,4 @@
-#include "search.h"
+#include "searchdir.h"
 
 char	*search_cmd(char **path_dirnames, char *cmd_name)
 {

@@ -1,6 +1,7 @@
 #ifndef SEMANTIC_H
 #define SEMANTIC_H
 
+#include "libft.h"
 #include <dirent.h>
 #include <errno.h>
 #include <string.h>

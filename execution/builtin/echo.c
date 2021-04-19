@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:34 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/16 12:26:49 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/16 13:56:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	cd(char **argv)
+int	echo(char **argv)
 {
-	int ret;
+	int	nl;
+	int	i;
+	int	i_start;
 
-	ret = 0;
-	if (!argv[1])
-		ret = chdir("~");
-	else if (!argv[2])
-		ret = chdir(argv[1]);
-	else
+	nl = 1;
+	if (argv[1] && ft_strcmp(argv[1], "-n") == 0)
 	{
-		error_message("bash: cd: too many arguments"); // bash: cd: ...
-		return (1); // needed for $?
+		nl = 0;
+		i_start = 2;
 	}
-	if (ret)
-		error_message_errno("cd", strerror(errno)); // cd: ...
-	return (ret);
+	else
+		i_start = 1;
+	i = i_start;
+	while (argv[i])
+	{
+		if (i > i_start)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putstr_fd(argv[i], STDOUT_FILENO);
+		i++;
+	}
+	if (nl)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
 }

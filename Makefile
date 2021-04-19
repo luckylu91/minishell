@@ -9,7 +9,9 @@ SRCS += $(addprefix ast/parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c 
 SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c)
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
-SRCS +=	$(addprefix execution/, dir_contains.c  dir_utils.c search_cmd.c)
+SRCS +=	$(addprefix execution/searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
+SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c)
+SRCS += $(addprefix error/, error_message.c)
 SRCS += $(addprefix to_block/, to_block_main.c)
 OBJS = $(SRCS:%.c=%.o)
 LIBFT = libft/libft.a
