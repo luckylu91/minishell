@@ -7,6 +7,12 @@
 #include <string.h>
 #include <stdio.h>
 
+typedef struct s_both_fd
+{
+	int in;
+	int out;
+}				both_fd;
+
 DIR	*opendir_err(char *dir_name);
 int	closedir_err(DIR *dir);
 char	*pathjoin(char *dirname, char *fname);
