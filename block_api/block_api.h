@@ -51,6 +51,12 @@ int	is_wildcard_lst(t_list *block_lst);
 int is_eof(t_block *block);
 int is_eof_lst(t_list *block_lst);
 
+int	is_rawtext(t_block *block);
+int	is_rawtext_lst(t_list *block_lst);
+
+int	is_dollar(t_block *block);
+int	is_dollar_lst(t_list *block_lst);
+
 int	is_text(t_block *block);
 int	is_text_lst(t_list *block_lst);
 

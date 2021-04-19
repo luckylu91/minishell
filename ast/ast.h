@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/06 14:38:58 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 14:40:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_ast
 	t_ast_type				type;
 	union u_expr
 	{
-		t_block				*string;
 		t_list				*text; // t_block list
 		// t_list				*cmdchain; // cmd_ast list
 		// t_list				*cmdseq; // cmdchain_ast list
@@ -46,8 +45,8 @@ typedef struct	s_ast
 		}					binary;
 		struct				s_command_expr
 		{
-			t_list			*text_list; // ast::text_expr list
-			t_list			*redir_list; // ast::redir_expr list
+			t_list			*text_list; // text_expr list
+			t_list			*redir_list; // redir_expr list
 		}					command;
 		struct				s_redir_expr
 		{
