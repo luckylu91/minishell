@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 17:51:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 13:10:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,16 @@ static int	split_block_lst(t_list *block_lst, t_list **text_ast_lst)
 	t_ast		*text_ast;
 
 	*text_ast_lst = NULL;
-	status = parse_text(&text_ast, &block_lst);
-	while (status == STATUS_OK && text_ast)
+	while (1)
 	{
+		status = parse_text(&text_ast, &block_lst);
+		if (status == STATUS_ERROR || !text_ast)
+			break ;
 		if (!ft_lstadd_back_content(text_ast_lst, text_ast))
 		{
 			destroy_ast(&text_ast);
 			return (-1);
 		}
-		status = parse_text(&text_ast, &block_lst);
 	}
 	if (status == STATUS_OK)
 		return (1);
@@ -80,18 +81,20 @@ static int	split_block_lst(t_list *block_lst, t_list **text_ast_lst)
 		return (-1);
 }
 
-static int	replace_env_text(t_ast *text_ast, t_list **text_ast_lst)
+static int	replace_env_text(t_ast *text_ast, t_list **text_ast_lst,
+	t_block *first_multiblock_dollar)
 {
 	t_list	*block_lst;
 	t_list	*block_lst_prev;
 
+	first_multiblock_dollar = NULL;
 	block_lst = text_ast->expr.text;
 	block_lst_prev = NULL;
 	while (block_lst)
 	{
 		if (is_dollar_lst(block_lst))
 		{
-			if (replace_env_block(block_lst_prev, &block_lst) < 0)
+			if (replace_env_block(&block_lst_prev, &block_lst) < 0)
 				return (-1);
 		}
 		else
@@ -108,16 +111,33 @@ static int	is_dollar_ptr(void *content)
 	return (is_dollar((t_block *)content));
 }
 
-static int	replace_env_list(t_list	*text_lst)
+static int	replace_env_list(t_list	**text_ast_lst, int allow_any_replacement)
 {
-	t_list	*text_lst_prev;
-	t_ast	*text;
+	t_list	*lst;
+	t_list	*lst_prev;
+	t_ast	*text_ast;
+	t_list	*text_ast_repl;
 
-	text_lst_prev = NULL;
-	while (text_lst)
+	lst = *text_ast_lst;
+	lst_prev = NULL;
+	while (lst)
 	{
-		text = (t_ast *)text_lst->content;
-		if (ft_lstany(...)))
+		text_ast = (t_ast *)lst->content;
+		text_ast_repl = NULL;
+		if (ft_lstany(text_ast->expr.text, is_dollar_ptr))
+		{
+			if (replace_env_text(text_ast, &text_ast_repl) < 0)
+				return (-1);
+			if (!allow_any_replacement && ft_lstsize(text_ast_repl) =! 1)
+			{
+				
+			}
+				return ()
+			insert_in_list(&lst_prev, text_ast_repl, )
+		}
+		if (!text_ast_repl)
+
+		
 	}
 }
 

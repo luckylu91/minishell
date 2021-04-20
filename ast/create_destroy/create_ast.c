@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:16:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/06 14:34:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 12:36:57 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ int	create_ast_if_needed(t_ast **result_ast, t_ast_type type)
 	return (1);
 }
 
-int	new_string_ast(t_ast **result_ast, t_block *string_block)
-{
-	t_block *string_block_copy;
+// int	new_string_ast(t_ast **result_ast, t_block *string_block)
+// {
+// 	t_block *string_block_copy;
 
-	*result_ast = NULL;
-	if (!create_ast(result_ast, string_expr))
-		return (0);
-	string_block_copy = dup_block(string_block);
-	if (!string_block_copy)
-		return (0);
-	(*result_ast)->expr.string = string_block_copy;
-	return (1);
-}
+// 	*result_ast = NULL;
+// 	if (!create_ast(result_ast, string_expr))
+// 		return (0);
+// 	string_block_copy = dup_block(string_block);
+// 	if (!string_block_copy)
+// 		return (0);
+// 	(*result_ast)->expr.string = string_block_copy;
+// 	return (1);
+// }
 
 int	new_redir_ast(t_ast **result_ast, t_block *redir_op, t_ast *file_name)
 {

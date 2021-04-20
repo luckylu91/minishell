@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   addback_none_block_nodup.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 11:11:23 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/20 11:20:06 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/20 11:20:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-#define EXECUTION_H
+#include "ast_add.h"
 
-#include "libft.h"
-#include "searchdir.h"
-#include "error.h"
-#include "to_block.h"
-#include "ast_api.h"
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
+int	addback_none_block_nodup(t_list **alst, char *str)
+{
+	t_block	*new_block;
 
-int	replace_unquoted(t_block *env_block, t_list **replacement);
-// typedef struct s_both_fd
-// {
-// 	redir in;
-// 	redir out;
-// }				both_fd;
-
-#endif
+	new_block = ft_calloc(1, sizeof(t_block));
+	if (!new_block)
+		return (-1);
+	new_block->f = none;
+	new_block->str = str;
+	return (ft_lstadd_back_content(alst, new_block));
+}
