@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_text.c                                          :+:      :+:    :+:   */
+/*   addback_space_block.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 14:36:54 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/20 11:20:08 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/20 11:21:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "block_api.h"
+#include "ast_add.h"
 
-int	is_text(t_block *block)
+int	addback_space_block(t_list **alst)
 {
-	return (is_rawtext(block) || is_dollar(block));
-}
+	t_block	*new_block;
 
-int	is_text_lst(t_list *block_lst)
-{
-	return (is_text(block_at(block_lst)));
+	new_block = ft_calloc(1, sizeof(t_block));
+	if (!new_block)
+		return (-1);
+	new_block->f = space;
+	new_block->str = NULL;
+	return (ft_lstadd_back_content(alst, new_block));
 }
