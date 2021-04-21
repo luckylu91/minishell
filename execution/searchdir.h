@@ -1,5 +1,5 @@
-#ifndef SEMANTIC_H
-#define SEMANTIC_H
+#ifndef SEARCHDIR_H
+#define SEARCHDIR_H
 
 #include "libft.h"
 #include <dirent.h>
@@ -7,11 +7,6 @@
 #include <string.h>
 #include <stdio.h>
 
-typedef struct s_both_fd
-{
-	int in;
-	int out;
-}				both_fd;
 
 DIR	*opendir_err(char *dir_name);
 int	closedir_err(DIR *dir);

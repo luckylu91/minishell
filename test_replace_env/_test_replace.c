@@ -20,11 +20,11 @@ int test_replace_line(char *line)
 	print_ast(ast_cmdchain);
 	printf("\n####\n");
 
-	ret = replace_env(ast_cmdchain);
+	if (replace_env(ast_cmdchain) == -1)
+		return (-1);
 	print_ast(ast_cmdchain);
 	printf("\n");
-
-	return (ret);
+	return (1);
 }
 
 int main()

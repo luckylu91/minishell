@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 14:50:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 15:01:47 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
  typedef struct s_both_fd
  {
- 	t_ast in;
+ 	t_ast *in;
 	int int_in;
 	int int_out;
-	t_ast out;
+	t_ast *out;
  }				both_fd;
 
-int	exe_cmd(command cmd, int *pipe, int state);
+int	exe_cmd(t_ast *cmd, int *pipe, int state);
+
 #endif
