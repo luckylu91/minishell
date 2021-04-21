@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:36:25 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 14:40:57 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 15:52:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,12 @@ static void print_block_error_raw(void *block_ptr)
 	ft_putstr_fd(block->str, STDERR_FILENO);
 }
 
-// static void *block_to_str(void *block_ptr)
-// {
-// 	t_block	*block;
-// 	char	*block_str;
-// 	char	*str;
-// 	size_t	size;
-// 	int		i;
 
-// 	size = 0;
-// 	block = (t_block *)block_ptr;
-// 	if (is_dollar(block))
-// 		size++;
-// 	if (!block->str)
-// 		block_str = "";
-// 	else
-// 		block_str = block->str;
-// 	size += ft_strlen(block_str);
-// 	str = ft_calloc(size + 1, sizeof(char));
-// 	if (!str)
-// 		return (NULL);
-// 	i = 0;
-// 	if (is_dollar(block))
-// 		str[i++] = '$';
-// 	ft_strcat(str + i, block_str);
-// 	return (str);
-// }
-
-int	ambiguous_redirect_error(t_ast *redir_ast)
+int	ambiguous_redirect_error(t_list *redir_blocks)
 {
 	ft_putstr_fd("bash: ", STDERR_FILENO);
-	ft_lstiter(redir_ast->expr.redir.file_name, print_block_error_raw);
+	ft_lstiter(redir_blocks, print_block_error_raw);
 	ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+	ft_lstclear(&redir_blocks, destroy_block);
 	return (-1);
 }
