@@ -4,6 +4,7 @@ LFLAGS = -Llibft -lft -lncurses
 DBFLAGS = -g3 -fsanitize=address
 SRCS = $(addprefix ast/add/, add_textitem_totext.c add_textredir_tocmd.c add_cmd_tochain.c addback_none_block_nodup.c addback_space_block.c)
 SRCS += $(addprefix ast/create_destroy/, create_ast.c create_block.c destroy_block.c dup_block.c destroy_ast.c)
+SRCS += $(addprefix execution/, exe_cmd.c exe_ast.c split_path.c)
 SRCS += $(addprefix ast/parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c parse_cmdseq.c parse_redir.c parse_text.c skip_spaces.c to_str.c)
 # SRCS += $(addprefix lst_utils/, )
 SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
