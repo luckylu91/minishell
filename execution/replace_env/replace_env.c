@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 14:14:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 15:52:08 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 *	Then moves *block_lst to after the replacement (i.e. old block_lst's "next")
 *	And block_lst_prev to replacement's last value
 */
-static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin)
+static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin,
+		t_list **redir_blocks)
 {
 	t_block	*env_block;
 	t_list	*replacement;
@@ -97,10 +98,12 @@ static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin)
 		replacement = NULL;
 	lst_old = lst;
 	lst = lst->next;
+	lst_old->next = NULL;
 	insert_in_list(lst_prev, lst, replacement, begin);
-	// printf("lst_old:\t");
-	// print_list_one(lst_old);
-	ft_lstdelone(lst_old, destroy_block);
+	if (redir_blocks)
+		ft_lstadd_back(redir_blocks, lst_old);
+	else
+		ft_lstdelone(lst_old, destroy_block);
 	return (1);
 }
 
@@ -152,7 +155,7 @@ static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin)
 // 		return (-1);
 // }
 
-static int	replace_env_text(t_list **text_lst)
+static int	replace_env_text(t_list **text_lst, t_list **redir_blocks)
 {
 	t_list	*lst;
 	t_list	*lst_prev;
@@ -171,10 +174,10 @@ static int	replace_env_text(t_list **text_lst)
 		{
 			if (!lst_prev)
 			{
-				if (replace_env_block(&lst_prev, lst, text_lst) < 0)
+				if (replace_env_block(&lst_prev, lst, text_lst, redir_blocks) < 0)
 					return (-1);
 			}
-			else if (replace_env_block(&lst_prev, lst, NULL) < 0)
+			else if (replace_env_block(&lst_prev, lst, NULL, redir_blocks) < 0)
 				return (-1);
 			if (!lst_prev)
 				break ;
@@ -236,17 +239,25 @@ static int	replace_env_cmd(t_ast *cmd_ast)
 	t_list	*redir_list;
 	t_ast	*redir_ast;
 	t_list	*redir_fname;
+	t_list	*redir_blocks;
+	int		ret;
 
-	if (replace_env_text(&cmd_ast->expr.command.text_list) < 0)
+	if (replace_env_text(&cmd_ast->expr.command.text_list, NULL) < 0)
 		return (-1);
+	redir_blocks = NULL;
 	redir_list = cmd_ast->expr.command.redir_list;
 	while (redir_list)
 	{
 		redir_ast = (t_ast *)redir_list->content;
-		if (replace_env_text(&redir_ast->expr.redir.file_name) < 0)
+		if (replace_env_text(&redir_ast->expr.redir.file_name, &redir_blocks) < 0)
 			return (-1);
+		ret = 1;
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
-			return (ambiguous_redirect_error(redir_ast));
+		{
+			redir_ast->expr.redir.ambiguous_error = 1;
+			return (ambiguous_redirect_error(redir_blocks));
+		}
+		ft_lstclear(&redir_blocks, destroy_block);
 		redir_list = redir_list->next;
 	}
 	return (1);
