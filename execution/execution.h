@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 11:24:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/21 14:50:26 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@
 int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);
-//
 void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
-// typedef struct s_both_fd
-// {
-// 	redir in;
-// 	redir out;
-// }				both_fd;
+ typedef struct s_both_fd
+ {
+ 	t_ast in;
+	int int_in;
+	int int_out;
+	t_ast out;
+ }				both_fd;
 
+int	exe_cmd(command cmd, int *pipe, int state);
 #endif
