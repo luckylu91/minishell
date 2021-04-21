@@ -6,16 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 13:10:43 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/06 14:58:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 14:52:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
-
-void	destroy_string_ast(t_ast *nnull_ast)
-{
-	destroy_block(nnull_ast->expr.string);
-}
 
 void	destroy_text_ast(t_ast *nnull_ast)
 {
@@ -25,7 +20,7 @@ void	destroy_text_ast(t_ast *nnull_ast)
 void	destroy_redir_ast(t_ast *nnull_ast)
 {
 	destroy_block(nnull_ast->expr.redir.redir_op);
-	destroy_text_ast(nnull_ast->expr.redir.file_name);
+	ft_lstclear(&nnull_ast->expr.redir.file_name, destroy_block);
 }
 
 void	destroy_unary_ast(t_ast *nnull_ast)
@@ -53,7 +48,9 @@ static void destroy_redir_ast_ptr(void *p)
 
 void	destroy_command_ast(t_ast *nnull_ast)
 {
-	ft_lstclear(&nnull_ast->expr.command.text_list, destroy_text_ast_ptr);
+	// MODIF
+	// ft_lstclear(&nnull_ast->expr.command.text_list, destroy_text_ast_ptr);
+	ft_lstclear(&nnull_ast->expr.command.text_list, destroy_block);
 	ft_lstclear(&nnull_ast->expr.command.redir_list, destroy_redir_ast_ptr);
 }
 
@@ -74,20 +71,3 @@ void	destroy_ast_list(t_list **ast_lst)
 {
 	ft_lstclear(ast_lst, destroy_ast_ptr);
 }
-// void destroy_ast(t_ast *ast)
-// {
-// 	if (!ast)
-// 		return ;
-// 	if (ast->type == string_expr)
-// 		destroy_string_ast(ast);
-// 	else if (ast->type == text_expr)
-// 		destroy_string_ast(ast);
-// 	else if (ast->type == redir_expr)
-// 		destroy_string_ast(ast);
-// 	else if (ast->type == string_expr)
-// 		destroy_string_ast(ast);
-// 	else if (ast->type == string_expr)
-// 		destroy_string_ast(ast);
-// 	else if (ast->type == string_expr)
-// 		destroy_string_ast(ast);
-// }

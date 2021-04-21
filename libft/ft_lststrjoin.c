@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lststrjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/14 23:14:09 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 14:20:43 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 	size_t	tot_len;
 	char	*res;
 
+	if (!lst)
+		return (ft_strdup(""));
 	n = ft_lstsize(lst);
 	left_len = ft_strlen(left);
 	right_len = ft_strlen(right);

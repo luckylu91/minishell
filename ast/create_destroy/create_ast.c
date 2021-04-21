@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:16:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 12:36:57 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 14:45:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	create_ast(t_ast **result_ast, t_ast_type type)
 	if (!*result_ast)
 		return (0);
 	(*result_ast)->type = type;
-	if (type == string_expr)
-		(*result_ast)->destruct = destroy_string_ast;
-	else if (type == text_expr)
+	if (type == text_expr)
 		(*result_ast)->destruct = destroy_text_ast;
 	else if (type == redir_expr)
 		(*result_ast)->destruct = destroy_redir_ast;
@@ -54,7 +52,7 @@ int	create_ast_if_needed(t_ast **result_ast, t_ast_type type)
 // 	return (1);
 // }
 
-int	new_redir_ast(t_ast **result_ast, t_block *redir_op, t_ast *file_name)
+int	new_redir_ast(t_ast **result_ast, t_block *redir_op, t_list *file_name)
 {
 	int		fd;
 	char	*symbol_begin;

@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_splitclear.c                                    :+:      :+:    :+:   */
+/*   text_at.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/19 12:06:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 14:31:05 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/20 13:25:18 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/20 13:26:44 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ast_api.h"
 
-void	ft_splitclear(char **splitted, int i_start)
+t_list	*text_at(t_ast *text_ast)
 {
-	int	i;
-
-	i = i_start;
-	while (splitted[i])
-	{
-		free(splitted[i]);
-		i++;
-	}
-	free(splitted);
+	if (!text_ast || text_ast->type != text_expr)
+		return (NULL);
+	return (text_ast->expr.text);
 }

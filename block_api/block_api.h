@@ -27,6 +27,7 @@ int is_special(t_block *block);
 int is_special_lst(t_list *block_lst);
 
 int	is_space(t_block *block);
+int	is_space_ptr(void *block_ptr);
 int	is_space_lst(t_list *block_lst);
 
 int	is_semicol(t_block *block);

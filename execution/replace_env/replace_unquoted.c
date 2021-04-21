@@ -6,12 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:51:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 11:20:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 16:59:46 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+// Empty env var generates empty list
 int	replace_unquoted(t_block *env_block, t_list **replacement)
 {
 	char	*env_str;
@@ -27,17 +28,19 @@ int	replace_unquoted(t_block *env_block, t_list **replacement)
 	if (!splitted)
 		return (-1);
 	i = -1;
-	while (splitted[++i])
+	ret = 1;
+	while (ret == 1 && splitted[++i])
 	{
 		ret = addback_none_block_nodup(replacement, splitted[i]);
-		if (ret >= 0 && splitted[i + 1] && addback_space_block(replacement) < 0)
+		if (ret == 1 && splitted[i + 1] && addback_space_block(replacement) < 0)
 			ret = -1;
-		if (ret < 0)
+		if (ret == -1)
 		{
 			ft_splitclear((void **)splitted, i);
 			ft_lstclear(replacement, destroy_block);
+			break ;
 		}
 	}
 	free(splitted);
-	return (1);
+	return (ret);
 }
