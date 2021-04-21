@@ -13,12 +13,12 @@ int main()
 	int fd = open("redi", O_APPEND | O_CREAT | O_RDWR, 0666);
 	printf("fd = %i \n", fd);
 	pid_t child = fork();
-	
+	int 	fildes[2];
+	pipe(fildes);
 	if (child == 0)
 	{
+		dup2(fildes[1], STDOUT_FILENO);
 		dup2(fd, STDOUT_FILENO);
-		
-		puts("merguez");
 		execve("/bin/echo", t, environ);
 	}
 

@@ -23,7 +23,10 @@
 typedef struct s_both_fd
 {
 	redir in;
+	int 	int_in;
+	int		int_out;
 	redir out'
 }				both_fd;
 
+int	exe_cmd(command cmd, int *pipe, int state);
 #endif
