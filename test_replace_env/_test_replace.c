@@ -23,16 +23,16 @@ int test_replace_line(char *line)
 	if (replace_env(ast_cmdchain) == -1)
 		return (-1);
 	print_ast(ast_cmdchain);
+	exe_ast(ast_cmdchain, 0, NULL);
 	printf("\n");
 	return (1);
 }
 
 int main()
 {
-	char	*line = "$a | ls $pourqoui -pas > lalali";
 
 	setbuf(stdout, NULL);
-	test_replace_line("echo $a | ls $pourqoui -pas > lalali");
+	test_replace_line("ls $pourqoui -pas > lalali");
 	printf("\n\n");
 	test_replace_line("$a | ls $pourqoui -pas > $lalali");
 }

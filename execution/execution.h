@@ -17,6 +17,7 @@
 #include "searchdir.h"
 #include "error.h"
 #include "to_block.h"
+#include <fcntl.h>
 #include "ast_api.h"
 #include <unistd.h>
 #include <string.h>
@@ -25,6 +26,9 @@
 int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);
+char	**split_path(void);
+int	exe_all(t_list *l_ast);
+int exe_ast(t_ast *l_ast, int i, int *pipe);
 void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
  typedef struct s_both_fd
