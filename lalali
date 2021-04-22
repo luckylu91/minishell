@@ -1,6 +1,7 @@
 Makefile
 _test_dir
 _test_dir.c
+_test_dir.dSYM
 ast
 block_api
 error
@@ -9,6 +10,7 @@ exetest
 lalali
 libft
 test_ast
+test_builtin
 test_execve
 test_replace_env
 test_term

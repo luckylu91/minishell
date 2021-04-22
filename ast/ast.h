@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 15:49:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 11:55:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_ast
 		}					binary;
 		struct				s_command_expr
 		{
-			t_list			*text_list; // t_block list (now with spaces)
+			t_list			*text_list; // t_block list (before env replacement), then char* list
 			t_list			*redir_list; // redir_expr list
 		}					command;
 		struct				s_redir_expr
@@ -50,7 +50,7 @@ typedef struct	s_ast
 			int				ambiguous_error;
 			int				fildes; //    doivent etre ensenble lors de la tokenisation
 			t_block			*redir_op; // doivent etre ensenble lors de la tokenisation
-			t_list			*file_name; // t_block list (now with spaces)
+			t_list			*file_name; // t_block list (before env replacement), then char* list (length one)
 		}					redir;
 	}						expr;
 	void					(*destruct)(struct s_ast *self);

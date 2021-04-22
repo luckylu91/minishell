@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 18:47:57 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 11:36:58 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	export_one(char *arg, char ***our_env)
 {
 	int			i;
 	int			n;
-	char		**our_env;
 
 	n = valid_identifier(arg);
 	if (!n)
@@ -72,7 +71,7 @@ static int	export_one(char *arg, char ***our_env)
 	i = -1;
 	while ((*our_env)[++i])
 	{
-		if (ft_strncmp(arg, our_env[i], n) == 0)
+		if (ft_strncmp(arg, (*our_env)[i], n) == 0)
 			break ;
 	}
 	if ((*our_env)[i])

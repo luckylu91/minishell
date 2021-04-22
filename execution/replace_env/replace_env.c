@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 15:52:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 13:59:15 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,10 @@ static int	replace_env_cmd(t_ast *cmd_ast)
 int	replace_env(t_ast *cmdchain_ast)
 {
 	if (cmdchain_ast->type == command_expr)
-		replace_env_cmd(cmdchain_ast);
+	{
+		if (replace_env_cmd(cmdchain_ast) < 0)
+			return (-1);
+	}
 	else if (cmdchain_ast->type == binary_expr)
 	{
 		if (replace_env(cmdchain_ast->expr.binary.left) < 0)
