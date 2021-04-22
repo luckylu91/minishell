@@ -13,8 +13,8 @@ SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
 
 SRCS +=	$(addprefix execution/searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
-#SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c)
-SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c)
+SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c)
+SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c remove_spaces.c remove_spaces_cmdchain.c)
 SRCS += $(addprefix error/, error_message.c ambiguous_redirect_error.c)
 SRCS += $(addprefix to_block/, to_block_main.c)
 OBJS = $(SRCS:%.c=%.o)

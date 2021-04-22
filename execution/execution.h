@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/21 17:55:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 14:51:36 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <string.h>
 #include <errno.h>
 
-int	export(char **argv);
+int	export(char **argv, char ***our_env);
 int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);
@@ -32,6 +32,8 @@ int	exe_all(t_list *l_ast);
 int exe_ast(t_ast *l_ast, int i, int *pipe);
 void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
+int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
+int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
  typedef struct s_both_fd
  {
  	t_ast *in;
