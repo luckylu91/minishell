@@ -63,7 +63,7 @@ int	get_redir_fd(both_fd *res, t_list *l)
 {
 	int v;
 	int fd;
-	
+
 	if (l == NULL)
 		return (1);
 	printf("dans get redir |%s| \n",get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)));
@@ -88,7 +88,7 @@ int	get_redir_fd(both_fd *res, t_list *l)
 			res->out = l->content;
 			printf("la voie du seigneur\n");
 		}
-			else
+		else
 			write(fd,"\0",1);
 		if (fd == -1)
 		{
@@ -118,7 +118,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
 		return (-1);
 	all_path = split_path();
-	
+
 	if (cmd->expr.command.text_list == NULL)
 	{
 		printf("je deviens fou\n");
@@ -133,6 +133,8 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	}
 	if (fd.in != NULL)
 	{
+
+		printf("in#####|%s|######\n", get_char_from_block(fd.in->expr.redir.file_name));
 		fd.int_in = open(get_char_from_block(fd.in->expr.redir.file_name), O_RDWR, 0666);
 		if (fd.int_in == -1)
 		{
@@ -143,7 +145,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if (fd.out != NULL)
 	{
 
-		printf("#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
+		printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
 		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_RDWR, 0666);
 		if (fd.int_out == -1)
 		{
@@ -155,40 +157,52 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	child = fork();
 	if (child == 0)
 	{
-		printf("state = %i\n",state);
-		if (state == 1)
+		printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
+		if (state == 1 && fd.out == NULL)
 		{
-			
+
 			dup2(pipe[1],STDOUT_FILENO);
 			close(pipe[0]);
 			close(pipe[1]);
 		}
-		if (state == 3)
+		if (state == 3 && fd.out == NULL)
 		{
-			
+
 			dup2(old_pipe[1], STDOUT_FILENO);
 			close(old_pipe[0]);
 			close(old_pipe[1]);
 		}
-		printf("premier dup2 pipe[0] = %i stdin =%i\n",pipe[0], 0);
-		if (state == 2 || state == 3)
+		if ((state == 2 || state == 3) && fd.in == NULL)
 		{
 			dup2(pipe[0], STDIN_FILENO);
 			close(pipe[1]);
+			close(pipe[0]);
 		}
-		printf("deuxieme dup2\n");
 		if (fd.int_in != -1)
+		{
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
-		printf("troisieme dup2\n");
+			close(fd.int_in);
+		}
 		if (fd.int_out != -1)
+		{
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
-		printf("quatrieme dup2\n");
+
+			close(fd.int_out);
+		}
 		execve(path, all_var, environ);
-		printf("apres execve\n");
 	}
+	if (state >0)
+	{
 		close(pipe[1]);
-		printf("avant wait\n");
-		waitpid(child, NULL, 0);
-		printf("apres wait\n");
-		return (1);
+		if (state != 1)
+			close(pipe[0]);
+	}
+		if (fd.in != NULL)
+		close(fd.int_in);
+	if (fd.out != NULL)
+		close(fd.int_out);
+	printf("avant wait\n");
+	waitpid(child, NULL, 0);
+	printf("apres wait\n");
+	return (1);
 }

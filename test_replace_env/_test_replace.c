@@ -41,7 +41,11 @@ int main()
 //
 //	test_replace_line(" ls |  grep M ");
 //	test_replace_line(" ls |  grep M | less");
-
+	test_replace_line(" echo patate > a > b > c <asdasd >d | ls");
 	
-	test_replace_line(" ls |  grep M | grep Z ");
+//	test_replace_line(" ls |  grep M | grep Z ");
+	
+//	test_replace_line("echo merguez > test_merguez.txt |  grep m < test_merguez.txt");
+
+	//test_replace_line("grep m < test_merguez.txt");
 }

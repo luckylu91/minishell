@@ -22,6 +22,7 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 			exe_ast(l_ast->expr.binary.left, 1, new_pipe);
 			printf("la ?\n");
 			exe_cmd(l_ast->expr.binary.right, new_pipe, 2, NULL);
+
 		}
 		else
 		{
