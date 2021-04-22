@@ -39,6 +39,9 @@ int main()
 //	test_replace_line("echo merguez > test_merguez.txt |  grep m");
 //
 //
-	//test_replace_line(" ls |  grep M ");
-	test_replace_line(" ls |  grep M | less");
+//	test_replace_line(" ls |  grep M ");
+//	test_replace_line(" ls |  grep M | less");
+
+	
+	test_replace_line(" ls |  grep M | grep Z ");
 }

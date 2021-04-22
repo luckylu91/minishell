@@ -34,6 +34,8 @@ void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
 int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
+
+int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
  typedef struct s_both_fd
  {
  	t_ast *in;
@@ -42,6 +44,5 @@ int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
 	t_ast *out;
  }				both_fd;
 
-int	exe_cmd(t_ast *cmd, int *pipe, int state);
 
 #endif

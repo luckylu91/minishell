@@ -8,12 +8,13 @@
 int main()
 {
         int     filedes[2], nbytes;
-        pid_t   childpid;
+        int		pipe2[2];
+		pid_t   childpid;
         char    string[] = "Hello, world!\n";
         char    readbuffer[80];
 
         pipe(filedes);
-        
+        pipe(pipe2);
         if((childpid = fork()) == -1)
         {
                 perror("fork");
@@ -26,7 +27,8 @@ int main()
 				
 
                 /* Send "string" through the output side of pipe */
-                write(filedes[1], string, (strlen(string)+1));
+                dup2(pipe2[1],filedes[1]);
+				write(filedes[1], string, (strlen(string)+1));
                 exit(0);
         }
         else
@@ -35,7 +37,7 @@ int main()
                 //close(filedes[1]);//Parent process does not need this end of the pipe
 
                 /* Read in a string from the pipe */
-                nbytes = read(filedes[0], readbuffer, sizeof(readbuffer));
+                nbytes = read(pipe2[0], readbuffer, sizeof(readbuffer));
                 printf("Read string: %s", readbuffer);
         }
         
