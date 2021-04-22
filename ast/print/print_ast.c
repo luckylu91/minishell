@@ -14,8 +14,6 @@ static char	*ast_type_str(t_ast *ast)
 
 	switch(type)
 	{
-		case string_expr:
-			return (ft_strdup("string"));
 		case text_expr:
 			return (ft_strdup("text"));
 		case redir_expr:
@@ -31,49 +29,68 @@ static char	*ast_type_str(t_ast *ast)
 	}
 }
 
-static void	print_string_ast(t_ast *ast)
+static char	*text_string(t_list *block_lst)
 {
-	print_block(ast->expr.string);
+	t_list	*char_blocks;
+	char	*str;
+
+	char_blocks = ft_lstmap(block_lst, block_string_ptr, free);
+	str = ft_lststrjoin(char_blocks, ", ", "", "");
+	ft_lstclear(&char_blocks, free);
+	return (str);
 }
 
-static void	print_text_ast(t_ast *ast)
+static void	print_text_ast(t_list *block_lst)
 {
-	printf("(");
-	print_block_list(ast->expr.text);
-	printf(")");
+	char	*str;
+
+	str = text_string(block_lst);
+	ft_putstr_fd(str, STDOUT_FILENO);
+	free(str);
+}
+
+static char *redir_string(t_ast *ast)
+{
+	char	*str;
+	char	*fname_str;
+
+	fname_str = text_string(ast->expr.redir.file_name);
+	asprintf(&str, "(fd: %d | op: \"%s\" | fname: \"%s\")",
+		ast->expr.redir.fildes,
+		ast->expr.redir.redir_op->str,
+		fname_str);
+	free(fname_str);
+	return (str);
+}
+
+static void *redir_string_ptr(void *ast_ptr)
+{
+	return (redir_string((t_ast *)ast_ptr));
 }
 
 static void	print_redir_ast(t_ast *ast)
 {
 	// op_str = charpointer_str(ast->expr.redir.redir_op);
 	// fname_str = charpointer_str(ast->expr.redir.file_name);
+	char *str;
 
-	printf("(fd: %d | op: \"%s\" | fname: \"",
-		ast->expr.redir.fildes,
-		ast->expr.redir.redir_op->str);
-	print_text_ast(ast->expr.redir.file_name);
-	printf(")");
-}
-
-static void print_txt_ast_sep(void *txt_ast, void *sep)
-{
-	print_text_ast(txt_ast);
-	ft_putstr_fd(sep, STDOUT_FILENO);
-}
-
-static void print_red_ast_sep(void *red_ast, void *sep)
-{
-	print_redir_ast(red_ast);
-	ft_putstr_fd(sep, STDOUT_FILENO);
+	str = redir_string(ast);
+	ft_putstr_fd(str, STDOUT_FILENO);
+	free(str);
 }
 
 void	print_command_ast(t_ast *ast)
 {
-	printf("[[args: ");
-	ft_lstiter_arg(ast->expr.command.text_list, " ", print_txt_ast_sep);
-	printf("END_ARGS / redirs : ");
-	ft_lstiter_arg(ast->expr.command.redir_list, " ", print_red_ast_sep);
-	printf("END_REDIRS]]");
+	char *str_redirs;
+	t_list	*char_redirs;
+
+	char_redirs = ft_lstmap(ast->expr.command.redir_list, redir_string_ptr, free);
+	str_redirs = ft_lststrjoin(char_redirs, " -> ", "", "");
+	printf("cmd_args: ");
+	print_text_ast(ast->expr.command.text_list);
+	printf(" END_ARGS // cmd_redirs : %s END_REDIRS", str_redirs);
+	ft_lstclear(&char_redirs, free);
+	free(str_redirs);
 }
 
 
@@ -84,6 +101,7 @@ void	print_command_ast(t_ast *ast)
 
 void	print_binary_ast(t_ast *ast)
 {
+	printf("\n");
 	print_ast(ast->expr.binary.left);
 	printf("\n");
 	print_block(ast->expr.binary.op_name);
@@ -98,11 +116,8 @@ static void	print_ast_content(t_ast *ast)
 
 	switch(type)
 	{
-		case string_expr:
-			print_string_ast(ast);
-			break ;
 		case text_expr:
-			print_text_ast(ast);
+			print_text_ast(ast->expr.text);
 			break ;
 		case redir_expr:
 			print_redir_ast(ast);

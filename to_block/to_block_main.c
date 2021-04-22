@@ -347,6 +347,7 @@ void 	to_block(char *line, t_list **final_l)
 	t_var_toblock var;
 	t_list	*temp_l;
 	temp_l = NULL;
+	*final_l= NULL;
 	var.i = 0;
 	var.spe = 0;
 	var.end_while = 1;

@@ -74,3 +74,32 @@ void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, 0, n);
 }
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned char	*dst_uc;
+	unsigned char	*src_uc;
+	size_t			i;
+
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	dst_uc = (unsigned char*)dst;
+	src_uc = (unsigned char*)src;
+	i = 0;
+	while (i < n)
+	{
+		dst_uc[i] = src_uc[i];
+		i++;
+	}
+	return (dst);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s1[i] == s2[i])
+		i++;
+	return ((int)(unsigned char)s1[i] - (int)(unsigned char)s2[i]);
+}

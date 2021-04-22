@@ -1,4 +1,4 @@
-#include "semantic.h"
+#include "searchdir.h"
 
 DIR	*opendir_err(char *dir_name)
 {

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/15 00:13:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/19 11:30:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
+#include "execution.h"
 
 int	cd(char **argv)
 {
@@ -25,10 +23,10 @@ int	cd(char **argv)
 		ret = chdir(argv[1]);
 	else
 	{
-		bash_error("cd", "too many arguments"); // bash: cd: ...
+		error_message("bash: cd: too many arguments"); // bash: cd: ...
 		return (1); // needed for $?
 	}
 	if (ret)
-		builtin_error("cd", strerror(errno)); // cd: ...
+		error_message_errno("cd", strerror(errno)); // cd: ...
 	return (ret);
 }
