@@ -19,6 +19,7 @@ int test_replace_line(char *line)
 	parse_cmdchain(&ast_cmdchain, &block_lst_mov);
 	print_ast(ast_cmdchain);
 	printf("\n####\n");
+	destroy_block_lst(&block_lst);
 
 	if (replace_env(ast_cmdchain) == -1)
 		return (-1);
@@ -28,12 +29,12 @@ int test_replace_line(char *line)
 		return (-1);
 	print_ast(ast_cmdchain);
 	printf("\n");
+	destroy_ast(&ast_cmdchain);
 	return (1);
 }
 
 int main()
 {
-
 	setbuf(stdout, NULL);
 	test_replace_line("ls $pourqoui -pas > lalali");
 	printf("\n\n");
