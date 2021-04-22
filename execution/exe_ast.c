@@ -8,9 +8,9 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 	if (l_ast->type == command_expr)
 	{
 		if (i == 0)
-			exe_cmd(l_ast,NULL,0);
+			exe_cmd(l_ast, NULL, 0);
 		else
-			exe_cmd(l_ast,NULL,2);
+			exe_cmd(l_ast, old_pipe, 2);
 	}
 	else if (l_ast->type == binary_expr)
 	{
@@ -18,10 +18,8 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 		printf("ici ?\n");
 		if (i == 0)
 		{
-
 			printf("la ?\n");
 			exe_cmd(l_ast->expr.binary.left,new_pipe,1);
-
 		}
 		else
 		{

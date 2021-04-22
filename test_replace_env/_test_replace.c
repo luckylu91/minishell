@@ -32,7 +32,13 @@ int main()
 {
 
 	setbuf(stdout, NULL);
-	test_replace_line("ls $pourqoui -pas > lalali");
+	//test_replace_line("ls $pourqoui -pas > lalali");
 	printf("\n\n");
-	test_replace_line("$a | ls $pourqoui -pas > $lalali");
+//	test_replace_line("$a | ls $pourqoui -pas > $lalali");
+
+//	test_replace_line("echo merguez > test_merguez.txt |  grep m");
+//
+//
+	//test_replace_line(" ls |  grep M ");
+	test_replace_line(" ls |  grep M | less");
 }

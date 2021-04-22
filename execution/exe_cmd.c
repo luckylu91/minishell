@@ -1,4 +1,5 @@
 #include "execution.h"
+#include <sys/wait.h>
 
 extern char **environ;
 
@@ -10,11 +11,30 @@ char	*get_char_from_block(t_list *l)
 }
 void	dup_str(t_list *l, char **res, int i)
 {
+	enum flags f;
+	printf("dup str i = %i\n",i);
 	if (l != NULL)
 	{
-		res[i] = get_char_from_block(l);
-		dup_str(l->next, res, i + 1);
+
+		f= ((t_block*)(l->content))->f; 
+		if (f == none)
+		{
+			res[i] = get_char_from_block(l);
+			dup_str(l->next, res, i + 1);
+		}
+		else
+			dup_str(l->next, res, i);
 	}
+	else
+		res[i] = NULL;
+}
+
+int		size_list(t_list *l)
+{
+	if (l == NULL)
+		return 0;
+	printf("coucou ||\n");
+	return size_list(l->next) + 1;
 
 }
 char **from_list_to_str_tab(t_list *l)
@@ -22,7 +42,8 @@ char **from_list_to_str_tab(t_list *l)
 	int t;
 	char **res;
 
-	t = ft_lstsize(l);
+	t = size_list(l);
+	printf("t = %i\n",t);
 	res = malloc(sizeof(char*) * (t + 1));
 	dup_str(l, res, 0);
 	res[t] = NULL;
@@ -130,18 +151,32 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state)
 			return (-1);
 		}
 	}
+	printf("avant le fork\n");
 	child = fork();
 	if (child == 0)
 	{
+		printf("state = %i\n",state);
 		if (state == 1 || state == 3)
+		{
 			dup2(pipe[1],STDOUT_FILENO);
+		}
+		printf("premier dup2 pipe[0] = %i stdin =%i\n",pipe[0], 0);
 		if (state == 2 || state == 3)
+		{
 			dup2(pipe[0],STDIN_FILENO);
+		}
+		printf("deuxieme dup2\n");
 		if (fd.int_in != -1)
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
+		printf("troisieme dup2\n");
 		if (fd.int_out != -1)
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
+		printf("quatrieme dup2\n");
 		execve(path, all_var, environ);
+		printf("apres execve\n");
 	}
-	return (1);
+		printf("avant wait\n");
+		wait(child);
+		printf("apres wait\n");
+		return (1);
 }
