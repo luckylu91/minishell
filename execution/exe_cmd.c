@@ -33,7 +33,7 @@ int		size_list(t_list *l)
 {
 	if (l == NULL)
 		return 0;
-	printf("coucou ||\n");
+	//printf("coucou |%s|\n",get_char_from_block(l);
 	return size_list(l->next) + 1;
 
 }
@@ -100,7 +100,7 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	return (get_redir_fd(res, l->next));
 }
 
-int	exe_cmd(t_ast *cmd, int *pipe, int state)
+int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 {
 	printf("start exe_cmd\n");
 	char **all_path;
@@ -156,14 +156,25 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state)
 	if (child == 0)
 	{
 		printf("state = %i\n",state);
-		if (state == 1 || state == 3)
+		if (state == 1)
 		{
+			
 			dup2(pipe[1],STDOUT_FILENO);
+			close(pipe[0]);
+			close(pipe[1]);
+		}
+		if (state == 3)
+		{
+			
+			dup2(old_pipe[1], STDOUT_FILENO);
+			close(old_pipe[0]);
+			close(old_pipe[1]);
 		}
 		printf("premier dup2 pipe[0] = %i stdin =%i\n",pipe[0], 0);
 		if (state == 2 || state == 3)
 		{
-			dup2(pipe[0],STDIN_FILENO);
+			dup2(pipe[0], STDIN_FILENO);
+			close(pipe[1]);
 		}
 		printf("deuxieme dup2\n");
 		if (fd.int_in != -1)
@@ -175,8 +186,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state)
 		execve(path, all_var, environ);
 		printf("apres execve\n");
 	}
+		close(pipe[1]);
 		printf("avant wait\n");
-		wait(child);
+		waitpid(child, NULL, 0);
 		printf("apres wait\n");
 		return (1);
 }
