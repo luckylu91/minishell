@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:51:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 16:59:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/22 17:20:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	replace_unquoted(t_block *env_block, t_list **replacement)
 			ret = -1;
 		if (ret == -1)
 		{
-			ft_splitclear((void **)splitted, i);
+			ft_splitclear(splitted, i);
 			ft_lstclear(replacement, destroy_block);
 			break ;
 		}
