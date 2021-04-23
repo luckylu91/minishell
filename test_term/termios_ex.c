@@ -34,6 +34,11 @@ void terminal_signal(int signum)
 	_exit(128 + signum);
 }
 
+void sigint_signal(int signum)
+{
+	printf("^C\n");
+}
+
 /* Initialize terminal for non-canonical, non-echo mode,
  * that should be compatible with standard C I/O.
  * Returns 0 if success, nonzero errno otherwise.
@@ -99,6 +104,7 @@ int terminal_init(void)
 		sigaction(SIGALRM, &act, NULL))
 		return errno = ENOTSUP;
 
+	// signal(SIGINT, sigint_signal);
 	/* Let BREAK cause a SIGINT in input. */
 	terminal_settings.c_iflag &= ~IGNBRK;
 	terminal_settings.c_iflag |=  BRKINT;

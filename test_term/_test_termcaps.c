@@ -33,7 +33,7 @@ void	ft_putstr(char *s)
 	ft_putstr_fd(s, STDOUT_FILENO);
 }
 
-int init_term()
+int termcaps_init()
 {
 	int ret;
 	char *term_type = getenv("TERM");
@@ -171,7 +171,7 @@ int main()
 	char *line;
 	int i;
 
-	ret = init_term();
+	ret = termcaps_init();
 	if (ret != 0)
 		return (ret);
 
@@ -223,9 +223,9 @@ int main()
 				process_line(line);
 				line = NULL;
 				i = 0;
-				continue ;
 			}
-			redirect_special((char*)&c, tty_fd);
+			else
+				redirect_special((char*)&c, tty_fd);
 			//print_escape_sequence((char*)&c, tty_fd);
 		}
 	}
