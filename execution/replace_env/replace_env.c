@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/22 13:59:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 17:06:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin,
 	env_block = block_at(lst);
 	if (env_block->f == dollar && replace_unquoted(env_block, &replacement) < 0)
 		return (-1);
-	else if (env_block->f == dollar_dquote
+	else if ((env_block->f == dollar_dquote || is_tilde(env_block))
 			&& replace_dquoted(env_block, &replacement) < 0)
 		return (-1);
 	else
@@ -170,7 +170,7 @@ static int	replace_env_text(t_list **text_lst, t_list **redir_blocks)
 		// printf("lst_prev:\n");
 		// print_list_one(lst_prev);
 		// print_address(lst_prev);
-		if (is_dollar_lst(lst))
+		if (is_dollar_lst(lst) || is_tilde_lst(lst))
 		{
 			if (!lst_prev)
 			{

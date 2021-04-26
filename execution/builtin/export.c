@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/22 11:36:58 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 16:58:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static int	not_valid_identifier_error(char *arg)
 	ft_putstr_fd("'\n", STDERR_FILENO);
 	return (-1);
 }
-
-
 
 static int	enlarge_environ(int new_size, char***our_env)
 {
