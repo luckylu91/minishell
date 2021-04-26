@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_text.c                                          :+:      :+:    :+:   */
+/*   our_getcwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 17:50:26 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/26 17:53:36 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/26 18:05:26 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "block_api.h"
+#include "execution.h"
 
-int	is_text(t_block *block)
+char	*our_getcwd(void)
 {
-	return (is_rawtext(block) || is_dollar(block) || is_tilde(block));
-}
+	size_t	size;
+	size_t	increment;
+	char	*buf;
+	char	*res;
 
-int	is_text_lst(t_list *block_lst)
-{
-	return (is_text(block_at(block_lst)));
+	increment = 40;
+	size = increment;
+	res = NULL;
+	while (!res)
+	{
+		buf = ft_calloc(size, sizeof(char));
+		if (!buf)
+			return (NULL);
+		res = getcwd(buf, size - 1);
+		if (res || errno != ERANGE)
+			break ;
+		free(buf);
+		size += increment;
+	}
+	return (res);
 }

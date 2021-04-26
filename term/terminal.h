@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 16:36:07 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 17:39:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,5 @@ void	print_escape_sequence(char *str, int fd);
 void	redirect_special(char* str, int fd);
 
 void	*bigger_calloc_line(void *ptr, size_t size, size_t incr);
-
-void	process_line(char *line);
 
 #endif

@@ -26,7 +26,10 @@ int test_replace_line(char *line)
 	print_ast(ast_cmdchain);
 	printf("\n");
 	if (remove_spaces_cmdchain(ast_cmdchain) == -1)
+	{
+		printf("ca chie dans remove space\n");
 		return (-1);
+	}
 	print_ast(ast_cmdchain);
 	printf("\n");
 	destroy_ast(&ast_cmdchain);
@@ -36,6 +39,9 @@ int test_replace_line(char *line)
 int main()
 {
 	setbuf(stdout, NULL);
-	test_replace_line("ls $pourqoui -pas ~ > ~");
+	test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~");
 	printf("\n");
+	printf("%s\n", our_getcwd());
+	char *envstr;
+	printf("ret = %d: %s\n", our_getenv(create_block(none, "PATH"), &envstr), envstr);
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_text.c                                          :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 17:50:26 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/26 17:33:09 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/26 17:34:10 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "block_api.h"
+#ifndef MINISHELL_H
+#define MINISHELL_H
 
-int	is_text(t_block *block)
-{
-	return (is_rawtext(block) || is_dollar(block) || is_tilde(block));
-}
+#include "ast_api.h"
+#include "error.h"
+#include "execution.h"
+#include "terminal.h"
 
-int	is_text_lst(t_list *block_lst)
-{
-	return (is_text(block_at(block_lst)));
-}
+
+
+#endif

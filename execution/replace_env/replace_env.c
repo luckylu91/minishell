@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 17:06:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 18:13:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin,
 		return (-1);
 	else
 		replacement = NULL;
+	printf("Block list : ");
+	print_block_list(replacement);
+	printf("\n");
 	lst_old = lst;
 	lst = lst->next;
 	lst_old->next = NULL;
