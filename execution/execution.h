@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 18:00:33 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 18:31:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "searchdir.h"
 #include "error.h"
 #include "to_block.h"
-#include "builtin.h"
 #include <fcntl.h>
 #include "ast_api.h"
 #include <unistd.h>
@@ -28,6 +27,9 @@
 int	g_exit_code;
 
 int	export(char **argv, char ***our_env);
+ int cd(char **argv);
+int echo(char **argv);
+int pwd(char **argv);
 int	our_getenv(t_block *block, char **res_addr);
 char	*our_getcwd(void);
 int	replace_unquoted(t_block *env_block, t_list **replacement);
