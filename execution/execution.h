@@ -17,6 +17,7 @@
 #include "searchdir.h"
 #include "error.h"
 #include "to_block.h"
+#include "builtin.h"
 #include <fcntl.h>
 #include "ast_api.h"
 #include <unistd.h>

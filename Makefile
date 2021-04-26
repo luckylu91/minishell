@@ -8,6 +8,7 @@ SRCS += $(addprefix execution/, exe_cmd.c exe_ast.c split_path.c)
 SRCS += $(addprefix ast/parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c parse_cmdseq.c parse_redir.c parse_text.c skip_spaces.c to_str.c)
 # SRCS += $(addprefix lst_utils/, )
 SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
+SRCS += $(addprefix execution/builtin/, echo.c pwd.c cd.c export.c)
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
 			is_dollar.c is_rawtext.c is_tilde.c)
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
