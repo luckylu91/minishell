@@ -47,8 +47,9 @@ int main()
 //	test_replace_line(" cat Makefile | sort | grep #"); 
 	//test_replace_line(" ls |  grep M | grep Z | false");
 	
-	test_replace_line("false | true |false | true") ;
-
+//	test_replace_line("false | true |false | true") ;
+	
+	test_replace_line("echo la france");
 	//test_replace_line("echo merguez > test_merguez.txt |  grep m < test_merguez.txt");
 	//test_replace_line("cat asdasdasdasd");
 	//test_replace_line("false");

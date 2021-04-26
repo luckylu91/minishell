@@ -100,9 +100,46 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	return (get_redir_fd(res, l->next));
 }
 
+void		start_builtin(char **c, char **environ)
+{
+	if (ft_strcmp(c[0], "echo"))
+		echo(c);
+	if (ft_strcmp(c[0], "cd"))
+		cd(c);
+	if (ft_strcmp(c[0], "pwd"))
+		pwd(c);
+	if (ft_strcmp(c[0], "export"))
+		export(c, &environ);
+	if (ft_strcmp(c[0], "unset"))
+		printf("pas encore fait unset\n");
+	if (ft_strcmp(c[0], "env"))
+		printf("pas encore fait env\n");
+	if (ft_strcmp(c[0], "exit"))
+		printf("pas encore fait exit\n");
+}
+
+int		is_builtin(char *c)
+{
+	if (ft_strcmp(c, "echo"))
+		return (1);
+	if (ft_strcmp(c, "cd"))
+		return (1);
+	if (ft_strcmp(c, "pwd"))
+		return (1);
+	if (ft_strcmp(c, "export"))
+		return (1);
+	if (ft_strcmp(c, "unset"))
+		return (1);
+	if (ft_strcmp(c, "env"))
+		return (1);
+	if (ft_strcmp(c, "exit"))
+		return (1);
+	return (0);
+}
+
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 {
-	printf("start exe_cmd\n");
+	//printf("start exe_cmd\n");
 	char **all_path;
 	both_fd fd;
 	char **all_var;
@@ -127,7 +164,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	}
 	//printf("manges tes morts\n");
 	path = search_cmd(all_path,all_var[0]); 
-	if (path == NULL)
+	if (path == NULL && is_builtin(all_path[0]) == 0)
 	{
 		printf("commande introuvable\n");
 		return (-1);
@@ -192,6 +229,8 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
 			close(fd.int_out);
 		}
+		if (is_builtin(all_var[0]))
+			start_builtin(all_var, environ);
 		execve(path, all_var, environ);
 	}
 	if (state >0)
@@ -210,10 +249,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	waitpid(child, &status, 0);
 	if (WIFEXITED(status))
 		{
-			printf("Child's exit code %d\n", WEXITSTATUS(status));
+			//printf("Child's exit code %d\n", WEXITSTATUS(status));
 			cmd->exit_code = WEXITSTATUS(status);
-
-			printf("hein ? %d\n",cmd->exit_code); 
+			//printf("hein ? %d\n",cmd->exit_code); 
 
 		}
 	else
