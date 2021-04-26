@@ -153,7 +153,7 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	{
 		return ;
 	}
-	if (line[var->i] == '\\' || line[var->i] == '\0' || line[var->i] == ' ' || line[var->i] == '\n')
+	if (line[var->i] == '\\' || line[var->i] == '\0' || line[var->i] == ' ' || line[var->i] == '\n' || line[var->i] == '~')
 	{
 		ft_lstadd_back(temp_l, ft_lstnew("$"));	
 		return ;
@@ -242,6 +242,11 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 		ft_lstadd_back(temp_l, ft_lstnew("$"));	
 		var->i = var->i + 1;
 		in_back_slash_dquote(line, var, final_l, temp_l);
+		return ;
+	}
+	if (line[var->i] == '~')
+	{
+		ft_lstadd_back(temp_l, ft_lstnew("$"));	
 		return ;
 	}
 	if (ft_isdigit(line[var->i]))
@@ -340,6 +345,21 @@ int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 	return (0);
 }
 
+void	in_tild(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
+{
+	if (*temp_l != NULL || !(is_separator(&line[var->i + 1])))
+	{
+		//printf("not tilt c=|%c| \n",line[var->i+1]);
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+	}
+	else
+	{
+		//printf("is tilt\n");
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		temp_to_final(final_l, temp_l, spe);
+	}
+	var->i = var->i + 1;
+}
 void 	to_block(char *line, t_list **final_l)
 {
 	printf("####\n|%s|\n####\n",line);
@@ -369,6 +389,11 @@ void 	to_block(char *line, t_list **final_l)
 		else
 		{
 			//	printf("ici nothing\n");
+			if (line[var.i] == '~')
+			{
+		//		printf("dans ~\n");
+				in_tild(line, &var, final_l, &temp_l); 
+			}
 			ft_lstadd_back(&temp_l, ft_lstnew(&line[var.i]));
 			//	printf("la \n");
 			var.i++;

@@ -97,6 +97,20 @@ void 	ft_test_combo_quote()
 	ft_test("\"\\$test\"");
 
 }
+void	ft_test_tilt()
+{
+
+	printf("\nTEST ~\n");
+	ft_test("~");
+	ft_test("$~");
+	ft_test("avant~");
+	ft_test("~apres");
+	ft_test("\"$~\"");
+
+	ft_test("\\~");
+	ft_test("\"~\"");
+	ft_test("\'~\'");
+}
 int main(int ag, char *av[])
 {
 	//char b[1];
@@ -109,8 +123,8 @@ int main(int ag, char *av[])
 //		read(0, b, 1);
 //	printf("|%s| ici\n",b);
 //	}
-//
-	ft_test_combo_quote();
+	ft_test_tilt();
+	//ft_test_combo_quote();
 //	ft_test_redirection();
 //	ft_test_dollar();
 //	ft_test_dollar_bs();
