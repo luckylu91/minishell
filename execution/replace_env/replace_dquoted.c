@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:53:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 18:14:51 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 18:21:11 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int	replace_dquoted(t_block *env_block, t_list **replacement)
 		destroy_block(new_block);
 		return (-1);
 	}
+	printf("full troll\n");
 	return (1);
 }
