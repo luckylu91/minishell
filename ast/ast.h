@@ -26,6 +26,7 @@ typedef enum	e_ast_type
 typedef struct	s_ast
 {
 	t_ast_type				type;
+	int						exit_code;
 	union u_expr
 	{
 		t_list				*text; // t_block list (now with spaces)

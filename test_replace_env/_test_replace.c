@@ -24,6 +24,7 @@ int test_replace_line(char *line)
 		return (-1);
 	print_ast(ast_cmdchain);
 	exe_ast(ast_cmdchain, 0, NULL);
+	printf("exit code = %i\n",ast_cmdchain->exit_code);
 	printf("\n");
 	return (1);
 }
@@ -33,7 +34,7 @@ int main()
 
 	setbuf(stdout, NULL);
 	//test_replace_line("ls $pourqoui -pas > lalali");
-	printf("\n\n");
+//	printf("\n\n");
 //	test_replace_line("$a | ls $pourqoui -pas > $lalali");
 
 //	test_replace_line("echo merguez > test_merguez.txt |  grep m");
@@ -41,11 +42,17 @@ int main()
 //
 //	test_replace_line(" ls |  grep M ");
 //	test_replace_line(" ls |  grep M | less");
-	test_replace_line(" echo patate > a > b > c <asdasd >d | ls");
+//	test_replace_line(" echo patate > a > b > c <asdasd >d | ls");
 	
-//	test_replace_line(" ls |  grep M | grep Z ");
+//	test_replace_line(" cat Makefile | sort | grep #"); 
+	//test_replace_line(" ls |  grep M | grep Z | false");
 	
-//	test_replace_line("echo merguez > test_merguez.txt |  grep m < test_merguez.txt");
+	test_replace_line("false | true |false | true") ;
 
-	//test_replace_line("grep m < test_merguez.txt");
+	//test_replace_line("echo merguez > test_merguez.txt |  grep m < test_merguez.txt");
+	//test_replace_line("cat asdasdasdasd");
+	//test_replace_line("false");
+	
+	//test_replace_line("true");
+//	test_replace_line("grep m < test_merguez.txt");
 }
