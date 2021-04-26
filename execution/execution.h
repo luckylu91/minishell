@@ -17,7 +17,6 @@
 #include "searchdir.h"
 #include "error.h"
 #include "to_block.h"
-#include "builtin.h"
 #include <fcntl.h>
 #include "ast_api.h"
 #include <unistd.h>
@@ -28,6 +27,9 @@
 int	g_exit_code;
 
 int	export(char **argv, char ***our_env);
+ int cd(char **argv);
+int echo(char **argv);
+int pwd(char **argv);
 int	our_getenv(char *str, char **res_addr);
 int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
