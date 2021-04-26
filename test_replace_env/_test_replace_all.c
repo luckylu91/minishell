@@ -36,7 +36,6 @@ int test_replace_line(char *line)
 int main()
 {
 	setbuf(stdout, NULL);
-	test_replace_line("ls $pourqoui -pas > lalali");
-	printf("\n\n");
-	test_replace_line("$a | ls $pourqoui -pas > $lalali");
+	test_replace_line("ls $pourqoui -pas ~ > ~");
+	printf("\n");
 }

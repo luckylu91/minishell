@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 17:01:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/26 17:22:47 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 int	g_exit_code;
 
 int	export(char **argv, char ***our_env);
-int	our_getenv(char *str, char **res_addr);
+int	our_getenv(t_block *block, char **res_addr);
 int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);

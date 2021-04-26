@@ -33,7 +33,9 @@ libft:
 
 _%:	_%.c $(OBJS) $(LIBFT)
 	gcc $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS)
-#$(DBFLAGS)
+
+_%_db:	_%.c $(OBJS) $(LIBFT)
+	gcc $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
 
 clean:
 	make -C libft clean
