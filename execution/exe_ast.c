@@ -7,6 +7,7 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 
 	if (l_ast->type == command_expr)
 	{
+		printf("wtf\n");
 		if (i == 0)
 			exe_cmd(l_ast, NULL, 0,NULL);
 		else
@@ -18,16 +19,17 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 		printf("ici ?\n");
 		if (i == 0)
 		{
-
 			exe_ast(l_ast->expr.binary.left, 1, new_pipe);
 			printf("la ?\n");
 			exe_cmd(l_ast->expr.binary.right, new_pipe, 2, NULL);
+			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 
 		}
 		else
 		{
 			exe_ast(l_ast->expr.binary.left, 1, new_pipe);
 			exe_cmd(l_ast->expr.binary.right,new_pipe,3,old_pipe);
+			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 		}
 	}
 	return (1);
