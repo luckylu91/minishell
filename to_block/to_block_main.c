@@ -371,6 +371,11 @@ void 	to_block(char *line, t_list **final_l)
 	var.i = 0;
 	var.spe = 0;
 	var.end_while = 1;
+	/*if (line == NULL || ft_all_in(line," "))
+	{
+		printf("c4est comme moi\n");
+		return;
+	}*/
 	while (var.end_while) 
 	{
 		//printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
