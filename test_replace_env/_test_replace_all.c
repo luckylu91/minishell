@@ -12,6 +12,7 @@ int test_replace_line(char *line)
 	printf("Line : '%s'\n", line);
 
 	to_block(line, &block_lst);
+	printf("la");
 	print_block_list(block_lst);
 	printf("\n####\n");
 
@@ -39,7 +40,7 @@ int test_replace_line(char *line)
 int main()
 {
 	setbuf(stdout, NULL);
-	test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~");
+	test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~ ");
 	printf("\n");
 	printf("%s\n", our_getcwd());
 	char *envstr;

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:53:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 18:43:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 13:48:30 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int	replace_dquoted(t_block *env_block, t_list **replacement)
 
 	*replacement= NULL;
 	ret = our_getenv(env_block, &env_str);
-	//
-	printf("ret = %d\n", ret);
-	printf("%s\n", env_str);
 	if (ret == -1)
 		return (-1);
 	if (!env_str)
@@ -39,6 +36,5 @@ int	replace_dquoted(t_block *env_block, t_list **replacement)
 		return (-1);
 	}
 	print_block_list(*replacement);
-	printf("\nfull troll\n");
 	return (1);
 }
