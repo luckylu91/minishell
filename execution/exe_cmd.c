@@ -103,11 +103,11 @@ int	get_redir_fd(both_fd *res, t_list *l)
 void		start_builtin(char **c, char **environ)
 {
 	if (ft_strcmp(c[0], "echo"))
-		echo(c);
+		our_echo(c);
 	if (ft_strcmp(c[0], "cd"))
-		cd(c);
+		our_cd(c);
 	if (ft_strcmp(c[0], "pwd"))
-		pwd(c);
+		our_pwd(c);
 	if (ft_strcmp(c[0], "export"))
 		export(c, &environ);
 	if (ft_strcmp(c[0], "unset"))

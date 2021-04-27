@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 18:13:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:20:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		return ;
 	}
 	if (begin)
+	{
+		printf("(insert_in_list) *begin = ");
+		print_block_list(*begin);
+		printf("\n");
 		*begin = insert;
+	}
 	if (*lst_prev)
 		(*lst_prev)->next = insert;
 	insert_last = ft_lstlast(insert);
@@ -89,14 +94,14 @@ static int	replace_env_block(t_list **lst_prev, t_list *lst, t_list **begin,
 	t_list	*lst_old;
 
 	env_block = block_at(lst);
-	if (env_block->f == dollar && replace_unquoted(env_block, &replacement) < 0)
+	if (env_block->f == dollar && replace_unquoted(env_block, &replacement) == -1)
 		return (-1);
-	else if ((env_block->f == dollar_dquote || is_tilde(env_block))
-			&& replace_dquoted(env_block, &replacement) < 0)
+	if ((env_block->f == dollar_dquote || is_tilde(env_block))
+			&& replace_dquoted(env_block, &replacement) == -1)
 		return (-1);
-	else
+	if (env_block->f != dollar && env_block->f != dollar_dquote && !is_tilde(env_block))
 		replacement = NULL;
-	printf("Block list : ");
+	printf("(replace_env_blocks) replacement = ");
 	print_block_list(replacement);
 	printf("\n");
 	lst_old = lst;
@@ -177,8 +182,14 @@ static int	replace_env_text(t_list **text_lst, t_list **redir_blocks)
 		{
 			if (!lst_prev)
 			{
+				printf("text_lst before : ");
+				print_block_list(*text_lst);
+				printf("\n");
 				if (replace_env_block(&lst_prev, lst, text_lst, redir_blocks) < 0)
 					return (-1);
+				printf("text_lst after : ");
+				print_block_list(*text_lst);
+				printf("\n");
 			}
 			else if (replace_env_block(&lst_prev, lst, NULL, redir_blocks) < 0)
 				return (-1);
@@ -245,18 +256,28 @@ static int	replace_env_cmd(t_ast *cmd_ast)
 	t_list	*redir_blocks;
 	int		ret;
 
-	if (replace_env_text(&cmd_ast->expr.command.text_list, NULL) < 0)
+	if (replace_env_text(&cmd_ast->expr.command.text_list, NULL) == -1)
 		return (-1);
+	printf("coucou\n");
 	redir_blocks = NULL;
 	redir_list = cmd_ast->expr.command.redir_list;
 	while (redir_list)
 	{
 		redir_ast = (t_ast *)redir_list->content;
-		if (replace_env_text(&redir_ast->expr.redir.file_name, &redir_blocks) < 0)
+		printf("\nFile name before : ");
+		print_block_list(redir_ast->expr.redir.file_name);
+		printf("\n");
+		if (replace_env_text(&redir_ast->expr.redir.file_name, &redir_blocks) == -1)
 			return (-1);
+		printf("\nFile name after : ");
+		print_block_list(redir_ast->expr.redir.file_name);
+		printf("\n");
 		ret = 1;
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
 		{
+			printf("\nInvalid file name : ");
+			print_block_list(redir_ast->expr.redir.file_name);
+			printf("\n");
 			redir_ast->expr.redir.ambiguous_error = 1;
 			return (ambiguous_redirect_error(redir_blocks));
 		}

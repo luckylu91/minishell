@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int g_exit_code = 0;
+
 int process_line(char *line)
 {
 	t_list	*block_lst;

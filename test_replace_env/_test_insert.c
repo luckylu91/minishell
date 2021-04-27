@@ -1,6 +1,8 @@
 #include "execution.h"
 #include <stdio.h>
 
+int g_exit_code = 0;
+
 void print_list_one(t_list *l)
 {
 	if (!l)
@@ -38,7 +40,7 @@ void print_list(t_list *lst)
 	charlist = ft_lstmap(lst, itoa_ptr, free);
 	str = ft_lststrjoin(charlist, ", ", "[", "]");
 	ft_lstclear(&charlist, free);
-	printf("%s", str);
+	printf("%s\n", str);
 	free(str);
 }
 
@@ -71,4 +73,8 @@ int main()
 	t_list	*array2[6] = {l1, lmid, l2, lprev, l, lbeg};
 	print_adresses(array2, names);
 	print_list(l1);
+	printf("lbeg :");
+	print_list(lbeg);
+
+	
 }

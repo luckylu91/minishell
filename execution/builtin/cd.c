@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:55:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	cd(char **argv)
+int	our_cd(char **argv)
 {
 	int ret;
 

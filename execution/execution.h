@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 13:49:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:54:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 #include <errno.h>
 
 // mettre dans minishell.h (structure si besoin...)
-int	g_exit_code;
 
 int	export(char **argv, char ***our_env);
- int cd(char **argv);
-int echo(char **argv);
-int pwd(char **argv);
+int our_cd(char **argv);
+int our_echo(char **argv);
+int our_pwd(char **argv);
 int	our_getenv(t_block *block, char **res_addr);
 char	*our_getcwd(void);
 int	replace_unquoted(t_block *env_block, t_list **replacement);

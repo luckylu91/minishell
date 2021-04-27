@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 12:26:49 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/16 13:56:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:55:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	echo(char **argv)
+int	our_echo(char **argv)
 {
 	int	nl;
 	int	i;

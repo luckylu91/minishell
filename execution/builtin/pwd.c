@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:57:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 11:30:23 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:55:26 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	pwd(char **argv)
+int	our_pwd(char **argv)
 {
 	char *working_dir;
 

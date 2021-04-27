@@ -2,6 +2,8 @@
 #include "ast_api.h"
 #include "execution.h"
 
+int g_exit_code = 0;
+
 int test_replace_line(char *line)
 {
 	t_list	*block_lst;
@@ -23,7 +25,10 @@ int test_replace_line(char *line)
 	destroy_block_lst(&block_lst);
 
 	if (replace_env(ast_cmdchain) == -1)
+	{
+		printf("replace env returned -1\n");
 		return (-1);
+	}
 	print_ast(ast_cmdchain);
 	printf("\n");
 	if (remove_spaces_cmdchain(ast_cmdchain) == -1)
@@ -40,7 +45,7 @@ int test_replace_line(char *line)
 int main()
 {
 	setbuf(stdout, NULL);
-	test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~ ");
+	printf("replace_line ret = %d\n", test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~ "));
 	printf("\n");
 	printf("%s\n", our_getcwd());
 	char *envstr;

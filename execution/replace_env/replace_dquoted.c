@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:53:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 13:48:30 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 14:15:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	replace_dquoted(t_block *env_block, t_list **replacement)
 		destroy_block(new_block);
 		return (-1);
 	}
+	printf("(replace_dquoted) *replacement = ");
 	print_block_list(*replacement);
+	printf("\n");
 	return (1);
 }

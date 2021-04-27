@@ -1,4 +1,7 @@
-SUBDIRS = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM)")
+SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM)")
+SUBDIRS = $(filter-out ./test_%, $(SUBDIRS_ALL))
+SUBDIRS_TEST = $(filter ./test_%, $(SUBDIRS_ALL))
+TEST_EXECS = $(filter-out %.c %.h, $(shell find $(SUBDIRS_TEST) -maxdepth 1 -mindepth 1))
 IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -Llibft -lft -lncurses
 DBFLAGS = -g3 -fsanitize=address
@@ -19,6 +22,9 @@ SRCS += $(addprefix error/, error_message.c ambiguous_redirect_error.c)
 SRCS += $(addprefix to_block/, to_block_main.c)
 OBJS = $(SRCS:%.c=%.o)
 LIBFT = libft/libft.a
+
+echo:
+	@echo $(TEST_EXECS)
 
 $(LIBFT):
 	make -C libft bonus
@@ -43,5 +49,6 @@ clean:
 
 fclean: clean
 	make -C libft fclean
+	rm -rf $(TEST_EXECS)
 
 .PHONY: all libft clean fclean
