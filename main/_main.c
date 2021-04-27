@@ -31,6 +31,7 @@ int process_line(char *line)
 	exe_ast(ast_cmdchain, 0, NULL);
 	// printf("\n");
 	destroy_ast(&ast_cmdchain);
+	printf("fin process_line\n");
 	return (1);
 }
 
@@ -72,6 +73,7 @@ int main()
 	i = 0;
 	while (1)
 	{
+		printf("la\n");
 		c = 0;
 		ret = read(tty_fd, &c, sizeof(int));
 		if (ret == -1)
@@ -97,6 +99,7 @@ int main()
 		{
 			if (c == '\n')
 			{
+			printf("avant process line\n");
 				ft_putchar_fd('\n', tty_fd);
 				process_line(line);
 				line = NULL;

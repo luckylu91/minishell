@@ -132,24 +132,26 @@ int		is_builtin(char *c)
 {
 	if (ft_strcmp(c, "echo") == 0)
 		return (1);
-	if (ft_strcmp(c, "cd") == 0)
-		return (1);
 	if (ft_strcmp(c, "pwd") == 0)
-		return (1);
-	if (ft_strcmp(c, "export") == 0)
-		return (1);
-	if (ft_strcmp(c, "unset") == 0)
 		return (1);
 	if (ft_strcmp(c, "env") == 0)
 		return (1);
-	if (ft_strcmp(c, "exit") == 0)
-		return (1);
 	return (0);
 }
-
+int		is_builtin_nopipe(char *c)
+{
+	if (ft_strcmp(c, "cd") == 0)
+		return (1);
+	if (ft_strcmp(c, "unset") == 0)
+		return (1);
+	if (ft_strcmp(c, "export") == 0)
+		return (1);
+	if (ft_strcmp(c, "exit") == 0)
+		return (1);
+}
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 {
-	//printf("start exe_cmd\n");
+	printf("start exe_cmd\n");
 	char **all_path;
 	both_fd fd;
 	char **all_var;
@@ -178,6 +180,14 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	{
 		printf("commande introuvable\n");
 		return (-1);
+	}
+	if (is_builtin_nopipe(all_path[0]) && state != 0)
+	{	
+		return (-1);
+	}
+	else if (is_builtin_nopipe(all_path[0]))
+	{
+		cmd->extit_code = start_builtin_nopipe(all_path, environ);
 	}
 	if (fd.in != NULL)
 	{
@@ -241,11 +251,15 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		}
 		if (is_builtin(all_var[0]))
 		{
-				exit(start_builtin(all_var, environ));
+			
+			start_builtin(all_var, environ);
+			exit(10);
+			printf("apres exit builtin\n");
 		}
-			else
+		else
 			execve(path, all_var, environ);
 	}
+	printf("apres le fork\n");
 	if (state >0)
 	{
 		if (state != 1)
@@ -258,13 +272,14 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		close(fd.int_in);
 	if (fd.out != NULL)
 		close(fd.int_out);
-	//printf("avant wait\n");
+	printf("avant wait\n");
 	waitpid(child, &status, 0);
+	printf("apres wait\n");
 	if (WIFEXITED(status))
 		{
 			//printf("Child's exit code %d\n", WEXITSTATUS(status));
 			cmd->exit_code = WEXITSTATUS(status);
-			//printf("hein ? %d\n",cmd->exit_code); 
+			printf("hein ? %d\n",cmd->exit_code); 
 
 		}
 	else
