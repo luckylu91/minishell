@@ -23,6 +23,7 @@ int test_replace_line(char *line)
 	if (replace_env(ast_cmdchain) == -1)
 		return (-1);
 	print_ast(ast_cmdchain);
+	printf("\n");
 	exe_ast(ast_cmdchain, 0, NULL);
 	printf("exit code = %i\n",ast_cmdchain->exit_code);
 	printf("\n");
@@ -45,7 +46,8 @@ int main()
 //	test_replace_line(" echo patate > a > b > c <asdasd >d | ls");
 	
 //	test_replace_line(" cat Makefile | sort | grep #"); 
-	//test_replace_line(" ls |  grep M | grep Z | false");
+	//test_replace_line(" ls |  grep M | grep Z | true");
+	//test_replace_line(" ls |  grep M | grep Z ");
 	
 //	test_replace_line("false | true |false | true") ;
 	

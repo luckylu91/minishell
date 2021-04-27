@@ -100,39 +100,50 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	return (get_redir_fd(res, l->next));
 }
 
-void		start_builtin(char **c, char **environ)
+int		start_builtin(char **c, char **environ)
 {
-	if (ft_strcmp(c[0], "echo"))
-		echo(c);
-	if (ft_strcmp(c[0], "cd"))
-		cd(c);
-	if (ft_strcmp(c[0], "pwd"))
-		pwd(c);
-	if (ft_strcmp(c[0], "export"))
-		export(c, &environ);
-	if (ft_strcmp(c[0], "unset"))
+
+	if (ft_strcmp(c[0], "echo") == 0)
+		return echo(c);
+	else if (ft_strcmp(c[0], "cd") == 0)
+		return cd(c);
+	else if (ft_strcmp(c[0], "pwd") == 0)
+		return pwd(c);
+	else if (ft_strcmp(c[0], "export") == 0)
+		return export(c, &environ);
+	else if (ft_strcmp(c[0], "unset") == 0)
+	{
 		printf("pas encore fait unset\n");
-	if (ft_strcmp(c[0], "env"))
+		return (-1);
+	}
+	else if (ft_strcmp(c[0], "env") == 0)
+	{
 		printf("pas encore fait env\n");
-	if (ft_strcmp(c[0], "exit"))
+		return (-1);
+	}
+	else if (ft_strcmp(c[0], "exit") == 0)
+	{
 		printf("pas encore fait exit\n");
+		return (-1);
+	}
+	return (-1);
 }
 
 int		is_builtin(char *c)
 {
-	if (ft_strcmp(c, "echo"))
+	if (ft_strcmp(c, "echo") == 0)
 		return (1);
-	if (ft_strcmp(c, "cd"))
+	if (ft_strcmp(c, "cd") == 0)
 		return (1);
-	if (ft_strcmp(c, "pwd"))
+	if (ft_strcmp(c, "pwd") == 0)
 		return (1);
-	if (ft_strcmp(c, "export"))
+	if (ft_strcmp(c, "export") == 0)
 		return (1);
-	if (ft_strcmp(c, "unset"))
+	if (ft_strcmp(c, "unset") == 0)
 		return (1);
-	if (ft_strcmp(c, "env"))
+	if (ft_strcmp(c, "env") == 0)
 		return (1);
-	if (ft_strcmp(c, "exit"))
+	if (ft_strcmp(c, "exit") == 0)
 		return (1);
 	return (0);
 }
@@ -230,8 +241,11 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 			close(fd.int_out);
 		}
 		if (is_builtin(all_var[0]))
-			start_builtin(all_var, environ);
-		execve(path, all_var, environ);
+		{
+				exit(start_builtin(all_var, environ));
+		}
+			else
+			execve(path, all_var, environ);
 	}
 	if (state >0)
 	{
