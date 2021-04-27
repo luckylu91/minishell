@@ -110,7 +110,7 @@ void	handle_separator(t_var_toblock *var, char *line, t_list **final_l, t_list *
 		while (line[var->i] == ' ')
 			var->i = var->i + 1;
 		//if(line[var->i] != '\n' && line[var->i] != '\0')
-			ft_lstadd_back(final_l, ft_lstnew(new_block(" ", space)));
+		ft_lstadd_back(final_l, ft_lstnew(new_block(" ", space)));
 	}
 	else if (line[var->i] == ';')
 	{
@@ -170,35 +170,35 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 		//	printf(" else$\n");
 		if (*temp_l != NULL)
 			temp_to_final(final_l, temp_l, none);
-		
-		
+
+
 		while (ft_isalnum(line[var->i]) || line[var->i] =='_')
 		{	
 			ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
 			var->i = var->i + 1;
 		}
 		str = list_to_string(env_var);
-	//		printf("DANS $ str = %s\n",str);
+		//		printf("DANS $ str = %s\n",str);
 		//ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
 		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
 	}
 }
 
 /*void	env_integration(t_list **temp_l, t_list **final_l, char **env)
-{
-	int i;
-	int j;
+  {
+  int i;
+  int j;
 
-	i = i;
-	j = 0;
-	while (env[0][j])
-	{
-		ft_lstadd_back(temp_l, ft_lstnew(&env[0][j]));
-		j++;
-	}
-	
+  i = i;
+  j = 0;
+  while (env[0][j])
+  {
+  ft_lstadd_back(temp_l, ft_lstnew(&env[0][j]));
+  j++;
+  }
 
-}*/
+
+  }*/
 void	in_back_slash(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 {
 	var->i = var->i + 1;
@@ -238,7 +238,7 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 	env_var = NULL;
 	if (line[var->i] == '\\') 
 	{
-	//	printf(" \\ in $ in \" \n");
+		//	printf(" \\ in $ in \" \n");
 		ft_lstadd_back(temp_l, ft_lstnew("$"));	
 		var->i = var->i + 1;
 		in_back_slash_dquote(line, var, final_l, temp_l);
@@ -251,7 +251,7 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 	}
 	if (ft_isdigit(line[var->i]))
 	{
-	//	printf(" digit in $ in \" \n");
+		//	printf(" digit in $ in \" \n");
 		ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
 		str = list_to_string(env_var);	
 		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
@@ -335,9 +335,9 @@ int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 		if (ft_isdigit(line[i]))
 		{
 			while (ft_isdigit(line[i]))
-				{
-					i++;
-				}
+			{
+				i++;
+			}
 			if(line[i] == '>' || line[i] == '<')
 				return (1);
 		}
@@ -351,6 +351,7 @@ void	in_tild(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 	{
 		//printf("not tilt c=|%c| \n",line[var->i+1]);
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+
 	}
 	else
 	{
@@ -358,12 +359,11 @@ void	in_tild(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
 		temp_to_final(final_l, temp_l, spe);
 	}
-	var->i = var->i + 1;
 }
 void 	to_block(char *line, t_list **final_l)
 {
 	printf("####\n|%s|\n####\n",line);
-	
+
 	t_var_toblock var;
 	t_list	*temp_l;
 	temp_l = NULL;
@@ -372,13 +372,13 @@ void 	to_block(char *line, t_list **final_l)
 	var.spe = 0;
 	var.end_while = 1;
 	/*if (line == NULL || ft_all_in(line," "))
-	{
-		printf("c4est comme moi\n");
-		return;
-	}*/
+	  {
+	  printf("c4est comme moi\n");
+	  return;
+	  }*/
 	while (var.end_while) 
 	{
-		//printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
+		printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
 		if (is_separator(&line[var.i]))
 			handle_separator(&var, line, final_l, &temp_l);
 		else if (test_redir(line, &var, temp_l))
@@ -396,12 +396,12 @@ void 	to_block(char *line, t_list **final_l)
 			//	printf("ici nothing\n");
 			if (line[var.i] == '~')
 			{
-		//		printf("dans ~\n");
+				//		printf("dans ~\n");
 				in_tild(line, &var, final_l, &temp_l); 
 			}
+			else
 			ft_lstadd_back(&temp_l, ft_lstnew(&line[var.i]));
 			//	printf("la \n");
 			var.i++;
 		}		
-	}
-}
+	}	}

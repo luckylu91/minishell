@@ -124,7 +124,8 @@ int main(int ag, char *av[])
 //	printf("|%s| ici\n",b);
 //	}
 	//ft_test_tilt();
-	ft_test("\"$a\" \"$PATH\" -pas ~ > ~");
+	//ft_test("\"$a\" \"$PATH\" -pas ~ > ~");
+	ft_test("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~");
 	//ft_test_combo_quote();
 //	ft_test_redirection();
 //	ft_test_dollar();
