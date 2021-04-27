@@ -5,6 +5,8 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 {
 	int	new_pipe[2];
 
+	if (!l_ast)
+		return (1);
 	if (l_ast->type == command_expr)
 	{
 //		printf("wtf\n");

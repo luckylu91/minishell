@@ -102,15 +102,16 @@ int	get_redir_fd(both_fd *res, t_list *l)
 
 int		start_builtin(char **c, char **environ)
 {
-	if (ft_strcmp(c[0], "echo"))
+	if (ft_strcmp(c[0], "echo") == 0)
 		our_echo(c);
-	if (ft_strcmp(c[0], "cd"))
+	if (ft_strcmp(c[0], "cd") == 0)
 		our_cd(c);
-	if (ft_strcmp(c[0], "pwd"))
+	if (ft_strcmp(c[0], "pwd") == 0)
 		our_pwd(c);
-	if (ft_strcmp(c[0], "export"))
+	if (ft_strcmp(c[0], "export") == 0)
 		export(c, &environ);
-	if (ft_strcmp(c[0], "unset"))
+	else if (ft_strcmp(c[0], "unset") == 0)
+	{
 		printf("pas encore fait unset\n");
 		return (-1);
 	}

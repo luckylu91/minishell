@@ -37,6 +37,8 @@ int	remove_spaces_cmd(t_ast *cmd_ast)
 
 int	remove_spaces_cmdchain(t_ast *cmdchain_ast)
 {
+	if (!cmdchain_ast)
+		return (1);
 	if (cmdchain_ast->type == command_expr
 			&& remove_spaces_cmd(cmdchain_ast) == -1)
 		return (-1);
