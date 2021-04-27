@@ -32,11 +32,11 @@ int	init_termios(void)
 		errno = ENOTSUP;
 		return (-1);
 	}
-	if (atexit(terminal_done))
-	{
-		errno = ENOTSUP;
-		return (-1);
-	}
+	// if (atexit(terminal_done))
+	// {
+	// 	errno = ENOTSUP;
+	// 	return (-1);
+	// }
 	signal(SIGINT, terminal_signal);
 	signal(SIGQUIT, terminal_signal);
 	signal(SIGTERM, terminal_signal);

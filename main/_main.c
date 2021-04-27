@@ -2,6 +2,12 @@
 
 int g_exit_code = 0;
 
+int exit_properly(int ret)
+{
+	terminal_done();
+	exit (ret);
+}
+
 int process_line(char *line)
 {
 	t_list	*block_lst;
@@ -22,7 +28,7 @@ int process_line(char *line)
 	destroy_block_lst(&block_lst);
 
 	if (replace_env(ast_cmdchain) == -1)
-		return (-1);
+		exit_properly(-1);
 	// print_ast(ast_cmdchain);
 	// printf("\n");
 	if (remove_spaces_cmdchain(ast_cmdchain) == -1)
@@ -56,17 +62,17 @@ int main()
 	if (ret != 1)
 	{
 		ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
-		return (ret);
+		exit_properly(ret);
 	}
 	tc = init_termcaps_strings();
 	if (!tc)
-		return (-1);
+		exit_properly(-1);
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
 	tty_fd = open(ttyname(STDIN_FILENO), O_RDWR);
 	if (tty_fd < 0)
 	{
 		printf("Cannot open tty of STDIN (%s)\n", ttyname(STDIN_FILENO));
-		return (-1);
+		exit_properly(-1);
 	}
 	line = NULL;
 	i = 0;
@@ -75,13 +81,13 @@ int main()
 		c = 0;
 		ret = read(tty_fd, &c, sizeof(int));
 		if (ret == -1)
-			return (ret);
+			exit_properly(-1);
 		if (ft_isprint(c))
 		{
 			if (i % LINE_BUFFER == 0)
 				line = bigger_calloc_line(line, i, 80);
 			if (!line)
-				return (-1);
+				exit_properly(-1);
 			line[i] = c;
 			i++;
 			ft_putchar_fd((char)c, tty_fd);
@@ -97,8 +103,10 @@ int main()
 		{
 			if (c == '\n')
 			{
-				ft_putchar_fd('\n', tty_fd);
+				// ft_putendl_fd(line, tty_fd);
+				// ft_putchar_fd('\n', tty_fd);
 				process_line(line);
+				// ft_putendl_fd("exe fini\n", tty_fd);
 				line = NULL;
 				i = 0;
 			}
@@ -107,5 +115,5 @@ int main()
 			//print_escape_sequence((char*)&c, tty_fd);
 		}
 	}
-	return (0);
+	exit_properly(0);
 }
