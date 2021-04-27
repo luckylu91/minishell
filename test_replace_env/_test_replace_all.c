@@ -43,5 +43,5 @@ int main()
 	printf("\n");
 	printf("%s\n", our_getcwd());
 	char *envstr;
-	printf("ret = %d: %s\n", our_getenv(create_block(none, "PATH"), &envstr), envstr);
+	printf("ret = %d: %s\n", our_getenv(create_block(dollar_dquote, "PATH"), &envstr), envstr);
 }
