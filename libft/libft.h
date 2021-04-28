@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/19 12:08:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/27 18:35:30 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int					ft_atoi_overflows(const char *str);
 void				ft_strcat(char *s1, char *s2);
 char				*ft_strcat_and_move(char *str, char *addition);
 void				ft_splitclear(char **splitted, int i_start);
+int					ft_lstadd_front_content(t_list **alst, void *content);
 
 #endif
