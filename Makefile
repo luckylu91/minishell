@@ -20,6 +20,7 @@ SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c)
 SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c remove_spaces.c remove_spaces_cmdchain.c our_getenv.c our_getcwd.c)
 SRCS += $(addprefix error/, error_message.c ambiguous_redirect_error.c)
 SRCS += $(addprefix to_block/, to_block_main.c)
+SRCS += $(addprefix hist/, add_hist_line.c create_hist.c destroy_hist.c file_utils.c get_hist_line.c hist.h move_hist.c parse_file.c read_truncate_histfile.c rewind_hist.c write_histfile.c)
 OBJS = $(SRCS:%.c=%.o)
 LIBFT = libft/libft.a
 

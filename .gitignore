@@ -5,3 +5,4 @@ testalacon.c
 .vscode
 .DS_Store
 *.dSYM
+protos.py

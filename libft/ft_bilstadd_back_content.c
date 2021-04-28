@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststep.c                                       :+:      :+:    :+:   */
+/*   ft_bilstadd_back_content.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 14:27:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/28 17:08:05 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/28 17:09:55 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lststep(t_list *lst, int n_steps)
+int	ft_bilstadd_back_content(t_bilist **alst, void *content)
 {
-	while (lst)
-	{
-		if (n_steps == 0)
-			return (lst);
-		lst = lst->next;
-		n_steps--;
-	}
-	return (NULL);
+	t_bilist *new_elem;
+
+	if (!alst)
+		return (0);
+	new_elem = ft_bilstnew(content);
+	if (!new_elem)
+		return (0);
+	ft_bilstadd_back(alst, new_elem);
+	return (1);
 }

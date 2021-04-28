@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 18:35:30 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/28 18:38:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct	s_bilist
+{
+	void			*content;
+	struct s_bilist	*prev;
+	struct s_bilist	*next;
+}	t_bilist;
 
 int					ft_all_in(char *str, char *set);
 void				**ft_array(size_t size1, size_t size2, size_t type_size);
@@ -86,7 +93,7 @@ t_list				*ft_lstcat(t_list *lst1, t_list *lst2);
 int					ft_lstany(t_list *lst, int (*booleval)(void *content));
 int					ft_lstany2(t_list *lst, void *ref,
 								int (*booleval)(void *cont, void *ref));
-t_list				*ft_lststep(t_list *lst, size_t n_steps);
+t_list				*ft_lststep(t_list *lst, int n_steps);
 t_list				*ft_lstskip(t_list *lst, int (*skip)(void *content));
 int					ft_lstadd_back_content(t_list **alst, void *content);
 int					ft_any(void *array, size_t len, size_t size,
@@ -104,5 +111,17 @@ void				ft_strcat(char *s1, char *s2);
 char				*ft_strcat_and_move(char *str, char *addition);
 void				ft_splitclear(char **splitted, int i_start);
 int					ft_lstadd_front_content(t_list **alst, void *content);
+void				ft_bilstadd_back(t_bilist **alst, t_bilist *new);
+int					ft_bilstadd_back_content(t_bilist **alst, void *content);
+void				ft_bilstadd_front(t_bilist **alst, t_bilist *new);
+int					ft_bilstadd_front_content(t_bilist **alst, void *content);
+void				ft_bilstclear(t_bilist **blst, void (*del)(void*));
+void				ft_bilstdelone(t_bilist *blst, void (*del)(void*));
+t_bilist			*ft_bilstlast(t_bilist *blst);
+t_bilist			*ft_bilstfirst(t_bilist *blst);
+t_bilist			*ft_bilstnew(void *content);
+t_bilist			*ft_bilststep(t_bilist *blst, int n_steps);
+t_bilist			*ft_bilststep_blocking(t_bilist *blst, int n_steps);
+int					ft_bilstsize(t_bilist *blst);
 
 #endif

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststep.c                                       :+:      :+:    :+:   */
+/*   ft_bilstclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 14:27:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/28 17:21:45 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/28 18:23:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lststep(t_list *lst, int n_steps)
+void	ft_bilstclear(t_bilist **blst, void (*del)(void*))
 {
-	while (lst)
+	t_bilist	*blst_mov1;
+	t_bilist	*blst_mov2;
+
+	if (blst == NULL)
+		return ;
+	blst_mov1 = *blst;
+	while (blst_mov1 != NULL)
 	{
-		if (n_steps == 0)
-			return (lst);
-		lst = lst->next;
-		n_steps--;
+		blst_mov2 = blst_mov1->next;
+		ft_bilstdelone(blst_mov1, del);
+		blst_mov1 = blst_mov2;
 	}
-	return (NULL);
+	*blst = NULL;
 }
