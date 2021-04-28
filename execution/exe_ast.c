@@ -5,12 +5,12 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 {
 	int	new_pipe[2];
 
-	printf("debut exe_ast\n");
+//	printf("debut exe_ast\n");
 	if (!l_ast)
 		return (1);
 	if (l_ast->type == command_expr)
 	{
-		printf("wtf\n");
+//		printf("wtf\n");
 		if (i == 0)
 			exe_cmd(l_ast, NULL, 0,NULL);
 		else
@@ -35,7 +35,7 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 		}
 	}
-	printf("fin exe_ast\n");
+//	printf("fin exe_ast\n");
 	return (1);
 }
 
@@ -45,6 +45,6 @@ int exe_all(t_list *l_ast)
 		return (1);
 	exe_ast(((t_ast*)(l_ast->content)), 0, NULL);
 	exe_all(l_ast->next);
-	printf("fin exe_all\n");
+//	printf("fin exe_all\n");
 	return (1);	
 }

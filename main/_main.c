@@ -18,7 +18,7 @@ int process_line(char *line)
 	// printf("Line : '%s'\n", line);
 
 	to_block(line, &block_lst);
-	// print_block_list(block_lst);
+	 print_block_list(block_lst);
 	// printf("\n####\n");
 
 	block_lst_mov = block_lst;
@@ -26,6 +26,7 @@ int process_line(char *line)
 	// print_ast(ast_cmdchain);
 	// printf("\n####\n");
 	destroy_block_lst(&block_lst);
+	 print_block_list(block_lst_mov);
 
 	if (replace_env(ast_cmdchain) == -1)
 		exit_properly(-1);
@@ -37,7 +38,7 @@ int process_line(char *line)
 	exe_ast(ast_cmdchain, 0, NULL);
 	// printf("\n");
 	destroy_ast(&ast_cmdchain);
-	printf("fin process_line\n");
+//	printf("fin process_line\n");
 	return (1);
 }
 
@@ -79,7 +80,7 @@ int main()
 	i = 0;
 	while (1)
 	{
-		printf("la\n");
+//		printf("la\n");
 		c = 0;
 		ret = read(tty_fd, &c, sizeof(int));
 		if (ret == -1)
@@ -105,7 +106,7 @@ int main()
 		{
 			if (c == '\n')
 			{
-			printf("avant process line\n");
+//			printf("avant process line\n");
 				ft_putchar_fd('\n', tty_fd);
 				process_line(line);
 				// ft_putendl_fd("exe fini\n", tty_fd);
