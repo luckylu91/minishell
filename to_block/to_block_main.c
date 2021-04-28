@@ -362,7 +362,7 @@ void	in_tild(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
 }
 void 	to_block(char *line, t_list **final_l)
 {
-	printf("####\n|%s|\n####\n",line);
+	//printf("####\n|%s|\n####\n",line);
 
 	t_var_toblock var;
 	t_list	*temp_l;
@@ -373,12 +373,12 @@ void 	to_block(char *line, t_list **final_l)
 	var.end_while = 1;
 	if (line == NULL || ft_all_in(line," "))
 	  {
-	  printf("c4est comme moi\n");
+	  //printf("c4est comme moi\n");
 	  return;
 	  }
 	while (var.end_while) 
 	{
-		printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
+		//printf("i = %i c = |%c|  end = %i\n",var.i,line[var.i], var.end_while);
 		if (is_separator(&line[var.i]))
 			handle_separator(&var, line, final_l, &temp_l);
 		else if (test_redir(line, &var, temp_l))
