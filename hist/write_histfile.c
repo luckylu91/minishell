@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:22:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 19:31:53 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 09:29:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ int	write_histfile(t_hist *h)
 		return (-1);
 	write_lines(h, fd);
 	close_error(h->histfile_name, fd);
+	return (1);
 }

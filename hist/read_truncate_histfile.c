@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 19:24:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 09:29:11 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	dup_n_str(t_bilist **dest, t_bilist *src, int n)
 		if (!ft_bilstadd_front_content(dest, new_content))
 		{
 			free(new_content);
-			ft_bilstclear(*dest, free);
+			ft_bilstclear(dest, free);
 			return (-1);
 		}
 		src = src->prev;

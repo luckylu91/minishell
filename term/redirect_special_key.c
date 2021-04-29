@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 11:52:50 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 15:58:52 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,30 @@ void	print_escape_sequence(char *str, int fd)
 	}
 }
 
-void	redirect_special(char* str, int fd)
+void	redirect_special(char* str, int fd, t_hist *h, char **tc, char **line, int *i)
 {
-	if (str[0] == '\x1b' && str[1] == '[')
+	char	*histline;
+
+	histline = NULL;
+	if (ft_strncmp(str, "\x1b[", 2) == 0 && (str[2] == 'A' || str[2] == 'B'))
 	{
+		tputs(tc[CLEAR_CAP], fd, ft_putchar);
+		printf("Key pressed\n");
 		if (str[2] == 'A')
-			ft_putstr_fd("UP", fd);
-		if (str[2] == 'B')
-			ft_putstr_fd("DOWN", fd);
-		if (str[2] == 'C')
-			ft_putstr_fd("RIGHT", fd);
-		if (str[2] == 'D')
-			ft_putstr_fd("LEFT", fd);
+			move_hist(h, 1);
+		else
+			move_hist(h, -1);
+		histline = get_hist_line(h);
+		if (histline)
+			ft_putstr_fd(histline, fd);
+		free(*line);
+		line = NULL;
+		*i = 0;
+		if (histline && histline[0])
+		{
+			*i = ft_strlen(histline);
+			*line = ft_calloc(((*i - 1) / LINE_BUFFER + 1) * LINE_BUFFER, sizeof(char));
+			ft_memcpy(*line, histline, *i);
+		}
 	}
 }

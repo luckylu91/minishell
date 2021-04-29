@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 13:29:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/02/19 15:53:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 10:02:36 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_lstcpy(t_list *src, t_list **adest, size_t content_size)
 	if (!src)
 		return (1);
 	*adest = NULL;
-	new_content = NULL;
-	if (!(new_content = malloc(content_size))
+	new_content = malloc(content_size);
+	if (!new_content
 			|| !(*adest = ft_lstnew(new_content))
 			|| !ft_lstcpy(src->next, &(*adest)->next, content_size))
 	{

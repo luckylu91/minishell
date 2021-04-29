@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:38:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 19:21:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 09:28:31 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "libft.h"
 
 typedef struct	s_file
 {

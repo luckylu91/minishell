@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:09:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 18:50:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 14:58:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ t_hist	*create_hist(char *histfile_name)
 	// setenv HISTFILE ?
 	h->hist_size = get_env_number("HISTSIZE");
 	h->histfile_size = get_env_number("HISTFILESIZE");
-	h->lines = NULL;
-	h->file_lines = NULL;
 	h->histfile_name = ft_strdup(histfile_name);
+	h->position_state = BOTTOM;
 	if (!h->histfile_name || read_truncate_histfile(h) == -1)
 	{
 		destroy_hist(h);

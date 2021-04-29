@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:33:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 19:00:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 09:31:09 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ int	parse_file(char *fname, t_bilist **lines, int limit)
 	int	ret;
 
 	*lines = NULL;
-	fd = open_error(fname, O_RDONLY);
+	fd = open(fname, O_RDONLY);
 	if (fd == -1 && errno == ENOENT)
 		return (1);
 	else if (fd == -1)
+	{
+		ft_putstr_fd("Cannot open file ", STDERR_FILENO);
+		ft_putendl_fd(fname, STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
 		return (-1);
+	}
 	ret = parse_file_fd(fd, lines, limit);
 	if (close_error(fname, fd) == -1)
 		return (-1);

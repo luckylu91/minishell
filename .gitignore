@@ -6,3 +6,5 @@ testalacon.c
 .DS_Store
 *.dSYM
 protos.py
+libft/test_debug_leaks.h
+libft/test_wrap_malloc.c
