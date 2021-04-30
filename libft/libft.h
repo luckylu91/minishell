@@ -6,7 +6,7 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:48:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 23:32:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,11 @@ int					ft_bilstsize(t_bilist *blst);
 
 t_exit_fun			ft_get_set_exit_fun(t_exit_fun fun);
 void				*ft_get_set_context(void *new_context);
+t_list				**ft_get_malloc_list(void);
 void				ft_malloc_list_clear(void);
 void				ft_before_exit(void);
 void				*wrap_malloc(size_t size);
+void				wrap_free(void *addr);
 
 
 #endif

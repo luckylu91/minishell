@@ -1,3 +1,4 @@
+CC = clang
 SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM)")
 SUBDIRS = $(filter-out ./test_%, $(SUBDIRS_ALL))
 SUBDIRS_TEST = $(filter ./test_%, $(SUBDIRS_ALL))
@@ -35,15 +36,15 @@ libft:
 	make -C libft bonus
 
 %.o:	%.c
-	gcc -c $< -o $@ $(IFLAGS)
+	$(CC) -c $< -o $@ $(IFLAGS)
 
 .SECONDARY:	$(OBJS)
 
 _%:	_%.c $(OBJS) $(LIBFT)
-	gcc $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS)
+	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS)
 
 _%_db:	_%.c $(OBJS) $(LIBFT)
-	gcc $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
+	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
 
 clean:
 	make -C libft clean
