@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   terminal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 15:57:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 16:21:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
+#include "libft.h"
+#include "hist.h"
 #include <unistd.h>
 #include <termios.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "libft.h"
 #include <fcntl.h> // open
 #include <curses.h>
-#include "hist.h"
 #include <term.h>
 #include <string.h>
 

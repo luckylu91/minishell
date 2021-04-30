@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hist.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:07:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 15:53:52 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 15:56:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
-//
-#include "test_debug_leaks.h"
 
 typedef enum	e_hist_state {
 	BOTTOM,

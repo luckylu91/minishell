@@ -72,7 +72,7 @@ int main()
 	tc = init_termcaps_strings();
 	if (!tc)
 		exit_properly(-1, h);
-	
+
 	h = create_hist(".histfile");
 
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
