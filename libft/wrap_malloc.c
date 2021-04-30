@@ -6,13 +6,11 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 18:57:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:52:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-typedef void (*t_exit_fun)(void *);
 
 t_list	**ft_get_malloc_list(void)
 {
@@ -56,7 +54,6 @@ void	ft_malloc_list_clear(void)
 void	ft_before_exit(void)
 {
 	t_exit_fun	exit_fun;
-	void		*context;
 
 	ft_malloc_list_clear();
 	exit_fun = ft_get_set_exit_fun(NULL);

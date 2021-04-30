@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:16:45 by lzins             #+#    #+#             */
-/*   Updated: 2021/02/17 15:00:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char				**ft_split(char const *s, char *delim)
 		return (NULL);
 	s = skip(s, delim, 1, NULL);
 	pass(s, delim, NULL, &n_fields);
-	s_array = malloc((n_fields + 1) * sizeof(char*));
+	s_array = wrap_malloc((n_fields + 1) * sizeof(char*));
 	if (s_array == NULL)
 		return (NULL);
 	if (pass(s, delim, s_array, NULL) == -1)

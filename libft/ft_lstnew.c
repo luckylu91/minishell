@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 15:09:18 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 10:02:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*l;
 
-	l = malloc(sizeof(t_list));
+	l = wrap_malloc(sizeof(t_list));
 	if (!l)
 		return (NULL);
 	l->content = content;

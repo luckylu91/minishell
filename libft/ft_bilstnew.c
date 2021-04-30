@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bilstnew.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:01:39 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:03:47 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bilist	*ft_bilstnew(void *content)
 {
 	t_bilist *new_elem;
 
-	new_elem = malloc(sizeof(t_bilist));
+	new_elem = wrap_malloc(sizeof(t_bilist));
 	if (!new_elem)
 		return (NULL);
 	new_elem->content = content;

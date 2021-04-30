@@ -90,6 +90,8 @@ BONUS = ft_lstadd_front.c \
 		ft_bilststep_blocking.c \
 		ft_bilstfirst.c \
 		ft_bilstsize.c
+		
+SRCS +=	wrap_malloc.c
 
 OBJS = $(SRCS:.c=.o)
 
