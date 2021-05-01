@@ -6,7 +6,7 @@
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 16:21:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/01 11:00:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <term.h>
 #include <string.h>
 
-#define LINE_BUFFER 80
+#define LINE_BUFFER_SIZE 80
 
 typedef struct	s_term
 {
@@ -50,6 +50,13 @@ typedef enum	e_termcaps
 	NUMBER_OF_CAPS
 }				t_termcaps;
 
+typedef struct	s_linebuffer
+{
+	char	*buffer;
+	int		i;
+	int		size;
+}				t_linebuffer;
+
 void	terminal_done(void);
 void	terminal_signal(int signum);
 int	init_termios(void);
@@ -66,9 +73,12 @@ void	ft_putstr(char *s);
 void	clear_line(char **tc);
 void	move_to(char **tc, int i, int j);
 
-void	print_escape_sequence(char *str, int fd);
-void	redirect_special(char* str, int fd, t_hist *h, char **tc, char **line, int *i);
+int		is_up_down_arrow(int c);
+int		redirect_special(char* str, t_hist *h);
 
-void	*bigger_calloc_line(void *ptr, size_t size, size_t incr);
+void	*bigger_calloc(void *ptr, size_t size, size_t incr);
+void	linebuffer_add(t_linebuffer *lb, int c);
+void	linebuffer_delete(t_linebuffer *lb);
+void	linebuffer_clear(t_linebuffer *lb);
 
 #endif

@@ -15,7 +15,7 @@ SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
 			is_dollar.c is_rawtext.c is_tilde.c)
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
-SRCS += $(addprefix term/, bigger_calloc_line.c init_termcaps.c init_termios.c redirect_special_key.c termcaps_errors.c termcaps_utils.c)
+SRCS += $(addprefix term/, init_termcaps.c init_termios.c redirect_special_key.c termcaps_errors.c termcaps_utils.c bigger_calloc.c linebuffer.c)
 SRCS +=	$(addprefix execution/searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
 SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c)
 SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c remove_spaces.c remove_spaces_cmdchain.c our_getenv.c our_getcwd.c)

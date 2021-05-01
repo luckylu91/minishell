@@ -44,8 +44,8 @@ int main()
 			return (ret);
 		if (ft_isprint(c))
 		{
-			if (i % LINE_BUFFER == 0)
-				line = bigger_calloc_line(line, i, 80);
+			if (i % LINE_BUFFER_SIZE == 0)
+				line = bigger_calloc(line, i, 80);
 			if (!line)
 				return (-1);
 			line[i] = c;

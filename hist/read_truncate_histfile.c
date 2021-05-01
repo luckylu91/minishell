@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_truncate_histfile.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 09:29:11 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	read_truncate_histfile(t_hist *h)
 {
 	if (parse_file(h->histfile_name, &h->file_lines, h->histfile_size) == -1)
 		return (-1);
-	if (dup_n_str(&h->lines, h->file_lines, h->hist_size) == -1)
+	if (dup_n_str(&h->hlines, h->file_lines, h->hist_size) == -1)
 		return (-1);
 	return (1);
 }

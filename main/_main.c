@@ -6,7 +6,7 @@ int exit_properly(int ret, t_hist *h)
 {
 	terminal_done();
 	write_histfile(h);
-	exit (ret);
+	exit(ret);
 }
 
 int process_line(char *line, t_hist *h)
@@ -44,6 +44,20 @@ int process_line(char *line, t_hist *h)
 	return (1);
 }
 
+static char *current_line(t_linebuffer *lb, t_hist *h)
+{
+	char *histline;
+
+	histline = get_hist_line(h);
+	if (!lb->buffer && !histline)
+		return (ft_strdup(""));
+	if (!lb->buffer)
+		return (ft_strdup(histline));
+	if (!histline)
+		return (ft_strdup(lb->buffer));
+	return (ft_strjoin(histline, lb->buffer));
+}
+
 int main()
 {
 	int ret;
@@ -51,9 +65,10 @@ int main()
 	int	c;
 	int	tty_fd;
 	struct termios term_attr;
-	char *line;
-	int i;
 	t_hist *h;
+	t_linebuffer *lb;
+	char *line;
+	int len_screen;
 
 	ret = init_termios();
 	if (ret == -1)
@@ -74,6 +89,7 @@ int main()
 		exit_properly(-1, h);
 
 	h = create_hist(".histfile");
+	lb = ft_calloc(1, sizeof(t_linebuffer));
 
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
 	tty_fd = open(ttyname(STDIN_FILENO), O_RDWR);
@@ -82,8 +98,6 @@ int main()
 		printf("Cannot open tty of STDIN (%s)\n", ttyname(STDIN_FILENO));
 		exit_properly(-1, h);
 	}
-	line = NULL;
-	i = 0;
 	while (1)
 	{
 //		printf("la\n");
@@ -93,20 +107,14 @@ int main()
 			exit_properly(-1, h);
 		if (ft_isprint(c))
 		{
-			if (i % LINE_BUFFER == 0)
-				line = bigger_calloc_line(line, i, 80);
-			if (!line)
-				exit_properly(-1, h);
-			line[i] = c;
-			i++;
+			linebuffer_add(lb, c);
 			ft_putchar_fd((char)c, tty_fd);
 		}
-		else if (c == '\x7f' && i > 0)
+		else if (c == '\x7f' && lb->i > 0)
 		{
 			tputs(tparm(tc[MOVE_LEFT], 1), 1, ft_putchar);
 			tputs(tc[DELETE_CHAR], 1, ft_putchar);
-			// tputs(tc[DELETE_CHAR], 1, ft_putchar);
-			line[--i] = '\0';
+			linebuffer_delete(lb);
 		}
 		else
 		{
@@ -114,13 +122,24 @@ int main()
 			{
 //			printf("avant process line\n");
 				ft_putchar_fd('\n', tty_fd);
-				process_line(line, h);
+				line = current_line(lb, h);
+				printf("process_line : %d\n", process_line(line, h));
 				// ft_putendl_fd("exe fini\n", tty_fd);
-				line = NULL;
-				i = 0;
+				linebuffer_clear(lb);
 			}
-			else
-				redirect_special((char*)&c, tty_fd, h, tc, &line, &i);
+			else if (is_up_down_arrow(c))
+			{
+				line = current_line(lb, h);
+				len_screen = line ? ft_strlen(line) : 0;
+				if (redirect_special((char*)&c, h))
+				{
+					tputs(tparm(tc[MOVE_LEFT], len_screen), 1, ft_putchar);
+					for (int k = 0; k < len_screen; k++)
+						tputs(tc[DELETE_CHAR], 1, ft_putchar);
+					line = current_line(lb, h);
+					ft_putstr_fd(line, tty_fd);
+				}
+			}
 			//print_escape_sequence((char*)&c, tty_fd);
 		}
 	}

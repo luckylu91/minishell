@@ -159,7 +159,7 @@ void process_line(char *line)
 // char *tparm(char *str, ...); (ex tputs(tparm(color_cap, COLOR), 1, putchar))
 // char *tgoto(const char *cap, int col, int row); (ex tputs(tgoto(cm_cap, 5, 5), 1, putchar))
 
-#define LINE_BUFFER 80
+#define LINE_BUFFER_SIZE 80
 
 int main()
 {
@@ -207,7 +207,7 @@ int main()
 			return (ret);
 		if (ft_isprint(c))
 		{
-			if (i % LINE_BUFFER == 0)
+			if (i % LINE_BUFFER_SIZE == 0)
 				line = bigger_calloc(line, i, 80);
 			if (!line)
 				return (-1);

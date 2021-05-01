@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_hist.c                                     :+:      :+:    :+:   */
+/*   bigger_calloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/28 12:39:42 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/23 17:22:01 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/01 10:36:59 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hist.h"
+#include "terminal.h"
 
-void	destroy_hist(t_hist *h)
+void	*bigger_calloc(void *ptr, size_t size, size_t incr)
 {
-	free(h->histfile_name);
-	ft_bilstclear(&h->file_lines, free);
-	ft_bilstclear(&h->hlines, free);
-	free(h);
+	void *ptr_new;
+
+	ptr_new = ft_calloc(1, size + incr);
+	if (!ptr)
+		return (ptr_new);
+	// if (ptr_new)
+	// {
+		ft_memcpy(ptr_new, ptr, size);
+		ft_bzero(ptr_new + size, incr);
+	// }
+	wrap_free(ptr);
+	return (ptr_new);
 }

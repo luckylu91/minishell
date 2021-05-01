@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_hist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:09:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 14:58:14 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ t_hist	*create_hist(char *histfile_name)
 		destroy_hist(h);
 		return (NULL);
 	}
-	h->len = ft_bilstsize(h->lines);
+	h->len = ft_bilstsize(h->hlines);
 	return (h);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_histfile.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:22:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 09:29:28 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	write_lines(t_hist *h, int fd)
 	t_bilist	*blst;
 
 	i = 0;
-	if (h->lines)
+	if (h->hlines)
 	{
 		rewind_hist(h);
-		blst = h->lines;
+		blst = h->hlines;
 		while (((h->histfile_size < 0) || i < h->histfile_size) && blst)
 		{
 			line = (char*)blst->content;

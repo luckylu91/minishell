@@ -3,53 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_special_key.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 15:58:52 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/01 11:29:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "terminal.h"
 
-void	print_escape_sequence(char *str, int fd)
+int		is_up_down_arrow(int c)
 {
-	unsigned i = 0;
+	char *c_chars;
 
-	while (i < 4 && str[i])
-	{
-		if (str[i] == '\x1b')
-			ft_putstr_fd("ESC", fd);
-		else
-			ft_putchar_fd(str[i], fd);
-		++i;
-	}
+	c_chars = (char*)&c;
+	return (ft_strncmp(c_chars, "\x1b[", 2) == 0
+			&& (c_chars[2] == 'A' || c_chars[2] == 'B' || ft_all_in(c_chars + 2, "ABCD")));
 }
 
-void	redirect_special(char* str, int fd, t_hist *h, char **tc, char **line, int *i)
+int	redirect_special(char* str, t_hist *h)
 {
-	char	*histline;
+	int		up_pressed;
 
-	histline = NULL;
-	if (ft_strncmp(str, "\x1b[", 2) == 0 && (str[2] == 'A' || str[2] == 'B'))
-	{
-		tputs(tc[CLEAR_CAP], fd, ft_putchar);
-		printf("Key pressed\n");
-		if (str[2] == 'A')
-			move_hist(h, 1);
-		else
-			move_hist(h, -1);
-		histline = get_hist_line(h);
-		if (histline)
-			ft_putstr_fd(histline, fd);
-		free(*line);
-		line = NULL;
-		*i = 0;
-		if (histline && histline[0])
-		{
-			*i = ft_strlen(histline);
-			*line = ft_calloc(((*i - 1) / LINE_BUFFER + 1) * LINE_BUFFER, sizeof(char));
-			ft_memcpy(*line, histline, *i);
-		}
-	}
+	up_pressed = (str[2] == 'A');
+	if ((h->position_state == BOTTOM && !up_pressed)
+			|| !h->hlines || !h->hlines->next)
+		return (0);
+	if (up_pressed)
+		move_hist(h, 1);
+	else
+		move_hist(h, -1);
+	printf("Current hist line : %s\n", get_hist_line(h));
+	return (1);
 }
