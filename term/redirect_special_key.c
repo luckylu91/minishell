@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_special_key.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 11:29:35 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 12:19:44 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	redirect_special(char* str, t_hist *h)
 
 	up_pressed = (str[2] == 'A');
 	if ((h->position_state == BOTTOM && !up_pressed)
-			|| !h->hlines || !h->hlines->next)
+			|| !h->hlines)
 		return (0);
 	if (up_pressed)
 		move_hist(h, 1);
