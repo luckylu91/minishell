@@ -15,6 +15,7 @@
 
 #include "libft.h"
 #include "searchdir.h"
+#include "minishell.h"
 #include "error.h"
 #include "to_block.h"
 #include <fcntl.h>
@@ -27,6 +28,8 @@
 
 int	export(char **argv, char ***our_env);
 int our_cd(char **argv);
+int	our_unset(char **argv, char ***our_env);
+int our_env(char **tab_env);
 int our_echo(char **argv);
 int our_pwd(char **argv);
 int	our_getenv(t_block *block, char **res_addr);
@@ -35,7 +38,8 @@ int	replace_unquoted(t_block *env_block, t_list **replacement);
 int	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);
 char	**split_path(void);
-int	exe_all(t_list *l_ast);
+int	exe_all(t_list *l_staticast);
+ int	copy_environ(char ***new_env_addr);
 int exe_ast(t_ast *l_ast, int i, int *pipe);
 void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);

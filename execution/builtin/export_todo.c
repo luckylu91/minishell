@@ -2,7 +2,7 @@
 
 extern char	**environ;
 
-static int	copy_environ(char ***new_env_addr)
+int	copy_environ(char ***new_env_addr)
 {
 	int		i;
 
@@ -25,11 +25,4 @@ static int	copy_environ(char ***new_env_addr)
 		}
 	}
 	return (1);
-}
-
-int main()
-{
-	char	**our_environ;
-
-	copy_environ(&our_environ);
 }

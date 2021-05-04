@@ -88,7 +88,7 @@ int	export(char **argv, char ***our_env)
 	int			ret;
 
 	ret = 0;
-	i = -1;
+	i = 0;
 	while (argv[++i])
 	{
 		if (export_one(argv[i], our_env) == -1)

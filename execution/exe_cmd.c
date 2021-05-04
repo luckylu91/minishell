@@ -1,8 +1,9 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-extern char **environ;
+//extern char **environ;
 
+extern t_global_var global_var;
 
 char	*get_char_from_block(t_list *l)
 {
@@ -82,7 +83,10 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	if (((t_ast*)l->content)->expr.redir.redir_op->str[0] =='>') 
 	{
 		//		printf("mais c'est pas possible\n");
-		fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR, 0666);
+		if (((t_ast*)l->content)->expr.redir.redir_op->str[1] =='>')
+			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR | O_APPEND, 0666);
+		else
+			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR, 0666);
 		if (is_last(l->next, '>'))
 		{
 			res->out = l->content;
@@ -100,25 +104,30 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	return (get_redir_fd(res, l->next));
 }
 
-int		start_builtin(char **c, char **environ)
+int		start_builtin(char **c)
 {
+//printf("start builtin |%s|\n",c[0]);
 	if (ft_strcmp(c[0], "echo") == 0)
-		our_echo(c);
+		return our_echo(c);
 	if (ft_strcmp(c[0], "cd") == 0)
-		our_cd(c);
+		 return our_cd(c);
 	if (ft_strcmp(c[0], "pwd") == 0)
-		our_pwd(c);
+		return our_pwd(c);
 	if (ft_strcmp(c[0], "export") == 0)
-		export(c, &environ);
-	else if (ft_strcmp(c[0], "unset") == 0)
 	{
-		printf("pas encore fait unset\n");
-		return (-1);
+//		printf("if export\n");
+		return export(c, &(global_var.env));
+	}
+		else if (ft_strcmp(c[0], "unset") == 0)
+	{
+		//printf("if unset\n");
+		//printf("adress = %p\n",&(global_var.env));
+		return (our_unset(c, &(global_var.env)));
 	}
 	else if (ft_strcmp(c[0], "env") == 0)
 	{
-		printf("pas encore fait env\n");
-		return (-1);
+//		printf("start env\n");
+		return (our_env(global_var.env));
 	}
 	else if (ft_strcmp(c[0], "exit") == 0)
 	{
@@ -140,6 +149,7 @@ int		is_builtin(char *c)
 }
 int		is_builtin_nopipe(char *c)
 {
+	//printf("in is bultnopipe |%s|\n",c);
 	if (ft_strcmp(c, "cd") == 0)
 		return (1);
 	if (ft_strcmp(c, "unset") == 0)
@@ -148,6 +158,8 @@ int		is_builtin_nopipe(char *c)
 		return (1);
 	if (ft_strcmp(c, "exit") == 0)
 		return (1);
+
+	//printf("in is bultnopipe end \n");
 	return (0);
 }
 
@@ -178,8 +190,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	}
 	//printf("manges tes morts\n");
 	path = search_cmd(all_path,all_var[0]); 
-	if (path == NULL && is_builtin(all_path[0]) == 0)
+	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
+		global_var.exit_code = 127;
 		printf("commande introuvable\n");
 		return (-1);
 	}
@@ -195,9 +208,10 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		}	
 		return (-1);
 	}
-	else if (is_builtin_nopipe(all_path[0]))
+	else if (is_builtin_nopipe(all_var[0]))
 	{
-		cmd->exit_code = start_builtin(all_path, environ);
+	
+		global_var.exit_code = start_builtin(all_var);
 		return (1);
 	}
 	if (fd.in != NULL)
@@ -215,6 +229,10 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	{
 
 		//	printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
+		
+	if (fd.out->expr.redir.redir_op->str[1] =='>') 
+		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_RDWR | O_APPEND, 0666);
+	else
 		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_RDWR, 0666);
 		if (fd.int_out == -1)
 		{
@@ -262,13 +280,11 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		}
 		if (is_builtin(all_var[0]))
 		{
-
-			exit(start_builtin(all_var, environ));
-	
+			exit(start_builtin(all_var));
 	//		printf("apres exit builtin\n");
 		}
 		else
-			execve(path, all_var, environ);
+			execve(path, all_var, global_var.env);
 	}
 	//printf("apres le fork\n");
 	if (state >0)
@@ -289,7 +305,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if (WIFEXITED(status))
 	{
 		//printf("Child's exit code %d\n", WEXITSTATUS(status));
-		cmd->exit_code = WEXITSTATUS(status);
+		global_var.exit_code = WEXITSTATUS(status);
 	//	printf("hein ? %d\n",cmd->exit_code); 
 
 	}

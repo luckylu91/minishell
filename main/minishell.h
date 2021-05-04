@@ -18,6 +18,10 @@
 #include "execution.h"
 #include "terminal.h"
 
-
+typedef struct s_global_var
+{
+	int exit_code;
+	char **env;
+}			t_global_var;
 
 #endif

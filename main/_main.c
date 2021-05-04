@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 int g_exit_code = 0;
-
+t_global_var global_var;
 int exit_properly(int ret)
 {
 	terminal_done();
@@ -18,15 +18,15 @@ int process_line(char *line)
 	// printf("Line : '%s'\n", line);
 
 	to_block(line, &block_lst);
-	 print_block_list(block_lst);
+//	 print_block_list(block_lst);
 	// printf("\n####\n");
 
 	block_lst_mov = block_lst;
 	parse_cmdchain(&ast_cmdchain, &block_lst_mov);
-	// print_ast(ast_cmdchain);
+// print_ast(ast_cmdchain);
 	// printf("\n####\n");
 	destroy_block_lst(&block_lst);
-	 print_block_list(block_lst_mov);
+//	 print_block_list(block_lst_mov);
 
 	if (replace_env(ast_cmdchain) == -1)
 		exit_properly(-1);
@@ -51,7 +51,9 @@ int main()
 	struct termios term_attr;
 	char *line;
 	int i;
-
+	char **env;
+	copy_environ(&env);
+	global_var.env = env;
 	ret = init_termios();
 	if (ret == -1)
 	{
