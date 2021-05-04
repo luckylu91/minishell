@@ -77,7 +77,21 @@ BONUS = ft_lstadd_front.c \
 		ft_lstdup_back.c \
 		ft_lstdupint_back.c \
 		ft_lststrjoin.c \
-		ft_lstadd_front_content.c
+		ft_lstadd_front_content.c \
+		ft_bilstadd_back.c \
+		ft_bilstadd_back_content.c \
+		ft_bilstadd_front.c \
+		ft_bilstadd_front_content.c \
+		ft_bilstclear.c \
+		ft_bilstdelone.c \
+		ft_bilstlast.c \
+		ft_bilstnew.c \
+		ft_bilststep.c \
+		ft_bilststep_blocking.c \
+		ft_bilstfirst.c \
+		ft_bilstsize.c
+
+SRCS +=	wrap_malloc.c wrap_free.c
 
 OBJS = $(SRCS:.c=.o)
 

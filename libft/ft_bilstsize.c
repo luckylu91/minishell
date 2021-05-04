@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststep.c                                       :+:      :+:    :+:   */
+/*   ft_bilstsize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 14:27:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/28 18:33:13 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/29 09:28:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lststep(t_list *lst, int n_steps)
+int		ft_bilstsize(t_bilist *blst)
 {
-	while (lst)
+	int	i;
+
+	blst = ft_bilstfirst(blst);
+	i = 0;
+	while (blst != NULL)
 	{
-		if (n_steps == 0)
-			return (lst);
-		lst = lst->next;
-		n_steps--;
+		blst = blst->next;
+		i++;
 	}
-	return (NULL);
+	return (i);
 }
+

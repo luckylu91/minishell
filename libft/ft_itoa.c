@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 10:17:12 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 16:49:07 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		*ft_itoa(int n)
 
 	sgn = (n < 0) ? -1 : 1;
 	compute_digits(n, sgn, &size, digits);
-	res = malloc((size + 1 + (sgn == -1)) * sizeof(char));
+	res = wrap_malloc((size + 1 + (sgn == -1)) * sizeof(char));
 	if (res == NULL)
 		return (NULL);
 	res_mov = res;

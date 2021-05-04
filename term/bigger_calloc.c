@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   bigger_calloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 10:28:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/23 17:22:01 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/01 10:36:59 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "terminal.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+void	*bigger_calloc(void *ptr, size_t size, size_t incr)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*s12;
+	void *ptr_new;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	s12 = wrap_malloc(s1_len + s2_len + 1);
-	if (s12 == NULL)
-		return (NULL);
-	s12[s1_len + s2_len] = '\0';
-	ft_memcpy(s12, s1, s1_len);
-	ft_memcpy(s12 + s1_len, s2, s2_len);
-	return (s12);
+	ptr_new = ft_calloc(1, size + incr);
+	if (!ptr)
+		return (ptr_new);
+	// if (ptr_new)
+	// {
+		ft_memcpy(ptr_new, ptr, size);
+		ft_bzero(ptr_new + size, incr);
+	// }
+	wrap_free(ptr);
+	return (ptr_new);
 }

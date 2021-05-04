@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststep.c                                       :+:      :+:    :+:   */
+/*   rewind_hist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 14:27:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/28 19:02:31 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "hist.h"
 
-t_list	*ft_lststep(t_list *lst, int n_steps)
+void	rewind_hist(t_hist *h)
 {
-	while (lst)
-	{
-		if (n_steps == 0)
-			return (lst);
-		lst = lst->next;
-		n_steps--;
-	}
-	return (NULL);
+	h->hlines = ft_bilstfirst(h->hlines);
 }

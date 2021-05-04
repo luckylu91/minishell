@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststep.c                                       :+:      :+:    :+:   */
+/*   init_mini_context.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 14:27:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/29 15:08:44 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/29 15:12:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_list	*ft_lststep(t_list *lst, int n_steps)
+static t_mini_context *free_error(t_mini_context *mc)
 {
-	while (lst)
-	{
-		if (n_steps == 0)
-			return (lst);
-		lst = lst->next;
-		n_steps--;
-	}
+	destroy_hist(mc->h);
+	free(mc);
 	return (NULL);
+}
+
+t_mini_context	*init_mini_context()
+{
+	t_mini_context *mc;
+
+	mc = ft_calloc(1, sizeof(t_mini_context));
+	if (!mc)
+		return (NULL);
+	mc->h = create_hist(".hist_file");
+	if (!mc->h)
+		return (free_error(mc));
 }

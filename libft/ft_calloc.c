@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 09:43:51 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 14:57:33 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*m;
 
 	total_size = count * size;
-	m = malloc(total_size);
+	m = wrap_malloc(total_size);
 	if (m == NULL)
 		return (NULL);
 	ft_bzero(m, total_size);

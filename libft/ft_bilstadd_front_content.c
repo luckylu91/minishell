@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bigger_calloc_line.c                               :+:      :+:    :+:   */
+/*   ft_bilstadd_front_content.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/23 17:22:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 11:44:08 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/04/28 17:12:15 by lzins             #+#    #+#             */
+/*   Updated: 2021/04/28 18:05:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "terminal.h"
+#include "libft.h"
 
-void	*bigger_calloc_line(void *ptr, size_t size, size_t incr)
+int	ft_bilstadd_front_content(t_bilist **alst, void *content)
 {
-	void *ptr_new;
+	t_bilist *new_elem;
 
-	if (!ptr)
-		return (ft_calloc(1, size + incr));
-	ptr_new = malloc(size + incr);
-	if (ptr_new)
-	{
-		ft_memcpy(ptr_new, ptr, size);
-		ft_bzero(ptr_new + size, incr);
-	}
-	free(ptr);
-	return (ptr_new);
+	if (!alst)
+		return (0);
+	new_elem = ft_bilstnew(content);
+	if (!new_elem)
+		return (0);
+	ft_bilstadd_front(alst, new_elem);
+	return (1);
 }

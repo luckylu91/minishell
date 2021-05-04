@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:48:14 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/26 09:06:36 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/04/29 10:08:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int		copy_buffer(t_file *file, char **line)
 		line_len = ft_strlen(*line);
 	else
 		line_len = 0;
-	if ((line_augmented = malloc(line_len + BUFFER_SIZE + 1)) == NULL)
+	line_augmented = malloc(line_len + BUFFER_SIZE + 1);
+	if (!line_augmented)
 		return (-1);
 	ft_bzero(line_augmented, line_len + BUFFER_SIZE + 1);
 	strccpy(line_augmented, *line, '\0', line_len);
