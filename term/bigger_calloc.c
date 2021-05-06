@@ -24,6 +24,6 @@ void	*bigger_calloc(void *ptr, size_t size, size_t incr)
 		ft_memcpy(ptr_new, ptr, size);
 		ft_bzero(ptr_new + size, incr);
 	// }
-	wrap_free(ptr);
+	// wrap_free(ptr);
 	return (ptr_new);
 }

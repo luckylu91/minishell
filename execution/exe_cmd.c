@@ -173,12 +173,13 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	char* path;
 	pid_t child;
 
+	printf("before fom list to str\n");
 	all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
 	fd.in = NULL;
 	fd.out = NULL;
 	fd.int_in = -1;
 	fd.int_out = -1;
-	//printf("mange mes couilles \n");
+	printf("mange mes couilles \n");
 	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
 		return (-1);
 	all_path = split_path();

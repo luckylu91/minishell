@@ -14,8 +14,11 @@
 
 void	linebuffer_add(t_linebuffer *lb, int c)
 {
-	if (lb->i == lb->size)
+	if (lb->i >= lb->size - 1)
+	{
 		lb->buffer = bigger_calloc(lb->buffer, lb->size, LINE_BUFFER_SIZE);
+		lb->size += LINE_BUFFER_SIZE;
+	}
 	// if (!line)
 	// 	exit_properly(-1, h);
 	lb->buffer[lb->i] = (char)c;

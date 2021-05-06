@@ -2,46 +2,12 @@
 
 int g_exit_code = 0;
 
+t_global_var global_var;
 int exit_properly(int ret, t_hist *h)
 {
 	terminal_done();
 	write_histfile(h);
 	exit(ret);
-}
-
-int process_line(char *line, t_hist *h)
-{
-	t_list	*block_lst;
-	t_list	*block_lst_mov;
-	t_ast	*ast_cmdchain;
-	int		ret;
-
-	// printf("Line : '%s'\n", line);
-	if (line && line[0] && add_hist_line(h, line) == -1)
-		return (-1);
-	to_block(line, &block_lst);
-	//  print_block_list(block_lst);
-	// printf("\n####\n");
-
-	block_lst_mov = block_lst;
-	parse_cmdchain(&ast_cmdchain, &block_lst_mov);
-// print_ast(ast_cmdchain);
-	// printf("\n####\n");
-	destroy_block_lst(&block_lst);
-	//  print_block_list(block_lst_mov);
-
-	if (replace_env(ast_cmdchain) == -1)
-		exit_properly(-1, h);
-	// print_ast(ast_cmdchain);
-	// printf("\n");
-	if (remove_spaces_cmdchain(ast_cmdchain) == -1)
-		return (-1);
-	// print_ast(ast_cmdchain);
-	exe_ast(ast_cmdchain, 0, NULL);
-	// printf("\n");
-	destroy_ast(&ast_cmdchain);
-//	printf("fin process_line\n");
-	return (1);
 }
 
 static char *current_line(t_linebuffer *lb, t_hist *h)
@@ -70,6 +36,7 @@ int main()
 	char *line;
 	int len_screen;
 
+	copy_environ(&global_var.env);
 	ret = init_termios();
 	if (ret == -1)
 	{
@@ -100,7 +67,7 @@ int main()
 	}
 	while (1)
 	{
-//		printf("la\n");
+		//		printf("la\n");
 		c = 0;
 		ret = read(tty_fd, &c, sizeof(int));
 		if (ret == -1)
@@ -120,9 +87,12 @@ int main()
 		{
 			if (c == '\n')
 			{
-//			printf("avant process line\n");
+				printf("avant putchard fd\n");
 				ft_putchar_fd('\n', tty_fd);
+
+				printf("avant current line\n");
 				line = current_line(lb, h);
+				printf("avant process line\n");
 				printf("process_line : %d\n", process_line(line, h));
 				// ft_putendl_fd("exe fini\n", tty_fd);
 				linebuffer_clear(lb);

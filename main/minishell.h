@@ -19,6 +19,8 @@
 #include "terminal.h"
 #include "hist.h"
 
+
+int process_line(char *line, t_hist *h);
 typedef struct s_global_var
 {
 	int exit_code;
