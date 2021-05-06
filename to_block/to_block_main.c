@@ -162,7 +162,11 @@ void	ft_dollar(t_var_toblock *var, char *line, t_list **temp_l, t_list **final_l
 	{
 		ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
 		str = list_to_string(env_var);	
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
+		if (line[var->i] == '?')
+			ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		else
+			ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
+		var->i = var->i + 1;
 	}
 	else
 	{
@@ -249,13 +253,23 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var, t_list **final_l, t_list *
 		ft_lstadd_back(temp_l, ft_lstnew("$"));	
 		return ;
 	}
-	if (ft_isdigit(line[var->i]))
+	if (ft_isdigit(line[var->i]) || line[var->i] == '?')
+	{
+		ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
+		str = list_to_string(env_var);	
+		if (line[var->i] == '?')
+			ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		else
+			ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
+		var->i = var->i + 1;
+	}
+/*	if (ft_isdigit(line[var->i]))
 	{
 		//	printf(" digit in $ in \" \n");
 		ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
 		str = list_to_string(env_var);	
 		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
-	}
+	}*/
 	else
 	{
 		if (*temp_l != NULL)

@@ -1,8 +1,5 @@
 #include "execution.h"
 
-
-extern t_global_var global_var;
-
 int find_var(char *arg, char **env)
 {
 	int i;
@@ -34,7 +31,7 @@ int find_var(char *arg, char **env)
 	}
 
 	//printf("fim find var\n");
-	return (0);
+	return (-1);
 }
 
 char	**env_new_alloc(char **arg, char **env, int old)
@@ -105,7 +102,7 @@ int		our_unset(char **arg, char ***env)
 		else 
 		{
 			if (j > 0)
-				global_var.env = env_new_alloc(arg, global_var.env, j);
+				g_global_var.env = env_new_alloc(arg, global_var.env, j);
 		}
 		i++;
 	}
