@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 17:53:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 18:05:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 14:12:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ char	*our_getcwd(void)
 	while (!res)
 	{
 		buf = ft_calloc(size, sizeof(char));
-		if (!buf)
-			return (NULL);
 		res = getcwd(buf, size - 1);
 		if (res || errno != ERANGE)
 			break ;
