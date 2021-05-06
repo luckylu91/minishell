@@ -28,6 +28,7 @@
 
 int	export(char **argv, char ***our_env);
 int our_cd(char **argv);
+int find_var(char *arg, char **env);
 int	our_unset(char **argv, char ***our_env);
 int our_env(char **tab_env);
 int our_echo(char **argv);

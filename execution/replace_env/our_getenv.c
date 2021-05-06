@@ -19,13 +19,18 @@ extern t_minishell g_global_var;
 char *search(char *str)
 {
 	int i;
+	int j;
 
-	i = find_var(str);
+	j = 0;
+	i = find_var(str, g_global_var.env);
 	if (i < 0)
 		return (NULL);
 	else
-		return (g_global_var.env[i])
-		
+	{
+		while (g_global_var.env[i][j] != '=')
+			j++;
+		return (&g_global_var.env[i][j + 1]);
+	}	
 }
 
 int	our_getenv(t_block *block, char **res_addr)
