@@ -197,7 +197,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		printf("commande introuvable\n");
 		return (-1);
 	}
-	if (is_builtin_nopipe(all_path[0]) && state != 0)
+	if (is_builtin_nopipe(all_var[0]) && state != 0)
 	{	
 		if (state >0)
 		{
