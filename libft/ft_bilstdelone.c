@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:20:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 17:21:35 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:34:42 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_bilstdelone(t_bilist *blst, void (*del)(void*))
 {
 	(*del)(blst->content);
-	free(blst);
+	wrap_free(blst);
 }

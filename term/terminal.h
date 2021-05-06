@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   terminal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 11:00:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 11:17:00 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,30 @@ t_term	term;
 
 typedef enum	e_termcaps
 {
-	COLOR_CAP,
+	COLOR_CAP,			// 0
 	COLOR_BACK_CAP,
 	UNDERLINE_CAP,
 	BLINK_CAP,
 	MOVE_CAP,
-	CLEAR_CAP,
+	CLEAR_CAP,			// 5
 	MODIF_ERASE_CAP,
 	MOVE_LEFT,
-	DELETE_CHAR,
-	NUMBER_OF_CAPS
+	MOVE_LEFT_ONE,
+	MOVE_RIGHT,
+	// MOVE_RIGHT_ONE,
+	// DELETE_MODE,
+	DELETE_CHAR,		// 10
+	// INSERT_CHAR,
+	INSERT_MODE,
+	INSERT_EXIT,
+	// INSERT_PAD,
+	NUMBER_OF_CAPS		// 13
 }				t_termcaps;
 
 typedef struct	s_linebuffer
 {
 	char	*buffer;
+	int		i_max;
 	int		i;
 	int		size;
 }				t_linebuffer;
@@ -73,11 +82,9 @@ void	ft_putstr(char *s);
 void	clear_line(char **tc);
 void	move_to(char **tc, int i, int j);
 
-int		is_up_down_arrow(int c);
-int		redirect_special(char* str, t_hist *h);
-
 void	*bigger_calloc(void *ptr, size_t size, size_t incr);
-void	linebuffer_add(t_linebuffer *lb, int c);
+void	linebuffer_add_insert(t_linebuffer *lb, int c);
+void	set_linebuffer_to(t_linebuffer *lb, char *str);
 void	linebuffer_delete(t_linebuffer *lb);
 void	linebuffer_clear(t_linebuffer *lb);
 

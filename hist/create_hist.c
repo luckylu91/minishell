@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_hist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:09:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 09:11:57 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_hist	*create_hist(char *histfile_name)
 	h->histfile_size = get_env_number("HISTFILESIZE");
 	h->histfile_name = ft_strdup(histfile_name);
 	h->position_state = BOTTOM;
-	if (!h->histfile_name || read_truncate_histfile(h) == -1)
+	if (read_truncate_histfile(h) == -1)
 	{
-		destroy_hist(h);
+		destroy_hist(&h);
 		return (NULL);
 	}
 	h->len = ft_bilstsize(h->hlines);

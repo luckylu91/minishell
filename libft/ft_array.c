@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:40:21 by lzins             #+#    #+#             */
-/*   Updated: 2021/02/17 14:59:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:34:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	**free_error(void **grid, size_t size1)
 	i = 0;
 	while (i < size1)
 	{
-		free(grid[i]);
+		wrap_free(grid[i]);
 		i++;
 	}
 	return (NULL);

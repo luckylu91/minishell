@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:08:54 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 16:36:14 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 13:32:44 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ char	**init_termcaps_strings(void)
 	int		i;
 
 	tc = ft_calloc(NUMBER_OF_CAPS, sizeof(char*));
-	if (!tc)
-		return (NULL);
 	tc[COLOR_CAP] = tgetstr("AF", NULL);
 	tc[COLOR_BACK_CAP] = tgetstr("AB", NULL);
 	tc[UNDERLINE_CAP] = tgetstr("us", NULL);
@@ -58,13 +56,17 @@ char	**init_termcaps_strings(void)
 	tc[MOVE_CAP] = tgetstr("cm", NULL);
 	tc[CLEAR_CAP] = tgetstr("cl", NULL);
 	tc[MOVE_LEFT] = tgetstr("LE", NULL);
+	tc[MOVE_LEFT_ONE] = tgetstr("le", NULL);
+	tc[MOVE_RIGHT] = tgetstr("RI", NULL);
 	tc[DELETE_CHAR] = tgetstr("dc", NULL);
+	tc[INSERT_MODE] = tgetstr("im", NULL);
+	tc[INSERT_EXIT] = tgetstr("ei", NULL);
 	tc[MODIF_ERASE_CAP] = tgetstr("me", NULL);
 	i = 0;
 	while (i < NUMBER_OF_CAPS)
 	{
 		if (!tc[i])
-			printf("one termcap is not present\n");
+			printf("one termcap is not present : %d\n", i);
 		i++;
 	}
 	return (tc);

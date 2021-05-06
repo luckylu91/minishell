@@ -3,33 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 13:29:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:48:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstcpy(t_list *src, t_list **adest, size_t content_size)
+t_list	*ft_lstcpy(t_list *src, size_t content_size)
 {
+	t_list	*lstcpy;
 	void	*new_content;
 
-	if (!adest)
-		return (0);
 	if (!src)
-		return (1);
-	*adest = NULL;
+		return (NULL);
+	lstcpy = NULL;
 	new_content = wrap_malloc(content_size);
-	if (!new_content
-			|| !(*adest = ft_lstnew(new_content))
-			|| !ft_lstcpy(src->next, &(*adest)->next, content_size))
-	{
-		free(new_content);
-		free(*adest);
-		return (0);
-	}
+	lstcpy = ft_lstnew(new_content);
+	lstcpy->next = ft_lstcpy(src->next, content_size);
 	ft_memcpy(new_content, src->content, content_size);
-	return (1);
+	return (lstcpy);
 }

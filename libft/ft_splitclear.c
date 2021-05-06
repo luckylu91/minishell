@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:06:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 14:31:05 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:35:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_splitclear(char **splitted, int i_start)
 	i = i_start;
 	while (splitted[i])
 	{
-		free(splitted[i]);
+		wrap_free(splitted[i]);
 		i++;
 	}
-	free(splitted);
+	wrap_free(splitted);
 }

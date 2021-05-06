@@ -3,7 +3,7 @@
 
 //extern char **environ;
 
-extern t_global_var global_var;
+extern t_minishell g_global_var;
 
 char	*get_char_from_block(t_list *l)
 {
@@ -116,18 +116,18 @@ int		start_builtin(char **c)
 	if (ft_strcmp(c[0], "export") == 0)
 	{
 //		printf("if export\n");
-		return export(c, &(global_var.env));
+		return export(c, &(g_global_var.env));
 	}
 		else if (ft_strcmp(c[0], "unset") == 0)
 	{
 		//printf("if unset\n");
-		//printf("adress = %p\n",&(global_var.env));
-		return (our_unset(c, &(global_var.env)));
+		//printf("adress = %p\n",&(g_global_var.env));
+		return (our_unset(c, &(g_global_var.env)));
 	}
 	else if (ft_strcmp(c[0], "env") == 0)
 	{
 //		printf("start env\n");
-		return (our_env(global_var.env));
+		return (our_env(g_global_var.env));
 	}
 	else if (ft_strcmp(c[0], "exit") == 0)
 	{
@@ -173,13 +173,13 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	char* path;
 	pid_t child;
 
-	printf("before fom list to str\n");
+	//printf("before fom list to str\n");
 	all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
 	fd.in = NULL;
 	fd.out = NULL;
 	fd.int_in = -1;
 	fd.int_out = -1;
-	printf("mange mes couilles \n");
+	//printf("mange mes couilles \n");
 	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
 		return (-1);
 	all_path = split_path();
@@ -193,7 +193,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	path = search_cmd(all_path,all_var[0]); 
 	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
-		global_var.exit_code = 127;
+		g_global_var.exit_code = 127;
 		printf("commande introuvable\n");
 		return (-1);
 	}
@@ -212,7 +212,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	else if (is_builtin_nopipe(all_var[0]))
 	{
 	
-		global_var.exit_code = start_builtin(all_var);
+		g_global_var.exit_code = start_builtin(all_var);
 		return (1);
 	}
 	if (fd.in != NULL)
@@ -285,7 +285,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	//		printf("apres exit builtin\n");
 		}
 		else
-			execve(path, all_var, global_var.env);
+			execve(path, all_var, g_global_var.env);
 	}
 	//printf("apres le fork\n");
 	if (state >0)
@@ -306,7 +306,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if (WIFEXITED(status))
 	{
 		//printf("Child's exit code %d\n", WEXITSTATUS(status));
-		global_var.exit_code = WEXITSTATUS(status);
+		g_global_var.exit_code = WEXITSTATUS(status);
 	//	printf("hein ? %d\n",cmd->exit_code); 
 
 	}

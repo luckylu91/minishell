@@ -7,10 +7,8 @@ void destroy_block(void *block_ptr)
 	block = (t_block*)block_ptr;
 	if (!block)
 		return ;
-	// printf("free '%s'\t", block->str);
-	free(block->str);
-	// printf("free block\n");
-	free(block);
+	wrap_free(block->str);
+	wrap_free(block);
 }
 
 void	destroy_block_lst(t_list **block_lst)

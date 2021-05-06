@@ -1,7 +1,7 @@
 #include "execution.h"
 
 
-extern t_global_var global_var;
+extern t_minishell g_global_var;
 
 int find_var(char *arg, char **env)
 {
@@ -105,7 +105,7 @@ int		our_unset(char **arg, char ***env)
 		else 
 		{
 			if (j > 0)
-				global_var.env = env_new_alloc(arg, global_var.env, j);
+				g_global_var.env = env_new_alloc(arg, g_global_var.env, j);
 		}
 		i++;
 	}
