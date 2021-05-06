@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:19:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 14:47:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 16:19:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_status parse_redir(t_ast **redir_ast, t_list **tokens)
 		redirop = block_at(*tokens);
 		*tokens = ft_lststep(*tokens, 1);
 		skip_spaces(tokens);
-		if (parse_text(&file_name_ast, tokens) == STATUS_ERROR)
-			return (unexpected_token_error((*tokens)->next));
-		if (!new_redir_ast(redir_ast, redirop, file_name_ast->expr.text))
+		if (!is_text_lst(*tokens))
 			ret = STATUS_ERROR;
+		parse_text(&file_name_ast, tokens);
+		*redir_ast = new_redir_ast(redirop, file_name_ast->expr.text);
 		free(file_name_ast);
 		// if (is_text_lst((*tokens)))
 		// {

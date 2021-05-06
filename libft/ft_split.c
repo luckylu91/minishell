@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:16:45 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:34:59 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static void			free_previous(char **array, size_t i)
 	j = 0;
 	while (j < i)
 	{
-		free(array[j]);
+		wrap_free(array[j]);
 		j++;
 	}
-	free(array);
+	wrap_free(array);
 }
 
 static int			pass(char const *s, char *delim, char **s_array,

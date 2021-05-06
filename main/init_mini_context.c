@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 15:08:44 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 15:12:28 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 09:12:05 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_mini_context *free_error(t_mini_context *mc)
 {
-	destroy_hist(mc->h);
+	destroy_hist(&mc->h);
 	free(mc);
 	return (NULL);
 }

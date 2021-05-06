@@ -53,5 +53,5 @@ int main()
 
 	h = setup1();
 	test1(h);
-	destroy_hist(h);
+	destroy_hist(&h);
 }

@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wrap_malloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:52:53 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 10:56:19 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+// //
+// #define TEST_DEBUG_LEAKS
 #include "libft.h"
 
 t_list	**ft_get_malloc_list(void)
@@ -51,7 +53,7 @@ void	ft_malloc_list_clear(void)
 	ft_lstclear(malloc_list, free);
 }
 
-void	ft_before_exit(void)
+void	ft_exit(void)
 {
 	t_exit_fun	exit_fun;
 
@@ -70,7 +72,7 @@ static void	addback_malloc(void *new_malloc)
 	new_elem = malloc(sizeof(t_list));
 	if (!new_elem)
 	{
-		ft_before_exit();
+		ft_exit();
 		exit(-1);
 	}
 	new_elem->content = new_malloc;
@@ -85,9 +87,10 @@ void	*wrap_malloc(size_t size)
 	new_malloc = malloc(size);
 	if (!new_malloc)
 	{
-		ft_before_exit();
+		ft_exit();
 		exit(-1);
 	}
 	addback_malloc(new_malloc);
 	return (new_malloc);
 }
+

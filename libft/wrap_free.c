@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wrap_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 23:18:14 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 23:31:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 10:56:46 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	lstremove_addr(t_list **alst, void *content)
 				prev->next = lst->next;
 			else
 				*alst = lst->next;
-			ft_lstdelone(lst, free);
+			free(lst->content);
+			free(lst);
 			return (1);
 		}
 		prev = lst;
@@ -41,13 +42,13 @@ void	wrap_free(void *addr)
 {
 	t_list	**malloc_list;
 
+	// printf("wrap freeing %p\n", addr);
 	if (!addr)
 		return ;
 	malloc_list = ft_get_malloc_list();
 	if (!lstremove_addr(malloc_list, addr))
 	{
-		ft_putendl_fd("Attempted wrap_free on an unknown value.",
-				STDERR_FILENO);
+		printf("Attempted wrap_free on an unknown value : %p\n", addr);
 		exit(-1);
 	}
 }

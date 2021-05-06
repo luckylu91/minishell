@@ -69,7 +69,7 @@ int main()
 				i = 0;
 			}
 			else
-				redirect_special((char*)&c, tty_fd);
+				redirect_up_down((char*)&c, tty_fd);
 			//print_escape_sequence((char*)&c, tty_fd);
 		}
 	}

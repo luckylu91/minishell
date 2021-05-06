@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:02:51 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 15:00:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:34:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	(*del)(lst->content);
-	free(lst);
+	wrap_free(lst);
 }

@@ -3,7 +3,7 @@
 
 #include "ast_api.h"
 
-t_status	parse_text(t_ast **text_ast, t_list **tokens);
+void		parse_text(t_ast **text_ast, t_list **tokens);
 t_status	parse_redir(t_ast **redir_ast, t_list **tokens);
 t_status	parse_cmd(t_ast **cmd_ast, t_list **tokens);
 t_status	parse_cmdchain(t_ast **cmdchain_ast, t_list **tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_histfile.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:22:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 15:30:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	write_histfile(t_hist *h)
 	char	*line;
 	int		i;
 
-	fd = open_error(h->histfile_name, O_TRUNC | O_WRONLY);
+	if (!h)
+		return (1);
+	fd = open_error(h->histfile_name, O_CREAT | O_WRONLY, 0666);
 	if (fd == -1)
 		return (-1);
 	write_lines(h, fd);
