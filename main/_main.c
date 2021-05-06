@@ -1,27 +1,11 @@
 #include "minishell.h"
 
-int g_exit_code = 0;
+extern t_minishell	g_global_var;
 
-t_global_var global_var;
-int exit_properly(int ret, t_hist *h)
+void	exit_with_code(int code)
 {
-	terminal_done();
-	write_histfile(h);
-	exit(ret);
-}
-
-static char *current_line(t_linebuffer *lb, t_hist *h)
-{
-	char *histline;
-
-	histline = get_hist_line(h);
-	if (!lb->buffer && !histline)
-		return (ft_strdup(""));
-	if (!lb->buffer)
-		return (ft_strdup(histline));
-	if (!histline)
-		return (ft_strdup(lb->buffer));
-	return (ft_strjoin(histline, lb->buffer));
+	g_global_var.exit_code = code;
+	exit_properly(&g_global_var);
 }
 
 int main()
@@ -30,32 +14,33 @@ int main()
 	char **tc;
 	int	c;
 	int	tty_fd;
-	struct termios term_attr;
-	t_hist *h;
+	int	fd_in;
+	int	fd_out;
 	t_linebuffer *lb;
 	char *line;
 	int len_screen;
 
-	copy_environ(&global_var.env);
+	ft_bzero(&g_global_var, sizeof(t_minishell));
+	copy_environ(&g_global_var.env);
 	ret = init_termios();
 	if (ret == -1)
+	if (init_termios() == -1)
 	{
 		ft_putstr_fd("Cannot initialize terminal: ", STDERR_FILENO);
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
 		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_exit();
 		return (EXIT_FAILURE);
 	}
-	ret = init_termcaps();
-	if (ret != 1)
+	ft_get_set_exit_fun(exit_properly);
+	ft_get_set_context(&g_global_var);
+	if (init_termcaps() != 1)
 	{
 		ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
-		exit_properly(ret, h);
+		exit_with_code(EXIT_FAILURE);
 	}
 	tc = init_termcaps_strings();
-	if (!tc)
-		exit_properly(-1, h);
-
-	h = create_hist(".histfile");
+	g_global_var.h = create_hist(".histfile");
 	lb = ft_calloc(1, sizeof(t_linebuffer));
 
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
@@ -63,55 +48,48 @@ int main()
 	if (tty_fd < 0)
 	{
 		printf("Cannot open tty of STDIN (%s)\n", ttyname(STDIN_FILENO));
-		exit_properly(-1, h);
+		fd_in = STDIN_FILENO;
+		fd_out = STDOUT_FILENO;
+	}
+	else
+	{
+		fd_in = tty_fd;
+		fd_out = tty_fd;
 	}
 	while (1)
 	{
-		//		printf("la\n");
 		c = 0;
-		ret = read(tty_fd, &c, sizeof(int));
-		if (ret == -1)
-			exit_properly(-1, h);
+		if (read(fd_in, &c, sizeof(int)) == -1)
+			exit_with_code(EXIT_FAILURE);
+		// printf("i = %d\ni_max = %d\nc = %c\n", lb->i, lb->i_max, (char)c);
 		if (ft_isprint(c))
 		{
-			linebuffer_add(lb, c);
-			ft_putchar_fd((char)c, tty_fd);
+			linebuffer_add_insert(lb, c);
+			tputs(tc[INSERT_MODE], 1, ft_putchar);
+			ft_putchar_fd((char)c, fd_out);
+			tputs(tc[INSERT_EXIT], 1, ft_putchar);
 		}
-		else if (c == '\x7f' && lb->i > 0)
+		else if (c == '\x7f' && lb->i_max > 0)
 		{
-			tputs(tparm(tc[MOVE_LEFT], 1), 1, ft_putchar);
+			tputs(tc[MOVE_LEFT_ONE], 1, ft_putchar);
 			tputs(tc[DELETE_CHAR], 1, ft_putchar);
 			linebuffer_delete(lb);
 		}
 		else
 		{
-			if (c == '\n')
+			if (c == '\n' || c == '\0')
 			{
-				printf("avant putchard fd\n");
-				ft_putchar_fd('\n', tty_fd);
-
-				printf("avant current line\n");
-				line = current_line(lb, h);
-				printf("avant process line\n");
-				printf("process_line : %d\n", process_line(line, h));
-				// ft_putendl_fd("exe fini\n", tty_fd);
+				ft_putchar_fd('\n', fd_out);
+				process_line(lb->buffer);
+				if (c == '\0')
+					exit_properly(&g_global_var);
 				linebuffer_clear(lb);
 			}
 			else if (is_up_down_arrow(c))
-			{
-				line = current_line(lb, h);
-				len_screen = line ? ft_strlen(line) : 0;
-				if (redirect_special((char*)&c, h))
-				{
-					tputs(tparm(tc[MOVE_LEFT], len_screen), 1, ft_putchar);
-					for (int k = 0; k < len_screen; k++)
-						tputs(tc[DELETE_CHAR], 1, ft_putchar);
-					line = current_line(lb, h);
-					ft_putstr_fd(line, tty_fd);
-				}
-			}
-			//print_escape_sequence((char*)&c, tty_fd);
+				redirect_up_down((char*)&c, g_global_var.h, lb, tc, fd_out);
+			else if (is_left_right_arrow(c))
+				redirect_left_right((char*)&c, lb, tc);
 		}
 	}
-	exit_properly(0, h);
+	exit_properly(&g_global_var);
 }

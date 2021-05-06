@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_add.h                                          :+:      :+:    :+:   */
+/*   current_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 16:50:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 16:05:58 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/05 16:40:24 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/05 19:03:10 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_ADD_H
-#define AST_ADD_H
+#include "minishell.h"
 
-#include "ast_api.h"
+void	put_current_line(t_linebuffer *lb, t_hist *h, int fd_out)
+{
+	char *histline;
 
-void	add_textitem_totext(t_ast **text_ast, t_block *block);
-void	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast);
-void	add_cmd_tochain(t_ast **cmdchain_ast, t_ast *cmd_ast, t_block *chainop);
-void	addback_space_block(t_list **alst);
-void	addback_none_block_nodup(t_list **alst, char *str);
-
-#endif
+	histline = get_hist_line(h);
+	if (histline)
+		ft_putstr_fd(histline, fd_out);
+	if (lb->buffer)
+		ft_putstr_fd(lb->buffer, fd_out);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 10:17:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/30 10:46:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:57:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	else
 		new_len = (s_len - start) < len ? s_len - start : len;
 	s_new = wrap_malloc(new_len + 1);
-	if (s_new == NULL)
-		return (NULL);
 	s_new[new_len] = '\0';
 	if (start < s_len)
 		ft_memcpy(s_new, s + start, new_len);

@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   to_block_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hgallien <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:24:39 by hgallien          #+#    #+#             */
-/*   Updated: 2021/03/30 11:42:41 by hgallien         ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 10:53:36 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "to_block.h"
+
 int		is_separator(char *c)
 {
 	if (c[0] == '|' || c[0] == ' ' || c[0] == ';'  ||c[0] == '\0' || c[0] == '\n')
@@ -27,7 +29,7 @@ int		is_separator_for_dollar(char *c)
 t_block		*new_block(char *c, enum flags f)
 {
 	t_block *b;
-	b = malloc(sizeof(t_block*));
+	b = wrap_malloc(sizeof(t_block*));
 	if(!(b))
 		return (NULL);
 	b->str = ft_strdup(c);
@@ -70,7 +72,7 @@ char 	*list_to_string(t_list *l)
 
 	i = 0;
 	parcour_l = l;	
-	str = malloc(sizeof(char) * ft_lstsize(l) + 1);
+	str = wrap_malloc(sizeof(char) * ft_lstsize(l) + 1);
 	while (l != NULL)
 	{
 		str[i] = *((char*)l->content);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 13:54:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/06 13:57:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	our_getenv(t_block *block, char **res_addr)
 
 	if (is_dollar(block) && block->str && ft_strcmp(block->str, "?") == 0)
 	{
-		*res_addr = ft_itoa(g_exit_code);
+		*res_addr = ft_itoa(g_global_var.exit_code);
 		if (!*res_addr)
 			return (-1);
 	}

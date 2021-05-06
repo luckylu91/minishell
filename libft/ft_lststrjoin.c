@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 16:33:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/22 11:01:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 15:57:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ char	*ft_lststrjoin(t_list *lst, char *sep, char *left, char *right)
 	if (n > 0)
 		tot_len += (n - 1) * ft_strlen(sep);
 	res = ft_calloc(tot_len + 1, sizeof(char));
-	if (!res)
-		return (NULL);
 	if (left)
 		ft_strcat_and_move(res, left);
 	lststr_cat_sep(res + left_len, lst, sep);

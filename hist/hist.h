@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hist.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:07:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 10:58:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 15:30:30 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef enum	e_hist_state {
 	BOTTOM,
@@ -36,14 +37,14 @@ typedef struct		s_hist
 	t_hist_state	position_state;
 }	t_hist;
 
-int	open_error(char *fname, int flags);
+int	open_error(char *fname, int flags, int auth);
 int	close_error(char *fname, int fd);
 t_hist	*create_hist(char *histfile_name);
-void	destroy_hist(t_hist *h);
+void	destroy_hist(t_hist **h);
 int	parse_file(char *fname, t_bilist **hlines, int limit);
 int	write_histfile(t_hist *h);
 int	read_truncate_histfile(t_hist *h);
-int	add_hist_line(t_hist *h, char *line);
+void	add_hist_line(t_hist *h, char *line);
 void	rewind_hist(t_hist *h);
 void	move_hist(t_hist *h, int direction);
 char	*get_hist_line(t_hist *h);

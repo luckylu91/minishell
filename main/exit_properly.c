@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_line.c                                     :+:      :+:    :+:   */
+/*   exit_properly.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/23 17:22:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/26 11:44:08 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/06 13:58:23 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/06 13:58:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "terminal.h"
+#include "minishell.h"
 
-void	process_line(char *line)
+extern t_minishell	g_global_var;
+
+void	exit_properly(void *ms_ptr)
 {
-	if (!line)
-		return ;
-	if (ft_strcmp(line, "exit") == 0)
+	t_minishell *ms;
+
+	ms = ms_ptr;
+	terminal_done();
+	if (ms)
 	{
-		free(line);
-		exit(0);
+		if (write_histfile(ms->h) == -1)
+			ms->exit_code = -1;
+		exit(ms->exit_code);
 	}
-	free(line);
+	else
+		exit(0);
 }

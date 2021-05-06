@@ -6,17 +6,17 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:03:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 12:03:52 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 15:30:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hist.h"
 
-int	open_error(char *fname, int flags)
+int	open_error(char *fname, int flags, int auth)
 {
 	int fd;
 
-	fd = open(fname, flags);
+	fd = open(fname, flags, auth);
 	if (fd == -1)
 	{
 		ft_putstr_fd("Cannot open file ", STDERR_FILENO);

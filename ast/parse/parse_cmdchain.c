@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:20:27 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/20 13:33:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/04 16:27:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_status	parse_cmdchain(t_ast **cmdchain_ast, t_list **tokens)
 	while (status == STATUS_OK)
 	{
 		status = parse_cmd(&cmd_ast, tokens);
-		if (!cmd_ast || status != STATUS_OK)
-			break;
+		if (!cmd_ast || status == STATUS_ERROR)
+			break ;
 		add_cmd_tochain(cmdchain_ast, cmd_ast, chainop);
 		if (is_semicol_lst(*tokens))
 			return (STATUS_OK);
