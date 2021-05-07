@@ -12,7 +12,26 @@
 
 #include "execution.h"
 
-extern t_minishell	g_global_var;
+
+extern t_minishell g_global_var;
+
+
+char *search(char *str)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = find_var(str, g_global_var.env);
+	if (i < 0)
+		return (NULL);
+	else
+	{
+		while (g_global_var.env[i][j] != '=')
+			j++;
+		return (&g_global_var.env[i][j + 1]);
+	}	
+}
 
 int	our_getenv(t_block *block, char **res_addr)
 {
@@ -22,7 +41,8 @@ int	our_getenv(t_block *block, char **res_addr)
 		*res_addr = ft_itoa(g_global_var.exit_code);
 	else if (is_dollar(block) && block->str && (ft_isalpha(block->str[0]) || block->str[0] == '_'))
 	{
-		env_str = getenv(block->str);
+		//env_str = getenv(block->str);
+		env_str = search(block->str);
 		if (env_str)
 			*res_addr = ft_strdup(env_str);
 		else

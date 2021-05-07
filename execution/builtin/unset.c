@@ -34,7 +34,7 @@ int find_var(char *arg, char **env)
 	}
 
 	//printf("fim find var\n");
-	return (0);
+	return (-1);
 }
 
 char	**env_new_alloc(char **arg, char **env, int old)
