@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:53:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/06 14:08:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:18:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	replace_dquoted(t_block *env_block, t_list **replacement)
 		new_block = create_block(none, "");
 	else
 		new_block = create_block(none, env_str);
-	free(env_str);
+	wrap_free(env_str);
 	if (!new_block)
 		return (-1);
 	ft_lstadd_back_content(replacement, new_block);

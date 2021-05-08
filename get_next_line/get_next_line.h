@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:38:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 09:28:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:22:33 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_files_data
 }				t_files_data;
 
 size_t			strccpy(char *dst, char *src, char c, size_t n);
-int				free_safe(char *line);
+int				wrap_free_error(char *line);
 t_file			*file_from_fd(int fd);
 int				copy_buffer(t_file *file, char **line);
 int				read_one_line(t_file *file, char **line);

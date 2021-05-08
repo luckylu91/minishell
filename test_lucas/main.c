@@ -26,6 +26,7 @@ int main()
 	printf("lalala\n");
 	pipe(fd_ab);
 	pipe(fd_bc);
+	
 	lspid = fork();
 	if (lspid == 0)
 	{
@@ -38,6 +39,7 @@ int main()
 	}
 	waitpid(lspid, &wstatus, 0);
 	// printf("wstatus : %d\n", wstatus);
+	
 	sortpid = fork();
 	if (sortpid == 0)
 	{
@@ -54,6 +56,7 @@ int main()
 	close(fd_ab[1]);
 	waitpid(sortpid, &wstatus, 0);
 	// printf("wstatus : %d\n", wstatus);
+	
 	greppid = fork();
 	if (greppid == 0)
 	{

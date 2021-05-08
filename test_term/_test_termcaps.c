@@ -131,13 +131,13 @@ void	*bigger_calloc(void *ptr, size_t size, size_t incr)
 
 	if (!ptr)
 		return (ft_calloc(1, size + incr));
-	ptr_new = malloc(size + incr);
+	ptr_new = wrap_malloc(size + incr);
 	if (ptr_new)
 	{
 		ft_memcpy(ptr_new, ptr, size);
 		ft_bzero(ptr_new + size, incr);
 	}
-	free(ptr);
+	wrap_free(ptr);
 	return (ptr_new);
 }
 
@@ -147,10 +147,10 @@ void process_line(char *line)
 		return ;
 	if (ft_strcmp(line, "exit") == 0)
 	{
-		free(line);
+		wrap_free(line);
 		exit(0);
 	}
-	free(line);
+	wrap_free(line);
 }
 
 // int tgetflag(char *id);

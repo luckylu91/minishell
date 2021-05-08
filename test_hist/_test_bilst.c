@@ -5,7 +5,7 @@ int g_exit_code;
 
 int	*new_int(int i)
 {
-	int *res = malloc(sizeof(int));
+	int *res = wrap_malloc(sizeof(int));
 	if (res)
 		*res = i;
 	return res;

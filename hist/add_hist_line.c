@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 16:49:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 16:28:55 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:24:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	add_hist_line(t_hist *h, char *line)
 		last = ft_bilstlast(h->hlines);
 		if (last->prev)
 			last->prev->next = NULL;
-		ft_bilstdelone(last, free);
+		ft_bilstdelone(last, wrap_free);
 	}
 	else
 		h->len++;

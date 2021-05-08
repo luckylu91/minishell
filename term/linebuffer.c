@@ -6,14 +6,19 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 10:30:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/06 13:41:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 16:31:23 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "terminal.h"
 
-void	linebuffer_add_insert(t_linebuffer *lb, int c)
+extern t_minishell g_global_var;
+
+void	linebuffer_add_insert(int c)
 {
+	t_linebuffer	*lb;
+
+	lb = g_global_var.lb;
 	if (lb->i_max >= lb->size - 1)
 	{
 		lb->buffer = bigger_calloc(lb->buffer, lb->size, LINE_BUFFER_SIZE);
@@ -30,13 +35,15 @@ void	linebuffer_add_insert(t_linebuffer *lb, int c)
 	lb->i++;
 }
 
-void	set_linebuffer_to(t_linebuffer *lb, char *str)
+void	set_linebuffer_to(char *str)
 {
-	int	n_buffer_chunks;
-	int	str_len;
+	int				n_buffer_chunks;
+	int				str_len;
+	t_linebuffer	*lb;
 
+	lb = g_global_var.lb;
 	if (lb->buffer)
-		linebuffer_clear(lb);
+		linebuffer_clear();
 	if (!str || !str[0])
 		return ;
 	str_len = ft_strlen(str);
@@ -48,8 +55,20 @@ void	set_linebuffer_to(t_linebuffer *lb, char *str)
 	lb->i = str_len;
 }
 
-void	linebuffer_delete(t_linebuffer *lb)
+void	linebuffer_clear(void)
 {
+	t_linebuffer	*lb;
+
+	lb = g_global_var.lb;
+	wrap_free(lb->buffer);
+	ft_bzero(lb, sizeof(t_linebuffer));
+}
+
+void	linebuffer_delete_one(void)
+{
+	t_linebuffer	*lb;
+
+	lb = g_global_var.lb;
 	if (lb->i > 0)
 	{
 		lb->i_max--;
@@ -58,10 +77,4 @@ void	linebuffer_delete(t_linebuffer *lb)
 			ft_memmove(lb->buffer + lb->i, lb->buffer + lb->i + 1, lb->i_max - lb->i);
 		lb->buffer[lb->i_max] = '\0';
 	}
-}
-
-void	linebuffer_clear(t_linebuffer *lb)
-{
-	wrap_free(lb->buffer);
-	ft_bzero(lb, sizeof(t_linebuffer));
 }

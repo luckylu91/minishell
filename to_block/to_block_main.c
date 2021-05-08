@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:24:39 by hgallien          #+#    #+#             */
-/*   Updated: 2021/05/05 10:53:36 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:11:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char 	*list_to_string(t_list *l)
 		parcour_l = l;
 		l = l->next;
 		//printf("dqns temp_to final 3\n");
-		free(parcour_l);
+		wrap_free(parcour_l);
 	}
 	str[i] = '\0';
 	return (str);

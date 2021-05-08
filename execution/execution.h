@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 09:21:51 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 11:08:29 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+
+#define	ASSIGN_NONE		0
+#define	ASSIGN_EQUAL	1
+#define	ASSIGN_PEQUAL	2
 
 // mettre dans minishell.h (structure si besoin...)
 
@@ -48,13 +52,13 @@ int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
 
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
- typedef struct s_both_fd
- {
- 	t_ast *in;
+typedef struct s_both_fd
+{
+	t_ast *in;
 	int int_in;
 	int int_out;
 	t_ast *out;
- }				both_fd;
+}				both_fd;
 
 
 #endif

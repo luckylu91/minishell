@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:08:59 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 09:46:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:11:45 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast)
 		if (*text_list(*cmd_ast))
 			addback_space_block(text_list(*cmd_ast));
 		ft_lstadd_back(text_list(*cmd_ast), text_redir_ast->expr.text);
-		free(text_redir_ast);
+		wrap_free(text_redir_ast);
 	}
 	else if (text_redir_ast->type == redir_expr)
 		ft_lstadd_back_content(redir_list(*cmd_ast), text_redir_ast);

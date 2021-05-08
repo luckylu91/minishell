@@ -50,7 +50,7 @@ char	*pathjoin(char *dirname, char *fname)
 // 		fname = pathjoin(dir_name, file->d_name);
 // 		if (!fname || !ft_lstadd_back_content(fname_lst, fname))
 // 		{
-// 			ft_lstclear(fname_lst, free);
+// 			ft_lstclear(fname_lst, wrap_free);
 // 			return (-1);
 // 		}
 // 		file = readdir(dir_stream);

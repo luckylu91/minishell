@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/06 11:17:00 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 16:39:11 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "libft.h"
 #include "hist.h"
+#include "minishell.h"
 #include <unistd.h>
 #include <termios.h>
 #include <signal.h>
@@ -58,34 +59,27 @@ typedef enum	e_termcaps
 	NUMBER_OF_CAPS		// 13
 }				t_termcaps;
 
-typedef struct	s_linebuffer
-{
-	char	*buffer;
-	int		i_max;
-	int		i;
-	int		size;
-}				t_linebuffer;
-
 void	terminal_done(void);
 void	terminal_signal(int signum);
-int	init_termios(void);
+int		init_termios(void);
 
-int	termcaps_term_not_set_error(void);
-int	termcaps_database_not_accessible(void);
-int	termcaps_database_no_entry(char *term_type);
-
-int	init_termcaps(void);
+int		init_termcaps(void);
 char	**init_termcaps_strings(void);
 
-int	ft_putchar(int c);
+int		termcaps_term_not_set_error(void);
+int		termcaps_database_not_accessible(void);
+int		termcaps_database_no_entry(char *term_type);
+
+int		ft_putchar(int c);
 void	ft_putstr(char *s);
 void	clear_line(char **tc);
 void	move_to(char **tc, int i, int j);
+void	show_prompt(void);
 
 void	*bigger_calloc(void *ptr, size_t size, size_t incr);
-void	linebuffer_add_insert(t_linebuffer *lb, int c);
-void	set_linebuffer_to(t_linebuffer *lb, char *str);
-void	linebuffer_delete(t_linebuffer *lb);
-void	linebuffer_clear(t_linebuffer *lb);
+void	linebuffer_add_insert(int c);
+void	set_linebuffer_to(char *str);
+void	linebuffer_delete_one(void);
+void	linebuffer_clear(void);
 
 #endif

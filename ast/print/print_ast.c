@@ -34,9 +34,9 @@ static char	*text_string(t_list *block_lst)
 	t_list	*char_blocks;
 	char	*str;
 
-	char_blocks = ft_lstmap(block_lst, block_string_ptr, free);
+	char_blocks = ft_lstmap(block_lst, block_string_ptr, wrap_free);
 	str = ft_lststrjoin(char_blocks, ", ", "", "");
-	ft_lstclear(&char_blocks, free);
+	ft_lstclear(&char_blocks, wrap_free);
 	return (str);
 }
 
@@ -46,7 +46,7 @@ static void	print_text_ast(t_list *block_lst)
 
 	str = text_string(block_lst);
 	ft_putstr_fd(str, STDOUT_FILENO);
-	free(str);
+	wrap_free(str);
 }
 
 static char *redir_string(t_ast *ast)
@@ -59,7 +59,7 @@ static char *redir_string(t_ast *ast)
 		ast->expr.redir.fildes,
 		ast->expr.redir.redir_op->str,
 		fname_str);
-	free(fname_str);
+	wrap_free(fname_str);
 	return (str);
 }
 
@@ -76,7 +76,7 @@ static void	print_redir_ast(t_ast *ast)
 
 	str = redir_string(ast);
 	ft_putstr_fd(str, STDOUT_FILENO);
-	free(str);
+	wrap_free(str);
 }
 
 void	print_command_ast(t_ast *ast)
@@ -84,13 +84,13 @@ void	print_command_ast(t_ast *ast)
 	char *str_redirs;
 	t_list	*char_redirs;
 
-	char_redirs = ft_lstmap(ast->expr.command.redir_list, redir_string_ptr, free);
+	char_redirs = ft_lstmap(ast->expr.command.redir_list, redir_string_ptr, wrap_free);
 	str_redirs = ft_lststrjoin(char_redirs, " -> ", "", "");
 	printf("cmd_args: ");
 	print_text_ast(ast->expr.command.text_list);
 	printf(" END_ARGS // cmd_redirs : %s END_REDIRS", str_redirs);
-	ft_lstclear(&char_redirs, free);
-	free(str_redirs);
+	ft_lstclear(&char_redirs, wrap_free);
+	wrap_free(str_redirs);
 }
 
 

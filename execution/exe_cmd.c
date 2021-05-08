@@ -45,7 +45,7 @@ char **from_list_to_str_tab(t_list *l)
 
 	t = size_list(l);
 	//	printf("t = %i\n",t);
-	res = malloc(sizeof(char*) * (t + 1));
+	res = wrap_malloc(sizeof(char*) * (t + 1));
 	dup_str(l, res, 0);
 	res[t] = NULL;
 	return (res);
@@ -130,10 +130,7 @@ int		start_builtin(char **c)
 		return (our_env(g_global_var.env));
 	}
 	else if (ft_strcmp(c[0], "exit") == 0)
-	{
-		printf("pas encore fait exit\n");
-		return (-1);
-	}
+		ft_exit();
 	return (-1);
 }
 
@@ -194,7 +191,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
 		g_global_var.exit_code = 127;
-		printf("commande introuvable\n");
+		printf("bash: %s: command not found\n", all_var[0]);
 		return (-1);
 	}
 	if (is_builtin_nopipe(all_var[0]) && state != 0)
@@ -245,6 +242,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	child = fork();
 	if (child == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGTERM, SIG_DFL);
 		//printf("dans le fork\n");
 		//printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
 

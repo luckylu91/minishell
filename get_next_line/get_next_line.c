@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:48:14 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/29 10:08:27 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:23:24 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,9 @@ int		copy_buffer(t_file *file, char **line)
 		line_len = ft_strlen(*line);
 	else
 		line_len = 0;
-	line_augmented = malloc(line_len + BUFFER_SIZE + 1);
-	if (!line_augmented)
-		return (-1);
-	ft_bzero(line_augmented, line_len + BUFFER_SIZE + 1);
+	line_augmented = ft_calloc(line_len + BUFFER_SIZE + 1, sizeof(char));
 	strccpy(line_augmented, *line, '\0', line_len);
-	free_safe(*line);
+	wrap_free(*line);
 	file->head += strccpy(line_augmented + line_len, file->buffer + file->head,
 			'\n', BUFFER_SIZE - file->head);
 	*line = line_augmented;
@@ -108,11 +105,10 @@ int		read_one_line(t_file *file, char **line)
 			ft_bzero(file->buffer, BUFFER_SIZE);
 			br = read(file->fd, file->buffer, BUFFER_SIZE);
 			if (br == -1)
-				return (free_safe(*line));
+				return (wrap_free_error(*line));
 			file->head = 0;
 		}
-		if ((step_return = copy_buffer(file, line)) == -1)
-			return (free_safe(*line));
+		step_return = copy_buffer(file, line);
 		if (step_return == 1)
 			return (1);
 	}

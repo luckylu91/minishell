@@ -83,7 +83,7 @@ int	remove_spaces(t_list *block_lst, t_list **new_block_lst)
 		new_block = ft_calloc(1, sizeof(t_block));
 		if (text_to_string(&block_lst, &str) == -1)
 		{
-			free(str);
+			wrap_free(str);
 			ft_lstclear(&block_lst, destroy_block);
 			return (-1);
 		}

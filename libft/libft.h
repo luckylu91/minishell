@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 10:57:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:35:06 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_bilist
 	struct s_bilist	*next;
 }	t_bilist;
 
-typedef void		(*t_exit_fun)(void *);
+typedef int			(*t_before_exit_fun)(void *);
 
 int					ft_all_in(char *str, char *set);
 void				**ft_array(size_t size1, size_t size2, size_t type_size);
@@ -127,7 +127,7 @@ t_bilist			*ft_bilststep(t_bilist *blst, int n_steps);
 t_bilist			*ft_bilststep_blocking(t_bilist *blst, int n_steps);
 int					ft_bilstsize(t_bilist *blst);
 
-t_exit_fun			ft_get_set_exit_fun(t_exit_fun fun);
+t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun);
 void				*ft_get_set_context(void *new_context);
 t_list				**ft_get_malloc_list(void);
 void				ft_malloc_list_clear(void);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:33:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 09:47:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:40:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	free_lines_error(t_bilist **lines)
 {
-	ft_bilstclear(lines, free);
+	ft_bilstclear(lines, wrap_free);
 	return (-1);
 }
 

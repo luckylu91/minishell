@@ -37,11 +37,11 @@ void print_list(t_list *lst)
 	t_list	*charlist;
 	char	*str;
 
-	charlist = ft_lstmap(lst, itoa_ptr, free);
+	charlist = ft_lstmap(lst, itoa_ptr, wrap_free);
 	str = ft_lststrjoin(charlist, ", ", "[", "]");
-	ft_lstclear(&charlist, free);
+	ft_lstclear(&charlist, wrap_free);
 	printf("%s\n", str);
-	free(str);
+	wrap_free(str);
 }
 
 int main()
