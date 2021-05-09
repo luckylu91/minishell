@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstreviter_arg.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 12:30:43 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 12:46:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 13:53:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstreviter_arg(t_list *lst, void *arg,
-	void (*f)(void *cont, void *arg))
+void	ft_lstreviter_arg(t_list *lst, void *arg, t_fun2 f)
 {
 	if (!lst)
 		return ;

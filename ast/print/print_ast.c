@@ -161,7 +161,7 @@ void	print_ast_list(t_list *ast_lst)
 		printf("---\nEMPTY_AST\n---\n");
 	else
 	{
-		ft_lstiter(ast_lst, print_ast_ptr);
+		ft_lstiter(ast_lst, NULL, print_ast_ptr);
 		printf("---\n");
 	}
 }

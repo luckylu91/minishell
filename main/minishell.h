@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 17:33:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 16:59:47 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 16:02:43 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct		s_minishell
 	char			**termcaps;
 	int				fd_in;
 	int				fd_out;
+	int				tabintent;
+	// char			*tab_path;
 }	t_minishell;
 
 t_minishell	g_global_var;
@@ -50,5 +52,6 @@ int		is_up_down_arrow(int c);
 void	redirect_up_down(char* str);
 int		is_left_right_arrow(int c);
 int		redirect_left_right(char* str);
+void	redirect_tab(void);
 
 #endif

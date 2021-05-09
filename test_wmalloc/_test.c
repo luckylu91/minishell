@@ -10,7 +10,7 @@ void print_int(void *i)
 
 void print_int_list(t_list *lst)
 {
-	ft_lstiter(lst, print_int);
+	ft_lstiter(lst, NULL, print_int);
 }
 
 void before_exit(void *context)

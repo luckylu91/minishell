@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter_arg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:12:04 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/28 12:39:41 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 13:53:21 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter_arg(t_list *lst, void *arg, void (*f)(void *cont, void *arg))
+void	ft_lstiter_arg(t_list *lst, void *arg, t_fun2 f)
 {
 	while (lst != NULL)
 	{

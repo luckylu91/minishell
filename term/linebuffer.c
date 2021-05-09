@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 10:30:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 16:31:23 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 13:31:09 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,14 @@ void	linebuffer_clear(void)
 void	linebuffer_delete_one(void)
 {
 	t_linebuffer	*lb;
+	char			**tc;
 
 	lb = g_global_var.lb;
+	tc = g_global_var.termcaps;
 	if (lb->i > 0)
 	{
+		tputs(tc[MOVE_LEFT_ONE], 1, ft_putchar);
+		tputs(tc[DELETE_CHAR], 1, ft_putchar);
 		lb->i_max--;
 		lb->i--;
 		if (lb->i < lb->i_max)

@@ -34,6 +34,23 @@ char	*pathjoin(char *dirname, char *fname)
 	return (res);
 }
 
+// int stat(const char *restrict path, struct stat *restrict buf);
+
+int	is_dir(char *pathbase, char *name)
+{
+	struct stat	buf;
+	char		*path;
+	int			ret;
+
+	if (pathbase)
+		path = pathjoin(pathbase, name);
+	else
+		path = ft_strdup(name);
+	ret = stat(path, &buf);
+	wrap_free(path);
+	return (S_ISDIR(buf.st_mode));
+}
+
 // int	list_content(char *dir_name, t_list **fname_lst)
 // {
 // 	DIR	*dir_stream;

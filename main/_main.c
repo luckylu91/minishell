@@ -95,12 +95,10 @@ int main()
 			ft_putchar_fd((char)c, fd_out);
 			tputs(tc[INSERT_EXIT], 1, ft_putchar);
 		}
-		else if (c == '\x7f' && lb->i_max > 0)
-		{
-			tputs(tc[MOVE_LEFT_ONE], 1, ft_putchar);
-			tputs(tc[DELETE_CHAR], 1, ft_putchar);
+		else if (c == '\x7f')
 			linebuffer_delete_one();
-		}
+		else if (c == '\x9')
+			redirect_tab();
 		else
 		{
 			if (c == '\n' || c == '\0')

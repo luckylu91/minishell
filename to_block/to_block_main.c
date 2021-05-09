@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:24:39 by hgallien          #+#    #+#             */
-/*   Updated: 2021/05/08 15:11:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 12:49:45 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		in_quote(char *line, t_var_toblock *var, t_list **temp_l)
 	var->i = var->i + 1;
 	char buffer[10];
 	//printf("in auote \n");
-	while (line[var->i] != '\'')
+	while (line[var->i] && line[var->i] != '\'')
 	{
 		if (line[var->i] == '\0')
 		{
@@ -51,7 +51,8 @@ void		in_quote(char *line, t_var_toblock *var, t_list **temp_l)
 		var->i = var->i + 1;
 		//	printf("while in quote i = %i\n",var->i);
 	}
-	var->i =var->i +1;
+	if (line[var->i] == '\'')
+		var->i =var->i +1;
 }
 
 void	handle_space(t_var_toblock *var, t_list **final_l,t_list **temp_l, char *line)
@@ -211,6 +212,7 @@ void	in_back_slash(char *line, t_var_toblock *var, t_list **final_l, t_list **te
 	if (line[var->i] == '\n' || line[var->i] == '\0')
 	{
 		//to do
+		//or not to do
 		return ;
 	}
 	else
@@ -294,7 +296,7 @@ void	in_double_quote(char *line, t_var_toblock *var, t_list **final_l, t_list **
 {
 	var->i = var->i + 1;
 	//printf("Debut double q %c\n",line[var->i]);
-	while (line[var->i] != '\"')
+	while (line[var->i] && line[var->i] != '\"')
 	{
 		//printf(" debut while \" i = %i c = %c \n", var->i, line[var->i]);
 		if (line[var->i] == '$')
@@ -319,7 +321,8 @@ void	in_double_quote(char *line, t_var_toblock *var, t_list **final_l, t_list **
 			//printf("2else double Q c = %c \n", line[var->i]);
 		}
 	}
-	var->i = var->i +1;
+	if (line[var->i] == '\"')
+		var->i = var->i +1;
 
 	//printf("end dquote c = %c \n", line[var->i]);
 }

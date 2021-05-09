@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:21:45 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 18:23:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:34:36 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bilstclear(t_bilist **blst, void (*del)(void*))
+void	ft_bilstclear(t_bilist **blst, t_del_fun del)
 {
 	t_bilist	*blst_mov1;
 	t_bilist	*blst_mov2;
