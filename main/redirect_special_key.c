@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 16:37:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 14:49:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,26 @@ int	redirect_left_right(char* str)
 	return (1);
 }
 
-static void	strlen_max(void *str, void *max)
-{
-	int	len;
+// static void	strlen_max(void *str, void *max)
+// {
+// 	int	len;
 
-	len = ft_strlen(str);
-	if (len > *(int *)max)
-		*(int *)max = len;
-}
+// 	len = ft_strlen(str);
+// 	if (len > *(int *)max)
+// 		*(int *)max = len;
+// }
 
 static int	startswith(char *str, char *prefix)
 {
+	if (!prefix)
+		return (1);
 	return (ft_strncmp(str, prefix, ft_strlen(prefix)) == 0);
 }
 
 static char	last_char(char *str)
 {
+	if (!*str)
+		return ('\0');
 	return (str[ft_strlen(str) - 1]);
 }
 
@@ -136,8 +140,10 @@ static t_block	*valid_last_block(void)
 		ft_lstclear(&block_lst, destroy_block);
 		return (NULL);
 	}
-	buffer_end = ft_strrchr(lb->buffer, last_char(last_block->str)) + 1;
-	if (!ft_all_in(buffer_end, "\'\"\\"))
+	buffer_end = ft_strrchr(lb->buffer, last_char(last_block->str));
+	if (*buffer_end == ' ' && ft_all_in(buffer_end, " "))
+		last_block = create_block(none, ft_strdup(""));
+	else if (!ft_all_in(buffer_end + 1, "\'\"\\"))
 		last_block = NULL;
 	else
 		last_block = dup_block(last_block);
@@ -145,79 +151,102 @@ static t_block	*valid_last_block(void)
 	return (last_block);
 }
 
-void	redirect_tab(void)
+static void	show_matching_files(t_list *files)
 {
-	t_list	*files;
-	char *cwd;
-	char *basedir;
-	// int max_len;
-	t_block *last_block;
-	int num_files_found;
-	char *str_path_part;
-	char *str_to_complete;
-	char *last_slash;
-	int i_sep;
+	ft_putchar_fd('\n', g_global_var.fd_out);
+	ft_lstiter(files, NULL, ft_putendl_fd);
+	show_prompt();
+	ft_putstr_fd(g_global_var.lb->buffer, g_global_var.fd_out);
+}
+
+static void	separate_last_slash(char *str, char **str_path, char **str_end)
+{
+	int	i_sep;
+
+	*str_path = ft_strdup(str);
+	*str_end = ft_strrchr(*str_path, '/');
+	if (!*str_end)
+	{
+		*str_end = *str_path;
+		*str_path = NULL;
+	}
+	else
+	{
+		*str_end = ft_strdup((*str_end) + 1);
+		i_sep = ft_strlen(*str_path) - ft_strlen(*str_end);
+		(*str_path)[i_sep] = '\0';
+	}
+}
+
+static void	get_contextual_tabinfo(t_tabinfo *tabinfo)
+{
+	t_block	*last_block;
+	char	*cwd;
+	char	*str_path;
 
 	last_block = valid_last_block();
 	if (!last_block)
 	{
-		// TODO
-		printf("\nTab intent with no word\n");
+		tabinfo->do_nothing = 1;
+		destroy_block(last_block);
 		return ;
 	}
-	
 	cwd = our_getcwd();
-	str_path_part = ft_strdup(last_block->str);
-	str_to_complete = ft_strrchr(str_path_part, '/');
-	if (!str_to_complete)
-	{
-		str_to_complete = str_path_part;
-		str_path_part = NULL;
-	}
+	separate_last_slash(last_block->str, &str_path,
+			&tabinfo->str_to_complete);
+	if (is_dir(NULL, str_path))
+		tabinfo->basedir = ft_strdup(str_path);
+	else if (str_path)
+		tabinfo->do_nothing = 1;
 	else
-	{
-		str_to_complete = ft_strdup(str_to_complete + 1);
-		i_sep = ft_strlen(str_path_part) - ft_strlen(str_to_complete);
-		str_path_part[i_sep] = '\0';
-	}
-	if (is_dir(cwd, str_path_part))
-		basedir = pathjoin(cwd, str_path_part);
-	else
-		basedir = ft_strdup(cwd);
+		tabinfo->basedir = ft_strdup(cwd);
 	wrap_free(cwd);
-		
-	list_dir(basedir, &files);
-	// max_len = -1;
-	// ft_lstiter(files, &max_len, strlen_max);
-	// printf("max_len : %d\n", max_len);
-	ft_lstfilter(
-		&files,
-		last_block->str,
-		(t_bool_fun)startswith,
-		wrap_free
-	);
+	wrap_free(str_path);
+	destroy_block(last_block);
+}
+
+static void common_prefix_fun(char *str, char **prefix)
+{
+	int	i;
+
+	if (!*prefix)
+		*prefix = ft_strdup(str);
+	else
+	{
+		i = 0;
+		while ((*prefix)[i] && str[i] == (*prefix)[i])
+			i++;
+		(*prefix)[i] = '\0';
+	}
+}
+
+void	redirect_tab(void)
+{
+	t_list	*files;
+	int num_files_found;
+	t_tabinfo	tabinfo;
+
+	get_contextual_tabinfo(&tabinfo);
+	if (tabinfo.do_nothing)
+		return ;
+	list_dir(tabinfo.basedir, &files);
+	ft_lstfilter(&files, tabinfo.str_to_complete, (t_bool_fun)startswith,
+			wrap_free);
 	num_files_found = ft_lstsize(files);
 	if (num_files_found == 1)
 	{
-		int		i = ft_strlen(last_block->str);
+		int		i = ft_strlen(tabinfo.str_to_complete);
 		char	*fname = files->content;
-		int		fname_is_dir;
+		// to_write: files->content
 		char	end_char;
 		
-		fname_is_dir = is_dir(basedir, fname);
-		if (i == ft_strlen(fname))
-		{
-			// TODO
-			printf("Tab indent with no word\n");
-			return ;
-			
-		}
+		// complete(fname, i, files->content)
 		while (fname[i])
 		{
 			linebuffer_add_insert(fname[i]);
 			ft_putchar_fd(fname[i++], g_global_var.fd_out);
 		}
-		if (fname_is_dir)
+		if (is_dir(tabinfo.basedir, fname))
 			end_char = '/';
 		else
 			end_char = ' ';
@@ -226,11 +255,28 @@ void	redirect_tab(void)
 	}
 	else if (num_files_found > 1)
 	{
-		ft_putchar_fd('\n', g_global_var.fd_out);
-		ft_lstiter(files, NULL, ft_putendl_fd);
-		show_prompt();
-		ft_putstr_fd(g_global_var.lb->buffer, g_global_var.fd_out);
+		char	*common_prefix;
+		// to_write: common_prefix
+		int		common_prefix_len;
+		int		i;
+		int		j;
+
+		common_prefix = NULL;
+		ft_lstiter(files, &common_prefix, (t_fun)common_prefix_fun);
+		common_prefix_len = ft_strlen(common_prefix);
+		i = ft_strlen(tabinfo.str_to_complete);
+		j = ft_strlen(common_prefix);
+		if (i == j)
+			show_matching_files(files);
+		else
+		{
+			// complete(fname, i, common_prefix)
+			while (i < j)
+			{
+				linebuffer_add_insert(common_prefix[i]);
+				ft_putchar_fd(common_prefix[i++], g_global_var.fd_out);
+			}
+		}
 	}
-	destroy_block(last_block);
 	ft_lstclear(&files, wrap_free);
 }

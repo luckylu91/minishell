@@ -44,8 +44,10 @@ int	is_dir(char *pathbase, char *name)
 
 	if (pathbase)
 		path = pathjoin(pathbase, name);
-	else
+	else if (name)
 		path = ft_strdup(name);
+	else
+		return (0);
 	ret = stat(path, &buf);
 	wrap_free(path);
 	return (S_ISDIR(buf.st_mode));
