@@ -74,6 +74,8 @@ int main()
 	{
 		g_global_var.fd_in = tty_fd;
 		g_global_var.fd_out = tty_fd;
+		// dup2(STDIN_FILENO, tty_fd);
+		// dup2(STDOUT_FILENO, tty_fd);
 	}
 
 	lb = g_global_var.lb;
