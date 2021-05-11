@@ -35,7 +35,7 @@ int main()
 //	system("ls | grep a");
 //	system("ls");
 	//test_line("ls | grep a");
-	test_line("echo ~");
-	//test_line("pwd | grep h");
+	//test_line("echo ~");
+	test_line("pwd | grep h");
 
 }
