@@ -301,9 +301,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	if (fd.out != NULL)
 		close(fd.int_out);
 	//printf("avant wait\n");
-	waitpid(child, &status, 0);
+	//waitpid(child, &status, 0);
 	//printf("apres wait\n");
-	if (WIFEXITED(status))
+	/*if (WIFEXITED(status))
 	{
 		//printf("Child's exit code %d\n", WEXITSTATUS(status));
 		g_global_var.exit_code = WEXITSTATUS(status);
@@ -312,6 +312,6 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	}
 	else
 		printf("Child did not terminate with exit\n");
-	//wait(&status);
-	return (1);
+	//wait(&status);*/
+	return (child);
 }

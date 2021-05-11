@@ -45,7 +45,7 @@ int	replace_env(t_ast *cmdchain_ast);
 char	**split_path(void);
 int	exe_all(t_list *l_staticast);
  int	copy_environ(char ***new_env_addr);
-int exe_ast(t_ast *l_ast, int i, int *pipe);
+int exe_ast(t_ast *l_ast, int i, int *pipe, t_list **all_child);
 void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
 int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
@@ -59,6 +59,5 @@ typedef struct s_both_fd
 	int int_out;
 	t_ast *out;
 }				both_fd;
-
 
 #endif

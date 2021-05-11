@@ -1,7 +1,7 @@
 #include "execution.h"
 
-
-int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
+extern t_minishell g_global_var;
+int		exe_ast(t_ast *l_ast, int i, int *old_pipe,t_list **all_child)
 {
 	int	new_pipe[2];
 
@@ -10,11 +10,16 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 		return (1);
 	if (l_ast->type == command_expr)
 	{
-//		printf("wtf\n");
+		printf("wtf %p\n",all_child);
+		if (*all_child == NULL)
+			printf("mon cul\n");
 		if (i == 0)
-			exe_cmd(l_ast, NULL, 0,NULL);
-		else
-			exe_cmd(l_ast, old_pipe, 1, NULL);
+		{
+			printf("ici \n");
+			ft_lstdupint_back(all_child, exe_cmd(l_ast, NULL, 0,NULL));
+		}
+			else
+			ft_lstdupint_back(all_child, exe_cmd(l_ast, old_pipe, 1, NULL));
 	}
 	else if (l_ast->type == binary_expr)
 	{
@@ -22,16 +27,16 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 //		printf("ici ?\n");
 		if (i == 0)
 		{
-			exe_ast(l_ast->expr.binary.left, 1, new_pipe);
+			exe_ast(l_ast->expr.binary.left, 1, new_pipe, all_child);
 //			printf("la ?\n");
-			exe_cmd(l_ast->expr.binary.right, new_pipe, 2, NULL);
+			ft_lstdupint_back(all_child,exe_cmd(l_ast->expr.binary.right, new_pipe, 2, NULL));
 			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 
 		}
 		else
 		{
-			exe_ast(l_ast->expr.binary.left, 1, new_pipe);
-			exe_cmd(l_ast->expr.binary.right,new_pipe,3,old_pipe);
+			exe_ast(l_ast->expr.binary.left, 1, new_pipe, all_child);
+			ft_lstdupint_back(all_child,exe_cmd(l_ast->expr.binary.right,new_pipe,3,old_pipe));
 			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 		}
 	}
@@ -41,9 +46,22 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe)
 
 int exe_all(t_list *l_ast)
 {
+	t_list *all_child;
+	all_child = NULL;
+if (all_child == NULL)
+		printf("mon cul\n");
+	int status;
+	
 	if (l_ast == NULL)
 		return (1);
-	exe_ast(((t_ast*)(l_ast->content)), 0, NULL);
+	exe_ast(((t_ast*)(l_ast->content)), 0, NULL, &all_child);
+	while (all_child!= NULL)
+	{
+		printf("penis\n");
+		waitpid(*((int*)all_child->content), &status,0);
+		g_global_var.exit_code = WEXITSTATUS(status);
+		all_child =  all_child->next;
+	}
 	exe_all(l_ast->next);
 //	printf("fin exe_all\n");
 	return (1);	
