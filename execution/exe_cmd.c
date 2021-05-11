@@ -300,9 +300,9 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		close(fd.int_in);
 	if (fd.out != NULL)
 		close(fd.int_out);
-	printf("avant wait\n");
+	//printf("avant wait\n");
 	waitpid(child, &status, 0);
-	printf("apres wait\n");
+	//printf("apres wait\n");
 	if (WIFEXITED(status))
 	{
 		//printf("Child's exit code %d\n", WEXITSTATUS(status));
