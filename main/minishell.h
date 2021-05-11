@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 17:33:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 16:02:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/10 14:20:54 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,19 @@ typedef struct		s_minishell
 	char			**termcaps;
 	int				fd_in;
 	int				fd_out;
-	int				tabintent;
+	char			*tabintent;
 	// char			*tab_path;
 }	t_minishell;
 
 t_minishell	g_global_var;
+
+typedef struct	s_tabinfo
+{
+	char	*basedir;
+	// char	*str_path;
+	char	*str_to_complete;
+	int		do_nothing;
+}	t_tabinfo;
 
 int		before_exit(void *ms_ptr);
 void	exit_with_code(int code);

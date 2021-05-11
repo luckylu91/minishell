@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 12:48:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 14:24:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static void	dup_n_str(t_bilist **dest, t_bilist *src, int n)
 	*dest = NULL;
 	if (n == 0 || !src)
 		return ;
-	src = ft_bilststep_blocking(src, n);
+	if (n > 0)
+		src = ft_bilststep_blocking(src, n);
+	else
+		src = ft_bilstlast(src);
 	while (n != 0 && src)
 	{
 		printf("?");

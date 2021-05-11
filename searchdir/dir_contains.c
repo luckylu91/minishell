@@ -37,7 +37,8 @@ int	list_dir(char *dir_name, t_list **alst)
 	*alst = NULL;
 	while (file)
 	{
-		ft_dupstr_back(alst, file->d_name);
+		if (ft_strcmp(file->d_name, ".") != 0 && ft_strcmp(file->d_name, "..") != 0)
+			ft_dupstr_back(alst, file->d_name);
 		file = readdir(dir);
 	}
 	if (closedir_err(dir) == -1)
