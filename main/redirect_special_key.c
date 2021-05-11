@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/10 14:49:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 14:21:48 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	clear_current_line(t_hist *h, int fd_out)
 	tc = g_global_var.termcaps;
 	if (!lb->buffer)
 		return ;
+	while (lb->i < lb->i_max)
+	{
+		tputs(tparm(tc[MOVE_RIGHT], 1), 1, ft_putchar);
+		lb->i++;
+	}
 	len_screen = ft_strlen(lb->buffer);
 	tputs(tparm(tc[MOVE_LEFT], len_screen), 1, ft_putchar);
 	k = -1;
