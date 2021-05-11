@@ -2,6 +2,7 @@
 #define TESTEUR_H 
 
 #include "libft.h"
+#include "minishell.h"
 #include "block_api.h"
 #include "ast.h"
 #include "ast_add.h"

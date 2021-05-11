@@ -56,6 +56,8 @@ void	exit_properly(void *ms_ptr);
 void	put_current_line(void);
 int		process_line(char *line);
 
+int		process_line_test(char *line);
+
 int		is_up_down_arrow(int c);
 void	redirect_up_down(char* str);
 int		is_left_right_arrow(int c);
