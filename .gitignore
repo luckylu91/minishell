@@ -9,3 +9,6 @@ protos.py
 libft/test_debug_leaks.h
 libft/test_wrap_malloc.c
 to_block/libft.h
+main/_main
+main/_main_db
+.histfile
