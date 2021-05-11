@@ -19,8 +19,8 @@ int	copy_environ(char ***new_env_addr)
 		if (!(*new_env_addr)[i])
 		{
 			while (--i >= 0)
-				free((*new_env_addr)[i]);
-			free(*new_env_addr);
+				wrap_free((*new_env_addr)[i]);
+			wrap_free(*new_env_addr);
 			return (-1);
 		}
 	}

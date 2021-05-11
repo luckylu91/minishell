@@ -36,7 +36,7 @@ char	*block_string(t_block *block)
 		return (ft_strdup("(null_block)"));
 	flags_str = block_flags_str(block);
 	asprintf(&block_str, "(<%s>%s)", flags_str, block->str);
-	free(flags_str);
+	wrap_free(flags_str);
 	return (block_str);
 }
 
@@ -49,7 +49,7 @@ void	print_block(void *block_ptr)
 {
 	char *block_str = block_string_ptr(block_ptr);
 
-	ft_putstr_fd(block_str, STDOUT_FILENO);
+	printf("%s", block_str);
 	free(block_str);
 }
 
@@ -61,6 +61,6 @@ static void	print_block_and_arrow(void *block_ptr)
 
 void	print_block_list(t_list *lst)
 {
-	ft_lstiter(lst, print_block_and_arrow);
+	ft_lstiter(lst, NULL, print_block_and_arrow);
 	printf("END");
 }

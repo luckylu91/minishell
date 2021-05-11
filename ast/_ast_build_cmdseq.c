@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _ast_build_cmdseq.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 23:36:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/02 00:06:52 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:28:26 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int build_print_destroy_ast(t_list *tokens)
 
 	if (parse_cmdseq(&ast_seq, tokens) != STATUS_OK)
 		return (-1);
-	ft_lstiter(ast_seq, print_ast_ptr);
+	ft_lstiter(ast_seq, NULL, print_ast_ptr);
 	printf("\n");
 	ft_lstclear(&ast_seq, destroy_ast_ptr);
 	return (1);

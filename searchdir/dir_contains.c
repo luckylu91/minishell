@@ -2,9 +2,9 @@
 
 int	dir_contains(char *dir_name, char *fname)
 {
-	DIR	*dir;
+	DIR				*dir;
 	struct dirent	*file;
-	int	ret;
+	int				ret;
 
 	dir = opendir_err(dir_name);
 	if (!dir)
@@ -23,4 +23,24 @@ int	dir_contains(char *dir_name, char *fname)
 	if (closedir_err(dir) == -1)
 		return (-1);
 	return (ret);
+}
+
+int	list_dir(char *dir_name, t_list **alst)
+{
+	DIR				*dir;
+	struct dirent	*file;
+
+	dir = opendir_err(dir_name);
+	if (!dir)
+		return (-1);
+	file = readdir(dir);
+	*alst = NULL;
+	while (file)
+	{
+		ft_dupstr_back(alst, file->d_name);
+		file = readdir(dir);
+	}
+	if (closedir_err(dir) == -1)
+		return (-1);
+	return (1);
 }

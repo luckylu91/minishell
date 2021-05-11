@@ -37,9 +37,6 @@ int	init_termios(void)
 	// 	errno = ENOTSUP;
 	// 	return (-1);
 	// }
-	signal(SIGINT, terminal_signal);
-	signal(SIGQUIT, terminal_signal);
-	signal(SIGTERM, terminal_signal);
 
 	// /* Let BREAK cause a SIGINT in input. */
 	// term.terminal_settings.c_iflag &= ~IGNBRK;

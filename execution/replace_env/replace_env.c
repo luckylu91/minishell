@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 15:29:18 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:30:24 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ static int	replace_env_text(t_list **text_lst, t_list **redir_blocks)
 // 	{
 // 		text_ast = (t_ast *)lst->content;
 // 		text_ast_repl = NULL;
-// 		if (ft_lstany(text_ast->expr.text, is_dollar_ptr))
+// 		if (ft_lstany(text_ast->expr.text, NULL, is_dollar_ptr))
 // 		{
 // 			if (replace_env_text(text_ast, &text_ast_repl) < 0)
 // 				return (-1);
@@ -245,7 +245,7 @@ static int	invalid_file_name(t_list *file_name)
 {
 	if (!file_name)
 		return (1);
-	return (ft_lstany(file_name, is_space_ptr));
+	return (ft_lstany(file_name, NULL, is_space_ptr));
 }
 
 static int	replace_env_cmd(t_ast *cmd_ast)

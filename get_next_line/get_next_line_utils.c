@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:53:12 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/28 19:21:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:22:23 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ size_t	strccpy(char *dst, char *src, char c, size_t n)
 	return (i);
 }
 
-int		free_safe(char *line)
+int		wrap_free_error(char *line)
 {
-	if (line)
-		free(line);
+	wrap_free(line);
 	return (-1);
 }

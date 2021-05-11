@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:51:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 09:51:09 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:18:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	replace_unquoted(t_block *env_block, t_list **replacement)
 	if (ret == -1 || !env_str)
 		return (ret);
 	splitted = ft_split(env_str, " ");
-	free(env_str);
+	wrap_free(env_str);
 	if (!splitted)
 		return (-1);
 	i = -1;
@@ -35,6 +35,6 @@ int	replace_unquoted(t_block *env_block, t_list **replacement)
 		if (splitted[i + 1])
 			addback_space_block(replacement);
 	}
-	free(splitted);
+	wrap_free(splitted);
 	return (ret);
 }

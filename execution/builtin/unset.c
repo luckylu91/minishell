@@ -54,7 +54,7 @@ char	**env_new_alloc(char **arg, char **env, int old)
 		//printf("premmier while i = %i env_new\n",i);
 		i++;
 	}
-	new = malloc(sizeof(char*)*i);
+	new = wrap_malloc(sizeof(char*)*i);
 	while (j < i - 1)
 	{
 
@@ -64,11 +64,11 @@ char	**env_new_alloc(char **arg, char **env, int old)
 			new[j] = ft_strdup((env)[x]);
 			j++;
 		}
-		free((env)[x]);
+		wrap_free((env)[x]);
 		x++;
 	}
 	//printf("after deuxieme zhile env new\n");
-	free((env));
+	wrap_free((env));
 	return (new);
 }
 int	not_valid_id(char *arg)

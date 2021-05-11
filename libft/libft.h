@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 10:57:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/09 14:33:29 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ typedef struct	s_bilist
 	struct s_bilist	*next;
 }	t_bilist;
 
-typedef void		(*t_exit_fun)(void *);
+typedef int			(*t_before_exit_fun)(void *);
+typedef int			(*t_bool_fun)();
+typedef void		(*t_del_fun)(void *);
+typedef void		*(*t_dup_fun)(void *);
+typedef void		(*t_fun)();
 
 int					ft_all_in(char *str, char *set);
 void				**ft_array(size_t size1, size_t size2, size_t type_size);
@@ -80,27 +84,21 @@ t_list				*ft_lstfind(t_list *lst, void *content,
 						size_t content_size);
 void				ft_lstadd_back(t_list **alst, t_list *new_elem);
 t_list				*ft_lstcpy(t_list *src, size_t content_size);
-void				ft_lstdelone(t_list *lst, void (*del)(void*));
+void				ft_lstdelone(t_list *lst, t_del_fun del);
 t_list				*ft_lstremove(t_list **alst, void *content,
 						size_t content_size);
-void				ft_lstclear(t_list **lst, void (*del)(void*));
-void				ft_lstiter(t_list *lst, void (*f)(void *));
-void				ft_lstiter_arg(t_list *lst, void *arg,
-									void (*f)(void *cont, void *arg));
-void				ft_lstreviter(t_list *lst, void (*f)(void *));
-void				ft_lstreviter_arg(t_list *lst, void *arg,
-										void (*f)(void *cont, void *arg));
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-						void (*del)(void *));
+void				ft_lstclear(t_list **lst, t_del_fun del);
+void				ft_lstiter(t_list *lst, void *arg, t_fun f);
+void				ft_lstreviter(t_list *lst, void *arg, t_fun f);
+t_list				*ft_lstmap(t_list *lst, t_dup_fun dup,
+						t_del_fun del);
 t_list				*ft_lstcat(t_list *lst1, t_list *lst2);
-int					ft_lstany(t_list *lst, int (*booleval)(void *content));
-int					ft_lstany2(t_list *lst, void *ref,
-								int (*booleval)(void *cont, void *ref));
+int					ft_lstany(t_list *lst, void *arg, t_bool_fun booleval);
 t_list				*ft_lststep(t_list *lst, int n_steps);
 t_list				*ft_lstskip(t_list *lst, int (*skip)(void *content));
 void				ft_lstadd_back_content(t_list **alst, void *content);
 int					ft_any(void *array, size_t len, size_t size,
-								int (*booleval)(void*));
+								t_bool_fun booleval);
 int					ft_strindex(const char *s, int c);
 int					ft_intindex(const int *array, size_t n, int val);
 void				ft_lstdup_back(t_list **alst, void *aval, size_t size);
@@ -117,17 +115,20 @@ void				ft_lstadd_front_content(t_list **alst, void *content);
 void				ft_bilstadd_back(t_bilist **alst, t_bilist *new_elem);
 void				ft_bilstadd_back_content(t_bilist **alst, void *content);
 void				ft_bilstadd_front(t_bilist **alst, t_bilist *new_elem);
-void			ft_bilstadd_front_content(t_bilist **alst, void *content);
-void				ft_bilstclear(t_bilist **blst, void (*del)(void*));
-void				ft_bilstdelone(t_bilist *blst, void (*del)(void*));
+void				ft_bilstadd_front_content(t_bilist **alst, void *content);
+void				ft_bilstclear(t_bilist **blst, t_del_fun del);
+void				ft_bilstdelone(t_bilist *blst, t_del_fun del);
 t_bilist			*ft_bilstlast(t_bilist *blst);
 t_bilist			*ft_bilstfirst(t_bilist *blst);
 t_bilist			*ft_bilstnew(void *content);
 t_bilist			*ft_bilststep(t_bilist *blst, int n_steps);
 t_bilist			*ft_bilststep_blocking(t_bilist *blst, int n_steps);
 int					ft_bilstsize(t_bilist *blst);
+t_list				*ft_bilst_to_lst_dup(t_bilist *blst, t_dup_fun dup);
+void				ft_dupstr_back(t_list **alst, char *src);
+void				ft_lstfilter(t_list **alst, void *arg, t_bool_fun to_keep, t_del_fun del);
 
-t_exit_fun			ft_get_set_exit_fun(t_exit_fun fun);
+t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun);
 void				*ft_get_set_context(void *new_context);
 t_list				**ft_get_malloc_list(void);
 void				ft_malloc_list_clear(void);

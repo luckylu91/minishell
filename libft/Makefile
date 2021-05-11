@@ -62,15 +62,12 @@ BONUS = ft_lstadd_front.c \
 		ft_lstfind.c \
 		ft_lstlast.c \
 		ft_lstiter.c \
-		ft_lstiter_arg.c \
 		ft_lstreviter.c \
-		ft_lstreviter_arg.c \
 		ft_lstmap.c \
 		ft_lstnew.c \
 		ft_lstcat.c \
 		ft_lstclear.c \
 		ft_lstany.c \
-		ft_lstany2.c \
 		ft_lststep.c \
 		ft_lstskip.c \
 		ft_lstadd_back_content.c \
@@ -89,7 +86,10 @@ BONUS = ft_lstadd_front.c \
 		ft_bilststep.c \
 		ft_bilststep_blocking.c \
 		ft_bilstfirst.c \
-		ft_bilstsize.c
+		ft_bilstsize.c \
+		ft_bilst_to_lst_dup.c \
+		ft_dupstr_back.c \
+		ft_lstfilter.c
 
 SRCS +=	wrap_malloc.c wrap_free.c
 

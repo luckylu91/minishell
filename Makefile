@@ -1,5 +1,5 @@
 CC = clang
-SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM)")
+SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM|__norm_py_old__)")
 SUBDIRS = $(filter-out ./test_%, $(SUBDIRS_ALL))
 SUBDIRS_TEST = $(filter ./test_%, $(SUBDIRS_ALL))
 TEST_EXECS = $(filter-out %.c %.h, $(shell find $(SUBDIRS_TEST) -maxdepth 1 -mindepth 1))
@@ -15,8 +15,8 @@ SRCS += $(addprefix ast/print/, print_ast.c print_block.c)
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
 			is_dollar.c is_rawtext.c is_tilde.c)
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
-SRCS += $(addprefix term/, init_termcaps.c init_termios.c termcaps_errors.c termcaps_utils.c bigger_calloc.c linebuffer.c)
-SRCS +=	$(addprefix execution/searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
+SRCS += $(addprefix term/, init_termcaps.c init_termios.c termcaps_errors.c termcaps_utils.c bigger_calloc.c linebuffer.c prompt.c)
+SRCS +=	$(addprefix searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
 SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c env.c export_todo.c unset.c)
 SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c remove_spaces.c remove_spaces_cmdchain.c our_getenv.c our_getcwd.c)
 SRCS += $(addprefix error/, error_message.c ambiguous_redirect_error.c)

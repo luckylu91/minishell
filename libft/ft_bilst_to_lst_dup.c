@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_bilst_to_lst_dup.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 14:02:51 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 14:33:43 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/09 12:40:29 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/09 13:54:11 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, t_del_fun del)
+t_list	*ft_bilst_to_lst_dup(t_bilist *blst, t_dup_fun dup)
 {
-	(*del)(lst->content);
-	wrap_free(lst);
+	t_list	*result;
+
+	result = NULL;
+	blst = ft_bilstlast(blst);
+	while (blst)
+	{
+		ft_lstadd_front_content(&result, (*dup)(blst->content));
+		blst = blst->prev;
+	}
+	return (result);
 }

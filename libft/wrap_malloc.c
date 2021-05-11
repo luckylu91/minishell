@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 10:56:19 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/08 15:34:15 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_list	**ft_get_malloc_list(void)
 	return (&malloc_list);
 }
 
-t_exit_fun	ft_get_set_exit_fun(t_exit_fun fun)
+t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun)
 {
-	static t_exit_fun exit_fun = NULL;
+	static t_before_exit_fun exit_fun = NULL;
 
 	if (fun)
 	{
@@ -45,22 +45,44 @@ void	*ft_get_set_context(void *new_context)
 	return (context);
 }
 
+void	ft_lstclear_nowrap(t_list **lst)
+{
+	t_list	*lst_mov1;
+	t_list	*lst_mov2;
+
+	if (lst == NULL)
+		return ;
+	lst_mov1 = *lst;
+	while (lst_mov1 != NULL)
+	{
+		lst_mov2 = lst_mov1->next;
+		free(lst_mov1->content);
+		free(lst_mov1);
+		lst_mov1 = lst_mov2;
+	}
+	*lst = NULL;
+}
+
 void	ft_malloc_list_clear(void)
 {
 	t_list **malloc_list;
 
 	malloc_list = ft_get_malloc_list();
-	ft_lstclear(malloc_list, free);
+	ft_lstclear_nowrap(malloc_list);
 }
 
 void	ft_exit(void)
 {
-	t_exit_fun	exit_fun;
+	t_before_exit_fun	before_exit_fun;
+	int					ret;
 
+	before_exit_fun = ft_get_set_exit_fun(NULL);
+	if (before_exit_fun)
+		ret = before_exit_fun(ft_get_set_context(NULL));
+	else
+		ret = 0;
 	ft_malloc_list_clear();
-	exit_fun = ft_get_set_exit_fun(NULL);
-	if (exit_fun)
-		exit_fun(ft_get_set_context(NULL));
+	exit(ret);
 }
 
 static void	addback_malloc(void *new_malloc)
