@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/06 14:13:57 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 16:57:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ int	our_getenv(t_block *block, char **res_addr)
 {
 	char *env_str;
 
+	if (is_tilde(block))
+	{
+		block->f = dollar_dquote;
+		wrap_free(block->str);
+		block->str = ft_strdup("HOME");
+	}
 	if (is_dollar(block) && block->str && ft_strcmp(block->str, "?") == 0)
 		*res_addr = ft_itoa(g_global_var.exit_code);
 	else if (is_dollar(block) && block->str && (ft_isalpha(block->str[0]) || block->str[0] == '_'))
@@ -48,8 +54,6 @@ int	our_getenv(t_block *block, char **res_addr)
 		else
 			*res_addr = ft_strdup("");
 	}
-	else if (is_tilde(block))
-		*res_addr = our_getcwd();
 	else
 		*res_addr = NULL;
 	return (1);

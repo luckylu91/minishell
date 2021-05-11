@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 13:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 16:15:38 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 16:54:24 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	before_exit(void *ms_ptr)
 	terminal_done();
 	if (ms)
 	{
-		if (write_histfile(ms->h) == -1)
-			ms->exit_code = -1;
+		// if (write_histfile(ms->h) == -1)
+		// 	ms->exit_code = -1;
 		return (ms->exit_code);
 	}
 	else
