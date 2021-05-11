@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/11 15:44:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 15:47:23 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef void *(*dup_fun)(void *);
 
 int	read_truncate_histfile(t_hist *h)
 {
-	if (parseq_file(h->histfile_name, &h->file_lines, h->histfile_size) == -1)
+	if (parse_file(h->histfile_name, &h->file_lines, h->histfile_size) == -1)
 		return (-1);
 	dup_n_str(&h->hlines, h->file_lines, h->hist_size);
 	return (1);
