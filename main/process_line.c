@@ -19,7 +19,9 @@ int process_line(char *line)
 		exit_properly(&g_global_var);
 	if (remove_spaces_cmdchain(ast_cmdchain) == -1)
 		return (-1);
+	set_terminal_original();
 	exe_ast(ast_cmdchain, 0, NULL);
+	set_terminal_minishell();
 	destroy_ast(&ast_cmdchain);
 	return (1);
 }

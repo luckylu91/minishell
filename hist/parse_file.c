@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 11:33:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:40:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/11 15:19:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	parse_file_fd(int fd, t_bilist **lines, int limit)
 	ret_gnl = 1;
 	while (limit != 0 && ret_gnl == 1)
 	{
+		ft_putstr_fd(".", STDOUT_FILENO);
 		ret_gnl = get_next_line(fd, &line);
 		if (ret_gnl == -1)
 			return (free_lines_error(lines));

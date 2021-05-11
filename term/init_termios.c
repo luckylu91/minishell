@@ -17,6 +17,17 @@ void	terminal_signal(int signum)
 	exit(0);
 }
 
+void	set_terminal_original(void)
+{
+	tcsetattr(STDOUT_FILENO, TCSANOW, &term.terminal_original);
+}
+
+
+void	set_terminal_minishell(void)
+{
+	tcsetattr(STDOUT_FILENO, TCSANOW, &term.terminal_settings);
+}
+
 /* Initialize terminal for non-canonical, non-echo mode,
  * that should be compatible with standard C I/O.
  * Returns 0 if success, nonzero errno otherwise.
