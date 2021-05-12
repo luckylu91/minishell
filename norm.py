@@ -7,7 +7,7 @@ import shutil
 old_dirname = '__norm_py_old__'
 dirnames_to_exclude = ['.git', '.vscode']
 
-proto_patt = re.compile(r'((?:[_a-zA-Z]\w*\s+){1,})(w+\(.+\))')
+proto_patt = re.compile(r'((?:[_a-zA-Z]\w*\**\s+)(?:\**[_a-zA-Z]\w*\s+)*)(\**\w+\(.*\)\s*)')
 h_proto_patt = re.compile(r'((?:[_a-zA-Z]\w*\**\s+)(?:\**[_a-zA-Z]\w*\s+)*)(\**\w+\(.+\)\s*;)')
 fun_var_patt = re.compile(r'\t((?:[_a-zA-Z]\w*\**\s+)(?:\**[_a-zA-Z]\w*\s+)*)(\**\w+(?:\[\w+\])*;)')
 proc_patt = re.compile(r'#\s*(.+)')
@@ -51,7 +51,7 @@ def norm_c(fname, fname_old=None):
 			if len(declare_group) > 0:
 				print_declare_group(declare_group, lines_out)
 				declare_group = []
-			line = m.group(1) + '\t' + m.group(2) + '\n'
+			line = m.group(1).strip() + '\t' + m.group(2).strip() + '\n'
 			lines_out.append(line)
 			continue
 		m = fun_var_patt.match(line)
