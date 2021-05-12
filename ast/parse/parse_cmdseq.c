@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:20:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 11:00:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 17:23:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ t_status	parse_cmdseq(t_list **ast_list, t_list *tokens)
 		ft_lstadd_back_content(ast_list, ast_cmdchain);
 		if (is_eof_lst(tokens))
 			return (STATUS_OK);
-		if (!identify_semicol(&tokens))
-		{
-			// print_block(block_at(tokens));
+		if ((is_semicol_lst(tokens) && !ast_cmdchain) || !is_semicol_lst(tokens))
 			return (unexpected_token_error(tokens));
-		}
+		tokens = tokens->next;
 	}
 	return (STATUS_OK);
 }
