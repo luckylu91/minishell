@@ -212,6 +212,16 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		g_global_var.exit_code = start_builtin(all_var);
 		return (1);
 	}
+	
+	//printf("avant le fork\n");
+	child = fork();
+	if (child == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGTERM, SIG_DFL);
+		//printf("dans le fork\n");
+		//printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
 	if (fd.in != NULL)
 	{
 
@@ -229,24 +239,18 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		//	printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
 		
 	if (fd.out->expr.redir.redir_op->str[1] =='>') 
-		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_RDWR | O_APPEND, 0666);
-	else
-		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_RDWR, 0666);
+	{
+		printf("doublette ?\n");
+		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY | O_APPEND, 0666);
+	}
+		else
+		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY |O_TRUNC, 0666);
 		if (fd.int_out == -1)
 		{
 			printf("erreur ouverture fichier out\n");
 			return (-1);
 		}
 	}
-	//printf("avant le fork\n");
-	child = fork();
-	if (child == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGTERM, SIG_DFL);
-		//printf("dans le fork\n");
-		//printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
 
 		//printf("dans le fork222\n");
 		if (state == 1 && fd.out == NULL)
@@ -272,12 +276,12 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		if (fd.int_in != -1)
 		{
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
-			close(fd.int_in);
+			//close(fd.int_in);
 		}
 		if (fd.int_out != -1)
 		{
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
-			close(fd.int_out);
+			//close(fd.int_out);
 		}
 		if (is_builtin(all_var[0]))
 		{
@@ -296,11 +300,11 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 			close(pipe[0]);
 		}
 	}
-	if (fd.in != NULL)
+/*	if (fd.in != NULL)
 		close(fd.int_in);
 	if (fd.out != NULL)
 		close(fd.int_out);
-	//printf("avant wait\n");
+*/	//printf("avant wait\n");
 	//waitpid(child, &status, 0);
 	//printf("apres wait\n");
 	/*if (WIFEXITED(status))

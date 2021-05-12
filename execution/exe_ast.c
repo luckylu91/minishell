@@ -10,12 +10,12 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe,t_list **all_child)
 		return (1);
 	if (l_ast->type == command_expr)
 	{
-		printf("wtf %p\n",all_child);
-		if (*all_child == NULL)
-			printf("mon cul\n");
+	//	printf("wtf %p\n",all_child);
+	//	if (*all_child == NULL)
+	//		printf("mon cul\n");
 		if (i == 0)
 		{
-			printf("ici \n");
+	//		printf("ici \n");
 			ft_lstdupint_back(all_child, exe_cmd(l_ast, NULL, 0,NULL));
 		}
 			else
@@ -42,27 +42,4 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe,t_list **all_child)
 	}
 //	printf("fin exe_ast\n");
 	return (1);
-}
-
-int exe_all(t_list *l_ast)
-{
-	t_list *all_child;
-	all_child = NULL;
-if (all_child == NULL)
-		printf("mon cul\n");
-	int status;
-	
-	if (l_ast == NULL)
-		return (1);
-	exe_ast(((t_ast*)(l_ast->content)), 0, NULL, &all_child);
-	while (all_child!= NULL)
-	{
-		printf("penis\n");
-		waitpid(*((int*)all_child->content), &status,0);
-		g_global_var.exit_code = WEXITSTATUS(status);
-		all_child =  all_child->next;
-	}
-	exe_all(l_ast->next);
-//	printf("fin exe_all\n");
-	return (1);	
 }

@@ -21,6 +21,7 @@ void	test_line(char *line)
 	system(ft_strjoin("diff ./testeur_file/bash_res ./testeur_file/our_res >", diff));
 	i = open(diff, O_RDONLY);
 	r = read(i,buff,1);
+	printf("testavant test\n");
 	if (buff[0] == '\0')
 		printf("\nPOUR  #%s# test %i [OK]",line, compteur);
 	else
@@ -31,11 +32,13 @@ void	test_line(char *line)
 
 int main()
 {
-	printf("mange mes couilles\n");
+//	printf("mange mes couilles\n");
 //	system("ls | grep a");
 //	system("ls");
 	//test_line("ls | grep a");
 	//test_line("echo ~");
-	test_line("pwd | grep h");
-
+	//test_line("pwd | grep h");
+	
+	test_line("echo a");
+//	test_line("echo b");
 }
