@@ -37,8 +37,6 @@ int main()
 	signal(SIGQUIT, terminal_signal);
 	signal(SIGTERM, terminal_signal);
 
-
-
 	//termios
 	ret = init_termios();
 	if (ret == -1)
@@ -103,7 +101,7 @@ int main()
 			redirect_tab();
 		else
 		{
-			if (c == '\n' || c == '\0')
+			if (c == '\n')// || c == '\0')
 			{
 				ft_putchar_fd('\n', fd_out);
 				process_line(lb->buffer);
