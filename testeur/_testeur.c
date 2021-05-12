@@ -21,24 +21,68 @@ void	test_line(char *line)
 	system(ft_strjoin("diff ./testeur_file/bash_res ./testeur_file/our_res >", diff));
 	i = open(diff, O_RDONLY);
 	r = read(i,buff,1);
-	printf("testavant test\n");
+	//printf("\ntestavant test |%s|\n",diff);
 	if (buff[0] == '\0')
-		printf("\nPOUR  #%s# test %i [OK]",line, compteur);
+		printf("\nPOUR  #%s# test %i [OK]\n",line, compteur);
 	else
-		printf("\nPOUR #%s# test %i [ERR]",line, compteur);
+		printf("\nPOUR #%s# test %i [ERR]\n",line, compteur);
 	compteur++;
 	close(i);
 }	
+void	test_echo(void)
+{
+	test_line("echo ~");
+	test_line("echo ~~");
+	test_line("echo \"~\"");
+
+	test_line("echo '~'");
+
+	test_line("echo \\~");
+	test_line("echo '~'");
+	test_line("echo \"'~'\"");
+	test_line("echo '\"~\"'");
+	test_line("echo \"\\~\"");
+
+	test_line("echo $USER");
+
+	test_line("echo '$'USER");
+	// A FIX test_line("echo \"$\"USER");
+	test_line("echo \\$USER");
+	test_line("echo '$USER'");
+	test_line("echo \"'$USER'\"");
+	test_line("echo '\"$USER\"'");
+	test_line("echo \"$USER\"");
+	test_line("echo $\"USER\"");
+	
+
+	test_line("echo $1111");
+	test_line("echo \\$1111");
+	test_line("echo \"$1111\"");
+	test_line("echo '$1111'");
+
+
+	test_line("echo $cette_var_nexiste_pas");
+
+	test_line("echo \\$cette_var_nexiste_pas");
+	test_line("echo '$cette_var_nexiste_pas'");
+	test_line("echo \"$cette_var_nexiste_pas\"");
+	
+	test_line("echo '$'cette_var_nexiste_pas");
+//A FIX	test_line("echo \"$\"cette_var_nexiste_pas");
+}
+
 
 int main()
 {
 //	printf("mange mes couilles\n");
-//	system("ls | grep a");
-//	system("ls");
+	//system("ls | grep a");
+	//system("ls");
 	//test_line("ls | grep a");
 	//test_line("echo ~");
+
 	//test_line("pwd | grep h");
-	
-	test_line("echo a");
-//	test_line("echo b");
+	test_echo();	
+	//test_line("cat Makefile");
+	//test_line("echo Makefile");
+
 }
