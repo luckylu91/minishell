@@ -1,4 +1,2 @@
-/Users/hgallien/Qrsus/minishel/premier_jet/minishell
-POUR  #ls | grep a# test 0 [OK]v
-test_wmalloc
-valgrind-out.txt
+a
+POUR #echo a# test 0 [ERR]
