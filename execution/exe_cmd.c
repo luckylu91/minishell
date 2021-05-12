@@ -106,19 +106,19 @@ int	get_redir_fd(both_fd *res, t_list *l)
 
 int		start_builtin(char **c)
 {
-//printf("start builtin |%s|\n",c[0]);
+	//printf("start builtin |%s|\n",c[0]);
 	if (ft_strcmp(c[0], "echo") == 0)
 		return our_echo(c);
 	if (ft_strcmp(c[0], "cd") == 0)
-		 return our_cd(c);
+		return our_cd(c);
 	if (ft_strcmp(c[0], "pwd") == 0)
 		return our_pwd(c);
 	if (ft_strcmp(c[0], "export") == 0)
 	{
-//		printf("if export\n");
+		//		printf("if export\n");
 		return export(c, &(g_global_var.env));
 	}
-		else if (ft_strcmp(c[0], "unset") == 0)
+	else if (ft_strcmp(c[0], "unset") == 0)
 	{
 		//printf("if unset\n");
 		//printf("adress = %p\n",&(g_global_var.env));
@@ -126,7 +126,7 @@ int		start_builtin(char **c)
 	}
 	else if (ft_strcmp(c[0], "env") == 0)
 	{
-//		printf("start env\n");
+		//		printf("start env\n");
 		return (our_env(g_global_var.env));
 	}
 	else if (ft_strcmp(c[0], "exit") == 0)
@@ -162,7 +162,7 @@ int		is_builtin_nopipe(char *c)
 
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 {
-	//printf("start exe_cmd\n");
+//taprintf("start exe_cmd\n");
 	char **all_path;
 	both_fd fd;
 	char **all_var;
@@ -208,20 +208,10 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	}
 	else if (is_builtin_nopipe(all_var[0]))
 	{
-	
+
 		g_global_var.exit_code = start_builtin(all_var);
 		return (1);
 	}
-	
-	//printf("avant le fork\n");
-	child = fork();
-	if (child == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGTERM, SIG_DFL);
-		//printf("dans le fork\n");
-		//printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
 	if (fd.in != NULL)
 	{
 
@@ -237,20 +227,30 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	{
 
 		//	printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
-		
-	if (fd.out->expr.redir.redir_op->str[1] =='>') 
-	{
-		printf("doublette ?\n");
-		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY | O_APPEND, 0666);
-	}
+
+		if (fd.out->expr.redir.redir_op->str[1] =='>') 
+		{
+			printf("doublette ?\n");
+			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY | O_APPEND, 0666);
+		}
 		else
-		fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY |O_TRUNC, 0666);
+			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY |O_TRUNC, 0666);
 		if (fd.int_out == -1)
 		{
 			printf("erreur ouverture fichier out\n");
 			return (-1);
 		}
 	}
+
+	//printf("avant le fork\n");
+	child = fork();
+	if (child == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGTERM, SIG_DFL);
+		//printf("dans le fork\n");
+		//printf("state = %i pipe 0=%ipipe 1=%i\n",state,pipe[0],pipe[1]);
 
 		//printf("dans le fork222\n");
 		if (state == 1 && fd.out == NULL)
@@ -286,7 +286,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		if (is_builtin(all_var[0]))
 		{
 			exit(start_builtin(all_var));
-	//		printf("apres exit builtin\n");
+			//		printf("apres exit builtin\n");
 		}
 		else
 			execve(path, all_var, g_global_var.env);
@@ -300,22 +300,22 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 			close(pipe[0]);
 		}
 	}
-/*	if (fd.in != NULL)
+	if (fd.in != NULL)
 		close(fd.int_in);
 	if (fd.out != NULL)
 		close(fd.int_out);
-*/	//printf("avant wait\n");
+	//printf("avant wait\n");
 	//waitpid(child, &status, 0);
 	//printf("apres wait\n");
 	/*if (WIFEXITED(status))
-	{
-		//printf("Child's exit code %d\n", WEXITSTATUS(status));
-		g_global_var.exit_code = WEXITSTATUS(status);
+	  {
+	//printf("Child's exit code %d\n", WEXITSTATUS(status));
+	g_global_var.exit_code = WEXITSTATUS(status);
 	//	printf("hein ? %d\n",cmd->exit_code); 
 
 	}
 	else
-		printf("Child did not terminate with exit\n");
+	printf("Child did not terminate with exit\n");
 	//wait(&status);*/
 	return (child);
 }
