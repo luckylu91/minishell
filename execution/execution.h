@@ -52,13 +52,6 @@ int	our_unset(char **argv, char ***our_env);
 int our_env(char **tab_env);
 int our_echo(char **argv);
 int our_pwd(char **argv);
-void	our_getenv(t_block *block, char **res_addr);
-	t_ast	*in;
-	int		int_in;
-	int		int_out;
-	t_ast	*out;
-}			both_fd;
-
 int		is_assign_operator(char *s);
 int		assign_operator_offset(char *arg);
 int		not_valid_identifier_error(char *arg);

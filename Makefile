@@ -7,15 +7,10 @@ IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -Llibft -lft -lncurses
 DBFLAGS = -g3 -fsanitize=address
 SRCS = $(addprefix ast/add/, add_textitem_totext.c add_textredir_tocmd.c add_cmd_tochain.c addback_none_block_nodup.c addback_space_block.c)
-<<<<<<< HEAD
 SRCS += $(addprefix ast/create_destroy/, create_ast.c create_block.c destroy_block.c dup_block.c destroy_ast.c)
 SRCS += $(addprefix execution/, split_path.c)
 
 SRCS += $(addprefix execution/ast_exe/, exe_cmd_utils.c ft_builtin.c redir.c exe_cmd.c exe_ast.c) 
-=======
-SRCS += $(addprefix ast/create_destroy/, create_ast.c create_block.c destroy_block.c dup_block.c destroy_ast.c destroy_text_ast.c destroy_redir_ast.c destroy_unary_ast.c destroy_binary_ast.c destroy_command_ast.c)
-SRCS += $(addprefix execution/, exe_cmd.c exe_ast.c split_path.c)
->>>>>>> b43bbbe52bd084db64aaf89656fabcd91ed1142c
 SRCS += $(addprefix ast/parse/, identify_semicol.c parse_cmd.c parse_cmdchain.c parse_cmdseq.c parse_redir.c parse_text.c skip_spaces.c to_str.c)
 # SRCS += $(addprefix lst_utils/, )
 SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
