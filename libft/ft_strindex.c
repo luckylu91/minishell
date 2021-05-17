@@ -14,7 +14,7 @@
 
 int	ft_strindex(const char *s, int c)
 {
-	char *strchr_result;
+	char	*strchr_result;
 
 	strchr_result = ft_strchr(s, c);
 	if (!strchr_result)

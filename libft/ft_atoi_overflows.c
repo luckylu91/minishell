@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "limits.h"
 
-int			ft_atoi_overflows(const char *str)
+int	ft_atoi_overflows(const char *str)
 {
 	long	res;
 	long	sgn;

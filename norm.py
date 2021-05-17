@@ -68,9 +68,11 @@ def norm_c(fname, fname_old=None):
 		declare_group = []
 	f.close()
 	f = open(fname, "w")
+	while (lines_out[-1] == '\n'):
+		lines_out.pop(-1)
+	if not lines_out[-1].endswith('\n'):
+		lines_out[-1] += '\n'
 	f.writelines(lines_out)
-	if lines_out[-1] != '\n':
-		f.write('\n')
 	f.close()
 
 def print_proto_groups(proto_groups, lines_out):

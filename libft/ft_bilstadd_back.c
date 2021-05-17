@@ -14,7 +14,7 @@
 
 void	ft_bilstadd_back(t_bilist **alst, t_bilist *new)
 {
-	t_bilist *last;
+	t_bilist	*last;
 
 	if (alst == NULL)
 		return ;

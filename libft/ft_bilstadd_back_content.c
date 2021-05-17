@@ -14,7 +14,7 @@
 
 void	ft_bilstadd_back_content(t_bilist **alst, void *content)
 {
-	t_bilist *new_elem;
+	t_bilist	*new_elem;
 
 	if (!alst)
 		return ;

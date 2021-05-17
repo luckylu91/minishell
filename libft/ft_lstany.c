@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int ft_lstany(t_list *lst, void *arg, t_bool_fun booleval)
+int	ft_lstany(t_list *lst, void *arg, t_bool_fun booleval)
 {
 	while (lst)
 	{

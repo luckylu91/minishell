@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:46:13 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/23 05:49:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 13:49:10 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	unsigned char	c_uc;
 	size_t			i;
 
-	s_uc = (unsigned char*)s;
+	s_uc = (unsigned char *)s;
 	c_uc = (unsigned char)c;
 	i = 0;
 	while (i < n)

@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_all_in.c                                        :+:      :+:    :+:   */
+/*   wrap_malloc_getset.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/17 14:48:57 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 11:38:16 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/17 14:07:10 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 14:07:21 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_all_in(char *str, char *set)
+t_list	**ft_get_malloc_list(void)
 {
-	int	i;
+	static t_list *malloc_list = NULL;
 
-	if (!str)
-		return (1);
-	i = -1;
-	while (str[++i])
+	return (&malloc_list);
+}
+
+t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun)
+{
+	static t_before_exit_fun exit_fun = NULL;
+
+	if (fun)
 	{
-		if (!ft_strchr(set, str[i]))
-			return (0);
+		exit_fun = fun;
+		return (NULL);
 	}
-	return (1);
+	return (exit_fun);
+}
+
+void	*ft_get_set_context(void *new_context)
+{
+	static void *context = NULL;
+
+	if (new_context)
+	{
+		context = new_context;
+		return (NULL);
+	}
+	return (context);
 }

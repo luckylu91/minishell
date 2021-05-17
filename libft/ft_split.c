@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:16:45 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 15:34:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 13:50:08 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char const	*skip(char const *s, char *delim, int skip_sep,
 	size_t *flen)
 {
-	int i;
+	int	i;
 
 	if (flen != NULL)
 		*flen = 0;
@@ -43,7 +43,7 @@ static char const	*skip_field(char const *s, char *delim, size_t *flen)
 	return (s);
 }
 
-static void			free_previous(char **array, size_t i)
+static void	free_previous(char **array, size_t i)
 {
 	size_t	j;
 
@@ -56,7 +56,7 @@ static void			free_previous(char **array, size_t i)
 	wrap_free(array);
 }
 
-static int			pass(char const *s, char *delim, char **s_array,
+static int	pass(char const *s, char *delim, char **s_array,
 		size_t *n_fields)
 {
 	size_t		flen;
@@ -84,7 +84,7 @@ static int			pass(char const *s, char *delim, char **s_array,
 	return (0);
 }
 
-char				**ft_split(char const *s, char *delim)
+char	**ft_split(char const *s, char *delim)
 {
 	size_t	n_fields;
 	char	**s_array;
@@ -93,7 +93,7 @@ char				**ft_split(char const *s, char *delim)
 		return (NULL);
 	s = skip(s, delim, 1, NULL);
 	pass(s, delim, NULL, &n_fields);
-	s_array = wrap_malloc((n_fields + 1) * sizeof(char*));
+	s_array = wrap_malloc((n_fields + 1) * sizeof(char *));
 	if (s_array == NULL)
 		return (NULL);
 	if (pass(s, delim, s_array, NULL) == -1)

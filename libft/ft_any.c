@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 11:15:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/02 11:30:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 11:38:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_any(void *array, size_t len, size_t size, int (*booleval)(void*))
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)

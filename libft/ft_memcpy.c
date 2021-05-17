@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 04:46:10 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/24 17:13:27 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 13:49:33 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	if (dst == NULL && src == NULL)
 		return (NULL);
-	dst_uc = (unsigned char*)dst;
-	src_uc = (unsigned char*)src;
+	dst_uc = (unsigned char *)dst;
+	src_uc = (unsigned char *)src;
 	i = 0;
 	while (i < n)
 	{

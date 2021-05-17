@@ -6,46 +6,14 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:34:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:08:19 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-// //
 // #define TEST_DEBUG_LEAKS
 #include "libft.h"
 
-t_list	**ft_get_malloc_list(void)
-{
-	static t_list *malloc_list = NULL;
-
-	return (&malloc_list);
-}
-
-t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun)
-{
-	static t_before_exit_fun exit_fun = NULL;
-
-	if (fun)
-	{
-		exit_fun = fun;
-		return (NULL);
-	}
-	return (exit_fun);
-}
-
-void	*ft_get_set_context(void *new_context)
-{
-	static void *context = NULL;
-
-	if (new_context)
-	{
-		context = new_context;
-		return (NULL);
-	}
-	return (context);
-}
-
-void	ft_lstclear_nowrap(t_list **lst)
+static void	ft_lstclear_nowrap(t_list **lst)
 {
 	t_list	*lst_mov1;
 	t_list	*lst_mov2;
