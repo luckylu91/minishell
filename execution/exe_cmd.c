@@ -162,7 +162,7 @@ int		is_builtin_nopipe(char *c)
 
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 {
-//taprintf("start exe_cmd\n");
+	//taprintf("start exe_cmd\n");
 	char **all_path;
 	both_fd fd;
 	char **all_var;
@@ -187,11 +187,55 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		return (-1);
 	}
 	//printf("manges tes morts\n");
+	if (fd.in != NULL)
+	{
+		//	printf("in#####|%s|######\n", get_char_from_block(fd.in->expr.redir.file_name));
+		fd.int_in = open(get_char_from_block(fd.in->expr.redir.file_name), O_RDWR, 0666);
+		if (fd.int_in == -1)
+		{
+			printf("erreur ouverture fichier in\n");
+			return (-1);
+		}
+	}
+	if (fd.out != NULL)
+	{
+		//	printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
+		if (fd.out->expr.redir.redir_op->str[1] =='>') 
+		{
+			//printf("doublette ?\n");
+			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY | O_APPEND, 0666);
+		}
+		else
+			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY |O_TRUNC, 0666);
+		if (fd.int_out == -1)
+		{
+			//printf("erreur ouverture fichier out\n");
+			return (-1);
+		}
+	}
 	path = search_cmd(all_path,all_var[0]); 
 	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
 		g_global_var.exit_code = 127;
-		printf("bash: %s: command not found\n", all_var[0]);
+		child = fork();
+		if (child == 0)
+		{
+			if (fd.int_in != -1)
+			{
+				dup2(fd.int_in, fd.in->expr.redir.fildes);
+				//close(fd.int_in);
+			}
+			if (fd.int_out != -1)
+			{
+				dup2(fd.int_out, fd.out->expr.redir.fildes);
+				//close(fd.int_out);
+			}
+			ft_putstr_fd("bash: ",2);
+			ft_putstr_fd(all_var[0],2);
+			ft_putstr_fd(": command not found\n",2);
+			exit(0);
+		//	printf("bash: %s: command not found\n", all_var[0]);
+		}
 		return (-1);
 	}
 	if (is_builtin_nopipe(all_var[0]) && state != 0)
@@ -211,35 +255,6 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 
 		g_global_var.exit_code = start_builtin(all_var);
 		return (1);
-	}
-	if (fd.in != NULL)
-	{
-
-		//	printf("in#####|%s|######\n", get_char_from_block(fd.in->expr.redir.file_name));
-		fd.int_in = open(get_char_from_block(fd.in->expr.redir.file_name), O_RDWR, 0666);
-		if (fd.int_in == -1)
-		{
-			printf("erreur ouverture fichier in\n");
-			return (-1);
-		}
-	}
-	if (fd.out != NULL)
-	{
-
-		//	printf("out#####|%s|######\n", get_char_from_block(fd.out->expr.redir.file_name));
-
-		if (fd.out->expr.redir.redir_op->str[1] =='>') 
-		{
-			printf("doublette ?\n");
-			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY | O_APPEND, 0666);
-		}
-		else
-			fd.int_out = open(get_char_from_block(fd.out->expr.redir.file_name), O_WRONLY |O_TRUNC, 0666);
-		if (fd.int_out == -1)
-		{
-			printf("erreur ouverture fichier out\n");
-			return (-1);
-		}
 	}
 
 	//printf("avant le fork\n");
