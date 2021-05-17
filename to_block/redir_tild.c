@@ -1,10 +1,10 @@
 #include "to_block.h"
 
-
-void	redirection(t_var_toblock *var, char *line, t_list **final_l, t_list **temp_l)
+void	redirection(t_var_toblock *var, char *line,
+		t_list **final_l, t_list **temp_l)
 {
 	if (*temp_l != NULL)
-		temp_to_final( final_l, temp_l, none);
+		temp_to_final(final_l, temp_l, none);
 	while (ft_isdigit(line[var->i]))
 	{
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
@@ -16,14 +16,13 @@ void	redirection(t_var_toblock *var, char *line, t_list **final_l, t_list **temp
 		var->i = var->i + 1;
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
 	}
-
 	temp_to_final(final_l, temp_l, spe);
 	var->i = var->i + 1;
 }
 
-int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
+int	test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 {
-	int i;
+	int	i;
 
 	i = var->i;
 	if (line[var->i] == '>' || line[var->i] == '<')
@@ -36,26 +35,23 @@ int		test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 			{
 				i++;
 			}
-			if(line[i] == '>' || line[i] == '<')
+			if (line[i] == '>' || line[i] == '<')
 				return (1);
 		}
 	}
 	return (0);
 }
 
-void	in_tild(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l)
+void	in_tild(char *line, t_var_toblock *var,
+		t_list **final_l, t_list **temp_l)
 {
 	if (*temp_l != NULL || !(is_separator(&line[var->i + 1])))
 	{
-		//printf("not tilt c=|%c| \n",line[var->i+1]);
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
-
 	}
 	else
 	{
-		//printf("is tilt\n");
 		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
 		temp_to_final(final_l, temp_l, spe);
 	}
 }
-

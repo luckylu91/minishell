@@ -30,12 +30,28 @@
 
 typedef struct s_both_fd
 {
-	t_ast	*in;
-	int		int_in;
-	int		int_out;
-	t_ast	*out;
-}			both_fd;
-
+	t_ast *in;
+	int int_in;
+	int int_out;
+	t_ast *out;
+}				both_fd;
+char	*get_char_from_block(t_list *l);
+void	dup_str(t_list *l, char **res, int i);
+int		size_list(t_list *l);
+char **from_list_to_str_tab(t_list *l);
+int		is_last(t_list *l, char c);
+int		start_builtin(char **c);
+int		is_builtin(char *c);
+int		is_builtin_nopipe(char *c);
+int	check_redir(both_fd *fd);
+int	get_redir_fd(both_fd *res, t_list *l);
+int	export(char **argv, char ***our_env);
+int our_cd(char **argv);
+int find_var(char *arg, char **env);
+int	our_unset(char **argv, char ***our_env);
+int our_env(char **tab_env);
+int our_echo(char **argv);
+int our_pwd(char **argv);
 int		is_assign_operator(char *s);
 int		assign_operator_offset(char *arg);
 int		not_valid_identifier_error(char *arg);
