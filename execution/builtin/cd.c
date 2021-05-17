@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:29:59 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 15:55:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	our_cd(char **argv)
 		return (1);
 	}
 	if (ret)
+	{
 		error_message_errno("cd", strerror(errno));
-	return (ret);
+		return (1);
+	}
+	return (0);
 }

@@ -6,21 +6,21 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:53:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/12 18:38:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:56:51 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 // Empty env var generates one non block with empty string
-void	replace_dquoted(t_block *env_block, t_list **replacement)
+void	replace_dquoted(t_block *env_block, t_list **replacement, t_minishell *ms)
 {
 	char	*env_str;
 	t_block	*new_block;
 	int		ret;
 
 	*replacement= NULL;
-	our_getenv(env_block, &env_str);
+	our_getenv(env_block, &env_str, ms);
 	if (!env_str)
 		new_block = create_block(none, "");
 	else
