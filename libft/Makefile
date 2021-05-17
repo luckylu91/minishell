@@ -91,7 +91,7 @@ BONUS = ft_lstadd_front.c \
 		ft_dupstr_back.c \
 		ft_lstfilter.c
 
-SRCS +=	wrap_malloc.c wrap_free.c
+SRCS +=	wrap_malloc_getset.c wrap_malloc.c wrap_free.c
 
 OBJS = $(SRCS:.c=.o)
 

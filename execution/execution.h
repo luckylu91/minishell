@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/12 18:05:44 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:36:59 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,40 @@
 #define	ASSIGN_EQUAL	1
 #define	ASSIGN_PEQUAL	2
 
-// mettre dans minishell.h (structure si besoin...)
+typedef struct s_both_fd
+{
+	t_ast	*in;
+	int		int_in;
+	int		int_out;
+	t_ast	*out;
+}			both_fd;
 
-int	export(char **argv, char ***our_env);
-int our_cd(char **argv);
-int find_var(char *arg, char **env);
-int	our_unset(char **argv, char ***our_env);
-int our_env(char **tab_env);
-int our_echo(char **argv);
-int our_pwd(char **argv);
+int		is_assign_operator(char *s);
+int		assign_operator_offset(char *arg);
+int		not_valid_identifier_error(char *arg);
+char	*strdup_remove_plus(char *src, int op_index);
+
+int		export(char **argv, char ***our_env);
+int		our_cd(char **argv);
+int		find_var(char *arg, char **env);
+int		our_unset(char **argv, char ***our_env);
+int		our_env(char **tab_env);
+int		our_echo(char **argv);
+int		our_pwd(char **argv);
 void	our_getenv(t_block *block, char **res_addr);
 char	*our_getcwd(void);
 void	replace_unquoted(t_block *env_block, t_list **replacement);
 void	replace_dquoted(t_block *env_block, t_list **replacement);
-int	replace_env(t_ast *cmdchain_ast);
+int		replace_env(t_ast *cmdchain_ast);
 char	**split_path(void);
-int	exe_all(t_list *l_staticast);
- int	copy_environ(char ***new_env_addr);
-int exe_ast(t_ast *l_ast, int i, int *pipe, t_list **all_child);
-void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
-		t_list **begin);
-int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
-int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
+int		exe_all(t_list *l_staticast);
+int		copy_environ(char ***new_env_addr);
+int		exe_ast(t_ast *l_ast, int i, int *pipe, t_list **all_child);
+void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
+	t_list **begin);
+int		remove_spaces(t_list *block_lst, t_list **new_block_lst);
+int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 
-int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
-typedef struct s_both_fd
-{
-	t_ast *in;
-	int int_in;
-	int int_out;
-	t_ast *out;
-}				both_fd;
+int		exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
 
 #endif

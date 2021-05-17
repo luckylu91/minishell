@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:07:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:07:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:11:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_list	**ft_get_malloc_list(void)
 {
-	static t_list *malloc_list = NULL;
+	static t_list	*malloc_list = NULL;
 
 	return (&malloc_list);
 }
 
 t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun)
 {
-	static t_before_exit_fun exit_fun = NULL;
+	static t_before_exit_fun	exit_fun = NULL;
 
 	if (fun)
 	{
@@ -33,7 +33,7 @@ t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun)
 
 void	*ft_get_set_context(void *new_context)
 {
-	static void *context = NULL;
+	static void	*context = NULL;
 
 	if (new_context)
 	{

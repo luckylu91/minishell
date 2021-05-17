@@ -33,7 +33,7 @@ static void	ft_lstclear_nowrap(t_list **lst)
 
 void	ft_malloc_list_clear(void)
 {
-	t_list **malloc_list;
+	t_list	**malloc_list;
 
 	malloc_list = ft_get_malloc_list();
 	ft_lstclear_nowrap(malloc_list);
@@ -55,8 +55,8 @@ void	ft_exit(void)
 
 static void	addback_malloc(void *new_malloc)
 {
-	t_list **malloc_list;
-	t_list *new_elem;
+	t_list	**malloc_list;
+	t_list	*new_elem;
 
 	malloc_list = ft_get_malloc_list();
 	new_elem = malloc(sizeof(t_list));
@@ -72,7 +72,7 @@ static void	addback_malloc(void *new_malloc)
 
 void	*wrap_malloc(size_t size)
 {
-	void *new_malloc;
+	void	*new_malloc;
 
 	new_malloc = malloc(size);
 	if (!new_malloc)
@@ -83,4 +83,3 @@ void	*wrap_malloc(size_t size)
 	addback_malloc(new_malloc);
 	return (new_malloc);
 }
-

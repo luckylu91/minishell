@@ -14,7 +14,7 @@
 
 t_block	*create_block(enum flags f, char *str)
 {
-	t_block *block_new;
+	t_block	*block_new;
 
 	block_new = ft_calloc(1, sizeof(t_block));
 	block_new->f = f;

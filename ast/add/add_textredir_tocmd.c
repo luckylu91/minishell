@@ -6,18 +6,18 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:08:59 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:11:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:13:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
 
-static t_list **text_list(t_ast *cmd_ast)
+static t_list	**text_list(t_ast *cmd_ast)
 {
 	return (&cmd_ast->expr.command.text_list);
 }
 
-static t_list **redir_list(t_ast *cmd_ast)
+static t_list	**redir_list(t_ast *cmd_ast)
 {
 	return (&cmd_ast->expr.command.redir_list);
 }
@@ -26,7 +26,6 @@ void	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast)
 {
 	if (!*cmd_ast)
 		*cmd_ast = create_ast(command_expr);
-	// non NULL of text_redir_ast checked before in parse_cmd
 	if (text_redir_ast->type == text_expr)
 	{
 		if (*text_list(*cmd_ast))

@@ -12,11 +12,10 @@
 
 #include "ast_api.h"
 
-void skip_spaces(t_list **tokens)
+void	skip_spaces(t_list **tokens)
 {
 	if (!*tokens || !is_space(block_at(*tokens)))
 		return ;
 	*tokens = (*tokens)->next;
 	skip_spaces(tokens);
 }
-

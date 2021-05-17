@@ -6,17 +6,18 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 23:18:14 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:09:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:11:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
+#include <stdio.h>
 
 static int	lstremove_addr(t_list **alst, void *content)
 {
-	t_list *lst;
-	t_list *prev;
+	t_list	*lst;
+	t_list	*prev;
 
 	prev = NULL;
 	lst = *alst;
@@ -38,10 +39,6 @@ static int	lstremove_addr(t_list **alst, void *content)
 	return (0);
 }
 
-
-#include <execinfo.h>
-#include <stdio.h>
-
 void	wrap_free(void *addr)
 {
 	t_list	**malloc_list;
@@ -55,4 +52,3 @@ void	wrap_free(void *addr)
 		exit(-1);
 	}
 }
-

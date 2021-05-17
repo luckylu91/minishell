@@ -1,10 +1,10 @@
 #include "block_api.h"
 
-void destroy_block(void *block_ptr)
+void	destroy_block(void *block_ptr)
 {
-	t_block *block;
+	t_block	*block;
 
-	block = (t_block*)block_ptr;
+	block = (t_block *)block_ptr;
 	if (!block)
 		return ;
 	wrap_free(block->str);

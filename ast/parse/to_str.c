@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:44:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/03/31 11:52:24 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:23:48 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ char	*to_str(t_list *block_lst)
 {
 	if (!block_lst)
 		return (NULL);
-	return ((char*)(block_at(block_lst)->str));
+	return ((char *)(block_at(block_lst)->str));
 }

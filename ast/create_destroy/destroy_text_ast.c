@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_cmd_tochain.c                                  :+:      :+:    :+:   */
+/*   destroy_text_ast.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 12:46:51 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:12:29 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/17 14:17:50 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 14:18:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
 
-void	add_cmd_tochain(t_ast **cmdchain_ast, t_ast *cmd_ast, t_block *chainop)
+void	destroy_text_ast(t_ast *nnull_ast)
 {
-	t_ast	*parent;
-	t_block	*chainop_copy;
-
-	if (!*cmdchain_ast)
-	{
-		*cmdchain_ast = cmd_ast;
-		return ;
-	}
-	parent = NULL;
-	parent = create_ast(binary_expr);
-	chainop_copy = dup_block(chainop);
-	parent->expr.binary.left = *cmdchain_ast;
-	parent->expr.binary.op_name = chainop_copy;
-	parent->expr.binary.right = cmd_ast;
-	*cmdchain_ast = parent;
+	destroy_block_lst(&nnull_ast->expr.text);
 }
