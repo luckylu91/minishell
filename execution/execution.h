@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 11:08:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/12 18:05:44 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	our_unset(char **argv, char ***our_env);
 int our_env(char **tab_env);
 int our_echo(char **argv);
 int our_pwd(char **argv);
-int	our_getenv(t_block *block, char **res_addr);
+void	our_getenv(t_block *block, char **res_addr);
 char	*our_getcwd(void);
-int	replace_unquoted(t_block *env_block, t_list **replacement);
-int	replace_dquoted(t_block *env_block, t_list **replacement);
+void	replace_unquoted(t_block *env_block, t_list **replacement);
+void	replace_dquoted(t_block *env_block, t_list **replacement);
 int	replace_env(t_ast *cmdchain_ast);
 char	**split_path(void);
 int	exe_all(t_list *l_staticast);
