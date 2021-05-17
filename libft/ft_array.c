@@ -6,37 +6,22 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:40:21 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 15:34:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 11:41:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	**free_error(void **grid, size_t size1)
-{
-	size_t i;
-
-	i = 0;
-	while (i < size1)
-	{
-		wrap_free(grid[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-void		**ft_array(size_t size1, size_t size2, size_t type_size)
+void	**ft_array(size_t size1, size_t size2, size_t type_size)
 {
 	size_t	i;
 	void	**grid;
 
-	if (!(grid = ft_calloc(size1, sizeof(void*))))
-		return (NULL);
+	grid = ft_calloc(size1, sizeof(void *));
 	i = 0;
 	while (i < size1)
 	{
-		if (!(grid[i] = ft_calloc(size2, type_size)))
-			return (free_error(grid, size1));
+		grid[i] = ft_calloc(size2, type_size);
 		i++;
 	}
 	return (grid);

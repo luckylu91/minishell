@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/04/27 14:55:18 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 15:55:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	our_cd(char **argv)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	if (!argv[1])
@@ -23,10 +23,13 @@ int	our_cd(char **argv)
 		ret = chdir(argv[1]);
 	else
 	{
-		error_message("bash: cd: too many arguments"); // bash: cd: ...
-		return (1); // needed for $?
+		error_message("bash: cd: too many arguments");
+		return (1);
 	}
 	if (ret)
-		error_message_errno("cd", strerror(errno)); // cd: ...
-	return (ret);
+	{
+		error_message_errno("cd", strerror(errno));
+		return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 14:33:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:05:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 # include <stdlib.h>
 # include <stdio.h>
-//
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
 
-typedef struct	s_bilist
+typedef struct s_bilist
 {
 	void			*content;
 	struct s_bilist	*prev;
@@ -33,7 +32,7 @@ typedef struct	s_bilist
 typedef int			(*t_before_exit_fun)(void *);
 typedef int			(*t_bool_fun)();
 typedef void		(*t_del_fun)(void *);
-typedef void		*(*t_dup_fun)(void *);
+typedef void*		(*t_dup_fun)(void *);
 typedef void		(*t_fun)();
 
 int					ft_all_in(char *str, char *set);
@@ -98,13 +97,13 @@ t_list				*ft_lststep(t_list *lst, int n_steps);
 t_list				*ft_lstskip(t_list *lst, int (*skip)(void *content));
 void				ft_lstadd_back_content(t_list **alst, void *content);
 int					ft_any(void *array, size_t len, size_t size,
-								t_bool_fun booleval);
+						t_bool_fun booleval);
 int					ft_strindex(const char *s, int c);
 int					ft_intindex(const int *array, size_t n, int val);
 void				ft_lstdup_back(t_list **alst, void *aval, size_t size);
 void				ft_lstdupint_back(t_list **alst, int k);
 char				*ft_lststrjoin(t_list *lst, char *sep, char *left,
-									char *right);
+						char *right);
 size_t				ft_splitlen(char **splitted);
 int					ft_isspace(int c);
 int					ft_atoi_overflows(const char *str);
@@ -126,7 +125,8 @@ t_bilist			*ft_bilststep_blocking(t_bilist *blst, int n_steps);
 int					ft_bilstsize(t_bilist *blst);
 t_list				*ft_bilst_to_lst_dup(t_bilist *blst, t_dup_fun dup);
 void				ft_dupstr_back(t_list **alst, char *src);
-void				ft_lstfilter(t_list **alst, void *arg, t_bool_fun to_keep, t_del_fun del);
+void				ft_lstfilter(t_list **alst, void *arg, t_bool_fun to_keep,
+						t_del_fun del);
 
 t_before_exit_fun	ft_get_set_exit_fun(t_before_exit_fun fun);
 void				*ft_get_set_context(void *new_context);

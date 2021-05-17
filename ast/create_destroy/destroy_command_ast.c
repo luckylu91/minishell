@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mini_context.c                                :+:      :+:    :+:   */
+/*   destroy_command_ast.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/29 15:08:44 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:25:27 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/17 14:18:01 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 14:19:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ast_api.h"
 
-static t_mini_context *free_error(t_mini_context *mc)
+static void	destroy_text_ast_ptr(void *p)
 {
-	destroy_hist(&mc->h);
-	wrap_free(mc);
-	return (NULL);
+	destroy_text_ast((t_ast *)p);
 }
 
-t_mini_context	*init_mini_context()
+static void	destroy_redir_ast_ptr(void *p)
 {
-	t_mini_context *mc;
+	destroy_redir_ast((t_ast *)p);
+}
 
-	mc = ft_calloc(1, sizeof(t_mini_context));
-	if (!mc)
-		return (NULL);
-	mc->h = create_hist(".hist_file");
-	if (!mc->h)
-		return (free_error(mc));
+void	destroy_command_ast(t_ast *nnull_ast)
+{
+	ft_lstclear(&nnull_ast->expr.command.text_list, destroy_block);
+	ft_lstclear(&nnull_ast->expr.command.redir_list, destroy_redir_ast_ptr);
 }

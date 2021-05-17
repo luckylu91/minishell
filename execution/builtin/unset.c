@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 14:30:38 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 15:56:31 by lzins            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execution.h"
 
 
 extern t_minishell g_global_var;
 
-int find_var(char *arg, char **env)
+int	find_var(char *arg, char **env)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	i = 0;
 	//printf("debut find var\n");
 	while (env[i] != NULL)
@@ -39,10 +51,10 @@ int find_var(char *arg, char **env)
 
 char	**env_new_alloc(char **arg, char **env, int old)
 {
-	int i;
-	int j;
-	int x;
-	char **new;
+	int		i;
+	int		j;
+	int		x;
+	char	**new;
 
 	j = 0;
 	x = 0;
@@ -73,7 +85,7 @@ char	**env_new_alloc(char **arg, char **env, int old)
 }
 int	not_valid_id(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!(ft_isalpha(arg[i])))
@@ -87,10 +99,10 @@ int	not_valid_id(char *arg)
 	return (0);
 }
 
-int		our_unset(char **arg, char ***env)
+int	our_unset(char **arg, char ***env)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	i = 1;
 	//printf("debut unset\n");
 	while (arg[i] != NULL)

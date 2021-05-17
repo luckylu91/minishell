@@ -1,10 +1,11 @@
 #include "to_block.h"
 #include "ast_api.h"
 #include "execution.h"
+#include "minishell.h"
 
 int g_exit_code = 0;
 
-int test_replace_line(char *line)
+int test_replace_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
 	t_list	*block_lst_mov;
@@ -24,7 +25,7 @@ int test_replace_line(char *line)
 	printf("\n####\n");
 	destroy_block_lst(&block_lst);
 
-	if (replace_env(ast_cmdchain) == -1)
+	if (replace_env(ast_cmdchain, ms) == -1)
 	{
 		printf("replace env returned -1\n");
 		return (-1);
@@ -44,10 +45,13 @@ int test_replace_line(char *line)
 
 int main()
 {
+	t_minishell *ms;
+
+	ms = ft_calloc(1, sizeof(t_minishell));
 	setbuf(stdout, NULL);
-	printf("replace_line ret = %d\n", test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~ "));
+	printf("replace_line ret = %d\n", test_replace_line("ls pourqoui \"$a\" \"$PATH\" -pas ~ > ~ ", ms));
 	printf("\n");
 	printf("%s\n", our_getcwd());
 	char *envstr;
-	printf("ret = %d: %s\n", our_getenv(create_block(dollar_dquote, "PATH"), &envstr), envstr);
+	printf("ret = %d: %s\n", our_getenv(create_block(dollar_dquote, "PATH"), &envstr, ms), envstr);
 }

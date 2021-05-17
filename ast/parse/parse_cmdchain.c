@@ -14,9 +14,9 @@
 
 t_status	parse_cmdchain(t_ast **cmdchain_ast, t_list **tokens)
 {
-	t_ast *cmd_ast;
-	t_status status;
-	t_block *chainop;
+	t_ast		*cmd_ast;
+	t_status	status;
+	t_block		*chainop;
 
 	*cmdchain_ast = NULL;
 	status = STATUS_OK;

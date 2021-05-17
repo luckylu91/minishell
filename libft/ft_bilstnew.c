@@ -14,7 +14,7 @@
 
 t_bilist	*ft_bilstnew(void *content)
 {
-	t_bilist *new_elem;
+	t_bilist	*new_elem;
 
 	new_elem = wrap_malloc(sizeof(t_bilist));
 	new_elem->content = content;

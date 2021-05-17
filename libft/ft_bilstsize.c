@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_bilstsize(t_bilist *blst)
+int	ft_bilstsize(t_bilist *blst)
 {
 	int	i;
 
@@ -25,4 +25,3 @@ int		ft_bilstsize(t_bilist *blst)
 	}
 	return (i);
 }
-

@@ -14,7 +14,7 @@
 
 t_ast	*create_ast(t_ast_type type)
 {
-	t_ast *result_ast;
+	t_ast	*result_ast;
 
 	result_ast = ft_calloc(1, sizeof(t_ast));
 	result_ast->type = type;

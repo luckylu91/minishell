@@ -6,14 +6,14 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 16:50:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 16:05:58 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 14:13:29 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_ADD_H
-#define AST_ADD_H
+# define AST_ADD_H
 
-#include "ast_api.h"
+# include "ast_api.h"
 
 void	add_textitem_totext(t_ast **text_ast, t_block *block);
 void	add_textredir_tocmd(t_ast **cmd_ast, t_ast *text_redir_ast);

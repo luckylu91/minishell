@@ -6,12 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:21:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/12 18:47:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 15:04:46 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
 
 //	Insert "insertion" between *lst_prev and *lst, then *lst_prev becomes
 //	the true predecessor of lst
@@ -43,7 +42,7 @@
 // }
 
 
-t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks)
+t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks, t_minishell *ms)
 {
 	t_block	*env_block;
 	t_list	*replacement;
@@ -51,9 +50,9 @@ t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks)
 	replacement = NULL;
 	env_block = block_at(block_lst);
 	if (env_block->f == dollar)
-		replace_unquoted(env_block, &replacement);
+		replace_unquoted(env_block, &replacement, ms);
 	else if (env_block->f == dollar_dquote || is_tilde(env_block))
-		replace_dquoted(env_block, &replacement);
+		replace_dquoted(env_block, &replacement, ms);
 	else if (env_block->f != dollar && env_block->f != dollar_dquote && !is_tilde(env_block))
 		replacement = NULL;
 	else
@@ -100,25 +99,28 @@ t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks)
 // 	return (1);
 // }
 
-t_list	*replace_env_text(t_list *block_lst, t_list **redir_blocks)
+t_list	*replace_env_text(t_list *block_lst, t_list **redir_blocks, t_minishell *ms)
 {
 	t_list	*new_value;
-	t_list	*next_values;
+	t_list	*tail;
 
 	if (!block_lst)
 		return (NULL);
-	next_values = replace_env_text(block_lst->next, redir_blocks);
+	tail = replace_env_text(block_lst->next, redir_blocks, ms);
 	if (is_dollar_lst(block_lst) || is_tilde_lst(block_lst))
-		new_value = replace_env_block(block_lst, redir_blocks);
+		new_value = replace_env_block(block_lst, redir_blocks, ms);
 	else
+	{
 		new_value = block_lst;
+		new_value->next = NULL;
+	}
 	if (new_value)
 	{
-		ft_lstlast(new_value)->next = next_values;
+		ft_lstlast(new_value)->next = tail;
 		return (new_value);
 	}
 	else
-		return (next_values);
+		return (tail);
 }
 
 // static int	replace_env_text(t_list **text_lst, t_list **redir_blocks)
@@ -171,7 +173,7 @@ static int	invalid_file_name(t_list *file_name)
 	return (ft_lstany(file_name, NULL, is_space_ptr));
 }
 
-static int	replace_env_cmd(t_ast *cmd_ast)
+static int	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 {
 	t_list	*redir_list;
 	t_ast	*redir_ast;
@@ -179,13 +181,13 @@ static int	replace_env_cmd(t_ast *cmd_ast)
 	t_list	*redir_blocks;
 	int		ret;
 
-	cmd_ast->expr.command.text_list = replace_env_text(cmd_ast->expr.command.text_list, NULL);
+	cmd_ast->expr.command.text_list = replace_env_text(cmd_ast->expr.command.text_list, NULL, ms);
 	redir_blocks = NULL;
 	redir_list = cmd_ast->expr.command.redir_list;
 	while (redir_list)
 	{
 		redir_ast = (t_ast *)redir_list->content;
-		redir_ast->expr.redir.file_name = replace_env_text(redir_ast->expr.redir.file_name, &redir_blocks);
+		redir_ast->expr.redir.file_name = replace_env_text(redir_ast->expr.redir.file_name, &redir_blocks, ms);
 		ret = 1;
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
 		{
@@ -198,24 +200,21 @@ static int	replace_env_cmd(t_ast *cmd_ast)
 	return (1);
 }
 
-int	replace_env(t_ast *cmdchain_ast)
+int	replace_env(t_ast *cmdchain_ast, t_minishell *ms)
 {
-	printf("A");
 	if (!cmdchain_ast)
 		return (1);
 	if (cmdchain_ast->type == command_expr)
 	{
-		if (replace_env_cmd(cmdchain_ast) < 0)
+		if (replace_env_cmd(cmdchain_ast, ms) < 0)
 			return (-1);
 	}
 	else if (cmdchain_ast->type == binary_expr)
 	{
-		if (replace_env(cmdchain_ast->expr.binary.left) < 0)
+		if (replace_env(cmdchain_ast->expr.binary.left, ms) < 0)
 			return (-1);
-		if (replace_env(cmdchain_ast->expr.binary.right) < 0)
+		if (replace_env(cmdchain_ast->expr.binary.right, ms) < 0)
 			return (-1);
 	}
-
-	printf("B");
 	return (1);
 }

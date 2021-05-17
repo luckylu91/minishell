@@ -14,7 +14,7 @@
 
 void	ft_lstdup_back(t_list **alst, void *aval, size_t size)
 {
-	void *aval_copy;
+	void	*aval_copy;
 
 	aval_copy = wrap_malloc(size);
 	ft_memcpy(aval_copy, aval, size);

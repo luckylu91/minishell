@@ -14,8 +14,8 @@
 
 t_list	*ft_lstremove(t_list **alst, void *content, size_t content_size)
 {
-	t_list *lst;
-	t_list *prev;
+	t_list	*lst;
+	t_list	*prev;
 
 	prev = NULL;
 	lst = *alst;

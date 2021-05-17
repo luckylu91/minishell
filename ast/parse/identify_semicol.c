@@ -12,7 +12,7 @@
 
 #include "ast_api.h"
 
-int identify_semicol(t_list **tokens)
+int	identify_semicol(t_list **tokens)
 {
 	if (is_semicol_lst(*tokens))
 	{

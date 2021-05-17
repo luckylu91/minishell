@@ -14,7 +14,7 @@
 
 size_t	ft_splitlen(char **splitted)
 {
-	size_t i;
+	size_t	i;
 
 	if (!splitted)
 		return (0);

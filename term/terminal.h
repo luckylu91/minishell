@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/11 15:36:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 16:33:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int		ft_putchar(int c);
 void	ft_putstr(char *s);
 void	clear_line(char **tc);
 void	move_to(char **tc, int i, int j);
-void	show_prompt(void);
+void	show_prompt(t_minishell *ms);
 
 void	*bigger_calloc(void *ptr, size_t size, size_t incr);
-void	linebuffer_add_insert(int c);
-void	set_linebuffer_to(char *str);
-void	linebuffer_delete_one(void);
-void	linebuffer_clear(void);
+void	linebuffer_add_insert(int c, t_minishell *ms);
+void	set_linebuffer_to(char *str, t_minishell *ms);
+void	linebuffer_delete_one(t_minishell *ms);
+void	linebuffer_clear(t_minishell *ms);
 
 #endif

@@ -14,7 +14,7 @@
 
 void	ft_bilstadd_front(t_bilist **alst, t_bilist *new)
 {
-	t_bilist *first;
+	t_bilist	*first;
 
 	if (alst == NULL)
 		return ;

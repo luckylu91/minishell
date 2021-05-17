@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 06:16:03 by lzins             #+#    #+#             */
-/*   Updated: 2020/11/23 06:26:50 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 13:50:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ char	*ft_strchr(const char *s, int c)
 	while (*s != '\0')
 	{
 		if (*s == c)
-			return ((char*)s);
+			return ((char *)s);
 		s++;
 	}
 	if (c == '\0')
-		return ((char*)s);
+		return ((char *)s);
 	return (NULL);
 }

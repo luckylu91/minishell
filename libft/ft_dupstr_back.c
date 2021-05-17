@@ -14,7 +14,7 @@
 
 void	ft_dupstr_back(t_list **alst, char *src)
 {
-	char *copy;
+	char	*copy;
 
 	copy = ft_strdup(src);
 	ft_lstadd_back_content(alst, copy);

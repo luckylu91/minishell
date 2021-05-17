@@ -14,7 +14,7 @@
 
 int	ft_intindex(const int *array, size_t n, int val)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)

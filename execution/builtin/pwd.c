@@ -14,7 +14,7 @@
 
 int	our_pwd(char **argv)
 {
-	char *working_dir;
+	char	*working_dir;
 
 	working_dir = getcwd(NULL, 0);
 	if (!working_dir)

@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back_content(t_list **alst, void *content)
 {
-	t_list *new_elem;
+	t_list	*new_elem;
 
 	if (!alst)
 		return ;
