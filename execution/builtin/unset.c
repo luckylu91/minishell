@@ -101,7 +101,12 @@ int		our_unset(char **arg, char ***env)
 		j = find_var(arg[i], *env);
 	//	printf("apres find_var j = %i\n",j);
 		if (not_valid_id(arg[i]))
-			printf("'%s': not a valid identifier\n",arg[i]);
+		{
+			ft_putstr_fd("'",2);
+			ft_putstr_fd(arg[i],2);
+			ft_putstr_fd("':not a valid identifier\n",2);
+			//printf("'%s': not a valid identifier\n",arg[i]);
+		}
 		else 
 		{
 			if (j > 0)
