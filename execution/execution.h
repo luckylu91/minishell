@@ -28,8 +28,23 @@
 #define	ASSIGN_EQUAL	1
 #define	ASSIGN_PEQUAL	2
 
-// mettre dans minishell.h (structure si besoin...)
-
+typedef struct s_both_fd
+{
+	t_ast *in;
+	int int_in;
+	int int_out;
+	t_ast *out;
+}				both_fd;
+char	*get_char_from_block(t_list *l);
+void	dup_str(t_list *l, char **res, int i);
+int		size_list(t_list *l);
+char **from_list_to_str_tab(t_list *l);
+int		is_last(t_list *l, char c);
+int		start_builtin(char **c);
+int		is_builtin(char *c);
+int		is_builtin_nopipe(char *c);
+int	check_redir(both_fd *fd);
+int	get_redir_fd(both_fd *res, t_list *l);
 int	export(char **argv, char ***our_env);
 int our_cd(char **argv);
 int find_var(char *arg, char **env);
@@ -50,14 +65,6 @@ void insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 		t_list **begin);
 int	remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int	remove_spaces_cmdchain(t_ast *cmdchain_ast);
-
 int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
-typedef struct s_both_fd
-{
-	t_ast *in;
-	int int_in;
-	int int_out;
-	t_ast *out;
-}				both_fd;
 
 #endif
