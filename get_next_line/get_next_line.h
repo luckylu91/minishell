@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:38:13 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:22:33 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:32:48 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include <stdlib.h>
 # include "libft.h"
 
-typedef struct	s_file
+typedef struct s_file
 {
 	int			fd;
 	char		buffer[BUFFER_SIZE];
 	size_t		head;
 }				t_file;
 
-typedef struct	s_files_data
+typedef struct s_files_data
 {
 	t_file		storage[MEMORY_SIZE];
 	size_t		len;

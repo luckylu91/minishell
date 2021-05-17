@@ -1,14 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_redirop.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 16:57:14 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 17:19:07 by lzins            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "block_api.h"
 
-// ONLY ONE DIGIT ALLOWED
 static char	*skip_digit(char *str)
 {
-	if (ft_isdigit(*str))
+	while (ft_isdigit(*str))
 		str++;
 	return (str);
 }
 
-static int is_redirop_str(char *str)
+static int	is_redirop_str(char *str)
 {
 	str = skip_digit(str);
 	if (ft_strcmp(str, ">") == 0)

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   block_at.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 16:56:59 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/17 17:11:36 by lzins            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "block_api.h"
 
 t_block	*block_at(t_list *blocks)
 {
 	if (!blocks)
 		return (NULL);
-	return ((t_block*)(blocks->content));
+	return ((t_block *)(blocks->content));
 }

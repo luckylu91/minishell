@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:36:25 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/09 14:28:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:32:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 
-static void print_block_error_raw(void *block_ptr)
+static void	print_block_error_raw(void *block_ptr)
 {
 	t_block	*block;
 
@@ -21,7 +21,6 @@ static void print_block_error_raw(void *block_ptr)
 		ft_putchar_fd('$', STDERR_FILENO);
 	ft_putstr_fd(block->str, STDERR_FILENO);
 }
-
 
 int	ambiguous_redirect_error(t_list *redir_blocks)
 {
