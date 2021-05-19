@@ -26,7 +26,7 @@ int process_line(char *line, t_minishell *ms)
 		{
 			waitpid(*((int*)(ms->all_child->content)), &status,0);
 			ms->exit_code = WEXITSTATUS(status);
-			printf("ms exitcode %i\n",ms->exit_code);
+//			printf("ms exitcode %i\n",ms->exit_code);
 			ms->all_child =  ms->all_child->next;
 		}
 		// destroy_ast((t_ast **)&ast_cmdseq->content);
