@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 15:52:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:28:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_both_fd
 	int int_out;
 	t_ast *out;
 }				both_fd;
+
 char	*get_char_from_block(t_list *l);
 void	dup_str(t_list *l, char **res, int i);
 int		size_list(t_list *l);
@@ -43,27 +44,21 @@ int		is_last(t_list *l, char c);
 int		start_builtin(char **c, t_minishell *m);
 int		is_builtin(char *c);
 int		is_builtin_nopipe(char *c);
-int	check_redir(both_fd *fd);
-int	get_redir_fd(both_fd *res, t_list *l);
-int	export(char **argv, char ***our_env);
-int our_cd(char **argv);
-int find_var(char *arg, char **env);
-int	our_unset(char **argv, char ***our_env);
-int our_env(char **tab_env);
-int our_echo(char **argv);
-int our_pwd(char **argv);
-int		is_assign_operator(char *s);
-int		assign_operator_offset(char *arg);
-int		not_valid_identifier_error(char *arg);
-char	*strdup_remove_plus(char *src, int op_index);
-
+int		check_redir(both_fd *fd);
+int		get_redir_fd(both_fd *res, t_list *l);
 int		export(char **argv, char ***our_env);
-int		our_cd(char **argv);
 int		find_var(char *arg, char **env);
 int		our_unset(char **argv, char ***our_env);
 int		our_env(char **tab_env);
 int		our_echo(char **argv);
 int		our_pwd(char **argv);
+int		our_cd(char **argv, char **env);
+int		is_assign_operator(char *s);
+int		assign_operator_offset(char *arg);
+int		not_valid_identifier_error(char *arg);
+char	*strdup_remove_plus(char *src, int op_index);
+
+char	*search_env(char *str, char **env);
 void	our_getenv(t_block *block, char **res_addr, t_minishell *ms);
 char	*our_getcwd(void);
 void	replace_unquoted(t_block *env_block, t_list **replacement, t_minishell *ms);

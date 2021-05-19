@@ -6,26 +6,26 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 15:58:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:24:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static char	*search(char *str, t_minishell *ms)
+char	*search_env(char *str, char **env)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	i = find_var(str, ms->env);
+	i = find_var(str, env);
 	if (i < 0)
 		return (NULL);
 	else
 	{
-		while (ms->env[i][j] != '=')
+		while (env[i][j] != '=')
 			j++;
-		return (&ms->env[i][j + 1]);
+		return (&env[i][j + 1]);
 	}	
 }
 
@@ -33,7 +33,7 @@ static void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
 {
 	char	*env_str;
 
-	env_str = search(str, ms);
+	env_str = search_env(str, ms->env);
 	if (env_str)
 		*res_addr = ft_strdup(env_str);
 	else

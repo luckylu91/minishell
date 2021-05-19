@@ -39,6 +39,8 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 		child = fork();
 		if (child == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			if (fd.int_in != -1)
 				dup2(fd.int_in, fd.in->expr.redir.fildes);
 			if (fd.int_out != -1)
