@@ -12,3 +12,4 @@ to_block/libft.h
 main/_main
 main/_main_db
 .histfile
+*.o_db

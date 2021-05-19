@@ -30,7 +30,7 @@ SRCS += $(addprefix main/redirect_special_keys/, redirect_up_down.c redirect_lef
 
 SRCS += $(addprefix ast/_print/, print_ast.c print_block.c)
 OBJS = $(SRCS:%.c=%.o)
-OBJS_DB = $(SRCS:%.c=%_db.o)
+OBJS_DB = $(SRCS:%.c=%.o_db)
 LIBFT = libft/libft.a
 
 echo:
@@ -42,14 +42,22 @@ $(LIBFT):
 libft:
 	make -C libft bonus
 
+%.o_db:	%.c
+	$(CC) -c $< -o $@ $(IFLAGS)
+
 %.o:	%.c
 	$(CC) -c $< -o $@ $(IFLAGS)
 
+
 # .SECONDARY:	$(OBJS)
 $(OBJS):	$(LIBFT)
+$(OBJS_DB):	$(LIBFT)
 
 _%:	_%.c $(OBJS)
 	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(CFLAGS)
+
+echo:
+	echo $(OBJS_DB)
 
 _%_db:	_%.c $(OBJS_DB)
 	$(CC) $< $(OBJS_DB) -o $@ $(IFLAGS) $(LFLAGS) $(CFLAGS) $(DBFLAGS)
