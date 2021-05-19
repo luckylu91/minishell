@@ -7,7 +7,7 @@ IFLAGS = $(addprefix -I, $(SUBDIRS))
 LFLAGS = -Llibft -lft -lncurses
 DBFLAGS = -g3 -fsanitize=address
 SRCS = $(addprefix ast/add/, add_textitem_totext.c add_textredir_tocmd.c add_cmd_tochain.c addback_none_block_nodup.c addback_space_block.c)
-SRCS += $(addprefix ast/create_destroy/, create_ast.c create_block.c destroy_block.c dup_block.c destroy_ast.c)
+SRCS += $(addprefix ast/create_destroy/, create_ast.c create_block.c destroy_block.c dup_block.c destroy_ast.c destroy_binary_ast.c destroy_command_ast.c destroy_redir_ast.c destroy_text_ast.c destroy_unary_ast.c)
 SRCS += $(addprefix execution/, split_path.c)
 
 SRCS += $(addprefix execution/ast_exe/, exe_cmd_utils.c ft_builtin.c redir.c exe_cmd.c exe_ast.c) 

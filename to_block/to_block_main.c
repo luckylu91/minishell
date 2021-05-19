@@ -14,7 +14,7 @@
 
 void	setup_var(t_list **final_l, t_list **temp_l, t_var_toblock *var)
 {
-	temp_l = NULL;
+	*temp_l = NULL;
 	*final_l = NULL;
 	var->i = 0;
 	var->spe = 0;
