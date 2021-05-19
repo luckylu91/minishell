@@ -1,4 +1,5 @@
 CC = clang
+CFLAGS = -Wall -Werror -Wextra
 SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM|__norm_py_old__)")
 SUBDIRS = $(filter-out ./test_%, $(SUBDIRS_ALL))
 SUBDIRS_TEST = $(filter ./test_%, $(SUBDIRS_ALL))
@@ -18,7 +19,7 @@ SRCS += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c is
 SRCS += $(addprefix ast/errors/, unexpected_token.c)
 SRCS += $(addprefix term/, init_termcaps.c init_termios.c termcaps_errors.c termcaps_utils.c bigger_calloc.c linebuffer.c prompt.c)
 SRCS +=	$(addprefix searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
-SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c env.c export_todo.c unset.c export_utils.c)
+SRCS +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c env.c export_todo.c unset.c export_utils.c exit.c)
 SRCS +=	$(addprefix execution/replace_env/, replace_dquoted.c replace_env.c replace_unquoted.c remove_spaces.c remove_spaces_cmdchain.c our_getenv.c our_getcwd.c)
 SRCS += $(addprefix error/, error_message.c ambiguous_redirect_error.c)
 SRCS += $(addprefix to_block/, to_block_main.c dollar.c dquote.c quote.c separator.c to_block_utils.c redir_tild.c backslash.c dollar_utils.c)
@@ -48,10 +49,10 @@ libft:
 $(OBJS):	$(LIBFT)
 
 _%:	_%.c $(OBJS)
-	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS)
+	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(CFLAGS)
 
 _%_db:	_%.c $(OBJS_DB)
-	$(CC) $< $(OBJS_DB) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
+	$(CC) $< $(OBJS_DB) -o $@ $(IFLAGS) $(LFLAGS) $(CFLAGS) $(DBFLAGS)
 
 clean:
 	make -C libft clean

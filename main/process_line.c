@@ -29,11 +29,12 @@ int process_line(char *line, t_minishell *ms)
 			printf("ms exitcode %i\n",ms->exit_code);
 			ms->all_child =  ms->all_child->next;
 		}
-		destroy_ast((t_ast **)&ast_cmdseq->content);
+		// destroy_ast((t_ast **)&ast_cmdseq->content);
 		ast_cmdseq=ast_cmdseq->next;
 	}
 	set_terminal_minishell();
 	destroy_block_lst(&block_lst);
+	ft_lstclear(&ast_cmdseq, (t_del_fun)destroy_ast);
 	return (1);
 }
 
