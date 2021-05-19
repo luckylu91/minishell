@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 17:43:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 11:32:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	redirect_tab(t_minishell *ms)
 		while (fname[i])
 		{
 			linebuffer_add_insert(fname[i], ms);
-			ft_putchar_fd(fname[i++], g_global_var.fd_out);
+			ft_putchar_fd(fname[i++], STDOUT_FILENO);
 		}
 		if (is_dir(tabinfo.basedir, fname))
 			end_char = '/';
 		else
 			end_char = ' ';
 		linebuffer_add_insert(end_char, ms);
-		ft_putchar_fd(end_char, g_global_var.fd_out);
+		ft_putchar_fd(end_char, STDOUT_FILENO);
 	}
 	else if (num_files_found > 1)
 	{
@@ -66,7 +66,7 @@ void	redirect_tab(t_minishell *ms)
 			while (i < j)
 			{
 				linebuffer_add_insert(common_prefix[i], ms);
-				ft_putchar_fd(common_prefix[i++], g_global_var.fd_out);
+				ft_putchar_fd(common_prefix[i++], STDOUT_FILENO);
 			}
 		}
 	}
