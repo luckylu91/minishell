@@ -7,7 +7,8 @@ char	*get_char_from_block(t_list *l)
 
 void	dup_str(t_list *l, char **res, int i)
 {
-	enum e_flags f;
+	enum e_flags	f;
+
 	if (l != NULL)
 	{
 		f = ((t_block *)(l->content))->f;

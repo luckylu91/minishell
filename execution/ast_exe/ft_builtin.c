@@ -1,6 +1,6 @@
 #include "execution.h"
 
-int		start_builtin(char **c, t_minishell *ms)
+int	start_builtin(char **c, t_minishell *ms)
 {
 	if (ft_strcmp(c[0], "echo") == 0)
 		return (our_echo(c));
@@ -9,7 +9,7 @@ int		start_builtin(char **c, t_minishell *ms)
 	if (ft_strcmp(c[0], "pwd") == 0)
 		return (our_pwd(c));
 	if (ft_strcmp(c[0], "export") == 0)
-		return export(c, &(ms->env));
+		return (export(c, &(ms->env)));
 	else if (ft_strcmp(c[0], "unset") == 0)
 		return (our_unset(c, &(ms->env)));
 	else if (ft_strcmp(c[0], "env") == 0)
