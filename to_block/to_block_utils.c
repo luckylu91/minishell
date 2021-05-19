@@ -1,6 +1,6 @@
 #include "to_block.h"
 
-t_block	*new_block(char *c, enum flags f)
+t_block	*new_block(char *c, enum e_flags f)
 {
 	t_block	*b;
 
@@ -43,7 +43,7 @@ char 	*list_to_string(t_list *l)
 	return (str);
 }
 
-void	temp_to_final(t_list **final_l, t_list **temp_l, enum flags f)
+void	temp_to_final(t_list **final_l, t_list **temp_l, enum e_flags f)
 {
 	char	*str;
 	t_list	*temp_lbis;

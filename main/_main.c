@@ -16,8 +16,29 @@ void	signal_interrupt(int signum)
 	ms = ft_get_set_context(NULL);
 	linebuffer_clear(ms);
 	rewind_hist(ms->h);
-	ft_putchar_fd('\n', ms->fd_out);
+	if (signum == SIGQUIT)
+		ft_putstr_fd("^\\Quit: 3", STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	show_prompt(ms);
+	ms->prompted_signal = 1;
+}
+
+void	execute_with_file_input(t_minishell *ms)
+{
+	int		ret_gnl;
+	char	*line;
+
+	ret_gnl = 1;
+	while (ret_gnl == 1)
+	{
+		ret_gnl = get_next_line(STDIN_FILENO, &line);
+		if (ret_gnl == 1)
+			process_line(line, ms);
+		wrap_free(line);
+	}
+	if (ret_gnl == -1)
+		exit_with_code(EXIT_FAILURE, ms);
+	exit_properly(ms);
 }
 
 int main()
@@ -34,10 +55,10 @@ int main()
 	// t_linebuffer	*lb;
 	// char			**tc;
 	t_minishell	ms;
+	int	ret_read;
 
 	signal(SIGINT, signal_interrupt);
-	signal(SIGQUIT, terminal_signal);
-	signal(SIGTERM, terminal_signal);
+	signal(SIGQUIT, signal_interrupt);
 
 	//termios
 	ret = init_termios();
@@ -63,33 +84,34 @@ int main()
 	ft_get_set_context(&ms);
 
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
-	tty_fd = open(ttyname(STDIN_FILENO), O_RDWR);
-	if (tty_fd < 0)
-	{
-		printf("Cannot open tty of STDIN (%s)\n", ttyname(STDIN_FILENO));
-		ms.fd_in = STDIN_FILENO;
-		ms.fd_out = STDOUT_FILENO;
-	}
-	else
-	{
-		ms.fd_in = tty_fd;
-		ms.fd_out = tty_fd;
-	}
-
-	//
-	setbuf(stdout, NULL);//
+	
+	// if (isatty(STDIN_FILENO))
+	// {
+	// 	ms.fd_in  = open(ttyname(STDIN_FILENO), O_RDWR);
+	// 	if (ms.fd_in < 0)
+	// 		ms.fd_in = STDIN_FILENO;
+	// }
+	// else
+	// 	execute_with_file_input(&ms);
+	if (!isatty(STDIN_FILENO))
+		execute_with_file_input(&ms);
+	setbuf(stdout, NULL);
 	show_prompt(&ms);
 	while (1)
 	{
 		c = 0;
-		if (read(ms.fd_in, &c, sizeof(int)) == -1)
+		// ret_read = read(ms.fd_in, &c, sizeof(int));
+		ret_read = read(STDIN_FILENO, &c, sizeof(int));
+		if (ret_read == -1)
 			exit_with_code(EXIT_FAILURE, &ms);
-		// printf("i = %d\ni_max = %d\nc = %c\n", lb->i, lb->i_max, (char)c);
+		else if (ret_read == 0)
+			exit_properly(&ms);
 		if (ft_isprint(c))
 		{
 			linebuffer_add_insert(c, &ms);
 			tputs(ms.termcaps[INSERT_MODE], 1, ft_putchar);
-			ft_putchar_fd((char)c, ms.fd_out);
+//			ft_putchar_fd((char)c, ms.fd_out);
+			ft_putchar_fd((char)c, STDOUT_FILENO);
 			tputs(ms.termcaps[INSERT_EXIT], 1, ft_putchar);
 		}
 		else if (c == '\x7f')
@@ -98,14 +120,16 @@ int main()
 			redirect_tab(&ms);
 		else
 		{
-			if (c == '\n')// || c == '\0')
+			if (c == '\n')
 			{
-				ft_putchar_fd('\n', ms.fd_out);
+//				ft_putchar_fd('\n', ms.fd_out);
+				ft_putchar_fd('\n', STDOUT_FILENO);
 				process_line(ms.lb->buffer, &ms);
-				if (c == '\0')
-					exit_properly(&ms);
 				linebuffer_clear(&ms);
-				show_prompt(&ms);
+				rewind_hist(ms.h);
+				if (!ms.prompted_signal)
+					show_prompt(&ms);
+				ms.prompted_signal = 0;
 			}
 			else if (is_up_down_arrow(c))
 				redirect_up_down((char*)&c, &ms);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:06:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:35:41 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 11:33:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void	redirect_up_down(char* str, t_minishell *ms)
 	clear_current_line(ms);
 	set_linebuffer_to(get_hist_line(ms->h), ms);
 	if (ms->lb->buffer)
-		ft_putstr_fd(ms->lb->buffer, ms->fd_out);
+		ft_putstr_fd(ms->lb->buffer, STDOUT_FILENO);
 }

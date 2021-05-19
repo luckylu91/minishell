@@ -6,7 +6,7 @@
 t_ast	*create_ast(t_ast_type type);
 t_ast	*new_redir_ast(t_block *redir_op, t_list *file_name);
 
-t_block	*create_block(enum flags f, char *str);
+t_block	*create_block(enum e_flags f, char *str);
 void	destroy_block(void *block_ptr);
 void	destroy_block_lst(t_list **block_lst);
 t_block	*dup_block(t_block *block);

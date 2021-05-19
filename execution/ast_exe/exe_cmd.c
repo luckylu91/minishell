@@ -3,7 +3,16 @@
 
 //extern t_minishell g_global_var;
 
-int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
+// void	signal_interrupt_caca(int signum)
+// {
+// 	if (signum == SIGINT)
+// 		exit(130);
+// 	if (signum == SIGQUIT)
+// 		exit(131);
+// 	exit(0);
+// }
+
+int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
 	char **all_path;
 	both_fd fd;
@@ -27,7 +36,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 	path = search_cmd(all_path,all_var[0]); 
 	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
-		g_global_var->exit_code = 127;
+		ms->exit_code = 127;
 		child = fork();
 		if (child == 0)
 		{
@@ -56,15 +65,16 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 	}
 	else if (is_builtin_nopipe(all_var[0]))
 	{
-		g_global_var->exit_code = start_builtin(all_var, g_global_var);
+		ms->exit_code = start_builtin(all_var, ms);
 		return (1);
 	}
 	child = fork();
 	if (child == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGTERM, SIG_DFL);
+		signal(SIGINT, signal_interrupt_caca);
+		signal(SIGQUIT, signal_interrupt_caca);
+		// signal(SIGQUIT, SIG_DFL);
+
 		if (state == 1 && fd.out == NULL)
 		{
 			dup2(both_pipe[1][1],STDOUT_FILENO);
@@ -88,9 +98,9 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 		if (fd.int_out != -1)
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
 		if (is_builtin(all_var[0]))
-			exit(start_builtin(all_var, g_global_var));
+			exit(start_builtin(all_var, ms));
 		else
-			execve(path, all_var, g_global_var->env);
+			execve(path, all_var, ms->env);
 	}
 	if (state >0)
 	{
