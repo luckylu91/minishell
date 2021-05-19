@@ -14,13 +14,14 @@ int		in_part(t_list *l, both_fd *res)
 			write(fd,"\0",1);
 	return (fd);
 }
+
 int	get_redir_fd(both_fd *res, t_list *l)
 {
 	int fd;
 
 	if (l == NULL)
 		return (1);
-	if ((((t_ast*)(l->content))->expr.redir).redir_op->str[0] =='<') 
+	if ((((t_ast*)(l->content))->expr.redir).redir_op->str[0] =='<')
 	{
 		fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_RDWR);
 		if (fd == -1)
@@ -38,7 +39,6 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	}
 	return (get_redir_fd(res, l->next));
 }
-
 
 int	check_redir(both_fd *fd)
 {
