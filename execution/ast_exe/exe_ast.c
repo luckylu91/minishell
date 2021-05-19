@@ -23,12 +23,11 @@ int		exe_ast(t_ast *l_ast, int i, int *old_pipe,t_minishell *mini)
 	}
 	else if (l_ast->type == binary_expr)
 	{
-
 		pipe(new_pipe);
+		both_pipe[0] = new_pipe;
 		if (i == 0)
 		{
 			exe_ast(l_ast->expr.binary.left, 1, new_pipe, mini);
-
 			ft_lstdupint_back(&(mini->all_child), exe_cmd(l_ast->expr.binary.right, both_pipe, 2, mini));
 			l_ast->exit_code = l_ast->expr.binary.right->exit_code;
 

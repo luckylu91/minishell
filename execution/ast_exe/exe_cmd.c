@@ -67,9 +67,9 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 		signal(SIGTERM, SIG_DFL);
 		if (state == 1 && fd.out == NULL)
 		{
-			dup2(both_pipe[0][1],STDOUT_FILENO);
-			close(both_pipe[0][0]);
-			close(both_pipe[0][1]);
+			dup2(both_pipe[1][1],STDOUT_FILENO);
+			close(both_pipe[1][0]);
+			close(both_pipe[1][1]);
 		}
 		if (state == 3 && fd.out == NULL)
 		{
