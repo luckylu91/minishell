@@ -1,9 +1,9 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-extern t_minishell g_global_var;
+//extern t_minishell g_global_var;
 
-int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
+int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 {
 	char **all_path;
 	both_fd fd;
@@ -27,7 +27,7 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 	path = search_cmd(all_path,all_var[0]); 
 	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
 	{
-		g_global_var.exit_code = 127;
+		g_global_var->exit_code = 127;
 		child = fork();
 		if (child == 0)
 		{
@@ -48,15 +48,15 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		{
 			if (state != 1)
 			{
-				close(pipe[1]);
-				close(pipe[0]);
+				close(both_pipe[0][1]);
+				close(both_pipe[0][0]);
 			}
 		}	
 		return (-1);
 	}
 	else if (is_builtin_nopipe(all_var[0]))
 	{
-		g_global_var.exit_code = start_builtin(all_var);
+		g_global_var->exit_code = start_builtin(all_var, *g_global_var);
 		return (1);
 	}
 	child = fork();
@@ -67,37 +67,37 @@ int	exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe)
 		signal(SIGTERM, SIG_DFL);
 		if (state == 1 && fd.out == NULL)
 		{
-			dup2(pipe[1],STDOUT_FILENO);
-			close(pipe[0]);
-			close(pipe[1]);
+			dup2(both_pipe[0][1],STDOUT_FILENO);
+			close(both_pipe[0][0]);
+			close(both_pipe[0][1]);
 		}
 		if (state == 3 && fd.out == NULL)
 		{
-			dup2(old_pipe[1], STDOUT_FILENO);
-			close(old_pipe[0]);
-			close(old_pipe[1]);
+			dup2(both_pipe[1][1], STDOUT_FILENO);
+			close(both_pipe[1][0]);
+			close(both_pipe[1][1]);
 		}
 		if ((state == 2 || state == 3) && fd.in == NULL)
 		{
-			dup2(pipe[0], STDIN_FILENO);
-			close(pipe[1]);
-			close(pipe[0]);
+			dup2(both_pipe[0][0], STDIN_FILENO);
+			close(both_pipe[0][1]);
+			close(both_pipe[0][0]);
 		}
 		if (fd.int_in != -1)
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
 		if (fd.int_out != -1)
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
 		if (is_builtin(all_var[0]))
-			exit(start_builtin(all_var));
+			exit(start_builtin(all_var, *g_global_var));
 		else
-			execve(path, all_var, g_global_var.env);
+			execve(path, all_var, g_global_var->env);
 	}
 	if (state >0)
 	{
 		if (state != 1)
 		{
-			close(pipe[1]);
-			close(pipe[0]);
+			close(both_pipe[0][1]);
+			close(both_pipe[0][0]);
 		}
 	}
 	if (fd.in != NULL)
