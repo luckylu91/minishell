@@ -1,8 +1,21 @@
 #include "execution.h"
 
+int		in_part(t_list *l, both_fd *res)
+{
+	int fd;
+
+	if (((t_ast*)l->content)->expr.redir.redir_op->str[1] =='>')
+			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR | O_APPEND, 0666);
+		else
+			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR, 0666);
+		if (is_last(l->next, '>'))
+			res->out = l->content;
+		else
+			write(fd,"\0",1);
+	return (fd);
+}
 int	get_redir_fd(both_fd *res, t_list *l)
 {
-	int v;
 	int fd;
 
 	if (l == NULL)
@@ -11,31 +24,16 @@ int	get_redir_fd(both_fd *res, t_list *l)
 	{
 		fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_RDWR);
 		if (fd == -1)
-		{	
-			printf("erreur in fichier non existant\n");
 			return (-1);
-		}
 		close(fd);
 		if (is_last(l->next, '<'))
 			res->in = l->content;
 	}
 	if (((t_ast*)l->content)->expr.redir.redir_op->str[0] =='>') 
 	{
-		if (((t_ast*)l->content)->expr.redir.redir_op->str[1] =='>')
-			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR | O_APPEND, 0666);
-		else
-			fd = open(get_char_from_block((((t_ast*)(l->content))->expr.redir.file_name)), O_CREAT | O_RDWR, 0666);
-		if (is_last(l->next, '>'))
-		{
-			res->out = l->content;
-		}
-		else
-			write(fd,"\0",1);
+		fd = in_part(l, res); 	
 		if (fd == -1)
-		{
-			printf("erreur out fichier\n");
 			return (-1);
-		}
 		close(fd);
 	}
 	return (get_redir_fd(res, l->next));
@@ -59,6 +57,5 @@ int	check_redir(both_fd *fd)
 		if (fd->int_out == -1)
 			return (1);
 	}
-
 	return (0);
 }

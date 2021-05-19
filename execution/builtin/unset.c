@@ -13,7 +13,6 @@
 #include "execution.h"
 
 
-extern t_minishell g_global_var;
 
 int	find_var(char *arg, char **env)
 {
@@ -63,14 +62,14 @@ char	**env_new_alloc(char **arg, char **env, int old)
 	while (((env)[i]) != NULL)
 	{
 
-		//printf("premmier while i = %i env_new\n",i);
+	//	printf("premmier while i = %i env_new\n",i);
 		i++;
 	}
 	new = wrap_malloc(sizeof(char*)*i);
 	while (j < i - 1)
 	{
 
-		//printf("deuxieme while j = %i env_new\n",j);
+	//	printf("deuxieme while j = %i env_new\n",j);
 		if (x != old)
 		{
 			new[j] = ft_strdup((env)[x]);
@@ -81,6 +80,7 @@ char	**env_new_alloc(char **arg, char **env, int old)
 	}
 	//printf("after deuxieme zhile env new\n");
 	wrap_free((env));
+	new[j] = NULL;
 	return (new);
 }
 int	not_valid_id(char *arg)
@@ -122,7 +122,7 @@ int	our_unset(char **arg, char ***env)
 		else 
 		{
 			if (j > 0)
-				g_global_var.env = env_new_alloc(arg, g_global_var.env, j);
+				*env = env_new_alloc(arg, *env, j);
 		}
 		i++;
 	}

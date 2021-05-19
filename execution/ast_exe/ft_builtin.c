@@ -3,11 +3,11 @@
 int		start_builtin(char **c, t_minishell *ms)
 {
 	if (ft_strcmp(c[0], "echo") == 0)
-		return our_echo(c);
+		return (our_echo(c));
 	if (ft_strcmp(c[0], "cd") == 0)
-		return our_cd(c);
+		return (our_cd(c));
 	if (ft_strcmp(c[0], "pwd") == 0)
-		return our_pwd(c);
+		return (our_pwd(c));
 	if (ft_strcmp(c[0], "export") == 0)
 		return export(c, &(ms->env));
 	else if (ft_strcmp(c[0], "unset") == 0)
@@ -19,7 +19,7 @@ int		start_builtin(char **c, t_minishell *ms)
 	return (-1);
 }
 
-int		is_builtin(char *c)
+int	is_builtin(char *c)
 {
 	if (ft_strcmp(c, "echo") == 0)
 		return (1);
@@ -29,7 +29,8 @@ int		is_builtin(char *c)
 		return (1);
 	return (0);
 }
-int		is_builtin_nopipe(char *c)
+
+int	is_builtin_nopipe(char *c)
 {
 	if (ft_strcmp(c, "cd") == 0)
 		return (1);
