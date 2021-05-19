@@ -34,8 +34,6 @@ char	*pathjoin(char *dirname, char *fname)
 	return (res);
 }
 
-// int stat(const char *restrict path, struct stat *restrict buf);
-
 int	is_dir(char *pathbase, char *name)
 {
 	struct stat	buf;
@@ -52,27 +50,3 @@ int	is_dir(char *pathbase, char *name)
 	wrap_free(path);
 	return (S_ISDIR(buf.st_mode));
 }
-
-// int	list_content(char *dir_name, t_list **fname_lst)
-// {
-// 	DIR	*dir_stream;
-// 	struct dirent	*file;
-// 	char	*fname;
-
-// 	*fname_lst = NULL;
-// 	dir_stream = opendir_err(dir_name);
-// 	if (!dir_stream)
-// 		return (-1);
-// 	file = readdir(dir_stream);
-// 	while (file)
-// 	{
-// 		fname = pathjoin(dir_name, file->d_name);
-// 		if (!fname || !ft_lstadd_back_content(fname_lst, fname))
-// 		{
-// 			ft_lstclear(fname_lst, wrap_free);
-// 			return (-1);
-// 		}
-// 		file = readdir(dir_stream);
-// 	}
-// 	return (1);
-// }

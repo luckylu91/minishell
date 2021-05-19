@@ -6,20 +6,20 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:17:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:17:28 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:43:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "redirect_tab_utils.h"
 
-void	get_contextual_tabinfo(t_tabinfo *tabinfo)
+void	get_contextual_tabinfo(t_tabinfo *tabinfo, t_minishell *ms)
 {
 	t_block	*last_block;
 	char	*cwd;
 	char	*str_path;
 
-	last_block = valid_last_block();
+	last_block = valid_last_block(ms);
 	if (!last_block)
 	{
 		tabinfo->do_nothing = 1;

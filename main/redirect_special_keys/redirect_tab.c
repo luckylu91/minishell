@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:22:03 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:34:08 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:43:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	redirect_tab(t_minishell *ms)
 	int num_files_found;
 	t_tabinfo	tabinfo;
 
-	get_contextual_tabinfo(&tabinfo);
+	get_contextual_tabinfo(&tabinfo, ms);
 	if (tabinfo.do_nothing)
 		return ;
 	list_dir(tabinfo.basedir, &files);

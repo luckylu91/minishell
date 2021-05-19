@@ -55,7 +55,7 @@ int main()
 	if (init_termcaps() != 1)
 	{
 		ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
-		exit_with_code(EXIT_FAILURE);
+		exit_with_code(EXIT_FAILURE, &ms);
 	}
 
 	init_context(&ms);
@@ -74,14 +74,7 @@ int main()
 	{
 		ms.fd_in = tty_fd;
 		ms.fd_out = tty_fd;
-		// dup2(STDIN_FILENO, tty_fd);
-		// dup2(STDOUT_FILENO, tty_fd);
 	}
-
-	// lb = g_global_var.lb;
-	// tc = g_global_var.termcaps;
-	// fd_in = g_global_var.fd_in;
-	// fd_out = g_global_var.fd_out;
 
 	//
 	setbuf(stdout, NULL);//
@@ -90,7 +83,7 @@ int main()
 	{
 		c = 0;
 		if (read(ms.fd_in, &c, sizeof(int)) == -1)
-			exit_with_code(EXIT_FAILURE);
+			exit_with_code(EXIT_FAILURE, &ms);
 		// printf("i = %d\ni_max = %d\nc = %c\n", lb->i, lb->i_max, (char)c);
 		if (ft_isprint(c))
 		{

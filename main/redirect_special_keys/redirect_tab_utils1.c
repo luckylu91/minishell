@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:14:15 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:28:05 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:42:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ char	last_char(char *str)
 	return (str[ft_strlen(str) - 1]);
 }
 
-t_block	*valid_last_block(void)
+t_block	*valid_last_block(t_minishell *ms)
 {
 	t_list			*block_lst;
 	t_linebuffer	*lb;
 	t_block			*last_block;
 	char			*buffer_end;
 
-	lb = g_global_var.lb;
+	lb = ms->lb;
 	if (!lb->buffer)
 		return (NULL);
 	to_block(lb->buffer, &block_lst);
@@ -59,10 +59,10 @@ t_block	*valid_last_block(void)
 
 void	show_matching_files(t_list *files, t_minishell *ms)
 {
-	ft_putchar_fd('\n', g_global_var.fd_out);
+	ft_putchar_fd('\n', ms->fd_out);
 	ft_lstiter(files, NULL, ft_putendl_fd);
 	show_prompt(ms);
-	ft_putstr_fd(g_global_var.lb->buffer, g_global_var.fd_out);
+	ft_putstr_fd( ms->lb->buffer,  ms->fd_out);
 }
 
 void	separate_last_slash(char *str, char **str_path, char **str_end)

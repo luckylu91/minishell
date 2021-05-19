@@ -6,13 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 13:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/11 16:54:24 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:40:29 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_minishell	g_global_var;
 
 int	before_exit(void *ms_ptr)
 {
@@ -35,8 +33,8 @@ void	exit_properly(void *ms_ptr)
 	exit(before_exit(ms_ptr));
 }
 
-void	exit_with_code(int code)
+void	exit_with_code(int code, t_minishell *ms)
 {
-	g_global_var.exit_code = code;
-	exit_properly(&g_global_var);
+	ms->exit_code = code;
+	exit_properly(ms);
 }
