@@ -15,7 +15,7 @@ int	start_builtin(char **c, t_minishell *ms)
 	else if (ft_strcmp(c[0], "env") == 0)
 		return (our_env(ms->env));
 	else if (ft_strcmp(c[0], "exit") == 0)
-		ft_exit();
+		return (our_exit(c, ms));
 	return (-1);
 }
 

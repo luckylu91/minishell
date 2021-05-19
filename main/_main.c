@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   _main.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/19 17:39:10 by lzins            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	init_context(t_minishell *ms)
@@ -44,23 +56,13 @@ void	execute_with_file_input(t_minishell *ms)
 int main()
 {
 	int ret;
-	// char **tc;
 	int	c;
-	int	tty_fd;
-	// int	fd_in;
-	// int	fd_out;
-	// t_linebuffer *lb;
-	char *line;
-	int len_screen;
-	// t_linebuffer	*lb;
-	// char			**tc;
 	t_minishell	ms;
 	int	ret_read;
 
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, signal_interrupt);
 
-	//termios
 	ret = init_termios();
 	if (ret == -1)
 	if (init_termios() == -1)
@@ -80,7 +82,7 @@ int main()
 	}
 
 	init_context(&ms);
-	ft_get_set_exit_fun(before_exit);
+	ft_get_set_exit_fun(&before_exit);
 	ft_get_set_context(&ms);
 
 	printf("STDIN's tty name : %s\n", ttyname(STDIN_FILENO));
