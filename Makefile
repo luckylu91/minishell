@@ -29,6 +29,7 @@ SRCS += $(addprefix main/redirect_special_keys/, redirect_up_down.c redirect_lef
 
 SRCS += $(addprefix ast/_print/, print_ast.c print_block.c)
 OBJS = $(SRCS:%.c=%.o)
+OBJS_DB = $(SRCS:%.c=%_db.o)
 LIBFT = libft/libft.a
 
 echo:
@@ -49,12 +50,13 @@ $(OBJS):	$(LIBFT)
 _%:	_%.c $(OBJS)
 	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS)
 
-_%_db:	_%.c $(OBJS)
-	$(CC) $< $(OBJS) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
+_%_db:	_%.c $(OBJS_DB)
+	$(CC) $< $(OBJS_DB) -o $@ $(IFLAGS) $(LFLAGS) $(DBFLAGS)
 
 clean:
 	make -C libft clean
 	rm -f $(OBJS)
+	rm -f $(OBJS_DB)
 
 fclean: clean
 	make -C libft fclean
