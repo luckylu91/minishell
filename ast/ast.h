@@ -6,24 +6,29 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:27:41 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 16:54:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
-#define AST_H
+# define AST_H
 
-typedef enum	{
-	STATUS_OK, STATUS_ERROR
+typedef enum e_status
+{
+	STATUS_OK,
+	STATUS_ERROR
 }	t_status;
 
-typedef enum	e_ast_type
+typedef enum e_ast_type
 {
-	text_expr, redir_expr,
-	unary_expr, binary_expr, command_expr
-}				t_ast_type;
+	text_expr,
+	redir_expr,
+	unary_expr,
+	binary_expr,
+	command_expr
+}	t_ast_type;
 
-typedef struct	s_ast
+typedef struct s_ast
 {
 	t_ast_type				type;
 	int						exit_code;

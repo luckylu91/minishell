@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 00:48:14 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/08 15:23:24 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/17 17:33:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	t_file	*file;
 
@@ -49,7 +49,7 @@ t_file	*file_from_fd(int fd)
 ** either point to '\n' (EOL) or '\0' (EOF approaching)
 */
 
-int		copy_buffer(t_file *file, char **line)
+int	copy_buffer(t_file *file, char **line)
 {
 	size_t	line_len;
 	char	*line_augmented;
@@ -92,7 +92,7 @@ int		copy_buffer(t_file *file, char **line)
 **     get the EOF signal (0) as expected (n_calls = n_lines + 1)
 */
 
-int		read_one_line(t_file *file, char **line)
+int	read_one_line(t_file *file, char **line)
 {
 	ssize_t	br;
 	int		step_return;
