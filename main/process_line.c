@@ -6,10 +6,9 @@ int process_line(char *line, t_minishell *ms)
 	t_list	*block_lst_mov;
 	t_list	*ast_cmdseq;
 	t_ast	*ast_cmdchain;
-	t_list	*all_child;
 	int status;
 
-	all_child = NULL;
+	ms->all_child = NULL;
 	
 	set_terminal_original();
 	if (line && line[0])
@@ -22,12 +21,12 @@ int process_line(char *line, t_minishell *ms)
 			exit_properly(&g_global_var);
 		if (remove_spaces_cmdchain(((t_ast*)(ast_cmdseq->content))) == -1)
 			return (-1);
-		exe_ast(((t_ast*)(ast_cmdseq->content)), 0, NULL, &all_child);
-		while (all_child!= NULL)
+		exe_ast(((t_ast*)(ast_cmdseq->content)), 0, NULL, ms);
+		while (ms->all_child!= NULL)
 		{
-			waitpid(*((int*)all_child->content), &status,0);
+			waitpid(*((int*)(ms->all_child->content)), &status,0);
 			ms->exit_code = WEXITSTATUS(status);
-			all_child =  all_child->next;
+			ms->all_child =  ms->all_child->next;
 		}
 		destroy_ast((t_ast **)&ast_cmdseq->content);
 		ast_cmdseq=ast_cmdseq->next;
@@ -43,10 +42,9 @@ int process_line_test(char *line, t_minishell *ms)
 	t_list	*block_lst_mov;
 	t_list	*ast_cmdseq;
 	t_ast	*ast_cmdchain;
-	t_list	*all_child;
 	int status;
 
-	all_child = NULL;
+	(ms->all_child) = NULL;
 	
 	copy_environ(&(ms->env));
 	to_block(line, &block_lst);
@@ -57,12 +55,12 @@ int process_line_test(char *line, t_minishell *ms)
 			exit_properly(&g_global_var);
 		if (remove_spaces_cmdchain(((t_ast*)(ast_cmdseq->content))) == -1)
 			return (-1);
-		exe_ast(((t_ast*)(ast_cmdseq->content)), 0, NULL, &all_child);
-		while (all_child!= NULL)
+		exe_ast(((t_ast*)(ast_cmdseq->content)), 0, NULL, ms);
+		while (ms->all_child!= NULL)
 		{
-			waitpid(*((int*)all_child->content), &status,0);
+			waitpid(*((int*)(ms->all_child->content)), &status,0);
 			ms->exit_code = WEXITSTATUS(status);
-			all_child =  all_child->next;
+			ms->all_child =  ms->all_child->next;
 		}
 		destroy_ast((t_ast **)&ast_cmdseq->content);
 		ast_cmdseq=ast_cmdseq->next;

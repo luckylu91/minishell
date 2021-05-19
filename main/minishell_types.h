@@ -33,6 +33,7 @@ typedef struct		s_minishell
 	int				fd_in;
 	int				fd_out;
 	char			*tabintent;
+	t_list			*all_child;
 	// char			*tab_path;
 }	t_minishell;
 

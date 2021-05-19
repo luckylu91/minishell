@@ -56,7 +56,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 	}
 	else if (is_builtin_nopipe(all_var[0]))
 	{
-		g_global_var->exit_code = start_builtin(all_var, *g_global_var);
+		g_global_var->exit_code = start_builtin(all_var, g_global_var);
 		return (1);
 	}
 	child = fork();
@@ -88,7 +88,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *g_global_var)
 		if (fd.int_out != -1)
 			dup2(fd.int_out, fd.out->expr.redir.fildes);
 		if (is_builtin(all_var[0]))
-			exit(start_builtin(all_var, *g_global_var));
+			exit(start_builtin(all_var, g_global_var));
 		else
 			execve(path, all_var, g_global_var->env);
 	}

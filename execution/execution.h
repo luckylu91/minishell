@@ -40,7 +40,7 @@ void	dup_str(t_list *l, char **res, int i);
 int		size_list(t_list *l);
 char **from_list_to_str_tab(t_list *l);
 int		is_last(t_list *l, char c);
-int		start_builtin(char **c);
+int		start_builtin(char **c, t_minishell *m);
 int		is_builtin(char *c);
 int		is_builtin_nopipe(char *c);
 int	check_redir(both_fd *fd);
@@ -72,12 +72,12 @@ int		replace_env(t_ast *cmdchain_ast, t_minishell *ms);
 char	**split_path(void);
 int		exe_all(t_list *l_staticast);
 int		copy_environ(char ***new_env_addr);
-int		exe_ast(t_ast *l_ast, int i, int *pipe, t_list **all_child);
+int		exe_ast(t_ast *l_ast, int i, int *pipe, t_minishell *mini);
 void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 	t_list **begin);
 int		remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 
-int		exe_cmd(t_ast *cmd, int *pipe, int state, int *old_pipe);
+int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );
 
 #endif
