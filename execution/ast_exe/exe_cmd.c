@@ -1,16 +1,15 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-//extern t_minishell g_global_var;
 
-// void	signal_interrupt_caca(int signum)
-// {
-// 	if (signum == SIGINT)
-// 		exit(130);
-// 	if (signum == SIGQUIT)
-// 		exit(131);
-// 	exit(0);
-// }
+ void	signal_interrupt_caca(int signum)
+ {
+ 	if (signum == SIGINT)
+ 		exit(130);
+ 	if (signum == SIGQUIT)
+ 		exit(131);
+ 	exit(0);
+ }
 
 int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
