@@ -71,9 +71,10 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	child = fork();
 	if (child == 0)
 	{
-		signal(SIGINT, signal_interrupt_caca);
-		signal(SIGQUIT, signal_interrupt_caca);
-		// signal(SIGQUIT, SIG_DFL);
+		// signal(SIGINT, signal_interrupt);
+		// signal(SIGQUIT, signal_interrupt);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 
 		if (state == 1 && fd.out == NULL)
 		{
