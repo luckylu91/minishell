@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:44:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 15:29:29 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:07:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "block_api.h"
 
-t_block	*create_block(enum flags f, char *str)
+t_block	*create_block(enum e_flags f, char *str)
 {
 	t_block	*block_new;
 

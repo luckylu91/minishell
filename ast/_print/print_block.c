@@ -3,7 +3,7 @@
 
 char	*block_flags_str(t_block *block)
 {
-	enum flags f = block->f;
+	enum e_flags f = block->f;
 
 	switch(f)
 	{

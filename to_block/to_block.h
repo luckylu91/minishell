@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:45:58 by hgallien          #+#    #+#             */
-/*   Updated: 2021/04/06 14:09:00 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/19 16:07:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 # include <stdlib.h>
 # include "libft.h"
 
-enum flags {none, error, space, spe, dollar, dollar_num, dollar_dquote};
+enum e_flags {none, error, space, spe, dollar, dollar_num, dollar_dquote};
 typedef struct s_var_toblock
 {
 	int			i;
 	int			spe;
 	int			end_while;
-	enum flags	f;
+	enum e_flags	f;
 }				t_var_toblock;
 typedef struct s_block
 {
 	char		*str;
-	enum flags	f;
+	enum e_flags	f;
 }					t_block;
 
 void	digit_quest(t_var_toblock *var, char *line,
@@ -58,10 +58,10 @@ int		is_separator(char *c);
 int		is_separator_for_dollar(char *c);
 void	handle_separator(t_var_toblock *var, char *line,
 			t_list **final_l, t_list **temp_l);
-t_block	*new_block(char *c, enum flags f);
+t_block	*new_block(char *c, enum e_flags f);
 void	handle_space(t_var_toblock *var, t_list **final_l,
 			t_list **temp_l, char *line);
 char	*list_to_string(t_list *l);
-void	temp_to_final(t_list **final_l, t_list **temp_l, enum flags f);
+void	temp_to_final(t_list **final_l, t_list **temp_l, enum e_flags f);
 void	str_to_list(char *str, t_list **temp_l);
 #endif
