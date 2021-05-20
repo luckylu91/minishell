@@ -35,7 +35,17 @@ typedef struct s_both_fd
 	int int_out;
 	t_ast *out;
 }				both_fd;
-
+typedef struct s_all_str
+{
+	char	**all_path;
+	char	**all_var;
+	char	*path;
+}				all_str;
+typedef struct s_state_pipe
+{
+	int	state;
+	int **both_pipe;
+}				state_pipe;
 char	*get_char_from_block(t_list *l);
 void	dup_str(t_list *l, char **res, int i);
 int		size_list(t_list *l);

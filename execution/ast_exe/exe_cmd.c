@@ -1,40 +1,62 @@
 #include "execution.h"
 #include <sys/wait.h>
 
+ //void	signal_interrupt_caca(int signum)
+ //{
+ //	if (signum == SIGINT)
+ //		exit(130);
+ //	if (signum == SIGQUIT)
+ //		exit(131);
+ //	exit(0);
+ //}
 
- void	signal_interrupt_caca(int signum)
- {
- 	if (signum == SIGINT)
- 		exit(130);
- 	if (signum == SIGQUIT)
- 		exit(131);
- 	exit(0);
- }
+void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms){
+ // signal(SIGINT, signal_interrupt);
+		// signal(SIGQUIT, signal_interrupt);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 
-int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
+		if (sp.state == 1 && fd.out == NULL)
+		{
+			dup2(sp.both_pipe[1][1],STDOUT_FILENO);
+			close(sp.both_pipe[1][0]);
+			close(sp.both_pipe[1][1]);
+		}
+		if (sp.state == 3 && fd.out == NULL)
+		{
+			dup2(sp.both_pipe[1][1], STDOUT_FILENO);
+			close(sp.both_pipe[1][0]);
+			close(sp.both_pipe[1][1]);
+		}
+		if ((sp.state == 2 || sp.state == 3) && fd.in == NULL)
+		{
+			dup2(sp.both_pipe[0][0], STDIN_FILENO);
+			close(sp.both_pipe[0][1]);
+			close(sp.both_pipe[0][0]);
+		}
+		if (fd.int_in != -1)
+			dup2(fd.int_in, fd.in->expr.redir.fildes);
+		if (fd.int_out != -1)
+			dup2(fd.int_out, fd.out->expr.redir.fildes);
+		if (is_builtin(chemin.all_var[0]))
+			exit(start_builtin(chemin.all_var, ms));
+		else
+			execve(chemin.path, chemin.all_var, ms->env);
+}
+
+void	setup_var_exe(both_fd *fd, state_pipe *sp, int state, int **both_pipe)
 {
-	char **all_path;
-	both_fd fd;
-	char **all_var;
-	int status;
-	char* path;
-	pid_t child;
+	sp->state = state;
+	sp->both_pipe = both_pipe;
+	fd->in = NULL;
+	fd->out = NULL;
+	fd->int_in = -1;
+	fd->int_out = -1;
+}
 
-	all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
-	fd.in = NULL;
-	fd.out = NULL;
-	fd.int_in = -1;
-	fd.int_out = -1;
-	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
-		return (-1);
-	all_path = split_path();
-	if (cmd->expr.command.text_list == NULL)
-		return (-1);
-	if (check_redir(&fd))
-		return (-1);
-	path = search_cmd(all_path,all_var[0]); 
-	if (path == NULL && is_builtin(all_var[0]) == 0 && is_builtin_nopipe(all_var[0]) == 0)
-	{
+void	cmd_notf(all_str chemin, t_minishell *ms, both_fd fd)
+{
+		pid_t child;
 		ms->exit_code = 127;
 		child = fork();
 		if (child == 0)
@@ -46,70 +68,59 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 			if (fd.int_out != -1)
 				dup2(fd.int_out, fd.out->expr.redir.fildes);
 			ft_putstr_fd("bash: ",2);
-			ft_putstr_fd(all_var[0],2);
+			ft_putstr_fd(chemin.all_var[0],2);
 			ft_putstr_fd(": command not found\n",2);
 			exit(0);
 		}
+}
+int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
+{
+	both_fd fd;
+	state_pipe sp;
+	pid_t child;
+	all_str chemin; 
+
+	setup_var_exe(&fd, &sp, state, both_pipe);
+	chemin.all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
+	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
+		return (-1);
+	chemin.all_path = split_path();
+	if (cmd->expr.command.text_list == NULL)
+		return (-1);
+	if (check_redir(&fd))
+		return (-1);
+	chemin.path = search_cmd(chemin.all_path,chemin.all_var[0]); 
+	if (chemin.path == NULL && is_builtin(chemin.all_var[0]) == 0 && is_builtin_nopipe(chemin.all_var[0]) == 0)
+	{
+		cmd_notf(chemin, ms, fd);
 		return (-1);
 	}
-	if (is_builtin_nopipe(all_var[0]) && state != 0)
+	if (is_builtin_nopipe(chemin.all_var[0]) && sp.state != 0)
 	{	
-		if (state >0)
+		if (sp.state >0)
 		{
-			if (state != 1)
+			if (sp.state != 1)
 			{
-				close(both_pipe[0][1]);
-				close(both_pipe[0][0]);
+				close(sp.both_pipe[0][1]);
+				close(sp.both_pipe[0][0]);
 			}
 		}	
 		return (-1);
 	}
-	else if (is_builtin_nopipe(all_var[0]))
+	else if (is_builtin_nopipe(chemin.all_var[0]))
 	{
-		ms->exit_code = start_builtin(all_var, ms);
+		ms->exit_code = start_builtin(chemin.all_var, ms);
 		return (1);
 	}
 	child = fork();
 	if (child == 0)
+		child_exe(sp, fd, chemin, ms);
+	if (sp.state >0)
 	{
-		// signal(SIGINT, signal_interrupt);
-		// signal(SIGQUIT, signal_interrupt);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-
-		if (state == 1 && fd.out == NULL)
+		if (sp.state != 1)
 		{
-			dup2(both_pipe[1][1],STDOUT_FILENO);
-			close(both_pipe[1][0]);
-			close(both_pipe[1][1]);
-		}
-		if (state == 3 && fd.out == NULL)
-		{
-			dup2(both_pipe[1][1], STDOUT_FILENO);
-			close(both_pipe[1][0]);
-			close(both_pipe[1][1]);
-		}
-		if ((state == 2 || state == 3) && fd.in == NULL)
-		{
-			dup2(both_pipe[0][0], STDIN_FILENO);
-			close(both_pipe[0][1]);
-			close(both_pipe[0][0]);
-		}
-		if (fd.int_in != -1)
-			dup2(fd.int_in, fd.in->expr.redir.fildes);
-		if (fd.int_out != -1)
-			dup2(fd.int_out, fd.out->expr.redir.fildes);
-		if (is_builtin(all_var[0]))
-			exit(start_builtin(all_var, ms));
-		else
-			execve(path, all_var, ms->env);
-	}
-	if (state >0)
-	{
-		if (state != 1)
-		{
-			close(both_pipe[0][1]);
-			close(both_pipe[0][0]);
+			close(sp.both_pipe[0][1]);
+			close(sp.both_pipe[0][0]);
 		}
 	}
 	if (fd.in != NULL)
