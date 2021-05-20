@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 17:33:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 10:27:26 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 14:48:58 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		before_exit(void *ms_ptr);
 void	exit_with_code(int code, t_minishell *ms);
 void	exit_properly(void *ms_ptr);
 void	process_char(int c, t_minishell *ms);
+void	process_printable(char c, t_minishell *ms);
 int		process_line(char *line, t_minishell *ms);
 int		process_line_test(char *line, t_minishell *ms);
 

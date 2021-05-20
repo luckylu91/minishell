@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 10:14:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 12:07:21 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	execute_with_file_input(t_minishell *ms)
 	exit_properly(ms);
 }
 
-int main()
+int	main(void)
 {
 	int			c;
 	t_minishell	*ms;
@@ -59,17 +59,13 @@ int main()
 	init_all(ms);
 	if (!isatty(STDIN_FILENO))
 		execute_with_file_input(ms);
-
 	show_prompt(ms);
 	while (1)
 	{
 		c = 0;
-		// ret_read = read(ms.fd_in, &c, sizeof(int));
 		ret_read = read(STDIN_FILENO, &c, sizeof(int));
 		if (ret_read == -1)
 			exit_with_code(EXIT_FAILURE, ms);
-		// else if (ret_read == 0)
-		// 	exit_properly(ms);
 		process_char(c, ms);
 	}
 	exit_properly(ms);

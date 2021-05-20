@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:14:15 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 15:04:06 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 15:25:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,40 @@ char	last_char(char *str)
 	return (str[ft_strlen(str) - 1]);
 }
 
+static char	*duplicate_line_until_cursor(t_minishell *ms)
+{
+	char	*res;
+
+	if (ms->lb->i == 0 || !ms->lb->buffer)
+		return (NULL);
+	res = ft_calloc(ms->lb->i + 1, sizeof(char));
+	ft_strlcpy(res, ms->lb->buffer, ms->lb->i + 1);
+	return (res);
+}
+
+static t_block	*duplicate_last_block(char *line_until_cursor,
+	t_block *last_block)
+{
+	char	*buffer_end;
+
+	buffer_end = ft_strrchr(line_until_cursor, last_char(last_block->str));
+	if (*buffer_end == ' ' && ft_all_in(buffer_end, " "))
+		return (create_block(none, ft_strdup("")));
+	else if (!ft_all_in(buffer_end + 1, "\'\"\\"))
+		return (NULL);
+	else
+		return (dup_block(last_block));
+}
+
 t_block	*valid_last_block(t_minishell *ms)
 {
-	t_list			*block_lst;
-	t_linebuffer	*lb;
-	t_block			*last_block;
-	char			*buffer_end;
+	t_list	*block_lst;
+	char	*str_until_cursor;
+	t_block	*last_block;
+	char	*buffer_end;
 
-	lb = ms->lb;
-	if (!lb->buffer)
-		return (NULL);
-	to_block(lb->buffer, &block_lst);
+	str_until_cursor = duplicate_line_until_cursor(ms);
+	to_block(str_until_cursor, &block_lst);
 	if (!block_lst)
 		return (NULL);
 	last_block = ft_lstlast(block_lst)->content;
@@ -46,40 +69,7 @@ t_block	*valid_last_block(t_minishell *ms)
 		ft_lstclear(&block_lst, destroy_block);
 		return (NULL);
 	}
-	buffer_end = ft_strrchr(lb->buffer, last_char(last_block->str));
-	if (*buffer_end == ' ' && ft_all_in(buffer_end, " "))
-		last_block = create_block(none, ft_strdup(""));
-	else if (!ft_all_in(buffer_end + 1, "\'\"\\"))
-		last_block = NULL;
-	else
-		last_block = dup_block(last_block);
+	last_block = duplicate_last_block(str_until_cursor, last_block);
 	ft_lstclear(&block_lst, destroy_block);
 	return (last_block);
-}
-
-void	show_matching_files(t_list *files, t_minishell *ms)
-{
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	ft_lstiter(files, NULL, ft_putendl_fd);
-	show_prompt(ms);
-	ft_putstr_fd( ms->lb->buffer,  STDOUT_FILENO);
-}
-
-void	separate_last_slash(char *str, char **str_path, char **str_end)
-{
-	int	i_sep;
-
-	*str_path = ft_strdup(str);
-	*str_end = ft_strrchr(*str_path, '/');
-	if (!*str_end)
-	{
-		*str_end = *str_path;
-		*str_path = NULL;
-	}
-	else
-	{
-		*str_end = ft_strdup((*str_end) + 1);
-		i_sep = ft_strlen(*str_path) - ft_strlen(*str_end);
-		(*str_path)[i_sep] = '\0';
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:09:39 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 10:09:57 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 12:11:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_interrupt(int signum)
 {
-	t_minishell *ms;
+	t_minishell	*ms;
 
 	ms = ft_get_set_context(NULL);
 	linebuffer_clear(ms);

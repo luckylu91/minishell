@@ -6,15 +6,14 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 10:28:14 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 14:48:47 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	process_printable(char c, t_minishell *ms)
+void	process_printable(char c, t_minishell *ms)
 {
-	
 	linebuffer_add_insert(c, ms);
 	tputs(ms->termcaps[INSERT_MODE], 1, ft_putchar);
 	ft_putchar_fd((char)c, STDOUT_FILENO);
@@ -43,7 +42,7 @@ void	process_char(int c, t_minishell *ms)
 	else if (c == '\n')
 		process_newline(ms);
 	else if (is_up_down_arrow(c))
-		redirect_up_down((char*)&c, ms);
+		redirect_up_down((char *)&c, ms);
 	else if (is_left_right_arrow(c))
-		redirect_left_right((char*)&c, ms);
+		redirect_left_right((char *)&c, ms);
 }

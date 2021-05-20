@@ -6,19 +6,19 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:06:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 11:33:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 15:25:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_up_down_arrow(int c)
+int	is_up_down_arrow(int c)
 {
-	char *c_chars;
+	char	*c_chars;
 
-	c_chars = (char*)&c;
+	c_chars = (char *)&c;
 	return (ft_strncmp(c_chars, "\x1b[", 2) == 0
-			&& (c_chars[2] == 'A' || c_chars[2] == 'B'));
+		&& (c_chars[2] == 'A' || c_chars[2] == 'B'));
 }
 
 static void	clear_current_line(t_minishell *ms)
@@ -40,13 +40,14 @@ static void	clear_current_line(t_minishell *ms)
 		tputs(ms->termcaps[DELETE_CHAR], 1, ft_putchar);
 }
 
-void	redirect_up_down(char* str, t_minishell *ms)
+void	redirect_up_down(char *str, t_minishell *ms)
 {
 	char			*line;
 	int				up_pressed;
 
 	up_pressed = (str[2] == 'A');
-	if ((ms->h->position_state == BOTTOM && !up_pressed) || !ms->h->hlines)
+	if (!ms->h->hlines || (!up_pressed && ms->h->position_state == BOTTOM)
+		|| (up_pressed && !ms->h->hlines->next))
 		return ;
 	if (up_pressed)
 		move_hist(ms->h, 1);
