@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:33:04 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 09:58:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,12 @@ typedef enum	e_termcaps
 
 void	terminal_done(void);
 void	terminal_signal(int signum);
-int		init_termios(void);
+void	init_termios(void);
 void	set_terminal_original(void);
 void	set_terminal_minishell(void);
 
-int		init_termcaps(void);
+void	init_termcaps(void);
 char	**init_termcaps_strings(void);
-
-int		termcaps_term_not_set_error(void);
-int		termcaps_database_not_accessible(void);
-int		termcaps_database_no_entry(char *term_type);
 
 int		ft_putchar(int c);
 void	ft_putstr(char *s);
