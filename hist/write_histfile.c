@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:22:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 15:30:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 10:46:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	write_lines(t_hist *h, int fd)
 			i++;
 		}
 	}
+	h->file_lines = ft_bilststep(h->file_lines, i);
 	if (h->file_lines)
 	{
 		blst = h->file_lines;
@@ -53,7 +54,7 @@ int	write_histfile(t_hist *h)
 
 	if (!h)
 		return (1);
-	fd = open_error(h->histfile_name, O_CREAT | O_WRONLY, 0666);
+	fd = open_error(h->histfile_name, O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0666);
 	if (fd == -1)
 		return (-1);
 	write_lines(h, fd);

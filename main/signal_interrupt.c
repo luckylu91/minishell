@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_properly.c                                    :+:      :+:    :+:   */
+/*   signal_interrupt.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 13:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 12:07:33 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/20 10:09:39 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/20 12:11:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	before_exit(void *ms_ptr)
+void	signal_interrupt(int signum)
 {
 	t_minishell	*ms;
 
-	ms = ms_ptr;
-	terminal_done();
-	if (ms)
-	{
-		if (write_histfile(ms->h) == -1)
-			ms->exit_code = -1;
-		return (ms->exit_code);
-	}
-	else
-		return (0);
-}
-
-void	exit_properly(void *ms_ptr)
-{
-	exit(before_exit(ms_ptr));
-}
-
-void	exit_with_code(int code, t_minishell *ms)
-{
-	ms->exit_code = code;
-	exit_properly(ms);
+	ms = ft_get_set_context(NULL);
+	linebuffer_clear(ms);
+	rewind_hist(ms->h);
+	if (signum == SIGQUIT)
+		ft_putstr_fd("^\\Quit: 3", STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	show_prompt(ms);
+	ms->prompted_signal = 1;
 }

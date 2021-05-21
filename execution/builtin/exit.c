@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:48:38 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 18:01:35 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 10:21:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,17 @@ int	our_exit(char **argv, t_minishell *ms)
 
 	if (!argv[1])
 		ms->exit_code = 0;
-	else if (argv[2])
-	{
-		error_message("bash: exit: too many arguments");
-		return (1);
-	}
 	else if (!ft_isnumber(argv[1]) || ft_atol_overflows(argv[1]))
 	{
 		ft_putstr_fd("bash: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		ms->exit_code = 255;
+	}
+	else if (argv[2])
+	{
+		error_message("bash: exit: too many arguments");
+		return (1);
 	}
 	else
 		ms->exit_code = ft_atol(argv[1]) % (long)256;

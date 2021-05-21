@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:15:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 16:16:36 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 09:54:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ void	set_terminal_minishell(void)
 	tcsetattr(STDOUT_FILENO, TCSANOW, &term.terminal_settings);
 }
 
-int	init_termios(void)
+void	init_termios(void)
 {
 	struct sigaction	act;
 
 	if (tcgetattr(STDOUT_FILENO, &term.terminal_original)
 		|| tcgetattr(STDOUT_FILENO, &term.terminal_settings))
 	{
-		errno = ENOTSUP;
-		return (-1);
+		ft_putstr_fd("Cannot initialize terminal: ", STDERR_FILENO);
+		ft_putstr_fd(strerror(ENOTSUP), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
 	}
 	term.terminal_settings.c_iflag &= ~ISTRIP;
 	term.terminal_settings.c_iflag &= ~(INLCR | IGNCR);
@@ -56,5 +58,4 @@ int	init_termios(void)
 	term.terminal_settings.c_cc[VTIME] = 0;
 	term.terminal_settings.c_cc[VMIN] = 1;
 	tcsetattr(STDOUT_FILENO, TCSANOW, &term.terminal_settings);
-	return (0);
 }

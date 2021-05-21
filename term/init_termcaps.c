@@ -6,27 +6,48 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:08:54 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 16:09:36 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 09:59:10 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "terminal.h"
 
-int	init_termcaps(void)
+static int	termcaps_term_not_set_error(void)
+{
+	ft_putstr_fd("TERM is not set\n", STDERR_FILENO);
+	ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
+	return (-1);
+}
+
+static int	termcaps_database_not_accessible(void)
+{
+	ft_putstr_fd("Could not access to the termcap database\n", STDERR_FILENO);
+	ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
+	return (-1);
+}
+
+static int	termcaps_database_no_entry(char *term_type)
+{
+	ft_putstr_fd("Error in finding entry for ", STDERR_FILENO);
+	ft_putstr_fd(term_type, STDERR_FILENO);
+	ft_putstr_fd(" in the termcaps database", STDERR_FILENO);
+	ft_putendl_fd("Error during Termcaps initililisation.", STDERR_FILENO);
+	return (-1);
+}
+
+void	init_termcaps(void)
 {
 	char	*term_type;
 	int		ret;
 
 	term_type = getenv("TERM");
 	if (!term_type)
-		return (termcaps_term_not_set_error());
-	printf("Using terminal %s\n", term_type);
+		exit(termcaps_term_not_set_error());
 	ret = tgetent(NULL, term_type);
 	if (ret == -1)
-		return (termcaps_database_not_accessible());
+		exit(termcaps_database_not_accessible());
 	else if (ret == 0)
-		return (termcaps_database_no_entry(term_type));
-	return (1);
+		exit(termcaps_database_no_entry(term_type));
 }
 
 char	**init_termcaps_strings(void)
@@ -52,7 +73,7 @@ char	**init_termcaps_strings(void)
 	while (i < NUMBER_OF_CAPS)
 	{
 		if (!tc[i])
-			printf("one termcap is not present : %d\n", i);
+			printf("One termcap is not present : %d\n", i);
 		i++;
 	}
 	return (tc);
