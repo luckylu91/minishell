@@ -37,7 +37,8 @@ void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms){
 		if (fd.int_in != -1)
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
 		if (fd.int_out != -1)
-			dup2(fd.int_out, fd.out->expr.redir.fildes);
+			dup3(fd.int_out, fd.out->expr.redir.fildes);
+		printf("ici |%s|\n", chemin.all_var[0]);
 		if (is_builtin(chemin.all_var[0]))
 			exit(start_builtin(chemin.all_var, ms));
 		else
@@ -84,9 +85,13 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	chemin.all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
 	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
 		return (-1);
+
+	printf("patate 4\n");
 	chemin.all_path = split_path();
 	if (cmd->expr.command.text_list == NULL)
 		return (-1);
+
+	printf("patate 3\n");
 	if (check_redir(&fd))
 		return (-1);
 	chemin.path = search_cmd(chemin.all_path,chemin.all_var[0]); 
@@ -95,6 +100,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 		cmd_notf(chemin, ms, fd);
 		return (-1);
 	}
+	printf("patate 1\n");
 	if (is_builtin_nopipe(chemin.all_var[0]) && sp.state != 0)
 	{	
 		if (sp.state >0)
@@ -109,9 +115,18 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	}
 	else if (is_builtin_nopipe(chemin.all_var[0]))
 	{
+		int temp;
+		if (fd.int_out != -1)
+		{
+			temp = dup(fd.out->expr.redir.fildes);
+			dup2(fd.int_out, fd.out->expr.redir.fildes);
+		}
 		ms->exit_code = start_builtin(chemin.all_var, ms);
+
 		return (1);
 	}
+
+	printf("patate 22\n");
 	child = fork();
 	if (child == 0)
 		child_exe(sp, fd, chemin, ms);

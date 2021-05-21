@@ -15,7 +15,10 @@ int	start_builtin(char **c, t_minishell *ms)
 	else if (ft_strcmp(c[0], "env") == 0)
 		return (our_env(ms->env));
 	else if (ft_strcmp(c[0], "exit") == 0)
+	{
+		printf("exit 2 mort\n");
 		return (our_exit(c, ms));
+	}
 	return (-1);
 }
 
@@ -40,5 +43,6 @@ int	is_builtin_nopipe(char *c)
 		return (1);
 	if (ft_strcmp(c, "exit") == 0)
 		return (1);
+	printf("wtf |%s|\n",c);
 	return (0);
 }
