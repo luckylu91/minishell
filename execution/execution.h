@@ -82,7 +82,7 @@ void	replace_env_list(t_list **block_lst, t_list **redir_blocks,
 int		replace_env(t_ast *cmdchain_ast, t_minishell *ms);
 char	**split_path(void);
 int		exe_all(t_list *l_staticast);
-int		copy_environ(char ***new_env_addr);
+int		copy_environ(char ***new_env_addr, char **environ);
 int		exe_ast(t_ast *l_ast, int i, int *pipe, t_minishell *mini);
 void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 			t_list **begin);

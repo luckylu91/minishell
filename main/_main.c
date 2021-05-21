@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-void	init_context(t_minishell *ms)
+void	init_context(t_minishell *ms, char **environ)
 {
-	copy_environ(&ms->env);
+	copy_environ(&ms->env, environ);
 	ms->termcaps = init_termcaps_strings();
 	ms->h = create_hist(".histfile");
 	ms->lb = ft_calloc(1, sizeof(t_linebuffer));
 }
 
-void	init_all(t_minishell *ms)
+void	init_all(t_minishell *ms, char **environ)
 {
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, signal_interrupt);
 	init_termios();
 	init_termcaps();
-	init_context(ms);
+	init_context(ms, environ);
 	ft_get_set_exit_fun(&before_exit);
 	ft_get_set_context(ms);
 }
@@ -49,14 +49,17 @@ void	execute_with_file_input(t_minishell *ms)
 	exit_properly(ms);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **environ)
 {
 	int			c;
 	t_minishell	*ms;
 	int			ret_read;
 
+	(void)argc;
+	(void)argv;
+	printf("%p\n", environ);
 	ms = ft_calloc(1, sizeof(t_minishell));
-	init_all(ms);
+	init_all(ms, environ);
 	if (!isatty(STDIN_FILENO))
 		execute_with_file_input(ms);
 	show_prompt(ms);

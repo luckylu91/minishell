@@ -25,7 +25,6 @@ int	process_line(char *line, t_minishell *ms)
 			ms->exit_code = WEXITSTATUS(status);
 			ms->all_child = ms->all_child->next;
 		}
-		destroy_ast((t_ast **)&ast_cmdseq->content);
 		ast_cmdseq = ast_cmdseq->next;
 	}
 	set_terminal_minishell();

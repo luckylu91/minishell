@@ -12,9 +12,7 @@
 
 #include "execution.h"
 
-extern char	**environ;
-
-int	copy_environ(char ***new_env_addr)
+int	copy_environ(char ***new_env_addr, char **environ)
 {
 	int	i;
 
