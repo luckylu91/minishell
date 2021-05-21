@@ -26,7 +26,7 @@ void	init_all(t_minishell *ms, char **environ)
 	signal(SIGQUIT, signal_interrupt);
 	init_termios();
 	init_termcaps();
-	init_context(ms);
+	init_context(ms, environ);
 	ft_get_set_exit_fun(&before_exit);
 	ft_get_set_context(ms);
 }
@@ -55,6 +55,9 @@ int	main(int argc, char **argv, char **environ)
 	t_minishell	*ms;
 	int			ret_read;
 
+	(void)argc;
+	(void)argv;
+	printf("%p\n", environ);
 	ms = ft_calloc(1, sizeof(t_minishell));
 	init_all(ms, environ);
 	if (!isatty(STDIN_FILENO))

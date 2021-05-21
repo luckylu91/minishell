@@ -8,6 +8,7 @@ int	process_line(char *line, t_minishell *ms)
 	t_ast	*ast_cmdchain;
 	int		status;
 
+	setbuf(stdout, NULL);
 	ms->all_child = NULL;
 	set_terminal_original();
 	if (line && line[0])
@@ -16,8 +17,10 @@ int	process_line(char *line, t_minishell *ms)
 	parse_cmdseq(&ast_cmdseq, block_lst);
 	while (ast_cmdseq)
 	{
+		printf("test11\n");
 		if (replace_env((t_ast *)ast_cmdseq->content, ms) == -1)
 			exit_properly(&g_global_var);
+		printf("test22\n");
 		if (remove_spaces_cmdchain((t_ast *)ast_cmdseq->content) == -1)
 			return (-1);
 		exe_ast((t_ast *)ast_cmdseq->content, 0, NULL, ms);
@@ -27,12 +30,19 @@ int	process_line(char *line, t_minishell *ms)
 			ms->exit_code = WEXITSTATUS(status);
 			ms->all_child = ms->all_child->next;
 		}
+		printf("test5\n");
 		destroy_ast((t_ast **)&ast_cmdseq->content);
+		printf("test55\n");
 		ast_cmdseq = ast_cmdseq->next;
+		printf("test555\n");
 	}
+	printf("test4\n");
 	set_terminal_minishell();
+	printf("test1\n");
 	destroy_block_lst(&block_lst);
+	printf("test2\n");
 	ft_lstclear(&ast_cmdseq, (t_del_fun)destroy_ast);
+	printf("test3\n");
 	return (1);
 }
 
