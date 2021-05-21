@@ -6,12 +6,15 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:54:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 11:10:31 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
+
+# include "libft.h"
+# include "to_block.h"
 
 typedef enum e_status
 {
@@ -23,7 +26,6 @@ typedef enum e_ast_type
 {
 	text_expr,
 	redir_expr,
-	unary_expr,
 	binary_expr,
 	command_expr
 }	t_ast_type;
@@ -35,11 +37,6 @@ typedef struct s_ast
 	union u_expr
 	{
 		t_list				*text;
-		struct				s_unary_expr
-		{
-			t_block			*op_name;
-			struct s_ast	*target;
-		}					unary;
 		struct				s_binary_expr
 		{
 			t_block			*op_name;

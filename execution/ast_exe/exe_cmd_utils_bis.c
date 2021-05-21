@@ -1,6 +1,6 @@
 #include "execution.h"
 
-void	setup_var_exe(both_fd *fd, state_pipe *sp, int state, int **both_pipe)
+void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe)
 {
 	sp->state = state;
 	sp->both_pipe = both_pipe;
@@ -10,7 +10,7 @@ void	setup_var_exe(both_fd *fd, state_pipe *sp, int state, int **both_pipe)
 	fd->int_out = -1;
 }
 
-void	close_and_dup(state_pipe sp, both_fd fd)
+void	close_and_dup(t_state_pipe sp, t_both_fd fd)
 {
 	if (sp.state == 1 && fd.out == NULL)
 	{
@@ -32,14 +32,14 @@ void	close_and_dup(state_pipe sp, both_fd fd)
 	}
 }
 
-void	setup_chemin(all_str *chemin, t_ast *cmd)
+void	setup_chemin(t_all_str *chemin, t_ast *cmd)
 {
-	chemin.all_path = split_path();
-	chemin.all_var = from_list_to_str_tab(cmd->expr.command.text_list);
-	chemin.path = search_cmd(chemin.all_path, chemin.all_var[0]);
+	chemin->all_path = split_path();
+	chemin->all_var = from_list_to_str_tab(cmd->expr.command.text_list);
+	chemin->path = search_cmd(chemin->all_path, chemin->all_var[0]);
 }
 
-void	closing(state_pipe sp, both_fd fd)
+void	closing(t_state_pipe sp, t_both_fd fd)
 {
 	if (sp.state > 0)
 	{

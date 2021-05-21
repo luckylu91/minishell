@@ -1,12 +1,12 @@
-#ifndef SEMANTIC_H
-#define SEMANTIC_H
+#ifndef SEARCHDIR_H
+# define SEARCHDIR_H
 
-#include "libft.h"
-#include <dirent.h>
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <sys/stat.h>
+# include "libft.h"
+# include <dirent.h>
+# include <errno.h>
+# include <string.h>
+# include <stdio.h>
+# include <sys/stat.h>
 
 DIR		*opendir_err(char *dir_name);
 int		closedir_err(DIR *dir);

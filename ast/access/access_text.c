@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_unary_ast.c                                :+:      :+:    :+:   */
+/*   access_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/17 14:18:05 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:19:01 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/20 15:48:34 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/21 11:08:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast_api.h"
+#include "ast.h"
 
-void	destroy_unary_ast(t_ast *nnull_ast)
+// Text content for a text ast (list of blocks)
+t_list	*text_at(t_ast *text_ast)
 {
-	destroy_block(nnull_ast->expr.unary.op_name);
-	destroy_ast(&nnull_ast->expr.unary.target);
+	return (text_ast->expr.text);
 }

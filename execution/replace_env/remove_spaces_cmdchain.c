@@ -3,7 +3,7 @@
 int	remove_spaces_redir(t_ast *redir_ast)
 {
 	t_list	*new_fname;
-	int	ret;
+	int		ret;
 
 	ret = remove_spaces(redir_ast->expr.redir.file_name, &new_fname);
 	if (ret == -1)
@@ -28,7 +28,7 @@ int	remove_spaces_cmd(t_ast *cmd_ast)
 	while (redir_lst)
 	{
 		ret = 1;
-		if (remove_spaces_redir((t_ast*)redir_lst->content) == -1)
+		if (remove_spaces_redir((t_ast *)redir_lst->content) == -1)
 			return (-1);
 		redir_lst = redir_lst->next;
 	}
@@ -40,7 +40,7 @@ int	remove_spaces_cmdchain(t_ast *cmdchain_ast)
 	if (!cmdchain_ast)
 		return (1);
 	if (cmdchain_ast->type == command_expr
-			&& remove_spaces_cmd(cmdchain_ast) == -1)
+		&& remove_spaces_cmd(cmdchain_ast) == -1)
 		return (-1);
 	else if (cmdchain_ast->type == binary_expr)
 	{

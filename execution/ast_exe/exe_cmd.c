@@ -10,7 +10,8 @@ void	signal_interrupt_caca(int signum)
 	exit(0);
 }
 
-void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms)
+void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
+	t_minishell *ms)
 {
 	 signal(SIGINT, signal_interrupt_caca);
 	 signal(SIGQUIT, signal_interrupt_caca);
@@ -27,7 +28,7 @@ void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms)
 		execve(chemin.path, chemin.all_var, ms->env);
 }
 
-void	cmd_notf(all_str chemin, t_minishell *ms, both_fd fd)
+void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
 	pid_t	child;
 
@@ -48,7 +49,8 @@ void	cmd_notf(all_str chemin, t_minishell *ms, both_fd fd)
 	}
 }
 
-int	no_pipe_exe(all_str chemin, state_pipe sp, both_fd fd, t_minishell *ms)
+int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
+	t_minishell *ms)
 {
 	int	temp;
 
@@ -78,10 +80,10 @@ int	no_pipe_exe(all_str chemin, state_pipe sp, both_fd fd, t_minishell *ms)
 
 int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
-	both_fd		fd;
-	state_pipe	sp;
-	pid_t		child;
-	all_str		chemin;
+	t_both_fd		fd;
+	t_state_pipe	sp;
+	pid_t			child;
+	t_all_str		chemin;
 
 	setup_var_exe(&fd, &sp, state, both_pipe);
 	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)

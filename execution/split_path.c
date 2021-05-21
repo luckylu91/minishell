@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
 char	**split_path(void)
 {
-	char *str;
-	char **res;
+	char	*str;
+	char	**res;
 
 	str = getenv("PATH");
 	res = ft_split(str, ":");

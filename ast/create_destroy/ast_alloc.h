@@ -13,7 +13,6 @@ t_block	*dup_block(t_block *block);
 
 void	destroy_text_ast(t_ast *nnull_ast);
 void	destroy_redir_ast(t_ast *nnull_ast);
-void	destroy_unary_ast(t_ast *nnull_ast);
 void	destroy_binary_ast(t_ast *nnull_ast);
 void	destroy_command_ast(t_ast *nnull_ast);
 void	destroy_ast(t_ast **ast);

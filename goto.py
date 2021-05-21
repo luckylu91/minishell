@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import re
+import os
 from colorama import Fore, Style
 
 error_line_pattern = re.compile(
@@ -16,6 +17,7 @@ while i < len(lines):
 	line = lines[i]
 	if (is_fname_line):
 		fname, status = line.split(':')
+		fpath, ftail = os.path.split(fname)
 		if (not status.strip().startswith('Error!')):
 			print(line, end='')
 			i += 1
@@ -28,7 +30,6 @@ while i < len(lines):
 			continue
 		err1a, err1b, line, col, err2 = m.groups()
 		print(
-			f"{fname}:{line},{col}\n" \
-			f"\t{Fore.LIGHTYELLOW_EX + err2 + Style.RESET_ALL}\n" \
-			f"\t{Fore.LIGHTRED_EX + err1b + Style.RESET_ALL}")
+			f"{Fore.CYAN + fname + Style.RESET_ALL}:{line},{col}\n" \
+			f"\t{Fore.LIGHTRED_EX + err2 + Style.RESET_ALL}")
 	i += 1
