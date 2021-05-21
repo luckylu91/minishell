@@ -35,7 +35,7 @@ static int	ft_atol_overflows(char *str)
 	long	long_max_tenth;
 	long	long_max_rem;
 
-	setupd(&res, &sng, &long_max_tenth, &long_max_rem);
+	setup(&res, &sgn, &long_max_tenth, &long_max_rem);
 	if (*str == '+')
 		str++;
 	else if (*str == '-')
