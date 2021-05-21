@@ -35,7 +35,7 @@ void	if_forest(t_var_toblock *var, t_list **temp_l,
 	else if (line[var->i] == '\"')
 		in_double_quote(line, var, final_l, temp_l);
 	else if (line[var->i] == '\\')
-		in_back_slash(line, var, final_l, temp_l);
+		in_back_slash(line, var, temp_l);
 	else
 	{
 		if (line[var->i] == '~')

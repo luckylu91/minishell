@@ -12,15 +12,14 @@
 
 #include "to_block.h"
 
-
 void	is_finished(char *line)
 {
-	int dquote;
-	int quote;
-	int backslash;
-	int i;
+	int	dquote;
+	int	quote;
+	int	backslash;
+	int	i;
 
-	dquote= 1;
+	dquote = 1;
 	quote = 1;
 	backslash = 1;
 	i = 0;

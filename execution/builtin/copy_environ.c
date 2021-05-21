@@ -17,7 +17,8 @@ int	copy_environ(char ***new_env_addr, char **environ)
 	int	i;
 
 	i = 0;
-	while (environ[++i]);
+	while (environ[i])
+		i++;
 	*new_env_addr = NULL;
 	*new_env_addr = ft_calloc(i + 1, sizeof(char *));
 	if (!*new_env_addr)

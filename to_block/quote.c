@@ -9,5 +9,5 @@ void	in_quote(char *line, t_var_toblock *var, t_list **temp_l)
 		var->i = var->i + 1;
 	}
 	if (line[var->i] == '\'')
-		var->i =var->i +1;
+		var->i = var->i + 1;
 }

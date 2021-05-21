@@ -21,14 +21,14 @@
 enum e_flags {none, error, space, spe, dollar, dollar_num, dollar_dquote};
 typedef struct s_var_toblock
 {
-	int			i;
-	int			spe;
-	int			end_while;
+	int				i;
+	int				spe;
+	int				end_while;
 	enum e_flags	f;
 }				t_var_toblock;
 typedef struct s_block
 {
-	char		*str;
+	char			*str;
 	enum e_flags	f;
 }					t_block;
 
@@ -41,9 +41,9 @@ void	to_block(char *line, t_list **final_l);
 void	in_double_quote(char *line, t_var_toblock *var,
 			t_list **final_l, t_list **temp_l);
 void	in_back_slash(char *line, t_var_toblock *var,
-			t_list **final_l, t_list **temp_l);
+			t_list **temp_l);
 void	in_back_slash_dquote(char *line, t_var_toblock *var,
-			t_list **final_l, t_list **temp_l);
+			t_list **temp_l);
 void	ft_dollar(t_var_toblock *var, char *line,
 			t_list **temp_l, t_list **final_l);
 void	ft_dollar_dquote(char *line, t_var_toblock *var,

@@ -20,6 +20,14 @@ static int	ft_isnumber(char *str)
 	return (*str && ft_all_in(str, "0123456789"));
 }
 
+static void	setup(long *res, int *sgn, long *lmt, long *lmr)
+{
+	*res = 0;
+	*sgn = 1;
+	*lmt = LONG_MAX / 10;
+	*lmr = LONG_MAX % 10;
+}
+
 static int	ft_atol_overflows(char *str)
 {
 	long	res;
@@ -27,8 +35,7 @@ static int	ft_atol_overflows(char *str)
 	long	long_max_tenth;
 	long	long_max_rem;
 
-	res = 0;
-	sgn = 1;
+	setup(&res, &sgn, &long_max_tenth, &long_max_rem);
 	if (*str == '+')
 		str++;
 	else if (*str == '-')
@@ -36,13 +43,12 @@ static int	ft_atol_overflows(char *str)
 		sgn = -1;
 		str++;
 	}
-	long_max_tenth = LONG_MAX / 10;
-	long_max_rem = LONG_MAX % 10;
 	while (*str >= '0' && *str <= '9')
 	{
 		if (res > long_max_tenth
 			|| (res == long_max_tenth && sgn == 1 && *str - '0' > long_max_rem)
-			|| (res == long_max_tenth && sgn == -1 && *str - '0' > long_max_rem + 1))
+			|| (res == long_max_tenth && sgn == -1 && *str - '0'
+				> long_max_rem + 1))
 			return (1);
 		res = res * 10 + (*str - '0');
 		str++;
