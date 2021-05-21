@@ -19,7 +19,7 @@ int	our_pwd(char **argv)
 	working_dir = getcwd(NULL, 0);
 	if (!working_dir)
 	{
-		error_message_errno("pwd", strerror(errno)); // cd: ...
+		error_message_errno("pwd", strerror(errno));
 		return (-1);
 	}
 	ft_putendl_fd(working_dir, STDOUT_FILENO);
