@@ -2,7 +2,6 @@
 
 static int	lststr_cat_len(t_list *block_lst)
 {
-	int		n;
 	t_block	*block;
 
 	if (!block_lst)
@@ -73,7 +72,6 @@ int	text_to_string(t_list **block_lst, char **str_addr)
 int	remove_spaces(t_list *block_lst, t_list **new_block_lst)
 {
 	char	*str;
-	int		ret;
 	t_block	*new_block;
 
 	*new_block_lst = NULL;

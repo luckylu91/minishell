@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:09:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 10:46:23 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:33:41 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_hist	*create_hist(char *histfile_name)
 	h = ft_calloc(1, sizeof(t_hist));
 	if (!h)
 		return (NULL);
-	// setenv HISTFILE ?
 	h->hist_size = get_env_number("HISTSIZE");
 	h->histfile_size = get_env_number("HISTFILESIZE");
 	h->histfile_name = ft_strdup(histfile_name);

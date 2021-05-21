@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:33:04 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:40:02 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
 
 void	our_getenv(t_block *block, char **res_addr, t_minishell *ms)
 {
-	char	*env_str;
-
 	if (block->f == dollar_dquote && !block->str[0])
 		*res_addr = ft_strdup("$");
 	if (is_tilde(block))

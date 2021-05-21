@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:37:10 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:38:43 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	replace_existing(char *arg, char **existing, int arg_offset)
 {
 	int		assign_op_code;
 	char	*new_value;
-	int		existing_offset;
 
 	assign_op_code = is_assign_operator(arg + arg_offset);
 	if (assign_op_code == ASSIGN_EQUAL)

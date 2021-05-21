@@ -6,32 +6,15 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/11 15:47:23 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:41:50 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hist.h"
 
-// static int	above_limit(t_bilist *lst, int size)
-// {
-// 	if (size < 0)
-// 		return (0);
-// 	return (ft_bilstsize(lst) > size);
-// }
-
-// static void	truncate_list(t_bilist **alst, int n, void (*del)(void *))
-// {
-// 	if (n < 0 || !*alst)
-// 		return ;
-// 	if (n == 0)
-// 		ft_bilstclear(alst, del);
-// 	truncate_list(&(*alst)->next, n - 1, del);
-// }
-
 static void	dup_n_str(t_bilist **dest, t_bilist *src, int n)
 {
 	void		*new_content;
-	t_bilist	*new_elem;
 
 	*dest = NULL;
 	if (n == 0 || !src)
@@ -49,13 +32,6 @@ static void	dup_n_str(t_bilist **dest, t_bilist *src, int n)
 			n--;
 	}
 }
-
-// void	*strdup_ptr(void *src)
-// {
-// 	return ft_strdup()
-// }
-
-typedef void *(*dup_fun)(void *);
 
 int	read_truncate_histfile(t_hist *h)
 {

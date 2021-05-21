@@ -6,16 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:18:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:19:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:37:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast_api.h"
-
-static void	destroy_text_ast_ptr(void *p)
-{
-	destroy_text_ast((t_ast *)p);
-}
 
 static void	destroy_redir_ast_ptr(void *p)
 {

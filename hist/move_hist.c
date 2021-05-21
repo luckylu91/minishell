@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_hist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzins <lzins@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 19:06:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/01 10:58:06 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:30:45 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	move_hist(t_hist *h, int direction)
 		if (h->position_state == BOTTOM)
 			h->position_state = MOVING;
 		else
-			h->hlines =  ft_bilststep_blocking(h->hlines, 1);
+			h->hlines = ft_bilststep_blocking(h->hlines, 1);
 	}
 	if (direction < 0)
 	{

@@ -136,7 +136,6 @@ static void	print_ast_content(t_ast *ast)
 void	print_ast(t_ast *ast)
 {
 	char *type_str = NULL;
-	char *content_str = NULL;
 
 	if (!ast)
 		return ;

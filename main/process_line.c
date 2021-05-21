@@ -3,9 +3,7 @@
 int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
-	t_list	*block_lst_mov;
 	t_list	*ast_cmdseq;
-	t_ast	*ast_cmdchain;
 	int		status;
 
 	ms->all_child = NULL;

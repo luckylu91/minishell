@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:15:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 09:54:39 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:38:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	terminal_done(void)
 
 void	terminal_signal(int signum)
 {
+	(void)signum;
 	if (STDOUT_FILENO != -1)
 		tcsetattr(STDOUT_FILENO, TCSANOW, &term.terminal_original);
 	exit(0);
@@ -36,8 +37,6 @@ void	set_terminal_minishell(void)
 
 void	init_termios(void)
 {
-	struct sigaction	act;
-
 	if (tcgetattr(STDOUT_FILENO, &term.terminal_original)
 		|| tcgetattr(STDOUT_FILENO, &term.terminal_settings))
 	{

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:06:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 15:25:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:42:32 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	is_up_down_arrow(int c)
 
 static void	clear_current_line(t_minishell *ms)
 {
-	int				len_screen;
-	int				k;
+	int	len_screen;
+	int	k;
 
 	if (!ms->lb->buffer)
 		return ;
@@ -42,8 +42,7 @@ static void	clear_current_line(t_minishell *ms)
 
 void	redirect_up_down(char *str, t_minishell *ms)
 {
-	char			*line;
-	int				up_pressed;
+	int	up_pressed;
 
 	up_pressed = (str[2] == 'A');
 	if (!ms->h->hlines || (!up_pressed && ms->h->position_state == BOTTOM)
