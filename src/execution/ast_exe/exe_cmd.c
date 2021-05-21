@@ -3,6 +3,7 @@
 
 void	signal_interrupt_caca(int signum)
 {
+	printf("...of what ?\n");
 	if (signum == SIGINT)
 		exit(130);
 	if (signum == SIGQUIT)
@@ -13,8 +14,8 @@ void	signal_interrupt_caca(int signum)
 void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	t_minishell *ms)
 {
-	 signal(SIGINT, signal_interrupt_caca);
-	 signal(SIGQUIT, signal_interrupt_caca);
+	signal(SIGINT, &signal_interrupt_caca);
+	signal(SIGQUIT, &signal_interrupt_caca);
 //	signal(SIGINT, SIG_DFL);
 //	signal(SIGQUIT, SIG_DFL);
 	close_and_dup(sp, fd);
@@ -32,12 +33,15 @@ void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
 	pid_t	child;
 
+	// TODO
 	ms->exit_code = 127;
 	child = fork();
 	if (child == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, signal_interrupt_caca);
+		signal(SIGQUIT, signal_interrupt_caca);
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
 		if (fd.int_in != -1)
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
 		if (fd.int_out != -1)

@@ -27,7 +27,7 @@ int	process_line(char *line, t_minishell *ms)
 		exe_ast((t_ast *)ast_cmdseq->content, 0, NULL, ms);
 		while (ms->all_child != NULL)
 		{
-			waitpid(*((int *)(ms->all_child->content)), &status, 0);
+			waitpid(*(int *)(ms->all_child->content), &status, 0);
 			ms->exit_code = WEXITSTATUS(status);
 			ms->all_child = ms->all_child->next;
 		}

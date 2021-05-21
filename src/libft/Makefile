@@ -101,11 +101,11 @@ RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar -rcs $@ $^
+$(NAME): $(OBJS) $(OBJS_BONUS)
+	ar -qcs $@ $?
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	ar -rcs $(NAME) $^
+# bonus: $(OBJS) $(OBJS_BONUS)
+# 	ar -qcs $(NAME) $?
 
 %.o: %.c libft.h
 	$(CC) -c $< $(CFLAGS)

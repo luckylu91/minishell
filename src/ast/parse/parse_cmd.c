@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:20:04 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:22:42 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 19:54:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ t_status	parse_cmd(t_ast **cmd_ast, t_list **tokens)
 		skip_spaces(tokens);
 	}
 	if (status == STATUS_ERROR)
-	{
-		printf("coucou\n");
 		return (unexpected_token_error(*tokens));
-	}
 	return (STATUS_OK);
 }

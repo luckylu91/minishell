@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _main.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:53:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 19:41:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	ms = ft_calloc(1, sizeof(t_minishell));
-	init_all(ms, environ);
 	if (!isatty(STDIN_FILENO))
 		execute_with_file_input(ms);
+	init_all(ms, environ);
 	show_prompt(ms);
 	while (1)
 	{
