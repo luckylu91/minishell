@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:43:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 14:59:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,9 @@ void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 int		remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );
+void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe);
+void	close_and_dup(t_state_pipe sp, t_both_fd fd);
+void	setup_chemin(t_all_str *chemin, t_ast *cmd);
+void	closing(t_state_pipe sp, t_both_fd fd);
 
 #endif

@@ -1,103 +1,62 @@
 #include "execution.h"
 #include <sys/wait.h>
 
- //void	signal_interrupt_caca(int signum)
- //{
- //	if (signum == SIGINT)
- //		exit(130);
- //	if (signum == SIGQUIT)
- //		exit(131);
- //	exit(0);
- //}
-
-void	child_exe( t_state_pipe sp, t_both_fd fd, t_all_str chemin, t_minishell *ms){
- // signal(SIGINT, signal_interrupt);
-		// signal(SIGQUIT, signal_interrupt);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-
-		if (sp.state == 1 && fd.out == NULL)
-		{
-			dup2(sp.both_pipe[1][1],STDOUT_FILENO);
-			close(sp.both_pipe[1][0]);
-			close(sp.both_pipe[1][1]);
-		}
-		if (sp.state == 3 && fd.out == NULL)
-		{
-			dup2(sp.both_pipe[1][1], STDOUT_FILENO);
-			close(sp.both_pipe[1][0]);
-			close(sp.both_pipe[1][1]);
-		}
-		if ((sp.state == 2 || sp.state == 3) && fd.in == NULL)
-		{
-			dup2(sp.both_pipe[0][0], STDIN_FILENO);
-			close(sp.both_pipe[0][1]);
-			close(sp.both_pipe[0][0]);
-		}
-		if (fd.int_in != -1)
-			dup2(fd.int_in, fd.in->expr.redir.fildes);
-		if (fd.int_out != -1)
-			dup2(fd.int_out, fd.out->expr.redir.fildes);
-		if (is_builtin(chemin.all_var[0]))
-			exit(start_builtin(chemin.all_var, ms));
-		else
-			execve(chemin.path, chemin.all_var, ms->env);
+void	signal_interrupt_caca(int signum)
+{
+	if (signum == SIGINT)
+		exit(130);
+	if (signum == SIGQUIT)
+		exit(131);
+	exit(0);
 }
 
-void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe)
+void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
+	t_minishell *ms)
 {
-	sp->state = state;
-	sp->both_pipe = both_pipe;
-	fd->in = NULL;
-	fd->out = NULL;
-	fd->int_in = -1;
-	fd->int_out = -1;
+	 signal(SIGINT, signal_interrupt_caca);
+	 signal(SIGQUIT, signal_interrupt_caca);
+//	signal(SIGINT, SIG_DFL);
+//	signal(SIGQUIT, SIG_DFL);
+	close_and_dup(sp, fd);
+	if (fd.int_in != -1)
+		dup2(fd.int_in, fd.in->expr.redir.fildes);
+	if (fd.int_out != -1)
+		dup2(fd.int_out, fd.out->expr.redir.fildes);
+	if (is_builtin(chemin.all_var[0]))
+		exit(start_builtin(chemin.all_var, ms));
+	else
+		execve(chemin.path, chemin.all_var, ms->env);
 }
 
 void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
-		pid_t child;
-		ms->exit_code = 127;
-		child = fork();
-		if (child == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			if (fd.int_in != -1)
-				dup2(fd.int_in, fd.in->expr.redir.fildes);
-			if (fd.int_out != -1)
-				dup2(fd.int_out, fd.out->expr.redir.fildes);
-			ft_putstr_fd("bash: ",2);
-			ft_putstr_fd(chemin.all_var[0],2);
-			ft_putstr_fd(": command not found\n",2);
-			exit(0);
-		}
-}
-int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
-{
-	t_both_fd fd;
-	t_state_pipe sp;
-	pid_t child;
-	t_all_str chemin; 
+	pid_t	child;
 
-	setup_var_exe(&fd, &sp, state, both_pipe);
-	chemin.all_var = from_list_to_str_tab(cmd->expr.command.text_list); 
-	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
-		return (-1);
-	chemin.all_path = split_path();
-	if (cmd->expr.command.text_list == NULL)
-		return (-1);
-	if (check_redir(&fd))
-		return (-1);
-	chemin.path = search_cmd(chemin.all_path,chemin.all_var[0]); 
-	if (chemin.path == NULL && is_builtin(chemin.all_var[0]) == 0 && is_builtin_nopipe(chemin.all_var[0]) == 0)
+	ms->exit_code = 127;
+	child = fork();
+	if (child == 0)
 	{
-		cmd_notf(chemin, ms, fd);
-		return (-1);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		if (fd.int_in != -1)
+			dup2(fd.int_in, fd.in->expr.redir.fildes);
+		if (fd.int_out != -1)
+			dup2(fd.int_out, fd.out->expr.redir.fildes);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(chemin.all_var[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(0);
 	}
-	if (is_builtin_nopipe(chemin.all_var[0]) && sp.state != 0)
-	{	
-		if (sp.state >0)
+}
+
+int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
+	t_minishell *ms)
+{
+	int	temp;
+
+	if (sp.state != 0)
+	{
+		if (sp.state > 0)
 		{
 			if (sp.state != 1)
 			{
@@ -107,25 +66,42 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 		}	
 		return (-1);
 	}
-	else if (is_builtin_nopipe(chemin.all_var[0]))
+	else
 	{
+		temp = dup(2);
+		if (fd.int_out == 2)
+			dup2(fd.int_out, 2);
 		ms->exit_code = start_builtin(chemin.all_var, ms);
+		dup2(temp, 2);
+		close(temp);
 		return (1);
 	}
+}
+
+int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
+{
+	t_both_fd		fd;
+	t_state_pipe	sp;
+	pid_t			child;
+	t_all_str		chemin;
+
+	setup_var_exe(&fd, &sp, state, both_pipe);
+	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
+		return (-1);
+	if (cmd->expr.command.text_list == NULL || check_redir(&fd))
+		return (-1);
+	setup_chemin(&chemin, cmd);
+	if (chemin.path == NULL && is_builtin(chemin.all_var[0]) == 0
+		&& is_builtin_nopipe(chemin.all_var[0]) == 0)
+	{
+		cmd_notf(chemin, ms, fd);
+		return (-1);
+	}
+	if (is_builtin_nopipe(chemin.all_var[0]))
+		return (no_pipe_exe(chemin, sp, fd, ms));
 	child = fork();
 	if (child == 0)
 		child_exe(sp, fd, chemin, ms);
-	if (sp.state >0)
-	{
-		if (sp.state != 1)
-		{
-			close(sp.both_pipe[0][1]);
-			close(sp.both_pipe[0][0]);
-		}
-	}
-	if (fd.in != NULL)
-		close(fd.int_in);
-	if (fd.out != NULL)
-		close(fd.int_out);
+	closing(sp, fd);
 	return (child);
 }
