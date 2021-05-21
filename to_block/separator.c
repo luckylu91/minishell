@@ -2,16 +2,16 @@
 
 int	is_separator(char *c)
 {
-	if (c[0] == '|' || c[0] == ' ' || c[0] == ';' ||c[0] == '\0' || c[0] == '\n')
+	if (c[0] == '|' || c[0] == ' ' || c[0] == ';' || c[0] == '\0' || c[0] == '\n')
 		return (1);
 	return (0);
 }	
 
 int	is_separator_for_dollar(char *c)
 {
-	if (c[0] == '|' || c[0] == ' ' || c[0] == ';' ||c[0] == '\0' || c[0] == '<')
+	if (c[0] == '|' || c[0] == ' ' || c[0] == ';' || c[0] == '\0' || c[0] == '<')
 		return (1);
-	if (c[0] == '\'' || c[0] == '\"' || c[0] == '\\' || c[0] == '\n' || c[0] =='>')
+	if (c[0] == '\'' || c[0] == '\"' || c[0] == '\\' || c[0] == '\n' || c[0] == '>')
 		return (1);
 	return (0);
 }
@@ -30,12 +30,12 @@ void	handle_separator(t_var_toblock *var, char *line,
 	else if (line[var->i] == ';')
 	{
 		ft_lstadd_back(final_l, ft_lstnew(new_block(";", spe)));
-		var->i = var->i +1;
+		var->i = var->i + 1;
 	}
 	else if (line[var->i] == '|')
 	{
 		ft_lstadd_back(final_l, ft_lstnew(new_block("|", spe)));
-		var->i = var->i +1;
+		var->i = var->i + 1;
 	}
 	else if (line[var->i] == '\0')
 		var->end_while = 0;

@@ -1,17 +1,23 @@
 #include "minishell.h"
 
+void	pre_while(t_minishell *ms, char *line,
+	t_list **block_lst, t_list **ast_cmdseq)
+{
+	ms->all_child = NULL;
+	set_terminal_original();
+	if (line && line[0])
+		add_hist_line(ms->h, line);
+	to_block(line, block_lst);
+	parse_cmdseq(ast_cmdseq, *block_lst);
+}
+
 int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
 	t_list	*ast_cmdseq;
 	int		status;
 
-	ms->all_child = NULL;
-	set_terminal_original();
-	if (line && line[0])
-		add_hist_line(ms->h, line);
-	to_block(line, &block_lst);
-	parse_cmdseq(&ast_cmdseq, block_lst);
+	pre_while(ms, line, &block_lst, &ast_cmdseq);
 	while (ast_cmdseq)
 	{
 		if (replace_env((t_ast *)ast_cmdseq->content, ms) == -1)

@@ -20,7 +20,7 @@ void	ft_dollar(t_var_toblock *var, char *line,
 	{
 		if (*temp_l != NULL)
 			temp_to_final(final_l, temp_l, none);
-		while (ft_isalnum(line[var->i]) || line[var->i] =='_')
+		while (ft_isalnum(line[var->i]) || line[var->i] == '_')
 		{	
 			ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
 			var->i = var->i + 1;
@@ -65,7 +65,7 @@ void	ft_dollar_dquote(char *line, t_var_toblock *var,
 	{
 		ft_lstadd_back(temp_l, ft_lstnew("$"));
 		var->i = var->i + 1;
-		in_back_slash_dquote(line, var, final_l, temp_l);
+		in_back_slash_dquote(line, var, temp_l);
 		return ;
 	}
 	if (line[var->i] == '~')

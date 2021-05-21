@@ -14,7 +14,7 @@ void	in_double_quote(char *line, t_var_toblock *var,
 		else if (line[var->i] == '\\')
 		{
 			var->i = var->i + 1;
-			in_back_slash_dquote(line, var, final_l, temp_l);
+			in_back_slash_dquote(line, var, temp_l);
 		}
 		else
 		{
@@ -23,5 +23,5 @@ void	in_double_quote(char *line, t_var_toblock *var,
 		}
 	}
 	if (line[var->i] == '\"')
-		var->i = var->i +1;
+		var->i = var->i + 1;
 }
