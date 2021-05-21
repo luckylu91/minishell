@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:03:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/05 15:30:40 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:33:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	open_error(char *fname, int flags, int auth)
 {
-	int fd;
+	int	fd;
 
 	fd = open(fname, flags, auth);
 	if (fd == -1)
@@ -29,7 +29,7 @@ int	open_error(char *fname, int flags, int auth)
 
 int	close_error(char *fname, int fd)
 {
-	int ret;
+	int	ret;
 
 	ret = close(fd);
 	if (ret == -1)

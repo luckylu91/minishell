@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 05:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:05:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:36:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,5 @@ void				ft_malloc_list_clear(void);
 void				ft_exit(void);
 void				*wrap_malloc(size_t size);
 void				wrap_free(void *addr);
-// # ifndef TEST_DEBUG_LEAKS
-// # include "test_debug_leaks.h"
-// # endif
 
 #endif

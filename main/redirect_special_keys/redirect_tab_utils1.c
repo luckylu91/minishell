@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:14:15 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 15:25:40 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:42:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_block	*valid_last_block(t_minishell *ms)
 	t_list	*block_lst;
 	char	*str_until_cursor;
 	t_block	*last_block;
-	char	*buffer_end;
 
 	str_until_cursor = duplicate_line_until_cursor(ms);
 	to_block(str_until_cursor, &block_lst);

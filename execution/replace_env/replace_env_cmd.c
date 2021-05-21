@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:27:48 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:40:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 {
 	t_list	*redir_list;
 	t_ast	*redir_ast;
-	t_list	*redir_fname;
 	t_list	*redir_blocks;
 	int		ret;
 

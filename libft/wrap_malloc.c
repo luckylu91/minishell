@@ -6,11 +6,10 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 14:08:19 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:34:43 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #define TEST_DEBUG_LEAKS
 #include "libft.h"
 
 static void	ft_lstclear_nowrap(t_list **lst)

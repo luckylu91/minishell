@@ -2,8 +2,6 @@
 
 void	in_quote(char *line, t_var_toblock *var, t_list **temp_l)
 {
-	char	buffer[10];
-
 	var->i = var->i + 1;
 	while (line[var->i] != '\'')
 	{

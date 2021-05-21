@@ -49,10 +49,10 @@ libft:
 	make -C libft bonus
 
 %.o_db:	%.c
-	$(CC) -c $< -o $@ $(IFLAGS)
+	$(CC) -c $< -o $@ $(IFLAGS) $(CFLAGS)
 
 %.o:	%.c
-	$(CC) -c $< -o $@ $(IFLAGS)
+	$(CC) -c $< -o $@ $(IFLAGS) $(CFLAGS)
 
 
 # .SECONDARY:	$(OBJS)

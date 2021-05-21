@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:24:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:31:55 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 16:40:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	replace_unquoted(t_block *env_block, t_list **replacement,
 	char	*env_str;
 	char	**splitted;
 	int		i;
-	int		ret;
 
 	*replacement = NULL;
 	our_getenv(env_block, &env_str, ms);
@@ -43,7 +42,6 @@ static void	replace_dquoted(t_block *env_block, t_list **replacement,
 {
 	char	*env_str;
 	t_block	*new_block;
-	int		ret;
 
 	*replacement = NULL;
 	our_getenv(env_block, &env_str, ms);

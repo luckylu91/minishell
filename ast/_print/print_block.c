@@ -30,7 +30,6 @@ char	*block_string(t_block *block)
 {
 	char	*block_str = NULL;
 	char	*flags_str = NULL;
-	int		ret;
 
 	if (!block)
 		return (ft_strdup("(null_block)"));

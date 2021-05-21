@@ -15,6 +15,7 @@ t_block	*new_block(char *c, enum e_flags f)
 void	handle_space(t_var_toblock *var, t_list **final_l,
 		t_list **temp_l, char *line)
 {
+	(void)temp_l;
 	ft_lstadd_back(final_l, ft_lstnew(new_block(" ", space)));
 	while (line[var->i] == ' ')
 	{
