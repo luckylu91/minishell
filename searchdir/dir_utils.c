@@ -25,7 +25,8 @@ char	*pathjoin(char *dirname, char *fname)
 	char	*res;
 	char	*res_mov;
 
-	res = ft_calloc(ft_strlen(dirname) + 1 + ft_strlen(fname) + 1, sizeof(char));
+	res = ft_calloc(ft_strlen(dirname) + 1 + ft_strlen(fname) + 1,
+			sizeof(char));
 	if (!res)
 		return (NULL);
 	res_mov = ft_strcat_and_move(res, dirname);

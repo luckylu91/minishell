@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:20:27 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 16:27:13 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 11:41:00 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ t_status	parse_cmdchain(t_ast **cmdchain_ast, t_list **tokens)
 		chainop = dup_block(block_at(*tokens));
 		*tokens = ft_lststep(*tokens, 1);
 	}
+	if (status == STATUS_ERROR)
+		destroy_ast(cmdchain_ast);
 	return (status);
 }

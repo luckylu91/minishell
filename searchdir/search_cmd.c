@@ -2,7 +2,7 @@
 
 char	*search_cmd(char **path_dirnames, char *cmd_name)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (path_dirnames[i])

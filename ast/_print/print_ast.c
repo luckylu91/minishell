@@ -18,8 +18,6 @@ static char	*ast_type_str(t_ast *ast)
 			return (ft_strdup("text"));
 		case redir_expr:
 			return (ft_strdup("redir"));
-		case unary_expr:
-			return (ft_strdup("unary"));
 		case binary_expr:
 			return (ft_strdup("binary"));
 		case command_expr:

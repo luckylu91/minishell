@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 17:16:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/04 16:17:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 10:42:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_ast	*create_ast(t_ast_type type)
 		result_ast->destruct = destroy_redir_ast;
 	else if (type == command_expr)
 		result_ast->destruct = destroy_command_ast;
-	else if (type == unary_expr)
-		result_ast->destruct = destroy_unary_ast;
 	else if (type == binary_expr)
 		result_ast->destruct = destroy_binary_ast;
 	return (result_ast);

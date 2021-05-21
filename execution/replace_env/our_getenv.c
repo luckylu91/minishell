@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/19 16:24:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/21 14:33:04 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
 		*res_addr = ft_strdup("");
 }
 
-
 void	our_getenv(t_block *block, char **res_addr, t_minishell *ms)
 {
 	char	*env_str;
@@ -51,7 +50,8 @@ void	our_getenv(t_block *block, char **res_addr, t_minishell *ms)
 		search_env_else_empty("HOME", res_addr, ms);
 	else if (is_dollar(block) && ft_strcmp(block->str, "?") == 0)
 		*res_addr = ft_itoa(ms->exit_code);
-	else if (is_dollar(block) && (ft_isalpha(block->str[0]) || block->str[0] == '_'))
+	else if (is_dollar(block)
+		&& (ft_isalpha(block->str[0]) || block->str[0] == '_'))
 		search_env_else_empty(block->str, res_addr, ms);
 	else
 		*res_addr = NULL;

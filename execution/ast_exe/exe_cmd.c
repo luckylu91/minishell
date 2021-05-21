@@ -10,7 +10,7 @@
  //	exit(0);
  //}
 
-void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms){
+void	child_exe( t_state_pipe sp, t_both_fd fd, t_all_str chemin, t_minishell *ms){
  // signal(SIGINT, signal_interrupt);
 		// signal(SIGQUIT, signal_interrupt);
 		signal(SIGINT, SIG_DFL);
@@ -44,7 +44,7 @@ void	child_exe( state_pipe sp, both_fd fd, all_str chemin, t_minishell *ms){
 			execve(chemin.path, chemin.all_var, ms->env);
 }
 
-void	setup_var_exe(both_fd *fd, state_pipe *sp, int state, int **both_pipe)
+void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe)
 {
 	sp->state = state;
 	sp->both_pipe = both_pipe;
@@ -54,7 +54,7 @@ void	setup_var_exe(both_fd *fd, state_pipe *sp, int state, int **both_pipe)
 	fd->int_out = -1;
 }
 
-void	cmd_notf(all_str chemin, t_minishell *ms, both_fd fd)
+void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
 		pid_t child;
 		ms->exit_code = 127;
@@ -75,10 +75,10 @@ void	cmd_notf(all_str chemin, t_minishell *ms, both_fd fd)
 }
 int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
-	both_fd fd;
-	state_pipe sp;
+	t_both_fd fd;
+	t_state_pipe sp;
 	pid_t child;
-	all_str chemin; 
+	t_all_str chemin; 
 
 	setup_var_exe(&fd, &sp, state, both_pipe);
 	chemin.all_var = from_list_to_str_tab(cmd->expr.command.text_list); 

@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_getcwd.c                                       :+:      :+:    :+:   */
+/*   access_binary.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 17:53:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:32:40 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/21 10:43:44 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/21 11:08:36 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "ast.h"
 
-char	*our_getcwd(void)
+// Operator content for a binary ast
+t_block	*binary_op_at(t_ast *binary_ast)
 {
-	size_t	size;
-	size_t	increment;
-	char	*buf;
-	char	*res;
+	return (binary_ast->expr.binary.op_name);
+}
 
-	increment = 40;
-	size = increment;
-	res = NULL;
-	while (!res)
-	{
-		buf = ft_calloc(size, sizeof(char));
-		res = getcwd(buf, size - 1);
-		if (res || errno != ERANGE)
-			break ;
-		wrap_free(buf);
-		size += increment;
-	}
-	return (res);
+// Left AST content for a binary ast
+t_ast	*binary_left_at(t_ast *binary_ast)
+{
+	return (binary_ast->expr.binary.left);
+}
+
+// Right AST content for a binary ast
+t_ast	*binary_right_at(t_ast *binary_ast)
+{
+	return (binary_ast->expr.binary.right);
 }

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:45:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 17:45:46 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 15:35:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	list_dir(char *dir_name, t_list **alst)
 	*alst = NULL;
 	while (file)
 	{
-		if (ft_strcmp(file->d_name, ".") != 0 && ft_strcmp(file->d_name, "..") != 0)
+		if (ft_strcmp(file->d_name, ".") != 0
+			&& ft_strcmp(file->d_name, "..") != 0)
 			ft_dupstr_back(alst, file->d_name);
 		file = readdir(dir);
 	}

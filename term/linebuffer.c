@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 10:30:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 16:33:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/20 15:41:00 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	linebuffer_add_insert(int c, t_minishell *ms)
 {
-	t_linebuffer *lb;
+	t_linebuffer	*lb;
 
 	lb = ms->lb;
 	if (lb->i_max >= lb->size - 1)
@@ -26,7 +26,8 @@ void	linebuffer_add_insert(int c, t_minishell *ms)
 		lb->buffer[lb->i_max] = (char)c;
 	else
 	{
-		ft_memmove(lb->buffer + lb->i + 1, lb->buffer + lb->i, lb->i_max - lb->i);
+		ft_memmove(lb->buffer + lb->i + 1, lb->buffer + lb->i,
+			lb->i_max - lb->i);
 		lb->buffer[lb->i] = (char)c;
 	}
 	lb->i_max++;
@@ -73,7 +74,8 @@ void	linebuffer_delete_one(t_minishell *ms)
 		lb->i_max--;
 		lb->i--;
 		if (lb->i < lb->i_max)
-			ft_memmove(lb->buffer + lb->i, lb->buffer + lb->i + 1, lb->i_max - lb->i);
+			ft_memmove(lb->buffer + lb->i, lb->buffer + lb->i + 1,
+				lb->i_max - lb->i);
 		lb->buffer[lb->i_max] = '\0';
 	}
 }
