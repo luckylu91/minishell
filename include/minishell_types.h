@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 15:49:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 12:06:51 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 19:51:42 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct		s_minishell
 	char			**termcaps;
 	char			*tabintent;
 	t_list			*all_child;
-	int				prompted_signal;
+	t_list			*no_pipe_exit_codes;
 }	t_minishell;
 
 typedef struct	s_tabinfo

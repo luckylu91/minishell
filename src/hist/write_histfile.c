@@ -6,11 +6,12 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:22:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:42:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:52:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hist.h"
+#include "minishell_types.h"
 
 static void	write_memory_lines(t_hist *h, int fd, int *i)
 {
@@ -60,13 +61,13 @@ int	write_histfile(t_hist *h)
 	int		fd;
 	int		flags;
 
-	if (!h)
+	if (!h || !h->histfile_path)
 		return (1);
 	flags = O_CREAT | O_WRONLY | O_TRUNC | O_APPEND;
-	fd = open_error(h->histfile_name, flags, 0666);
+	fd = open_error(h->histfile_path, flags, 0666);
 	if (fd == -1)
 		return (-1);
 	write_lines(h, fd);
-	close_error(h->histfile_name, fd);
+	close_error(h->histfile_path, fd);
 	return (1);
 }

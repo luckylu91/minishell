@@ -1,30 +1,37 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-void	signal_interrupt_caca(int signum)
-{
-	printf("...of what ?\n");
-	if (signum == SIGINT)
-		exit(130);
-	if (signum == SIGQUIT)
-		exit(131);
-	exit(0);
-}
-
 void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	t_minishell *ms)
 {
-	signal(SIGINT, &signal_interrupt_caca);
-	signal(SIGQUIT, &signal_interrupt_caca);
-//	signal(SIGINT, SIG_DFL);
-//	signal(SIGQUIT, SIG_DFL);
+	int		path_fd;
+	char	*path;
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (!chemin.path)
+		path = chemin.all_var[0];
+	else
+		path = chemin.path;
+	path_fd = open(path, O_RDONLY);
+	if (path_fd == -1)
+	{
+		bash_error_errno(path);
+		exit(126);
+	}
+	close(path_fd);
 	close_and_dup(sp, fd);
 	if (fd.int_in != -1)
 		dup2(fd.int_in, fd.in->expr.redir.fildes);
 	if (fd.int_out != -1)
 		dup2(fd.int_out, fd.out->expr.redir.fildes);
 	if (is_builtin(chemin.all_var[0]))
-		exit(start_builtin(chemin.all_var, ms));
+	{
+		// printf("%s is builtin\n", chemin.all_var[0]);
+		int ret = start_builtin(chemin.all_var, ms);
+		// printf("ret = %d\n", ret);
+		exit(ret);
+	}
 	else
 		execve(chemin.path, chemin.all_var, ms->env);
 }
@@ -33,15 +40,12 @@ void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
 	pid_t	child;
 
-	// TODO
 	ms->exit_code = 127;
 	child = fork();
 	if (child == 0)
 	{
-		signal(SIGINT, signal_interrupt_caca);
-		signal(SIGQUIT, signal_interrupt_caca);
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (fd.int_in != -1)
 			dup2(fd.int_in, fd.in->expr.redir.fildes);
 		if (fd.int_out != -1)
@@ -49,7 +53,7 @@ void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(chemin.all_var[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		exit(0);
+		exit(127);
 	}
 }
 
@@ -75,10 +79,12 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 		temp = dup(2);
 		if (fd.int_out == 2)
 			dup2(fd.int_out, 2);
-		ms->exit_code = start_builtin(chemin.all_var, ms);
+		// ms->exit_code = start_builtin(chemin.all_var, ms);
+		ft_lstdupint_back(&ms->no_pipe_exit_codes, start_builtin(chemin.all_var, ms));
+		// printf("ret = %d\n", ms->exit_code);
 		dup2(temp, 2);
 		close(temp);
-		return (1);
+		return (0);
 	}
 }
 
@@ -90,13 +96,11 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	t_all_str		chemin;
 
 	setup_var_exe(&fd, &sp, state, both_pipe);
-	if ((get_redir_fd(&fd, cmd->expr.command.redir_list)) < 0)
-		return (-1);
-	if (cmd->expr.command.text_list == NULL || check_redir(&fd))
-		return (-1);
+	setup_redir(cmd, &fd);
 	setup_chemin(&chemin, cmd);
-	if (chemin.path == NULL && is_builtin(chemin.all_var[0]) == 0
-		&& is_builtin_nopipe(chemin.all_var[0]) == 0)
+	if (!chemin.path && !is_builtin(chemin.all_var[0])
+		&& !is_builtin_nopipe(chemin.all_var[0])
+		&& !contains_slash(chemin.all_var[0]))
 	{
 		cmd_notf(chemin, ms, fd);
 		return (-1);

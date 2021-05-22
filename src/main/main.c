@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 19:41:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 18:47:20 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void	init_context(t_minishell *ms, char **environ)
 {
+	char	*cwd;
+
 	copy_environ(&ms->env, environ);
 	ms->termcaps = init_termcaps_strings();
-	ms->h = create_hist(".histfile");
+	cwd = our_getcwd();
+	ms->h = create_hist(ft_strjoin(cwd, "/.histfile"));
+	wrap_free(cwd);
+	if (!ms->h)
+		ft_exit();
 	ms->lb = ft_calloc(1, sizeof(t_linebuffer));
 }
 

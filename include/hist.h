@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:07:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:33:07 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:46:05 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_hist
 {
 	int				hist_size;
 	int				histfile_size;
-	char			*histfile_name;
+	char			*histfile_path;
 	t_bilist		*file_lines;
 	t_bilist		*hlines;
 	int				len;
@@ -39,7 +39,7 @@ typedef struct s_hist
 
 int		open_error(char *fname, int flags, int auth);
 int		close_error(char *fname, int fd);
-t_hist	*create_hist(char *histfile_name);
+t_hist	*create_hist(char *histfile_path);
 void	destroy_hist(t_hist **h);
 int		parse_file(char *fname, t_bilist **hlines, int limit);
 int		write_histfile(t_hist *h);

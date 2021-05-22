@@ -1,10 +1,6 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SUBDIRS_ALL = $(shell find . -type d | grep -Ev "(.git|.vscode|.dSYM|__norm_py_old__)")
-# SUBDIRS = $(filter-out ./test_%, $(SUBDIRS_ALL))
-SUBDIRS_TEST = $(filter ./test_%, $(SUBDIRS_ALL))
-TEST_EXECS = $(filter-out %.c %.h, $(shell find $(SUBDIRS_TEST) -maxdepth 1 -mindepth 1))
 SUBDIRS = $(shell find src -type d -mindepth 1)
 SUBDIRS_OBJ = $(SUBDIRS:src/%=obj/%)
 IFLAGS = -Iinclude -Isrc/libft
@@ -20,21 +16,23 @@ SRCS_REL +=	$(addprefix ast/access/, access_binary.c access_command.c \
 SRCS_REL +=	$(addprefix ast/parse/, identify_semicol.c parse_cmd.c \
 	parse_cmdchain.c parse_cmdseq.c parse_redir.c parse_text.c skip_spaces.c to_str.c)
 SRCS_REL +=	$(addprefix execution/, split_path.c)
-SRCS_REL +=	$(addprefix execution/ast_exe/, exe_cmd_utils.c ft_builtin.c redir.c \
-	exe_cmd.c exe_ast.c exe_cmd_utils_bis.c)
+SRCS_REL +=	$(addprefix execution/ast_exe/, exe_cmd_utils.c exe_cmd_utils2.c \
+	exe_cmd_utils3.c ft_builtin.c redir.c exe_cmd.c exe_ast.c)
 SRCS_REL += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c \
 	is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
 	is_dollar.c is_rawtext.c is_tilde.c)
 SRCS_REL +=	$(addprefix ast/errors/, unexpected_token.c)
 SRCS_REL +=	$(addprefix term/, init_termcaps.c init_termios.c termcaps_utils.c \
 	bigger_calloc.c linebuffer.c prompt.c)
-SRCS_REL +=	$(addprefix searchdir/, dir_contains.c  dir_utils.c search_cmd.c)
+SRCS_REL +=	$(addprefix searchdir/, dir_contains.c  dir_utils.c search_cmd.c \
+	path_utils.c)
 SRCS_REL +=	$(addprefix execution/builtin/, cd.c echo.c pwd.c export.c env.c \
 	copy_environ.c unset.c export_utils.c exit.c)
 SRCS_REL +=	$(addprefix execution/replace_env/, replace_env.c remove_spaces.c \
 	remove_spaces_cmdchain.c our_getenv.c our_getcwd.c replace_env_block.c \
 	replace_env_cmd.c replace_env_list.c)
-SRCS_REL +=	$(addprefix error/, error_message.c ambiguous_redirect_error.c)
+SRCS_REL +=	$(addprefix error/, error_message.c ambiguous_redirect_error.c \
+	bash_error_errno.c)
 SRCS_REL +=	$(addprefix to_block/, to_block_main.c dollar.c dquote.c quote.c \
 	separator.c to_block_utils.c redir_tild.c backslash.c dollar_utils.c)
 SRCS_REL +=	$(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
@@ -106,7 +104,6 @@ clean:
 
 fclean: clean
 	make -C src/libft fclean
-	rm -rf $(TEST_EXECS)
 
 re: fclean all
 

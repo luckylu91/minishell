@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   bash_error_errno.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:39:54 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 17:35:23 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/22 16:31:05 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/22 16:33:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "errors.h"
 
-# include "ast_api.h"
-# include <string.h>
-# include <errno.h>
-
-int			bash_error_errno(char *path);
-t_status	unexpected_token_error(t_list *token_lst);
-
-#endif
+int	bash_error_errno(char *path)
+{
+	ft_putstr_fd("bash: ", STDERR_FILENO);
+	ft_putstr_fd(path, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	return (-1);
+}

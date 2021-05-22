@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   exe_cmd_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 11:39:54 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 17:35:23 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/22 15:53:27 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/22 15:55:11 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "execution.h"
 
-# include "ast_api.h"
-# include <string.h>
-# include <errno.h>
+int	is_slash(char *c)
+{
+	return (*c == '/');
+}
 
-int			bash_error_errno(char *path);
-t_status	unexpected_token_error(t_list *token_lst);
-
-#endif
+int	contains_slash(char *str)
+{
+	return (ft_any(str, ft_strlen(str), 1, (t_bool_fun)is_slash));
+}

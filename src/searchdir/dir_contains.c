@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 17:45:46 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 15:35:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 14:08:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ int	dir_contains(char *dir_name, char *fname)
 	}
 	if (closedir_err(dir) == -1)
 		return (-1);
+	return (ret);
+}
+
+int	cwd_contains(char *fname)
+{
+	char	*cwd;
+	int		ret;
+
+	cwd = our_getcwd();
+	ret = dir_contains(cwd, fname);
+	wrap_free(cwd);
 	return (ret);
 }
 

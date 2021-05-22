@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:04:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:41:50 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:46:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	dup_n_str(t_bilist **dest, t_bilist *src, int n)
 
 int	read_truncate_histfile(t_hist *h)
 {
-	if (parse_file(h->histfile_name, &h->file_lines, h->histfile_size) == -1)
+	if (parse_file(h->histfile_path, &h->file_lines, h->histfile_size) == -1)
 		return (-1);
 	dup_n_str(&h->hlines, h->file_lines, h->hist_size);
 	return (1);

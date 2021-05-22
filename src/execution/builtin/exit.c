@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 16:48:38 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:39:37 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 18:45:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	our_exit(char **argv, t_minishell *ms)
 	else if (argv[2])
 	{
 		error_message("bash: exit: too many arguments");
+		ms->exit_code = 1;
 		return (1);
 	}
 	else

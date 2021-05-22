@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:38:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:25:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	replace_existing(char *arg, char **existing, int arg_offset)
 	*existing = new_value;
 }
 
-static void	export_one(char *arg, char ***our_env)
+void	export_one(char *arg, char ***our_env)
 {
 	int	i;
 	int	arg_offset;

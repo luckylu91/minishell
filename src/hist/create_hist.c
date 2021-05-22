@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:09:30 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:33:41 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:54:55 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,17 @@ static int	get_env_number(char *env_name)
 	return (-1);
 }
 
-t_hist	*create_hist(char *histfile_name)
+t_hist	*create_hist(char *histfile_path)
 {
 	t_hist	*h;
 
 	h = ft_calloc(1, sizeof(t_hist));
-	if (!h)
-		return (NULL);
 	h->hist_size = get_env_number("HISTSIZE");
 	h->histfile_size = get_env_number("HISTFILESIZE");
-	h->histfile_name = ft_strdup(histfile_name);
+	if (histfile_path)
+		h->histfile_path = ft_strdup(histfile_path);
 	h->position_state = BOTTOM;
-	if (read_truncate_histfile(h) == -1)
+	if (histfile_path && read_truncate_histfile(h) == -1)
 	{
 		destroy_hist(&h);
 		return (NULL);

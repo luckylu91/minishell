@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:40:02 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 19:11:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*search_env(char *str, char **env)
 	}	
 }
 
-static void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
+void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
 {
 	char	*env_str;
 

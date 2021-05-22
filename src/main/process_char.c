@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:08:26 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 14:48:47 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 18:45:57 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ static void	process_newline(t_minishell *ms)
 	process_line(ms->lb->buffer, ms);
 	linebuffer_clear(ms);
 	rewind_hist(ms->h);
-	if (!ms->prompted_signal)
-		show_prompt(ms);
-	ms->prompted_signal = 0;
+	show_prompt(ms);
 }
 
 void	process_char(int c, t_minishell *ms)

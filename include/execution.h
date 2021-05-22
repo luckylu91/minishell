@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 14:59:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:25:25 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct s_state_pipe
 	int	**both_pipe;
 }	t_state_pipe;
 
+int		open_error(char *fname, int flags, int auth);
+int		close_error(char *fname, int fd);
+
 char	*get_char_from_block(t_list *l);
 void	dup_str(t_list *l, char **res, int i);
 int		size_list(t_list *l);
@@ -59,6 +62,7 @@ int		is_builtin(char *c);
 int		is_builtin_nopipe(char *c);
 int		check_redir(t_both_fd *fd);
 int		get_redir_fd(t_both_fd *res, t_list *l);
+void	export_one(char *arg, char ***our_env);
 int		export(char **argv, char ***our_env);
 int		find_var(char *arg, char **env);
 int		our_unset(char **argv, char ***our_env);
@@ -72,6 +76,7 @@ int		assign_operator_offset(char *arg);
 int		not_valid_identifier_error(char *arg);
 char	*strdup_remove_plus(char *src, int op_index);
 char	*search_env(char *str, char **env);
+void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms);
 void	our_getenv(t_block *block, char **res_addr, t_minishell *ms);
 char	*our_getcwd(void);
 t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks,
@@ -90,8 +95,11 @@ int		remove_spaces(t_list *block_lst, t_list **new_block_lst);
 int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );
 void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe);
-void	close_and_dup(t_state_pipe sp, t_both_fd fd);
+int		setup_redir(t_ast *cmd, t_both_fd *fd);
 void	setup_chemin(t_all_str *chemin, t_ast *cmd);
+void	close_and_dup(t_state_pipe sp, t_both_fd fd);
 void	closing(t_state_pipe sp, t_both_fd fd);
+int		is_slash(char *c);
+int		contains_slash(char *str);
 
 #endif

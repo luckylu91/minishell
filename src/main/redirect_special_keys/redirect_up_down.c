@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:06:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:42:32 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 18:03:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	redirect_up_down(char *str, t_minishell *ms)
 	int	up_pressed;
 
 	up_pressed = (str[2] == 'A');
-	if (!ms->h->hlines || (!up_pressed && ms->h->position_state == BOTTOM)
-		|| (up_pressed && !ms->h->hlines->next))
+	if (!ms->h->hlines || (!up_pressed && ms->h->position_state == BOTTOM))
+		// || (up_pressed && !ms->h->hlines->next))
 		return ;
 	if (up_pressed)
 		move_hist(ms->h, 1);
