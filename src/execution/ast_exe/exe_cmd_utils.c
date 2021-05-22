@@ -47,7 +47,7 @@ int	is_last(t_list *l, char c)
 {
 	if (l == NULL)
 		return (1);
-	if ((((t_ast *)l->content)->expr.redir).redir_op->str[0] == c)
+	if (redir_op_at(l->content)->str[0] == c)
 		return (0);
 	return (is_last(l->next, c));
 }

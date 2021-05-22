@@ -13,9 +13,9 @@ void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state,
 
 int	setup_redir(t_ast *cmd, t_both_fd *fd)
 {
-	if ((get_redir_fd(fd, cmd->expr.command.redir_list)) < 0)
+	if ((get_redir_fd(fd, cmd_redir_list(cmd))) < 0)
 		return (-1);
-	if (cmd->expr.command.text_list == NULL || check_redir(fd))
+	if (cmd_text_list(cmd) == NULL || check_redir(fd))
 		return (-1);
 	return (1);
 }
@@ -23,7 +23,7 @@ int	setup_redir(t_ast *cmd, t_both_fd *fd)
 void	setup_chemin(t_all_str *chemin, t_ast *cmd)
 {
 	chemin->all_path = split_path();
-	chemin->all_var = from_list_to_str_tab(cmd->expr.command.text_list);
+	chemin->all_var = from_list_to_str_tab(cmd_text_list(cmd));
 	chemin->path = search_cmd(chemin->all_path, chemin->all_var[0]);
 }
 

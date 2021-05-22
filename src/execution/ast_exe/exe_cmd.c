@@ -22,16 +22,11 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	close(path_fd);
 	close_and_dup(sp, fd);
 	if (fd.int_in != -1)
-		dup2(fd.int_in, fd.in->expr.redir.fildes);
+		dup2(fd.int_in, redir_fd_at(fd.in));
 	if (fd.int_out != -1)
-		dup2(fd.int_out, fd.out->expr.redir.fildes);
+		dup2(fd.int_out, redir_fd_at(fd.out));
 	if (is_builtin(chemin.all_var[0]))
-	{
-		// printf("%s is builtin\n", chemin.all_var[0]);
-		int ret = start_builtin(chemin.all_var, ms);
-		// printf("ret = %d\n", ret);
-		exit(ret);
-	}
+		exit(start_builtin(chemin.all_var, ms));
 	else
 		execve(chemin.path, chemin.all_var, ms->env);
 }
@@ -47,9 +42,9 @@ void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (fd.int_in != -1)
-			dup2(fd.int_in, fd.in->expr.redir.fildes);
+			dup2(fd.int_in, redir_fd_at(fd.in));
 		if (fd.int_out != -1)
-			dup2(fd.int_out, fd.out->expr.redir.fildes);
+			dup2(fd.int_out, redir_fd_at(fd.out));
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(chemin.all_var[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
@@ -64,14 +59,11 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 
 	if (sp.state != 0)
 	{
-		if (sp.state > 0)
+		if (sp.state > 1)
 		{
-			if (sp.state != 1)
-			{
-				close(sp.both_pipe[0][1]);
-				close(sp.both_pipe[0][0]);
-			}
-		}	
+			close(sp.both_pipe[0][1]);
+			close(sp.both_pipe[0][0]);
+		}
 		return (-1);
 	}
 	else
@@ -79,9 +71,8 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 		temp = dup(2);
 		if (fd.int_out == 2)
 			dup2(fd.int_out, 2);
-		// ms->exit_code = start_builtin(chemin.all_var, ms);
-		ft_lstdupint_back(&ms->no_pipe_exit_codes, start_builtin(chemin.all_var, ms));
-		// printf("ret = %d\n", ms->exit_code);
+		ft_lstdupint_back(&ms->no_pipe_exit_codes,
+			start_builtin(chemin.all_var, ms));
 		dup2(temp, 2);
 		close(temp);
 		return (0);
