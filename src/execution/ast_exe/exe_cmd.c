@@ -32,6 +32,7 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 		exit(start_builtin(chemin.all_var, ms));
 	else
 		execve(chemin.path, chemin.all_var, ms->env);
+	printf("impossible\n");
 }
 
 int	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
