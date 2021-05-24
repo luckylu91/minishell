@@ -95,7 +95,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 
 	setup_var_exe(&fd, &sp, state, both_pipe);
 	setup_redir(cmd, &fd);
-	setup_chemin(&chemin, cmd);
+	setup_chemin(&chemin, cmd, ms);
 	if (!chemin.path && !is_builtin(chemin.all_var[0])
 		&& !is_builtin_nopipe(chemin.all_var[0])
 		&& !contains_slash(chemin.all_var[0]))
