@@ -37,7 +37,7 @@ void	digit_quest(t_var_toblock *var, char *line,
 			t_list **temp_l, t_list **final_l);
 int		condition(char *line, t_var_toblock *var, t_list **temp_l);
 void	test_intero(char *line, t_var_toblock *var,
-			t_list **final_l, char *str);
+			t_list **temp_l ,t_list **final_l);
 void	to_block(char *line, t_list **final_l);
 void	in_double_quote(char *line, t_var_toblock *var,
 			t_list **final_l, t_list **temp_l);

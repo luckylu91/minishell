@@ -24,10 +24,11 @@ int	condition(char *line, t_var_toblock *var, t_list **temp_l)
 }
 
 void 	test_intero(char *line, t_var_toblock *var,
-		t_list **final_l, char *str)
+		t_list **temp_l, t_list **final_l)
 {
 	if (line[var->i] == '?')
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar)));
+		temp_to_final(final_l, temp_l, dollar);
 	else
-		ft_lstadd_back(final_l, ft_lstnew(new_block(str, dollar_num)));
+		temp_to_final(final_l, temp_l, dollar_num);
+	var->i = var->i + 1;
 }

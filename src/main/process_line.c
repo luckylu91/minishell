@@ -20,21 +20,29 @@ static void	process_children(t_minishell *ms)
 	int	child_pid;
 	int	status;
 
+
 	while (ms->all_child != NULL)
 	{
+	
 		child_pid = *(int *)(ms->all_child->content);
+	
 		if (child_pid > 0)
 		{
+		
 			waitpid(child_pid, &status, 0);
 			if (!WIFSIGNALED(status))
 				ms->exit_code = WEXITSTATUS(status);
 		}
 		else if (child_pid == 0)
 		{
+		
 			ms->exit_code = *(int *)ms->no_pipe_exit_codes->content;
+		
 			ms->no_pipe_exit_codes = ms->no_pipe_exit_codes->next;
 		}
+
 		ms->all_child = ms->all_child->next;
+		
 	}
 }
 
@@ -44,6 +52,7 @@ int	process_line(char *line, t_minishell *ms)
 	t_list	*ast_cmdseq;
 
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
+	
 	while (ast_cmdseq)
 	{
 		if (replace_env((t_ast *)ast_cmdseq->content, ms) == -1)
