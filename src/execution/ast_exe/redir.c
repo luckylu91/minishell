@@ -12,7 +12,7 @@ int	in_part(t_list *l, int *res)
 	else
 		fd = open(get_char_from_block((((t_ast *)
 							(l->content))->expr.redir.file_name)),
-				O_CREAT | O_RDWR, 0666);
+				O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (is_last(l->next, '<',(redir_fd_at(l->content))) == -3)
 		return (-3);
 	if (is_last(l->next, '>', redir_fd_at(l->content)))
