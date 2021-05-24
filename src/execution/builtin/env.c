@@ -22,5 +22,5 @@ int	our_env(char **tab_env)
 		printf("%s\n", tab_env[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }

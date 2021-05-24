@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 12:11:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 17:01:42 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	replace_tilde(char *str, char **res_addr, t_minishell *ms)
 	char	*home_str;
 	char	*res_mov;
 
-	home_str = search_env(str, ms->env);
+	home_str = search_env("HOME", ms->env);
 	if (!str[1])
 	{
 		*res_addr = ft_strdup(home_str);
@@ -62,7 +62,7 @@ void	our_getenv(t_block *block, char **res_addr, t_minishell *ms)
 	if (block->f == dollar_dquote && !block->str[0])
 		*res_addr = ft_strdup("$");
 	if (is_tilde(block))
-		search_env_else_empty("HOME", res_addr, ms);
+		replace_tilde(block->str, res_addr, ms);
 	else if (is_dollar(block) && ft_strcmp(block->str, "?") == 0)
 		*res_addr = ft_itoa(ms->exit_code);
 	else if (is_dollar(block)

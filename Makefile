@@ -42,7 +42,7 @@ SRCS_REL +=	$(addprefix main/, main.c process_line.c exit_properly.c \
 	process_char.c signal_interrupt.c)
 SRCS_REL +=	$(addprefix main/redirect_special_keys/, redirect_up_down.c \
 	redirect_left_right.c redirect_tab.c redirect_tab_utils1.c redirect_tab_utils2.c)
-# SRCS_REL += $(addprefix ast/_print/, print_ast.c print_block.c)
+SRCS_REL += $(addprefix _ast_print/, print_ast.c print_block.c)
 SRCS = $(addprefix src/, $(SRCS_REL))
 OBJS = $(SRCS:src/%.c=obj/%.o)
 OBJS_DB = $(SRCS:src/%.c=obj/%.o_db)

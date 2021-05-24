@@ -21,6 +21,8 @@ char	*block_flags_str(t_block *block)
 			return (ft_strdup("dollar_dquote"));
 		case dollar_num:
 			return (ft_strdup("dollar_num"));
+		case tilde:
+			return (ft_strdup("tilde"));
 		default:
 			return (ft_strdup("INVALID_FLAG"));
 	}

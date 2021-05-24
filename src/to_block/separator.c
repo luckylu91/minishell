@@ -20,7 +20,15 @@ void	handle_separator(t_var_toblock *var, char *line,
 		t_list **final_l, t_list **temp_l)
 {
 	if (*temp_l != NULL)
-		temp_to_final(final_l, temp_l, none);
+	{
+		if (var->tilde == 1)
+		{
+			temp_to_final(final_l, temp_l, tilde);
+			var->tilde = 0;
+		}	
+		else
+			temp_to_final(final_l, temp_l, none);
+	}
 	if (line[var->i] == ' ')
 	{
 		while (line[var->i] == ' ')

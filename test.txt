@@ -1,0 +1,13 @@
+Makefile
+_execution
+_to_block
+include
+minishell
+minishell_db
+minishell_tester
+norm.py
+obj
+src
+tamere
+test.txt
+tests

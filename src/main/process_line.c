@@ -1,5 +1,4 @@
 #include "minishell.h"
-
 static void	pre_while(t_minishell *ms, char *line,
 	t_list **block_lst, t_list **ast_cmdseq)
 {
@@ -10,7 +9,9 @@ static void	pre_while(t_minishell *ms, char *line,
 	if (line && line[0])
 		add_hist_line(ms->h, line);
 	to_block(line, block_lst);
+//	print_block_list(*block_lst);
 	parse_cmdseq(ast_cmdseq, *block_lst);
+	
 }
 
 static void	process_children(t_minishell *ms)

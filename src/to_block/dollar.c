@@ -12,9 +12,9 @@ void	ft_dollar(t_var_toblock *var, char *line,
 		return ;
 	if (ft_isdigit(line[var->i]) || line[var->i] == '?')
 	{
-		ft_lstadd_back(&env_var, ft_lstnew(&line[var->i]));
-		str = list_to_string(env_var);
-		digit_quest(var, line, str, final_l);
+		temp_to_final(final_l, temp_l, none);		
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		digit_quest(var, line, temp_l, final_l);
 	}
 	else
 	{

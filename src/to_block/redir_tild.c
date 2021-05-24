@@ -41,3 +41,27 @@ int	test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 	}
 	return (0);
 }
+
+void	in_tilde(char *line, t_var_toblock *var, t_list **temp_l)
+{
+	if (is_separator(&line[var->i + 1]))
+	{
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		var->tilde = 1; 
+		var->i = var->i + 1;
+	}
+	else if (line[var->i + 1] == '/')
+	{
+				
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		var->i = var->i + 1;
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		var->i = var->i + 1;
+		var->tilde = 1; 
+	}
+	else
+	{
+		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
+		var->i = var->i + 1;
+	}
+}

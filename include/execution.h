@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 14:22:18 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 16:58:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		our_unset(char **argv, char ***our_env);
 int		our_env(char **tab_env);
 int		our_echo(char **argv);
 int		our_pwd(char **argv);
-int		our_cd(char **argv, char **env);
+int		our_cd(char **argv, char ***env);
 int		our_exit(char **argv, t_minishell *ms);
 int		is_assign_operator(char *s);
 int		assign_operator_offset(char *arg);
