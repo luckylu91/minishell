@@ -1,19 +1,16 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-void	child_exe_not_builtin(t_all_str chemin)
+void	child_exe_not_builtin(t_all_str *chemin)
 {
 	int		path_fd;
-	char	*path;
-	
-	if (!chemin.path)
-		path = chemin.all_var[0];
-	else
-		path = chemin.path;
-	path_fd = open(path, O_RDONLY);
+
+	if (!chemin->path)
+		chemin->path = chemin->all_var[0];
+	path_fd = open(chemin->path, O_RDONLY);
 	if (path_fd == -1)
 	{
-		bash_error_errno(path);
+		bash_error_errno(chemin->path);
 		exit(126);
 	}
 	close(path_fd);
@@ -25,7 +22,7 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(chemin.all_var[0]))
-		child_exe_not_builtin(chemin);
+		child_exe_not_builtin(&chemin);
 	close_and_dup(sp, fd);
 	if (fd.int_in != -1)
 		dup2(fd.int_in, redir_fd_at(fd.in));

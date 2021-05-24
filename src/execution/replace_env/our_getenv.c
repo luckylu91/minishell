@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 17:01:42 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 18:45:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	replace_tilde(char *str, char **res_addr, t_minishell *ms)
 		return ;
 	}
 	*res_addr = ft_calloc(ft_strlen(home_str) + ft_strlen(str + 1) + 1,
-		sizeof(char));
+			sizeof(char));
 	res_mov = ft_strcat_and_move(*res_addr, home_str);
 	ft_strcat(res_mov, str + 1);
 }

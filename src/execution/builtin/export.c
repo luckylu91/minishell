@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 16:53:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 18:46:34 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ int	export_one(char *arg, char ***our_env)
 	if (!arg_offset)
 	{
 		not_valid_identifier_error(arg);
-		return 1;
+		return (1);
 	}
 	if (!arg[arg_offset])
-		return 0;
+		return (0);
 	i = -1;
 	while ((*our_env)[++i])
 	{
@@ -65,7 +65,7 @@ int	export_one(char *arg, char ***our_env)
 		enlarge_environ(i + 2, our_env);
 		(*our_env)[i] = strdup_remove_plus(arg, arg_offset);
 	}
-	return 0;
+	return (0);
 }
 
 void	no_arg(char **our_env)
@@ -93,7 +93,7 @@ int	export(char **argv, char ***our_env)
 	{
 		if (r == 0)
 			r = export_one(argv[i], our_env);
-		else 
+		else
 			export_one(argv[i], our_env);
 	}
 	return (r);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 16:58:07 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 19:03:15 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		get_redir_fd(t_both_fd *res, t_list *l);
 int		export_one(char *arg, char ***our_env);
 int		export(char **argv, char ***our_env);
 int		find_var(char *arg, char **env);
+int		unset_one(char *arg_one, char ***env);
 int		our_unset(char **argv, char ***our_env);
 int		our_env(char **tab_env);
 int		our_echo(char **argv);
@@ -100,5 +101,7 @@ void	close_and_dup(t_state_pipe sp, t_both_fd fd);
 void	closing(t_state_pipe sp, t_both_fd fd);
 int		is_slash(char *c);
 int		contains_slash(char *str);
+
+void	replace_dot_dir(char **path_addr);
 
 #endif

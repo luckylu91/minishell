@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 15:19:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 18:45:33 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ void	execute_with_file_input(t_minishell *ms)
 			process_line(line, ms);
 		wrap_free(line);
 	}
-	// if (ret_gnl == -1)
-	// 	exit_with_code(EXIT_FAILURE, ms);
-	// exit_properly(ms);
 	before_exit_file_input(ms);
 	exit(ms->exit_code);
 }
