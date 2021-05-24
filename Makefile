@@ -47,7 +47,7 @@ SRCS_REL +=	$(addprefix main/redirect_special_keys/, redirect_up_down.c \
 SRCS = $(addprefix src/, $(SRCS_REL))
 OBJS = $(SRCS:src/%.c=obj/%.o)
 OBJS_DB = $(SRCS:src/%.c=obj/%.o_db)
-LIBFT = libft/libft.a
+LIBFT = src/libft/libft.a
 
 all: $(LIBFT) $(NAME)
 
