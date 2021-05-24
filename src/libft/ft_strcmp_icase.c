@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_tilde.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp_icase.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 17:06:31 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 11:52:36 by lzins            ###   ########lyon.fr   */
+/*   Created: 2021/05/24 11:39:29 by lzins             #+#    #+#             */
+/*   Updated: 2021/05/24 11:43:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "block_api.h"
+#include "libft.h"
 
-int	is_tilde(t_block *block)
+int	ft_strcmp_icase(const char *s1, const char *s2)
 {
-	return (block && is_special(block) && ft_strcmp(block->str, "~") == 0);
-	// return (block && is_special(block) && ft_strcmp(block->str, "~") == 0);
-}
+	size_t	i;
 
-int	is_tilde_lst(t_list *block_lst)
-{
-	return (is_tilde(block_at(block_lst)));
+	i = 0;
+	while (s1[i] != '\0' && ft_tolower(s1[i]) == ft_tolower(s2[i]))
+		i++;
+	return (ft_tolower((int)(unsigned char)s1[i])
+		- ft_tolower((int)(unsigned char)s2[i]));
 }
