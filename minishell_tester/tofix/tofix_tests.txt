@@ -1,8 +1,10 @@
-env | grep "_="
-export | grep "SHLVL"
-export | grep "OLDPWD"
-export | grep "PWD"
-export -TEST=100
-export | grep "SHLVL"
-export -TEST=123
-export TEST=$USER ; echo $TEST ; unset PWD ; export TEST+=$PWD ; echo $TEST ; cd $TEST ; echo $PWD
+cd // ; pwd
+cd '//' ; pwd
+cd / ; cd Users ; pwd ; cd .. ; pwd
+cd '/etc' ; pwd
+cd '/var' ; pwd
+cd ../../.. ; pwd ; echo $PWD $OLDPWD
+cd "wtf" 2>/dev/null ; pwd ; echo $PWD $OLDPWD
+cd .. ; unset OLDPWD ; cd $OLDPWD ; pwd
+cd .. ; unset PWD ; cd $PWD ; pwd
+cd bark bark
