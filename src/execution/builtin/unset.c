@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:30:38 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 19:03:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 19:57:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int	find_var(char *arg, char **env)
 	return (-1);
 }
 
-char	**env_new_alloc(char **arg, char **env, int old)
+char	**env_new_alloc(char **env, int old)
 {
 	int		i;
 	int		j;
 	int		x;
 	char	**new;
 
-	(void)arg;
 	j = 0;
 	x = 0;
 	i = 0;
@@ -90,7 +89,7 @@ int	unset_one(char *arg_one, char ***env)
 	else
 	{
 		if (j > 0)
-			*env = env_new_alloc(arg_one, *env, j);
+			*env = env_new_alloc(*env, j);
 		return (0);
 	}
 }

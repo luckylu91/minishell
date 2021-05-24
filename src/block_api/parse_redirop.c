@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:57:43 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 19:14:53 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 19:52:27 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	redirop_default_fd(char *str)
 
 int	parse_redirop_fd(char *str)
 {
-	int	n;
-
 	if (ft_atoi_overflows(str))
 		return (-1);
 	else
