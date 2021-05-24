@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 echo -nn bonjour
 echo -n -n -n bonjour
 echo -n -n -n bonjour
@@ -34,20 +35,10 @@ echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd '' ''; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd '' '' ''; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD
-<<<<<<< HEAD
-echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD
-echo $PWD; echo $OLDPWD; cd; echo $OLDPWD
 =======
+>>>>>>> 0cfa423db1648127dac68c1c1c95b783a43adafa
+echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
->>>>>>> 733fbe143d685fe58cc8a650318b564b8dbc8a73
 echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' / '; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD
@@ -56,6 +47,7 @@ echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' //home '; pwd; echo $PWD; echo $OLDPWD
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -120,3 +112,5 @@ unset TES!T
 unset TES~T
 >>>>>>> 733fbe143d685fe58cc8a650318b564b8dbc8a73
 >>>>>>> cb6b7e49237f9af461cf1dc9e2fd5fd7e904872d
+=======
+>>>>>>> 0cfa423db1648127dac68c1c1c95b783a43adafa
