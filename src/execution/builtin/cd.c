@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 19:03:58 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 20:16:16 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	our_chdir(char *path, char ***env)
 	int	ret;
 
 	update_oldpwd(env);
+	if (!path[0])
+		return (0);
 	ret = chdir(path);
 	if (ret)
 	{
