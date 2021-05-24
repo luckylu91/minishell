@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 19:11:34 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 12:11:45 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,23 @@ void	search_env_else_empty(char *str, char **res_addr, t_minishell *ms)
 		*res_addr = ft_strdup(env_str);
 	else
 		*res_addr = ft_strdup("");
+}
+
+void	replace_tilde(char *str, char **res_addr, t_minishell *ms)
+{
+	char	*home_str;
+	char	*res_mov;
+
+	home_str = search_env(str, ms->env);
+	if (!str[1])
+	{
+		*res_addr = ft_strdup(home_str);
+		return ;
+	}
+	*res_addr = ft_calloc(ft_strlen(home_str) + ft_strlen(str + 1) + 1,
+		sizeof(char));
+	res_mov = ft_strcat_and_move(*res_addr, home_str);
+	ft_strcat(res_mov, str + 1);
 }
 
 void	our_getenv(t_block *block, char **res_addr, t_minishell *ms)

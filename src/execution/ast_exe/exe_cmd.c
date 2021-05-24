@@ -1,14 +1,11 @@
 #include "execution.h"
 #include <sys/wait.h>
 
-void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
-	t_minishell *ms)
+void	child_exe_not_builtin(t_all_str chemin)
 {
 	int		path_fd;
 	char	*path;
-
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	
 	if (!chemin.path)
 		path = chemin.all_var[0];
 	else
@@ -20,6 +17,15 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 		exit(126);
 	}
 	close(path_fd);
+}
+
+void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
+	t_minishell *ms)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (!is_builtin(chemin.all_var[0]))
+		child_exe_not_builtin(chemin);
 	close_and_dup(sp, fd);
 	if (fd.int_in != -1)
 		dup2(fd.int_in, redir_fd_at(fd.in));
