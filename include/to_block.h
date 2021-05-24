@@ -49,7 +49,7 @@ void	ft_dollar(t_var_toblock *var, char *line,
 			t_list **temp_l, t_list **final_l);
 void	ft_dollar_dquote(char *line, t_var_toblock *var,
 			t_list **final_l, t_list **temp_l);
-void	in_quote(char *line, t_var_toblock *var, t_list **temp_l);
+void	in_quote(char *line, t_var_toblock *var, t_list **final_l, t_list **temp_l);
 void	in_tilde(char *line, t_var_toblock *var, t_list **temp_l);
 void	redirection(t_var_toblock *var, char *line,
 			t_list **final_l, t_list **temp_l);

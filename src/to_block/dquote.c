@@ -23,5 +23,9 @@ void	in_double_quote(char *line, t_var_toblock *var,
 		}
 	}
 	if (line[var->i] == '\"')
+	{
+		if (*temp_l == NULL)
+			ft_lstadd_back(final_l, ft_lstnew(new_block("", none)));
 		var->i = var->i + 1;
+	}
 }

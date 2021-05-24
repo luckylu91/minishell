@@ -19,7 +19,7 @@ void	child_exe_not_builtin(t_all_str chemin)
 	close(path_fd);
 }
 
-void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
+void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
 	t_minishell *ms)
 {
 	signal(SIGINT, SIG_DFL);
@@ -27,10 +27,7 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	if (!is_builtin(chemin.all_var[0]))
 		child_exe_not_builtin(chemin);
 	close_and_dup(sp, fd);
-	if (fd.int_in != -1)
-		dup2(fd.int_in, redir_fd_at(fd.in));
-	if (fd.int_out != -1)
-		dup2(fd.int_out, redir_fd_at(fd.out));
+	setup_all_fd(fd);
 	if (is_builtin(chemin.all_var[0]))
 		exit(start_builtin(chemin.all_var, ms));
 	else
@@ -38,7 +35,7 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 	printf("impossible\n");
 }
 
-int	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
+int	cmd_notf(t_all_str chemin, t_minishell *ms, int *fd)
 {
 	pid_t	child;
 
@@ -48,10 +45,7 @@ int	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (fd.int_in != -1)
-			dup2(fd.int_in, redir_fd_at(fd.in));
-		if (fd.int_out != -1)
-			dup2(fd.int_out, redir_fd_at(fd.out));
+		setup_all_fd(fd);
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(chemin.all_var[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
@@ -60,7 +54,7 @@ int	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 	return (child);
 }
 
-int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
+int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, int *fd,
 	t_minishell *ms)
 {
 	int	temp;
@@ -77,8 +71,8 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 	else
 	{
 		temp = dup(2);
-		if (fd.out && redir_fd_at(fd.out) == 2)
-			dup2(fd.int_out, 2);
+		if (fd[2] >= 0)
+			dup2(fd[2], 2);
 		ft_lstdupint_back(&ms->no_pipe_exit_codes,
 			start_builtin(chemin.all_var, ms));
 		dup2(temp, 2);
@@ -89,13 +83,14 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 
 int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
-	t_both_fd		fd;
+	//t_both_fd		fd;
+	int				fd[256];
 	t_state_pipe	sp;
 	pid_t			child;
 	t_all_str		chemin;
 
-	setup_var_exe(&fd, &sp, state, both_pipe);
-	setup_redir(cmd, &fd);
+	setup_var_exe(fd, &sp, state, both_pipe);
+	setup_redir(cmd, fd);
 	setup_chemin(&chemin, cmd, ms);
 	if (!chemin.path && !is_builtin(chemin.all_var[0])
 		&& !is_builtin_nopipe(chemin.all_var[0])

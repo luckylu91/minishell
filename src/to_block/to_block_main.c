@@ -32,7 +32,7 @@ void	if_forest(t_var_toblock *var, t_list **temp_l,
 	else if (line[var->i] == '~' && *temp_l == NULL)
 		in_tilde(line, var, temp_l);
 	else if (line[var->i] == '\'')
-		in_quote(line, var, temp_l);
+		in_quote(line, var, final_l, temp_l);
 	else if (line[var->i] == '$')
 		ft_dollar(var, line, temp_l, final_l);
 	else if (line[var->i] == '\"')
