@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 18:47:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 11:26:21 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	init_context(t_minishell *ms, char **environ)
 	char	*cwd;
 
 	copy_environ(&ms->env, environ);
-	ms->termcaps = init_termcaps_strings();
 	cwd = our_getcwd();
 	ms->h = create_hist(ft_strjoin(cwd, "/.histfile"));
 	wrap_free(cwd);
@@ -30,8 +29,6 @@ void	init_all(t_minishell *ms, char **environ)
 {
 	signal(SIGINT, signal_interrupt);
 	signal(SIGQUIT, signal_interrupt);
-	init_termios();
-	init_termcaps();
 	init_context(ms, environ);
 	ft_get_set_exit_fun(&before_exit);
 	ft_get_set_context(ms);
@@ -64,9 +61,19 @@ int	main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	ms = ft_calloc(1, sizeof(t_minishell));
+	init_all(ms, environ);
 	if (!isatty(STDIN_FILENO))
 		execute_with_file_input(ms);
-	init_all(ms, environ);
+	init_termios();
+	init_termcaps();
+	ms->termcaps = init_termcaps_strings();
+	if (argc >= 2)
+	{
+		process_line(argv[1], ms);
+		exit(0);
+	}
+	// else
+	// 	dprintf(1, "debug de l'argv %d\n", argc);
 	show_prompt(ms);
 	while (1)
 	{

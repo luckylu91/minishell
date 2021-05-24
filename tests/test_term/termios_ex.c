@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <errno.h>
 
-int            terminal_descriptor = -1;
-struct termios terminal_original;
-struct termios terminal_settings;
+int				terminal_descriptor = -1;
+struct termios	terminal_original;
+struct termios	terminal_settings;
 
 
 

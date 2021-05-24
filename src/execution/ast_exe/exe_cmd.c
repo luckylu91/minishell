@@ -70,7 +70,7 @@ int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
 	else
 	{
 		temp = dup(2);
-		if (fd.int_out == 2)
+		if (fd.out && redir_fd_at(fd.out) == 2)
 			dup2(fd.int_out, 2);
 		ft_lstdupint_back(&ms->no_pipe_exit_codes,
 			start_builtin(chemin.all_var, ms));
