@@ -22,6 +22,5 @@ int	our_env(char **tab_env)
 		printf("%s\n", tab_env[i]);
 		i++;
 	}
-	printf("ici ta race\n");
 	return (1);
 }

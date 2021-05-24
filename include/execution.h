@@ -62,7 +62,7 @@ int		is_builtin(char *c);
 int		is_builtin_nopipe(char *c);
 int		check_redir(t_both_fd *fd);
 int		get_redir_fd(t_both_fd *res, t_list *l);
-void	export_one(char *arg, char ***our_env);
+int		export_one(char *arg, char ***our_env);
 int		export(char **argv, char ***our_env);
 int		find_var(char *arg, char **env);
 int		our_unset(char **argv, char ***our_env);

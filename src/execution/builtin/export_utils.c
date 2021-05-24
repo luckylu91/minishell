@@ -34,7 +34,7 @@ int	assign_operator_offset(char *arg)
 	i = 0;
 	while (arg[i] && !is_assign_operator(arg + i))
 	{
-		if (!ft_isalnum(*arg) && *arg != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (0);
 		i++;
 	}
@@ -45,7 +45,7 @@ int	not_valid_identifier_error(char *arg)
 {
 	ft_putstr_fd("bash: export: `", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putstr_fd(": not a valid identifier'\n", STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	return (-1);
 }
 

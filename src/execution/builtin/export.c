@@ -39,7 +39,7 @@ static void	replace_existing(char *arg, char **existing, int arg_offset)
 	*existing = new_value;
 }
 
-void	export_one(char *arg, char ***our_env)
+int	export_one(char *arg, char ***our_env)
 {
 	int	i;
 	int	arg_offset;
@@ -48,10 +48,10 @@ void	export_one(char *arg, char ***our_env)
 	if (!arg_offset)
 	{
 		not_valid_identifier_error(arg);
-		return ;
+		return 1;
 	}
 	if (!arg[arg_offset])
-		return ;
+		return 0;
 	i = -1;
 	while ((*our_env)[++i])
 	{
@@ -65,15 +65,36 @@ void	export_one(char *arg, char ***our_env)
 		enlarge_environ(i + 2, our_env);
 		(*our_env)[i] = strdup_remove_plus(arg, arg_offset);
 	}
-	return ;
+	return 0;
+}
+
+void	no_arg(char **our_env)
+{
+	int	i;
+
+	i = 0;
+	while (our_env[i] != NULL)
+	{
+		printf("declare -x %s\n", our_env[i]);
+		i++;
+	}
 }
 
 int	export(char **argv, char ***our_env)
 {
 	int	i;
+	int	r;
 
+	r = 0;
 	i = 0;
+	if (argv[1] == NULL)
+		no_arg(*our_env);
 	while (argv[++i])
-		export_one(argv[i], our_env);
-	return (0);
+	{
+		if (r == 0)
+			r = export_one(argv[i], our_env);
+		else 
+			export_one(argv[i], our_env);
+	}
+	return (r);
 }

@@ -104,8 +104,8 @@ clean:
 
 fclean: clean
 	make -C src/libft fclean
-	rm $(NAME)
-	rm minishell_db
+	rm -f $(NAME)
+	rm -f minishell_db
 
 re: fclean all
 
