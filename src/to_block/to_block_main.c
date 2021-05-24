@@ -19,6 +19,7 @@ void	setup_var(t_list **final_l, t_list **temp_l, t_var_toblock *var)
 	var->i = 0;
 	var->spe = 0;
 	var->end_while = 1;
+	var->tilde = 0;
 }
 
 void	if_forest(t_var_toblock *var, t_list **temp_l,
@@ -28,6 +29,8 @@ void	if_forest(t_var_toblock *var, t_list **temp_l,
 		handle_separator(var, line, final_l, temp_l);
 	else if (test_redir(line, var, *temp_l))
 		redirection(var, line, final_l, temp_l);
+	else if (line[var->i] == '~' && *temp_l == NULL)
+		in_tilde(line, var, temp_l);
 	else if (line[var->i] == '\'')
 		in_quote(line, var, temp_l);
 	else if (line[var->i] == '$')

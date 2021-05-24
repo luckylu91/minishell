@@ -18,12 +18,13 @@
 # include <stdlib.h>
 # include "libft.h"
 
-enum e_flags {none, error, space, spe, dollar, dollar_num, dollar_dquote};
+enum e_flags {none, error, space, spe, dollar, dollar_num, dollar_dquote, tilde};
 typedef struct s_var_toblock
 {
 	int				i;
 	int				spe;
 	int				end_while;
+	int				tilde;
 	enum e_flags	f;
 }				t_var_toblock;
 typedef struct s_block
@@ -33,7 +34,7 @@ typedef struct s_block
 }					t_block;
 
 void	digit_quest(t_var_toblock *var, char *line,
-			char *str, t_list **final_l);
+			t_list **temp_l, t_list **final_l);
 int		condition(char *line, t_var_toblock *var, t_list **temp_l);
 void	test_intero(char *line, t_var_toblock *var,
 			t_list **final_l, char *str);
@@ -49,6 +50,7 @@ void	ft_dollar(t_var_toblock *var, char *line,
 void	ft_dollar_dquote(char *line, t_var_toblock *var,
 			t_list **final_l, t_list **temp_l);
 void	in_quote(char *line, t_var_toblock *var, t_list **temp_l);
+void	in_tilde(char *line, t_var_toblock *var, t_list **temp_l);
 void	redirection(t_var_toblock *var, char *line,
 			t_list **final_l, t_list **temp_l);
 int		test_redir(char *line, t_var_toblock *var, t_list *temp_l);
