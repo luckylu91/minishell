@@ -6,18 +6,18 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:02:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 17:25:17 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 16:53:21 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static void	enlarge_environ(int new_size, char***our_env)
+static void	enlarge_environ(int new_size, char ***our_env)
 {
 	char	**new_env;
 	int		i;
 
-	new_env = ft_calloc(new_size, sizeof(char *));
+	new_env = ft_calloc(new_size, sizeof(char **));
 	i = -1;
 	while ((*our_env)[++i])
 		new_env[i] = (*our_env)[i];

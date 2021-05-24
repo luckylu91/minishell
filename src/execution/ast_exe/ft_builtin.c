@@ -5,7 +5,7 @@ int	start_builtin(char **c, t_minishell *ms)
 	if (ft_strcmp_icase(c[0], "echo") == 0)
 		return (our_echo(c));
 	if (ft_strcmp_icase(c[0], "cd") == 0)
-		return (our_cd(c, ms->env));
+		return (our_cd(c, &(ms->env)));
 	if (ft_strcmp_icase(c[0], "pwd") == 0)
 		return (our_pwd(c));
 	if (ft_strcmp(c[0], "export") == 0)

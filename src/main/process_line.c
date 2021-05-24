@@ -4,9 +4,8 @@ static void	pre_while(t_minishell *ms, char *line,
 {
 	ms->all_child = NULL;
 	ms->no_pipe_exit_codes = NULL;
-//	*block_lst = NULL;
-
-	set_terminal_original();
+	if (!ms->input_is_file)
+		set_terminal_original();
 	if (line && line[0])
 		add_hist_line(ms->h, line);
 	to_block(line, block_lst);
@@ -63,7 +62,8 @@ int	process_line(char *line, t_minishell *ms)
 		process_children(ms);
 		ast_cmdseq = ast_cmdseq->next;
 	}
-	set_terminal_minishell();
+	if (!ms->input_is_file)
+		set_terminal_minishell();
 	destroy_block_lst(&block_lst);
 	ft_lstclear(&ast_cmdseq, (t_del_fun)destroy_ast);
 	return (1);

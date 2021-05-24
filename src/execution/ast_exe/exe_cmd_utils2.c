@@ -20,11 +20,21 @@ int	setup_redir(t_ast *cmd, t_both_fd *fd)
 	return (1);
 }
 
-void	setup_chemin(t_all_str *chemin, t_ast *cmd)
+void	setup_chemin(t_all_str *chemin, t_ast *cmd, t_minishell *ms)
 {
-	chemin->all_path = split_path();
+	char	*path;
+	char	**path_split;
+
 	chemin->all_var = from_list_to_str_tab(cmd_text_list(cmd));
-	chemin->path = search_cmd(chemin->all_path, chemin->all_var[0]);
+	path = search_env("PATH", ms->env);
+	if (path)
+	{
+		path_split = ft_split(path, ":");
+		chemin->path = search_cmd(path_split, chemin->all_var[0]);
+		ft_splitclear(path_split, 0);
+	}
+	else
+		chemin->path = NULL;
 }
 
 void	close_and_dup(t_state_pipe sp, t_both_fd fd)

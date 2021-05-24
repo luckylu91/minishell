@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 17:25:25 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 16:58:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_both_fd
 
 typedef struct s_all_str
 {
-	char	**all_path;
 	char	**all_var;
 	char	*path;
 }	t_all_str;
@@ -69,7 +68,7 @@ int		our_unset(char **argv, char ***our_env);
 int		our_env(char **tab_env);
 int		our_echo(char **argv);
 int		our_pwd(char **argv);
-int		our_cd(char **argv, char **env);
+int		our_cd(char **argv, char ***env);
 int		our_exit(char **argv, t_minishell *ms);
 int		is_assign_operator(char *s);
 int		assign_operator_offset(char *arg);
@@ -85,7 +84,7 @@ int		replace_env_cmd(t_ast *cmd_ast, t_minishell *ms);
 void	replace_env_list(t_list **block_lst, t_list **redir_blocks,
 			t_minishell *ms);
 int		replace_env(t_ast *cmdchain_ast, t_minishell *ms);
-char	**split_path(void);
+char	**split_path(t_minishell *ms);
 int		exe_all(t_list *l_staticast);
 int		copy_environ(char ***new_env_addr, char **environ);
 int		exe_ast(t_ast *l_ast, int i, int *pipe, t_minishell *mini);
@@ -96,7 +95,7 @@ int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );
 void	setup_var_exe(t_both_fd *fd, t_state_pipe *sp, int state, int **both_pipe);
 int		setup_redir(t_ast *cmd, t_both_fd *fd);
-void	setup_chemin(t_all_str *chemin, t_ast *cmd);
+void	setup_chemin(t_all_str *chemin, t_ast *cmd, t_minishell *ms);
 void	close_and_dup(t_state_pipe sp, t_both_fd fd);
 void	closing(t_state_pipe sp, t_both_fd fd);
 int		is_slash(char *c);

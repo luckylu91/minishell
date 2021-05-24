@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 11:26:21 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 15:19:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	execute_with_file_input(t_minishell *ms)
 	int		ret_gnl;
 	char	*line;
 
+	ms->input_is_file = 1;
+	ft_get_set_exit_fun(&before_exit_file_input);
 	ret_gnl = 1;
 	while (ret_gnl == 1)
 	{
@@ -47,9 +49,11 @@ void	execute_with_file_input(t_minishell *ms)
 			process_line(line, ms);
 		wrap_free(line);
 	}
-	if (ret_gnl == -1)
-		exit_with_code(EXIT_FAILURE, ms);
-	exit_properly(ms);
+	// if (ret_gnl == -1)
+	// 	exit_with_code(EXIT_FAILURE, ms);
+	// exit_properly(ms);
+	before_exit_file_input(ms);
+	exit(ms->exit_code);
 }
 
 int	main(int argc, char **argv, char **environ)
@@ -63,17 +67,19 @@ int	main(int argc, char **argv, char **environ)
 	ms = ft_calloc(1, sizeof(t_minishell));
 	init_all(ms, environ);
 	if (!isatty(STDIN_FILENO))
+	{
 		execute_with_file_input(ms);
-	init_termios();
-	init_termcaps();
-	ms->termcaps = init_termcaps_strings();
+	}
 	if (argc >= 2)
 	{
+		ms->input_is_file = 1;
+		ft_get_set_exit_fun(&before_exit_file_input);
 		process_line(argv[1], ms);
 		exit(0);
 	}
-	// else
-	// 	dprintf(1, "debug de l'argv %d\n", argc);
+	init_termios();
+	init_termcaps();
+	ms->termcaps = init_termcaps_strings();
 	show_prompt(ms);
 	while (1)
 	{
