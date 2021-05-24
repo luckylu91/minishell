@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:45:58 by hgallien          #+#    #+#             */
-/*   Updated: 2021/05/19 16:07:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 13:28:47 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	in_quote(char *line, t_var_toblock *var, t_list **temp_l);
 void	redirection(t_var_toblock *var, char *line,
 			t_list **final_l, t_list **temp_l);
 int		test_redir(char *line, t_var_toblock *var, t_list *temp_l);
-void	in_tild(char *line, t_var_toblock *var,
-			t_list **final_l, t_list **temp_l);
 int		is_separator(char *c);
 int		is_separator_for_dollar(char *c);
 void	handle_separator(t_var_toblock *var, char *line,

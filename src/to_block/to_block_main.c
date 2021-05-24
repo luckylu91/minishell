@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:24:39 by hgallien          #+#    #+#             */
-/*   Updated: 2021/05/09 12:49:45 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 13:28:35 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	if_forest(t_var_toblock *var, t_list **temp_l,
 		in_back_slash(line, var, temp_l);
 	else
 	{
-		if (line[var->i] == '~')
-			in_tild(line, var, final_l, temp_l);
-		else
-			ft_lstadd_back (temp_l, ft_lstnew(&line[var->i]));
+		ft_lstadd_back (temp_l, ft_lstnew(&line[var->i]));
 		var->i = var->i + 1;
 	}	
 }

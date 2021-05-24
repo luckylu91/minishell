@@ -41,17 +41,3 @@ int	test_redir(char *line, t_var_toblock *var, t_list *temp_l)
 	}
 	return (0);
 }
-
-void	in_tild(char *line, t_var_toblock *var,
-		t_list **final_l, t_list **temp_l)
-{
-	if (*temp_l != NULL || !(is_separator(&line[var->i + 1])))
-	{
-		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
-	}
-	else
-	{
-		ft_lstadd_back(temp_l, ft_lstnew(&line[var->i]));
-		temp_to_final(final_l, temp_l, spe);
-	}
-}
