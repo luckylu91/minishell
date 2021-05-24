@@ -13,3 +13,6 @@ main/_main
 main/_main_db
 .histfile
 *.o_db
+minishell
+minishell_tester/minishell
+minishell_tester/tofix/tofix_tests.txt

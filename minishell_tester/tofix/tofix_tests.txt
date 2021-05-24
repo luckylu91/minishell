@@ -1,3 +1,42 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+echo -nn bonjour
+echo -n -n -n bonjour
+echo -n -n -n bonjour
+echo "-nnnn" bonjour
+=======
+cd // ; pwd
+cd '//' ; pwd
+cd '/etc' ; pwd
+cd '/var' ; pwd
+cd "wtf" 2>/dev/null ; pwd ; echo $PWD $OLDPWD
+<<<<<<< HEAD
+=======
+>>>>>>> 733fbe143d685fe58cc8a650318b564b8dbc8a73
+echo "~"
+echo '~'
+echo ~/123
+echo ~/123/456
+>>>>>>> cb6b7e49237f9af461cf1dc9e2fd5fd7e904872d
+echo $USER'$USER'text oui oui oui oui $USER oui $USER ''
+echo $USER '' $USER $USER '' $USER '' $USER -n $USER
+echo " $USER $ "'$PWD'
+<<<<<<< HEAD
+echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD
+=======
+>>>>>>> 733fbe143d685fe58cc8a650318b564b8dbc8a73
+echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd '' ''; pwd; echo $PWD; echo $OLDPWD
+echo $PWD; echo $OLDPWD; cd '' '' ''; pwd; echo $PWD; echo $OLDPWD
+=======
+>>>>>>> 0cfa423db1648127dac68c1c1c95b783a43adafa
 echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD
@@ -8,3 +47,70 @@ echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD
 echo $PWD; echo $OLDPWD; cd ' //home '; pwd; echo $PWD; echo $OLDPWD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+;; test
+| test
+echo > <
+echo | |
+<
+;
+|
+| | |
+;;;;;;;
+||||||||
+>
+>>>>>>>>
+<<<<<<<<<
+> > > >
+>> >> >> >>
+>>>>>>> cb6b7e49237f9af461cf1dc9e2fd5fd7e904872d
+~
+/Users
+.
+..
+/
+echo -n |
+exit 0 0 ; echo if you see this message then your minishell have some troubles
+exit 42 42 42 42 42 ; echo if you see this message then your minishell have some troubles
+env | grep "_="
+export | grep "SHLVL"
+export | grep "OLDPWD"
+export | grep "PWD"
+export -TEST=100
+export | grep "SHLVL"
+export -TEST=123
+env | grep "_="
+env | grep "SHLVL"
+echo text > $PWD/tmp/file text2 ; cat $PWD/tmp/file
+cat doesntexist test.sh 2>tmp/errors 1>tmp/file ; cat tmp/errors tmp/file
+cat doesntexist 2 > tmp/errors 1>tmp/file ; cat tmp/errors tmp/file
+cat doesntexist 2> tmp/errors 1>tmp/file ; cat tmp/errors tmp/file
+cat doesntexist 2>/errors 1>tmp/file ; cat /errors tmp/file ; rm -f /errors
+cat doesntexist 2>tmp/errors 2>>tmp/errors ; cat tmp/errors tmp/file
+cat doesntexist 2>tmp/errors 2 >> tmp/errors ; cat tmp/errors tmp/file
+cat doesntexist 2>tmp/errors 1>tmp/file 2>tmp/file 2>>tmp/file 2>>tmp/errors ; cat tmp/errors tmp/file
+> tmp/file echo "something" "something2" ; > tmp/file cd wtf 2>/dev/null ; cat tmp/file
+> tmp/file cd wtf ; cat tmp/file
+>> tmp/file cd wtf 2>/dev/null ; cat tmp/file
+unset -TEST
+<<<<<<< HEAD
+unset _TEST
+unset ________
+=======
+unset TE*ST
+unset TES#T
+unset TES@T
+unset TES!T
+unset ============
+unset +++++++
+unset TES^T
+unset TES!T
+unset TES~T
+>>>>>>> 733fbe143d685fe58cc8a650318b564b8dbc8a73
+>>>>>>> cb6b7e49237f9af461cf1dc9e2fd5fd7e904872d
+=======
+>>>>>>> 0cfa423db1648127dac68c1c1c95b783a43adafa

@@ -6,13 +6,13 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 23:46:20 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 16:57:30 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 19:03:58 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static int update_oldpwd(char ***env)
+static int	update_oldpwd(char ***env)
 {
 	char	*cwd;
 	char	*export_str;
@@ -27,7 +27,7 @@ static int update_oldpwd(char ***env)
 	return (0);
 }
 
-static int update_pwd(char ***env)
+static int	update_pwd(char ***env)
 {
 	char	*cwd;
 	char	*export_str;
@@ -50,6 +50,7 @@ int	our_chdir(char *path, char ***env)
 	ret = chdir(path);
 	if (ret)
 	{
+		unset_one("OLDPWD", env);
 		bash_error_errno("cd");
 		return (1);
 	}

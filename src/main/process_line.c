@@ -9,9 +9,8 @@ static void	pre_while(t_minishell *ms, char *line,
 	if (line && line[0])
 		add_hist_line(ms->h, line);
 	to_block(line, block_lst);
-//	print_block_list(*block_lst);
-	parse_cmdseq(ast_cmdseq, *block_lst);
-	
+	if (parse_cmdseq(ast_cmdseq, *block_lst) == STATUS_ERROR)
+		ms->exit_code = 258;
 }
 
 static void	process_children(t_minishell *ms)
