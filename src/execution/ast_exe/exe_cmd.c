@@ -31,7 +31,7 @@ void	child_exe(t_state_pipe sp, t_both_fd fd, t_all_str chemin,
 		execve(chemin.path, chemin.all_var, ms->env);
 }
 
-void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
+int	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 {
 	pid_t	child;
 
@@ -50,6 +50,7 @@ void	cmd_notf(t_all_str chemin, t_minishell *ms, t_both_fd fd)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
+	return (child);
 }
 
 int	no_pipe_exe(t_all_str chemin, t_state_pipe sp, t_both_fd fd,
@@ -92,10 +93,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	if (!chemin.path && !is_builtin(chemin.all_var[0])
 		&& !is_builtin_nopipe(chemin.all_var[0])
 		&& !contains_slash(chemin.all_var[0]))
-	{
-		cmd_notf(chemin, ms, fd);
-		return (-1);
-	}
+		return (cmd_notf(chemin, ms, fd));
 	if (is_builtin_nopipe(chemin.all_var[0]))
 		return (no_pipe_exe(chemin, sp, fd, ms));
 	child = fork();

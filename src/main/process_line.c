@@ -26,7 +26,7 @@ static void	process_children(t_minishell *ms)
 			if (!WIFSIGNALED(status))
 				ms->exit_code = WEXITSTATUS(status);
 		}
-		else
+		else if (child_pid == 0)
 		{
 			ms->exit_code = *(int *)ms->no_pipe_exit_codes->content;
 			ms->no_pipe_exit_codes = ms->no_pipe_exit_codes->next;

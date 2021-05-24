@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:30:38 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:39:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/24 10:17:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	our_unset(char **arg, char ***env)
 		{
 			ft_putstr_fd("'", 2);
 			ft_putstr_fd(arg[i], 2);
-			ft_putstr_fd("':not a valid identifier\n", 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 		}
 		else
 		{
