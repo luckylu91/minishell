@@ -56,6 +56,7 @@ typedef struct s_state_pipe
 }	t_state_pipe;
 
 
+int	overflow_fd(t_list *l, fd_err *err);
 void	msg_redir_error(int *fd, fd_err *err);
 void	dir_err(char *str);
 void	closing(t_state_pipe sp, int *fd);
