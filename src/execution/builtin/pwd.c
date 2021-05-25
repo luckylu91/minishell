@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 13:57:55 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 15:43:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 17:53:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	our_pwd(char **argv)
 	char	*working_dir;
 
 	(void)argv;
-	working_dir = getcwd(NULL, 0);
+	working_dir = our_getcwd();
 	if (!working_dir)
 	{
 		error_message_errno("pwd", strerror(errno));
