@@ -47,16 +47,8 @@ int	is_last(t_list *l, char c, int fildes, fd_err *err)
 {
 	if (l == NULL)
 		return (1);
-		if (redir_op_at(l->content)->str[0] == c
+	if (redir_op_at(l->content)->str[0] == c
 		&& redir_fd_at(l->content) == fildes)
 		return (0);
 	return (is_last(l->next, c, fildes, err));
-}
-
-int	overflow_fd(t_list *l, fd_err *err)
-{
-	if (redir_fd_at(l->content) > 255)
-		return (set_error_three(l, err));
-	else 
-		return (0);
 }

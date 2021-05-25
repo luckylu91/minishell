@@ -21,13 +21,12 @@ int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp)
 	fd_err	err;
 
 	fd[256] = get_redir_fd(fd, cmd_redir_list(cmd), &err);
-	if (fd[256]< 0)
+	if (fd[256] < 0)
 	{
 		child = fork();
 		if (child == 0)
 		{
 			setup_all_fd(fd);
-		//	printf("fd256 = %i\n",fd[256]);
 			msg_redir_error(fd, &err);
 			closing(sp, fd);
 			exit(0);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 14:07:48 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 19:20:33 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "to_block.h"
 # include <fcntl.h>
 # include "ast_api.h"
+# include "block_api.h"
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>

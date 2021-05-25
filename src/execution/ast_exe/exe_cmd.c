@@ -21,6 +21,7 @@ void	child_exe(t_state_pipe sp, int *fd, t_all_str chemin,
 		t_minishell *ms)
 {
 	int	err;
+
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(chemin.all_var[0])

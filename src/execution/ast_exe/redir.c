@@ -7,15 +7,11 @@ int	in_part(t_list *l, int *res, fd_err *err)
 	if (overflow_fd(l, err))
 		return (-3);
 	if (((t_ast *)l->content)->expr.redir.redir_op->str[1] == '>')
-		fd = open(get_char_from_block((((t_ast *)
-							(l->content))
-						->expr.redir.file_name)), O_CREAT | O_RDWR | O_APPEND,
-				0666);
+		fd = open(block_str_at(redir_fname_at(l->content)),
+				O_CREAT | O_RDWR | O_APPEND, 0666);
 	else
-		fd = open(get_char_from_block((((t_ast *)
-							(l->content))->expr.redir.file_name)),
+		fd = open(block_str_at(redir_fname_at(l->content)),
 				O_CREAT | O_RDWR | O_TRUNC, 0666);
-	
 	if (is_last(l->next, '>', redir_fd_at(l->content), err))
 		res[redir_fd_at(l->content)] = fd;
 	else
@@ -30,22 +26,20 @@ int	get_redir_fd(int *res, t_list *l, fd_err *err)
 	if (l == NULL)
 		return (1);
 	if (overflow_fd(l, err))
-			return (-3);
-	if ((((t_ast *)(l->content))->expr.redir).ambiguous_error == 1)
+		return (-3);
+	if (redir_is_ambiguous(l->content))
 		return (set_error_two(l, err));
-	if ((((t_ast *)(l->content))->expr.redir).redir_op->str[0] == '<')
+	if (redir_op_str_at(l->content)[0] == '<')
 	{
-		fd = open(get_char_from_block((((t_ast *)
-							(l->content))->expr.redir.file_name)), O_RDWR);
+		fd = open(block_str_at(redir_fname_at(l->content)), O_RDWR);
 		if (fd == -1)
 			return (set_error_one(l, err));
-		
 		if (is_last(l->next, '<', (redir_fd_at(l->content)), err))
 			res[redir_fd_at(l->content)] = fd;
 		else
 			close(fd);
 	}
-	if (((t_ast *)l->content)->expr.redir.redir_op->str[0] == '>')
+	if (redir_op_str_at(l->content)[0] == '>')
 	{
 		fd = in_part(l, res, err);
 		if (fd < 0)
@@ -71,7 +65,8 @@ void	close_all_fd(int *fd)
 {
 	int	i;
 
-	i = 0;while (i < 256)
+	i = 0;
+	while (i < 256)
 	{
 		if (fd[i] >= 0)
 			close(fd[i]);

@@ -41,8 +41,8 @@ int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
 	t_list	*ast_cmdseq;
-	ms->stop = 0;
 
+	ms->stop = 0;
 	setbuf(stdout, NULL);
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
 	while (ast_cmdseq && ms->stop == 0)

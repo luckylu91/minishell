@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 16:00:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 18:04:48 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static char	*blocks_to_str(t_list *blocks)
 	char	*res;
 	t_list	*blocks_str_list;
 
-	blocks_str_list = ft_lstmap(blocks, (t_dup_fun)block_raw_str, destroy_block);
+	blocks_str_list = ft_lstmap(blocks, (t_dup_fun)block_raw_str,
+			destroy_block);
 	res = ft_lststrjoin(blocks_str_list, "", "", "");
 	ft_lstclear(&blocks_str_list, wrap_free);
 	return (res);
@@ -65,7 +66,8 @@ void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
 		{
 			redir_ast->expr.redir.ambiguous_error = 1;
-			redir_ast->expr.redir.name_before_replace = blocks_to_str(redir_blocks);
+			redir_ast->expr.redir.name_before_replace = \
+				blocks_to_str(redir_blocks);
 			redir_list = redir_list->next;
 			continue ;
 		}

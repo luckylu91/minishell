@@ -7,6 +7,7 @@
 # include "to_block.h"
 
 t_block	*block_at(t_list *block_lst);
+char	*block_str_at(t_list *blocks);
 
 int		is_special(t_block *block);
 int		is_special_lst(t_list *block_lst);

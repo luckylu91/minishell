@@ -16,8 +16,8 @@ int	is_separator_for_dollar(char *c)
 	return (0);
 }
 
-void	handle_separator(t_var_toblock *var, char *line,
-		t_list **final_l, t_list **temp_l)
+static void	separator_temp_l_non_empty(t_var_toblock *var,
+	t_list **final_l, t_list **temp_l)
 {
 	if (*temp_l != NULL)
 	{
@@ -29,6 +29,12 @@ void	handle_separator(t_var_toblock *var, char *line,
 		else
 			temp_to_final(final_l, temp_l, none);
 	}
+}
+
+void	handle_separator(t_var_toblock *var, char *line,
+		t_list **final_l, t_list **temp_l)
+{
+	separator_temp_l_non_empty(var, final_l, temp_l);
 	if (line[var->i] == ' ')
 	{
 		while (line[var->i] == ' ')

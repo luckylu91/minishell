@@ -19,7 +19,7 @@ SRCS_REL +=	$(addprefix execution/ast_exe/, exe_cmd_utils.c exe_cmd_utils2.c \
 	exe_cmd_utils3.c ft_builtin.c redir.c exe_cmd.c exe_ast.c error_msg.c error_redir.c)
 SRCS_REL += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c \
 	is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
-	is_dollar.c is_rawtext.c is_tilde.c)
+	is_dollar.c is_rawtext.c is_tilde.c block_str_at.c)
 SRCS_REL +=	$(addprefix ast/errors/, unexpected_token.c)
 SRCS_REL +=	$(addprefix term/, init_termcaps.c init_termios.c termcaps_utils.c \
 	bigger_calloc.c linebuffer.c prompt.c)
