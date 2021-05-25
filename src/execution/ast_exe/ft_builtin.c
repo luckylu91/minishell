@@ -2,6 +2,8 @@
 
 int	start_builtin(char **c, t_minishell *ms)
 {
+	int	r;
+
 	if (ft_strcmp_icase(c[0], "echo") == 0)
 		return (our_echo(c));
 	if (ft_strcmp_icase(c[0], "cd") == 0)
@@ -15,7 +17,12 @@ int	start_builtin(char **c, t_minishell *ms)
 	else if (ft_strcmp_icase(c[0], "env") == 0)
 		return (our_env(ms->env));
 	else if (ft_strcmp(c[0], "exit") == 0)
-		return (our_exit(c, ms));
+	{
+		r = our_exit(c, ms);
+		if (r == 1)
+			ms->stop = 1;
+		return (r);
+	}
 	return (-1);
 }
 
