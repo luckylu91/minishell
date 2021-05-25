@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 10:46:00 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 19:19:48 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 19:27:52 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_block	*redir_op_at(t_ast *redir_ast)
 char	*redir_op_str_at(t_ast *redir_ast)
 {
 	t_block	*redir_op;
-	
+
 	redir_op = redir_op_at(redir_ast);
 	return (redir_op->str);
 }

@@ -15,7 +15,10 @@ int	set_error_two(t_list *l, fd_err *err)
 
 int	set_error_three(t_list *l, fd_err *err)
 {
-	err->descri = redir_fd_at(l->content);
+	if (redir_fd_at(l->content) == -1)
+		err->descri = -1;
+	else
+		err->descri = redir_fd_at(l->content);
 	return (-3);
 }
 
