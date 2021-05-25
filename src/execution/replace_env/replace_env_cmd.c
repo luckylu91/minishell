@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 11:14:39 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 14:14:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,35 @@ static int	invalid_file_name(t_list *file_name)
 	return (ft_lstany(file_name, NULL, is_space_ptr));
 }
 
-int	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
+char	*block_raw_str(t_block *block)
+{
+	char	*res;
+	int		size;
+	int		i;
+
+	size = ft_strlen(block->str);
+	if (is_dollar(block))
+		size++;
+	res = ft_calloc(size + 1, sizeof(char));
+	i = 0;
+	if (is_dollar(block))
+		res[i++] = '$';
+	ft_strcat(res, block->str);
+	return (res);
+}
+
+static char	*blocks_to_str(t_list *blocks)
+{
+	char	*res;
+	t_list	*blocks_str_list;
+
+	blocks_str_list = ft_lstmap(blocks, (t_dup_fun)block_raw_str, destroy_block);
+	res = ft_lststrjoin(blocks_str_list, "", "", "");
+	ft_lstclear(&blocks_str_list, free);
+	return (res);
+}
+
+void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 {
 	t_list	*redir_list;
 	t_ast	*redir_ast;
@@ -37,10 +65,13 @@ int	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
 		{
 			redir_ast->expr.redir.ambiguous_error = 1;
-			return (ambiguous_redirect_error(redir_blocks));
+			redir_ast->expr.redir.name_before_replace = blocks_to_str(redir_blocks);
+			// print_block_list(redir_blocks);
+			// setbuf(stdout, NULL);
+			// printf("%s\n", redir_ast->expr.redir.name_before_replace);
+			ambiguous_redirect_error(redir_blocks);
 		}
 		ft_lstclear(&redir_blocks, destroy_block);
 		redir_list = redir_list->next;
 	}
-	return (1);
 }

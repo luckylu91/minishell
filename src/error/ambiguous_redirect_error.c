@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:36:25 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 17:32:07 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 12:20:14 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	ambiguous_redirect_error(t_list *redir_blocks)
 	ft_putstr_fd("bash: ", STDERR_FILENO);
 	ft_lstiter(redir_blocks, NULL, print_block_error_raw);
 	ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
-	ft_lstclear(&redir_blocks, destroy_block);
 	return (-1);
 }
