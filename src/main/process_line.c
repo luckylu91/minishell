@@ -55,6 +55,6 @@ int	process_line(char *line, t_minishell *ms)
 	if (!ms->input_is_file)
 		set_terminal_minishell();
 	destroy_block_lst(&block_lst);
-	ft_lstclear(&ast_cmdseq, (t_del_fun)destroy_ast);
+	destroy_ast_list(&ast_cmdseq);
 	return (0);
 }
