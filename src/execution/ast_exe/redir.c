@@ -1,6 +1,6 @@
 #include "execution.h"
 
-int	in_part(t_list *l, int *res)
+int	in_part(t_list *l, int *res, fd_err *err)
 {
 	int	fd;
 
@@ -13,50 +13,43 @@ int	in_part(t_list *l, int *res)
 		fd = open(get_char_from_block((((t_ast *)
 							(l->content))->expr.redir.file_name)),
 				O_CREAT | O_RDWR | O_TRUNC, 0666);
-	if (is_last(l->next, '<', (redir_fd_at(l->content))) == -3)
+	if (is_last(l->next, '>', (redir_fd_at(l->content)), err) == -3)
 		return (-3);
-	if (is_last(l->next, '>', redir_fd_at(l->content)))
+	if (is_last(l->next, '>', redir_fd_at(l->content),err))
 		res[redir_fd_at(l->content)] = fd;
 	else
 		close(fd);
 	return (fd);
 }
 
-int	msg_error(t_list *l)
-{
-	ft_putendl_fd("bash: ", 2);
-	ft_putendl_fd(get_char_from_block((((t_ast *)
-						(l->content))->expr.redir.file_name)), 2);
-	ft_putendl_fd(": No such file or directory ", 2);
-	return (-1);
-}
-
-int	get_redir_fd(int *res, t_list *l)
+int	get_redir_fd(int *res, t_list *l, fd_err *err)
 {
 	int	fd;
 
 	if (l == NULL)
 		return (1);
+	if ((((t_ast *)(l->content))->expr.redir).ambiguous_error == 1)
+		return (set_error_two(l, err));
 	if ((((t_ast *)(l->content))->expr.redir).redir_op->str[0] == '<')
 	{
 		fd = open(get_char_from_block((((t_ast *)
 							(l->content))->expr.redir.file_name)), O_RDWR);
 		if (fd == -1)
-			return (msg_error(l));
-		if (is_last(l->next, '<', (redir_fd_at(l->content))) == -3)
+			return (set_error_one(l, err));
+		if (is_last(l->next, '<', (redir_fd_at(l->content)), err) == -3)
 			return (-3);
-		if (is_last(l->next, '<', (redir_fd_at(l->content))))
+		if (is_last(l->next, '<', (redir_fd_at(l->content)), err))
 			res[redir_fd_at(l->content)] = fd;
 		else
 			close(fd);
 	}
 	if (((t_ast *)l->content)->expr.redir.redir_op->str[0] == '>')
 	{
-		fd = in_part(l, res);
+		fd = in_part(l, res, err);
 		if (fd == -1)
 			return (-1);
 	}
-	return (get_redir_fd(res, l->next));
+	return (get_redir_fd(res, l->next, err));
 }
 
 void	setup_all_fd(int *fd)

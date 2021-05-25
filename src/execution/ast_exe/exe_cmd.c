@@ -38,7 +38,6 @@ void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
 		err =execve(chemin.path, chemin.all_var, ms->env);
 	if (err == -1)
 	{
-		printf("err\n");
 		ft_putstr_fd(strerror(errno),2);
 		ft_putstr_fd("\n",2);
 	}
@@ -82,13 +81,14 @@ int	no_pipe_exe(t_all_str chemin, int *fd,
 
 int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 {
-	int				fd[256];
+	int				fd[257];
 	t_state_pipe	sp;
 	pid_t			child;
 	t_all_str		chemin;
 
 	setup_var_exe(fd, &sp, state, both_pipe);
-	setup_redir(cmd, fd);
+	if (setup_redir(cmd, fd, sp) == -1)
+		return (-1);
 	setup_chemin(&chemin, cmd, ms);
 	/* printf("!%s! {%s} |%i| %i %i %i \n",chemin.all_var[0],chemin.path,!chemin.path,!is_builtin(chemin.all_var[0]) */
 		/* , !is_builtin_nopipe(chemin.all_var[0]) */
