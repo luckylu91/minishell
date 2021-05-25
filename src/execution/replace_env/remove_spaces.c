@@ -55,8 +55,11 @@ int	text_to_string(t_list **block_lst, char **str_addr)
 	n = num_none_blocks(*block_lst);
 	if (n == -1)
 	{
+		setbuf(stdout, NULL);
+		printf("Block list in remove_spaces : ");
+		print_block_list(*block_lst);
 		ft_putstr_fd("Error in blocks list detected in "\
-			"execution/text_to_string.c\n", STDERR_FILENO);
+			"execution/remove_spaces.c\n", STDERR_FILENO);
 		return (-1);
 	}
 	if (n == 0)

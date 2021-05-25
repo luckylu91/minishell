@@ -45,7 +45,7 @@ int	process_line(char *line, t_minishell *ms)
 	while (ast_cmdseq)
 	{
 		if (replace_env((t_ast *)ast_cmdseq->content, ms) == -1)
-			exit_properly(ms);
+			return (1);
 		if (remove_spaces_cmdchain((t_ast *)ast_cmdseq->content) == -1)
 			return (-1);
 		exe_ast((t_ast *)ast_cmdseq->content, 0, NULL, ms);
@@ -56,5 +56,5 @@ int	process_line(char *line, t_minishell *ms)
 		set_terminal_minishell();
 	destroy_block_lst(&block_lst);
 	ft_lstclear(&ast_cmdseq, (t_del_fun)destroy_ast);
-	return (1);
+	return (0);
 }

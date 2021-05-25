@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 20:28:32 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 11:14:39 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 	while (redir_list)
 	{
 		redir_ast = (t_ast *)redir_list->content;
-		replace_env_list(&cmd_ast->expr.redir.file_name, &redir_blocks, ms);
+		replace_env_list(&redir_ast->expr.redir.file_name, &redir_blocks, ms);
 		ret = 1;
 		if (invalid_file_name(redir_ast->expr.redir.file_name))
 		{
