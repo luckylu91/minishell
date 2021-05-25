@@ -21,3 +21,4 @@ int	contains_slash(char *str)
 {
 	return (ft_any(str, ft_strlen(str), 1, (t_bool_fun)is_slash));
 }
+

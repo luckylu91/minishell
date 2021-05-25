@@ -1,2 +1,7 @@
-exit 0 0 ; echo if you see this message then your minishell have some troubles
-exit 42 42 42 42 42 ; echo if you see this message then your minishell have some troubles
+env | grep "_="
+export | grep "SHLVL"
+export | grep "OLDPWD"
+export | grep "PWD"
+export -TEST=100
+export | grep "SHLVL"
+export -TEST=123

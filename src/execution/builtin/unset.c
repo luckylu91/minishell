@@ -63,7 +63,7 @@ int	not_valid_id(char *arg)
 	int	i;
 
 	i = 0;
-	if (!(ft_isalpha(arg[i])))
+	if (!(ft_isalpha(arg[i])) && arg[i] != '_')
 		return (1);
 	while (arg[i])
 	{

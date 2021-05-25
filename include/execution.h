@@ -48,6 +48,13 @@ typedef struct s_state_pipe
 	int	**both_pipe;
 }	t_state_pipe;
 
+void	dir_err(char *str);
+void	filename_err(char *str);
+
+int	is_exe(char *str);
+int		exception(char *str);
+void	not_f_err(char *str);
+void	error_msg_all(char *str, int ex);
 int		open_error(char *fname, int flags, int auth);
 int		close_error(char *fname, int fd);
 
