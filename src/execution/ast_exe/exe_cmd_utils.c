@@ -55,7 +55,7 @@ int	is_last(t_list *l, char c, int fildes, fd_err *err)
 
 int	overflow_fd(t_list *l, fd_err *err)
 {
-	if (redir_fd_at(l->content) > 255)
+	if (redir_fd_at(l->content) > 255 || redir_fd_at(l->content) == -1)
 		return (set_error_three(l, err));
 	else 
 		return (0);

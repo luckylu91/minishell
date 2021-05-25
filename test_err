@@ -1,1 +1,1 @@
-bash: $test: ambiguous redirect
+bash: temp/test_err: No such file or directory

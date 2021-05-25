@@ -15,11 +15,11 @@ int	in_part(t_list *l, int *res, fd_err *err)
 		fd = open(get_char_from_block((((t_ast *)
 							(l->content))->expr.redir.file_name)),
 				O_CREAT | O_RDWR | O_TRUNC, 0666);
-	
-	if (is_last(l->next, '>', redir_fd_at(l->content), err))
-		res[redir_fd_at(l->content)] = fd;
-	else
-		close(fd);
+	if (fd == -1)
+			return (set_error_one(l, err));
+		if (res[redir_fd_at(l->content)] >= 0)
+				close(res[redir_fd_at(l->content)]);
+			res[redir_fd_at(l->content)] = fd;
 	return (fd);
 }
 
@@ -39,11 +39,9 @@ int	get_redir_fd(int *res, t_list *l, fd_err *err)
 							(l->content))->expr.redir.file_name)), O_RDWR);
 		if (fd == -1)
 			return (set_error_one(l, err));
-		
-		if (is_last(l->next, '<', (redir_fd_at(l->content)), err))
+			if (res[redir_fd_at(l->content)] >= 0)
+				close(res[redir_fd_at(l->content)]);
 			res[redir_fd_at(l->content)] = fd;
-		else
-			close(fd);
 	}
 	if (((t_ast *)l->content)->expr.redir.redir_op->str[0] == '>')
 	{
@@ -63,7 +61,7 @@ void	setup_all_fd(int *fd)
 	{
 		if (fd[i] >= 0)
 			dup2(fd[i], i);
-		i++;
+			i++;
 	}
 }
 
