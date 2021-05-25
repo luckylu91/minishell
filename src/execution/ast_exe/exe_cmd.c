@@ -2,8 +2,6 @@
 #include <sys/wait.h>
 #include <sys/errno.h>
 
-extern int errno;
-
 void	child_exe_not_builtin(t_all_str *chemin)
 {
 	int		path_fd;

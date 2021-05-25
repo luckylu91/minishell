@@ -36,6 +36,8 @@ static void	process_children(t_minishell *ms)
 	}
 }
 
+// TODO
+// Pas de return sans le set_terminal_minishell
 int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
@@ -44,10 +46,9 @@ int	process_line(char *line, t_minishell *ms)
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
 	while (ast_cmdseq)
 	{
-		if (replace_env((t_ast *)ast_cmdseq->content, ms) == -1)
-			return (1);
-		if (remove_spaces_cmdchain((t_ast *)ast_cmdseq->content) == -1)
-			return (-1);
+		if (replace_env((t_ast *)ast_cmdseq->content, ms))
+			continue ;
+		remove_spaces_cmdchain((t_ast *)ast_cmdseq->content);
 		exe_ast((t_ast *)ast_cmdseq->content, 0, NULL, ms);
 		process_children(ms);
 		ast_cmdseq = ast_cmdseq->next;

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 19:03:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 12:37:01 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,18 @@ void	our_getenv(t_block *block, char **res_addr, t_minishell *ms);
 char	*our_getcwd(void);
 t_list	*replace_env_block(t_list *block_lst, t_list **redir_blocks,
 			t_minishell *ms);
-int		replace_env_cmd(t_ast *cmd_ast, t_minishell *ms);
+void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms);
 void	replace_env_list(t_list **block_lst, t_list **redir_blocks,
 			t_minishell *ms);
-int		replace_env(t_ast *cmdchain_ast, t_minishell *ms);
+void	replace_env(t_ast *cmdchain_ast, t_minishell *ms);
 char	**split_path(t_minishell *ms);
 int		exe_all(t_list *l_staticast);
 int		copy_environ(char ***new_env_addr, char **environ);
 int		exe_ast(t_ast *l_ast, int i, int *pipe, t_minishell *mini);
 void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 			t_list **begin);
-int		remove_spaces(t_list *block_lst, t_list **new_block_lst);
-int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
+void	remove_spaces(t_list *block_lst, t_list **new_block_lst);
+void	remove_spaces_cmdchain(t_ast *cmdchain_ast);
 void	setup_all_fd(int *fd);
 void	close_all_fd(int *fd);
 int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );

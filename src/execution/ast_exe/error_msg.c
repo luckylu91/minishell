@@ -9,7 +9,7 @@ int	exception(char *str)
 	if (!ft_strcmp("..", str))
 		return (127);
 	else
-		return(0);
+		return (0);
 }
 
 void	dir_err(char *str)
@@ -23,7 +23,8 @@ void	filename_err(char *str)
 {
 	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": filename argument required\n.: usage: . filename [arguments]\n", 2);
+	ft_putstr_fd(": filename argument required\n"
+		".: usage: . filename [arguments]\n", 2);
 }
 
 void	not_f_err(char *str)

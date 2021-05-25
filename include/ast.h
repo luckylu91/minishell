@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 14:36:10 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 11:10:31 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 11:57:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_ast
 		struct				s_redir_expr
 		{
 			int				ambiguous_error;
+			char			*name_before_replace;
 			int				fildes;
 			t_block			*redir_op;
 			t_list			*file_name;
