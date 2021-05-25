@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 14:14:37 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 16:00:03 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*blocks_to_str(t_list *blocks)
 
 	blocks_str_list = ft_lstmap(blocks, (t_dup_fun)block_raw_str, destroy_block);
 	res = ft_lststrjoin(blocks_str_list, "", "", "");
-	ft_lstclear(&blocks_str_list, free);
+	ft_lstclear(&blocks_str_list, wrap_free);
 	return (res);
 }
 
@@ -70,6 +70,8 @@ void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 			// setbuf(stdout, NULL);
 			// printf("%s\n", redir_ast->expr.redir.name_before_replace);
 			ambiguous_redirect_error(redir_blocks);
+			redir_list = redir_list->next;
+			continue ;
 		}
 		ft_lstclear(&redir_blocks, destroy_block);
 		redir_list = redir_list->next;

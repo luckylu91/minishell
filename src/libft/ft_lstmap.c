@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:14:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/17 13:58:36 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 14:49:05 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list	*ft_lstmap(t_list *lst, t_dup_fun dup, t_del_fun del)
 	new_lst = NULL;
 	while (lst != NULL)
 	{
-		new_content = (*dup)(lst->content);
+		new_content = dup(lst->content);
 		if (!new_content)
 		{
 			ft_lstclear(&new_lst, del);
