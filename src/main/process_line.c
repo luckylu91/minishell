@@ -45,7 +45,7 @@ int	process_line(char *line, t_minishell *ms)
 
 	setbuf(stdout, NULL);
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
-	while (ast_cmdseq && ms->stop != 0)
+	while (ast_cmdseq && ms->stop == 0)
 	{
 		replace_env((t_ast *)ast_cmdseq->content, ms);
 		remove_spaces_cmdchain((t_ast *)ast_cmdseq->content);
