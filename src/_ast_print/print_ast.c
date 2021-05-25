@@ -91,12 +91,6 @@ void	print_command_ast(t_ast *ast)
 	wrap_free(str_redirs);
 }
 
-
-// void	print_unary_ast(t_ast *ast)
-// {
-
-// }
-
 void	print_binary_ast(t_ast *ast)
 {
 	printf("\n");
@@ -120,8 +114,6 @@ static void	print_ast_content(t_ast *ast)
 		case redir_expr:
 			print_redir_ast(ast);
 			break ;
-		// case unary_expr:
-		// 	return (ft_strdup("unary"));
 		case binary_expr:
 			print_binary_ast(ast);
 			break;

@@ -15,10 +15,22 @@ void	setup_var_exe(int *fd, t_state_pipe *sp, int state,
 	sp->both_pipe = both_pipe;
 }
 
-int	setup_redir(t_ast *cmd, int *fd)
+int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp)
 {
-	if ((get_redir_fd(fd, cmd_redir_list(cmd))) < 0)
+	int child;
+	fd_err err;
+	if ((get_redir_fd(fd, cmd_redir_list(cmd), &err)) < 0)
+	{
+		child = fork();
+		if (child == 0)
+		{
+			setup_all_fd(fd);
+			msg_redir_error(fd, &err);
+			closing(sp, fd);
+			exit(0);
+		}
 		return (-1);
+	}
 	if (cmd_text_list(cmd) == NULL)
 		return (-1);
 	return (1);

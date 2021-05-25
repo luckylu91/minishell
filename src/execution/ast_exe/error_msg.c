@@ -43,3 +43,25 @@ void	error_msg_all(char *str, int ex)
 	else if (ex == 2)
 		filename_err(str);
 }
+
+void	msg_redir_error(int *fd, fd_err *err)
+{
+	if (fd[256] == -3)
+	{
+		ft_putendl_fd("bash: ",2);
+		ft_putendl_fd(ft_itoa((err->descri)),2);
+		ft_putendl_fd(": Bad file descriptor ",2);
+	}
+	else if (fd[256] == -2)
+	{
+		ft_putendl_fd("bash: ",2);
+		ft_putendl_fd(err->ambi,2);
+		ft_putendl_fd(": ambigous redirect",2);
+	}
+	else if (fd[256] == -1)
+	{
+		ft_putendl_fd("bash: ",2);
+		ft_putendl_fd(err->file_name,2);
+		ft_putendl_fd(": No such file or directory",2);
+	}
+}

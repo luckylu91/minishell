@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:27:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 12:19:55 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 14:14:37 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 		{
 			redir_ast->expr.redir.ambiguous_error = 1;
 			redir_ast->expr.redir.name_before_replace = blocks_to_str(redir_blocks);
-			setbuf(stdout, NULL);
-			printf("%s\n", redir_ast->expr.redir.name_before_replace);
+			// print_block_list(redir_blocks);
+			// setbuf(stdout, NULL);
+			// printf("%s\n", redir_ast->expr.redir.name_before_replace);
 			ambiguous_redirect_error(redir_blocks);
 		}
 		ft_lstclear(&redir_blocks, destroy_block);

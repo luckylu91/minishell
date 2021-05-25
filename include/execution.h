@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 12:37:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/25 14:07:48 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@
 	// t_ast	*out;
 // }	int;
 //
+typedef struct s_fd_err
+{
+	char *ambi;
+	char *file_name;
+	int descri;
+
+}				fd_err;
  typedef struct s_all_str
 {
 	char	**all_var;
@@ -48,9 +55,14 @@ typedef struct s_state_pipe
 	int	**both_pipe;
 }	t_state_pipe;
 
-void	dir_err(char *str);
-void	filename_err(char *str);
 
+void	msg_redir_error(int *fd, fd_err *err);
+void	dir_err(char *str);
+void	closing(t_state_pipe sp, int *fd);
+void	filename_err(char *str);
+int	set_error_one(t_list *l, fd_err *err);
+int	set_error_two(t_list *l, fd_err *err);
+int set_error_three(t_list *l, fd_err *err);
 int	is_exe(char *str);
 int		exception(char *str);
 void	not_f_err(char *str);
@@ -62,12 +74,12 @@ char	*get_char_from_block(t_list *l);
 void	dup_str(t_list *l, char **res, int i);
 int		size_list(t_list *l);
 char	**from_list_to_str_tab(t_list *l);
-int		is_last(t_list *l, char c, int fildes);
+int		is_last(t_list *l, char c, int fildes, fd_err *err);
 int		start_builtin(char **c, t_minishell *m);
 int		is_builtin(char *c);
 int		is_builtin_nopipe(char *c);
 int		check_redir(int *fd);
-int		get_redir_fd(int *res, t_list *l);
+int		get_redir_fd(int *res, t_list *l, fd_err *er);
 int		export_one(char *arg, char ***our_env);
 int		export(char **argv, char ***our_env);
 int		find_var(char *arg, char **env);
@@ -99,12 +111,12 @@ int		exe_ast(t_ast *l_ast, int i, int *pipe, t_minishell *mini);
 void	insert_in_list(t_list **lst_prev, t_list *lst, t_list *insert,
 			t_list **begin);
 void	remove_spaces(t_list *block_lst, t_list **new_block_lst);
-void	remove_spaces_cmdchain(t_ast *cmdchain_ast);
+int		remove_spaces_cmdchain(t_ast *cmdchain_ast);
 void	setup_all_fd(int *fd);
 void	close_all_fd(int *fd);
 int		exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *global );
 void	setup_var_exe(int *fd, t_state_pipe *sp, int state, int **both_pipe);
-int		setup_redir(t_ast *cmd, int *fd);
+int		setup_redir(t_ast *cmd, int *fd, t_state_pipe sp);
 void	setup_chemin(t_all_str *chemin, t_ast *cmd, t_minishell *ms);
 void	close_and_dup(t_state_pipe sp, int *fd);
 void	closing(t_state_pipe sp, int *fd);

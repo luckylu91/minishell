@@ -43,18 +43,13 @@ char	**from_list_to_str_tab(t_list *l)
 	return (res);
 }
 
-int	is_last(t_list *l, char c, int fildes)
+int	is_last(t_list *l, char c, int fildes, fd_err *err)
 {
 	if (l == NULL)
 		return (1);
-	if (redir_fd_at(l->content) == -1)
-	{
-		ft_putendl_fd("bash: ",2);
-		ft_putendl_fd(ft_itoa(redir_fd_at(l->content)),2);
-		ft_putendl_fd(": Bad file descriptor ",2);
-		return(-3);
-	}
+	if (redir_fd_at(l->content) > 255)
+				return(set_error_three(l, err));
 	if (redir_op_at(l->content)->str[0] == c && redir_fd_at(l->content) == fildes)
 		return (0);
-	return (is_last(l->next, c, fildes));
+	return (is_last(l->next, c, fildes, err));
 }

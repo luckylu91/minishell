@@ -46,8 +46,7 @@ int	process_line(char *line, t_minishell *ms)
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
 	while (ast_cmdseq)
 	{
-		if (replace_env((t_ast *)ast_cmdseq->content, ms))
-			continue ;
+		replace_env((t_ast *)ast_cmdseq->content, ms);
 		remove_spaces_cmdchain((t_ast *)ast_cmdseq->content);
 		exe_ast((t_ast *)ast_cmdseq->content, 0, NULL, ms);
 		process_children(ms);
