@@ -11,7 +11,6 @@ int	set_error_two(t_list *l, fd_err *err)
 {
 	err->ambi = (((t_ast *)(l->content))->expr.redir).name_before_replace;
 	return (-2);
-
 }
 
 int set_error_three(t_list *l, fd_err *err)
