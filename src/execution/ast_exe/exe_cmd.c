@@ -31,11 +31,9 @@ void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
 	close_and_dup(sp, fd);
 	setup_all_fd(fd);
 	if (is_builtin(chemin.all_var[0]) || is_builtin_nopipe(chemin.all_var[0]))
-	{
 		exit(start_builtin(chemin.all_var, ms));
-	}
 	else
-		err =execve(chemin.path, chemin.all_var, ms->env);
+		err = execve(chemin.path, chemin.all_var, ms->env);
 	if (err == -1)
 	{
 		printf("err\n");
@@ -95,7 +93,7 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 		/* , !contains_slash(chemin.all_var[0])); */
 	if ((!chemin.path && !is_builtin(chemin.all_var[0])
 		&& !is_builtin_nopipe(chemin.all_var[0])
-		&& !contains_slash(chemin.all_var[0])) || exception(chemin.all_var[0])) 
+		&& !contains_slash(chemin.all_var[0])) || exception(chemin.all_var[0]))
 		return (cmd_notf(chemin, ms, fd));
 	if (is_builtin_nopipe(chemin.all_var[0]) && state == 0)
 		return (no_pipe_exe(chemin, fd, ms));

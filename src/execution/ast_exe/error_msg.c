@@ -2,7 +2,7 @@
 
 int	exception(char *str)
 {
-	if (!ft_strcmp("/", str) ||!ft_strcmp("/Users", str) )
+	if (contains_slash(str) && is_dir(NULL, str))
 		return (126);
 	if (!ft_strcmp(".", str))
 		return (2);
