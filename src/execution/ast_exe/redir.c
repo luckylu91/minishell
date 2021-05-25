@@ -13,7 +13,7 @@ int	in_part(t_list *l, int *res)
 		fd = open(get_char_from_block((((t_ast *)
 							(l->content))->expr.redir.file_name)),
 				O_CREAT | O_RDWR | O_TRUNC, 0666);
-	if (is_last(l->next, '<',(redir_fd_at(l->content))) == -3)
+	if (is_last(l->next, '<', (redir_fd_at(l->content))) == -3)
 		return (-3);
 	if (is_last(l->next, '>', redir_fd_at(l->content)))
 		res[redir_fd_at(l->content)] = fd;
@@ -24,12 +24,13 @@ int	in_part(t_list *l, int *res)
 
 int	msg_error(t_list *l)
 {
-		ft_putendl_fd("bash: ", 2);
-		ft_putendl_fd(get_char_from_block((((t_ast *)
-							(l->content))->expr.redir.file_name)), 2);
-		ft_putendl_fd(": No such file or directory ", 2);
-		return (-1);
+	ft_putendl_fd("bash: ", 2);
+	ft_putendl_fd(get_char_from_block((((t_ast *)
+						(l->content))->expr.redir.file_name)), 2);
+	ft_putendl_fd(": No such file or directory ", 2);
+	return (-1);
 }
+
 int	get_redir_fd(int *res, t_list *l)
 {
 	int	fd;
@@ -42,9 +43,9 @@ int	get_redir_fd(int *res, t_list *l)
 							(l->content))->expr.redir.file_name)), O_RDWR);
 		if (fd == -1)
 			return (msg_error(l));
-		if (is_last(l->next, '<',(redir_fd_at(l->content))) == -3)
+		if (is_last(l->next, '<', (redir_fd_at(l->content))) == -3)
 			return (-3);
-		if (is_last(l->next, '<',(redir_fd_at(l->content))))
+		if (is_last(l->next, '<', (redir_fd_at(l->content))))
 			res[redir_fd_at(l->content)] = fd;
 		else
 			close(fd);
@@ -60,24 +61,20 @@ int	get_redir_fd(int *res, t_list *l)
 
 void	setup_all_fd(int *fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 256)
 	{
 		if (fd[i] >= 0)
-		{
-			//printf("ici i = %i\n",i);
 			dup2(fd[i], i);
-		}
-			i++;
+		i++;
 	}
 }
 
-
-void close_all_fd(int *fd)
+void	close_all_fd(int *fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 256)
