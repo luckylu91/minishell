@@ -1,4 +1,5 @@
 #include "minishell.h"
+
 static void	pre_while(t_minishell *ms, char *line,
 	t_list **block_lst, t_list **ast_cmdseq)
 {
@@ -36,14 +37,13 @@ static void	process_children(t_minishell *ms)
 	}
 }
 
-// TODO
-// Pas de return sans le set_terminal_minishell
 int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
 	t_list	*ast_cmdseq;
 	ms->stop = 0;
 
+	setbuf(stdout, NULL);
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
 	while (ast_cmdseq && ms->stop != 0)
 	{

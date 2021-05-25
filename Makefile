@@ -85,17 +85,6 @@ _%_db:	_%.c $(OBJS_DB)
 echo:
 	echo $(OBJS)
 
-# norm:
-# 	norminette $(addprefix ast/, access add create_destroy errors parse utils *.h)
-# 	norminette block_api/
-# 	norminette error/
-# 	norminette $(addprefix execution/, ast_exe builtin replace_env split_path.c *.h)
-# 	norminette get_next_line/
-# 	norminette hist/
-# 	norminette libft/
-# 	norminette main/
-# 	norminette
-
 
 clean:
 	make -C src/libft clean
