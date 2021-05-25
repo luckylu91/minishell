@@ -32,7 +32,7 @@ char	*block_raw_str(t_block *block)
 	i = 0;
 	if (is_dollar(block))
 		res[i++] = '$';
-	ft_strcat(res, block->str);
+	ft_strcat(res + 1, block->str);
 	return (res);
 }
 
@@ -66,10 +66,6 @@ void	replace_env_cmd(t_ast *cmd_ast, t_minishell *ms)
 		{
 			redir_ast->expr.redir.ambiguous_error = 1;
 			redir_ast->expr.redir.name_before_replace = blocks_to_str(redir_blocks);
-			// print_block_list(redir_blocks);
-			// setbuf(stdout, NULL);
-			// printf("%s\n", redir_ast->expr.redir.name_before_replace);
-			ambiguous_redirect_error(redir_blocks);
 			redir_list = redir_list->next;
 			continue ;
 		}
