@@ -15,7 +15,7 @@ int	in_part(t_list *l, int *res, fd_err *err)
 				O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (is_last(l->next, '>', (redir_fd_at(l->content)), err) == -3)
 		return (-3);
-	if (is_last(l->next, '>', redir_fd_at(l->content),err))
+	if (is_last(l->next, '>', redir_fd_at(l->content), err))
 		res[redir_fd_at(l->content)] = fd;
 	else
 		close(fd);
@@ -69,8 +69,7 @@ void	close_all_fd(int *fd)
 {
 	int	i;
 
-	i = 0;
-	while (i < 256)
+	i = 0;while (i < 256)
 	{
 		if (fd[i] >= 0)
 			close(fd[i]);

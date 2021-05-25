@@ -26,6 +26,7 @@ typedef struct	s_linebuffer
 typedef struct		s_minishell
 {
 	t_hist			*h;
+	int				stop;
 	int				exit_code;
 	char			**env;
 	t_linebuffer	*lb;

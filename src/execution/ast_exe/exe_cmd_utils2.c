@@ -3,10 +3,10 @@
 void	setup_var_exe(int *fd, t_state_pipe *sp, int state,
 	int **both_pipe)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i<256)
+	while (i < 256)
 	{
 		fd[i] = -2;
 		i++;
@@ -17,8 +17,9 @@ void	setup_var_exe(int *fd, t_state_pipe *sp, int state,
 
 int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp)
 {
-	int child;
-	fd_err err;
+	int		child;
+	fd_err	err;
+
 	if ((get_redir_fd(fd, cmd_redir_list(cmd), &err)) < 0)
 	{
 		child = fork();

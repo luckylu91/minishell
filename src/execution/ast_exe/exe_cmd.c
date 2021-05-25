@@ -17,14 +17,15 @@ void	child_exe_not_builtin(t_all_str *chemin)
 	close(path_fd);
 }
 
-void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
-	t_minishell *ms)
+void	child_exe(t_state_pipe sp, int *fd, t_all_str chemin,
+		t_minishell *ms)
 {
-	int err;
+	int	err;
+
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-
-	if (!is_builtin(chemin.all_var[0])  && !is_builtin_nopipe(chemin.all_var[0]))
+	if (!is_builtin(chemin.all_var[0])
+		&& !is_builtin_nopipe(chemin.all_var[0]))
 		child_exe_not_builtin(&chemin);
 	close_and_dup(sp, fd);
 	setup_all_fd(fd);
@@ -34,8 +35,8 @@ void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
 		err = execve(chemin.path, chemin.all_var, ms->env);
 	if (err == -1)
 	{
-		ft_putstr_fd(strerror(errno),2);
-		ft_putstr_fd("\n",2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 	}
 	exit(126);
 }
@@ -43,8 +44,7 @@ void	child_exe(t_state_pipe sp, int* fd, t_all_str chemin,
 int	cmd_notf(t_all_str chemin, t_minishell *ms, int *fd)
 {
 	pid_t	child;
-	
-		
+
 	ms->exit_code = exception(chemin.all_var[0]);
 	if (ms->exit_code == 0)
 		ms->exit_code = 127;
@@ -61,7 +61,7 @@ int	cmd_notf(t_all_str chemin, t_minishell *ms, int *fd)
 }
 
 int	no_pipe_exe(t_all_str chemin, int *fd,
-	t_minishell *ms)
+		t_minishell *ms)
 {
 	int	temp;
 
@@ -86,12 +86,10 @@ int	exe_cmd(t_ast *cmd, int **both_pipe, int state, t_minishell *ms)
 	if (setup_redir(cmd, fd, sp) == -1)
 		return (-1);
 	setup_chemin(&chemin, cmd, ms);
-	/* printf("!%s! {%s} |%i| %i %i %i \n",chemin.all_var[0],chemin.path,!chemin.path,!is_builtin(chemin.all_var[0]) */
-		/* , !is_builtin_nopipe(chemin.all_var[0]) */
-		/* , !contains_slash(chemin.all_var[0])); */
 	if ((!chemin.path && !is_builtin(chemin.all_var[0])
-		&& !is_builtin_nopipe(chemin.all_var[0])
-		&& !contains_slash(chemin.all_var[0])) || exception(chemin.all_var[0]))
+			&& !is_builtin_nopipe(chemin.all_var[0])
+			&& !contains_slash(chemin.all_var[0]))
+		|| exception(chemin.all_var[0]))
 		return (cmd_notf(chemin, ms, fd));
 	if (is_builtin_nopipe(chemin.all_var[0]) && state == 0)
 		return (no_pipe_exe(chemin, fd, ms));

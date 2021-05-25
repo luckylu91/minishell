@@ -42,9 +42,10 @@ int	process_line(char *line, t_minishell *ms)
 {
 	t_list	*block_lst;
 	t_list	*ast_cmdseq;
+	ms->stop = 0;
 
 	pre_while(ms, line, &block_lst, &ast_cmdseq);
-	while (ast_cmdseq)
+	while (ast_cmdseq && ms->stop != 0)
 	{
 		replace_env((t_ast *)ast_cmdseq->content, ms);
 		remove_spaces_cmdchain((t_ast *)ast_cmdseq->content);
@@ -52,6 +53,7 @@ int	process_line(char *line, t_minishell *ms)
 		process_children(ms);
 		ast_cmdseq = ast_cmdseq->next;
 	}
+	ms->stop = 0;
 	if (!ms->input_is_file)
 		set_terminal_minishell();
 	destroy_block_lst(&block_lst);
