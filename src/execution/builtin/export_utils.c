@@ -14,9 +14,9 @@
 
 int	is_assign_operator(char *s)
 {
-	if (!s || !*s)
+	if (!s)// || !*s)
 		return (ASSIGN_NONE);
-	if (*s == '=')
+	if (*s == '=' || !*s)
 		return (ASSIGN_EQUAL);
 	if (*s == '+' && *(s + 1) == '=')
 		return (ASSIGN_PEQUAL);
@@ -54,7 +54,7 @@ char	*strdup_remove_plus(char *src, int op_index)
 	size_t	size;
 	char	*dest;
 
-	if (src[op_index] == '=')
+	if (src[op_index] == '=' || src[op_index] == '\0')
 		return (ft_strdup(src));
 	size = ft_strlen(src);
 	dest = ft_calloc(size, sizeof(char));

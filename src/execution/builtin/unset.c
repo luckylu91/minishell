@@ -23,7 +23,7 @@ int	find_var(char *arg, char **env)
 		j = 0;
 		while (arg[j] && env[i][j] && (arg[j] == env[i][j]))
 			j++;
-		if (arg[j] == '\0' && env[i][j] == '=')
+		if (arg[j] == '\0' && (env[i][j] == '=' || env[i][j] == '\0'))
 			return (i);
 		i++;
 	}

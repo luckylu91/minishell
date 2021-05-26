@@ -25,6 +25,6 @@ int	copy_environ(char ***new_env_addr, char **environ)
 	while (environ[++i])
 		(*new_env_addr)[i] = ft_strdup(environ[i]);
 	unset_one("OLDPWD", new_env_addr);
-	export_one("OLDPWD\0", new_env_addr);
+	export_one("OLDPWD", new_env_addr);
 	return (1);
 }
