@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:30:38 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/26 11:24:44 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 11:26:23 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	find_var(char *arg, char **env)
 		j = 0;
 		while (arg[j] && env[i][j] && (arg[j] == env[i][j]))
 			j++;
-		if (arg[j] == '\0' && (!env[i][j] || env[i][j] == '='))
+		if (arg[j] == '\0' && (env[i][j] == '=' || env[i][j] == '\0'))
 			return (i);
 		i++;
 	}

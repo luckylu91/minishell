@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:37:24 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 18:45:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 11:29:07 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*search_env(char *str, char **env)
 		return (NULL);
 	else
 	{
-		while (env[i][j] != '=')
+		while (env[i][j] != '=' && env[i][j])
 			j++;
 		return (&env[i][j + 1]);
 	}	

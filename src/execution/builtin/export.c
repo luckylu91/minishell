@@ -50,8 +50,8 @@ int	export_one(char *arg, char ***our_env)
 		not_valid_identifier_error(arg);
 		return (1);
 	}
-	if (!arg[arg_offset])
-		return (0);
+	/*if (!arg[arg_offset])
+		return (0);*/
 	i = -1;
 	while ((*our_env)[++i])
 	{

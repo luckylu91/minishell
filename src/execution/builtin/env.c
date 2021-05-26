@@ -12,6 +12,16 @@
 
 #include "execution.h"
 
+int	is_equal(char *c)
+{
+	return (*c == '=');
+}
+
+int	contains_equal(char *str)
+{
+	return (ft_any(str, ft_strlen(str), 1, (t_bool_fun)is_equal));
+}
+
 int	our_env(char **tab_env)
 {
 	int	i;
@@ -19,7 +29,8 @@ int	our_env(char **tab_env)
 	i = 0;
 	while (tab_env[i] != NULL)
 	{
-		printf("%s\n", tab_env[i]);
+		if (contains_equal(tab_env[i]))
+			printf("%s\n", tab_env[i]);
 		i++;
 	}
 	return (0);
