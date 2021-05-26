@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 14:33:47 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:39:22 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:06:38 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_assign_operator(char *s)
 {
-	if (!s)// || !*s)
+	if (!s)
 		return (ASSIGN_NONE);
 	if (*s == '=' || !*s)
 		return (ASSIGN_EQUAL);

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 09:58:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 12:12:15 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,20 @@ t_term	term;
 
 typedef enum	e_termcaps
 {
-	COLOR_CAP,			// 0
+	COLOR_CAP,
 	COLOR_BACK_CAP,
 	UNDERLINE_CAP,
 	BLINK_CAP,
 	MOVE_CAP,
-	CLEAR_CAP,			// 5
+	CLEAR_CAP,
 	MODIF_ERASE_CAP,
 	MOVE_LEFT,
 	MOVE_LEFT_ONE,
 	MOVE_RIGHT,
-	// MOVE_RIGHT_ONE,
-	// DELETE_MODE,
-	DELETE_CHAR,		// 10
-	// INSERT_CHAR,
+	DELETE_CHAR,
 	INSERT_MODE,
 	INSERT_EXIT,
-	// INSERT_PAD,
-	NUMBER_OF_CAPS		// 13
+	NUMBER_OF_CAPS
 }				t_termcaps;
 
 void	terminal_done(void);
@@ -67,6 +63,7 @@ void	set_terminal_minishell(void);
 
 void	init_termcaps(void);
 char	**init_termcaps_strings(void);
+void	free_termcaps(char **tc);
 
 int		ft_putchar(int c);
 void	ft_putstr(char *s);

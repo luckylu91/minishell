@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:53:27 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 19:14:56 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 14:49:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,10 @@ int	overflow_fd(t_list *l, fd_err *err)
 		return (set_error_three(l, err));
 	else
 		return (0);
+}
+
+void	destroy_chemin(t_all_str chemin)
+{
+	ft_splitclear(chemin.all_var, 0);
+	wrap_free(chemin.path);
 }

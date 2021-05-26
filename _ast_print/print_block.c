@@ -51,7 +51,6 @@ void	print_block(void *block_ptr)
 	char *block_str = block_string_ptr(block_ptr);
 
 	printf("%s", block_str);
-	wrap_free(block_str);
 }
 
 static void	print_block_and_arrow(void *block_ptr)

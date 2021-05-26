@@ -14,7 +14,7 @@ void	dup_str(t_list *l, char **res, int i)
 		f = ((t_block *)(l->content))->f;
 		if (f == none)
 		{
-			res[i] = get_char_from_block(l);
+			res[i] = ft_strdup(get_char_from_block(l));
 			dup_str(l->next, res, i + 1);
 		}
 		else

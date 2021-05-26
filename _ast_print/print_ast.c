@@ -57,18 +57,6 @@ static char *redir_string(t_ast *ast)
 	char	*str;
 	char	*fname_str;
 
-	// //
-	// setbuf(stdout, NULL);
-	// printf("fname list : %p\n", ast->expr.redir.file_name);
-	// print_block_list(ast->expr.redir.file_name);
-	// printf("\n");
-	// printf("redirop block flag : %s", block_flags_str(ast->expr.redir.redir_op));
-	// printf("\n");
-	// printf("redirop block str %s\n", ast->expr.redir.redir_op->str);
-	// print_block(ast->expr.redir.redir_op);
-	// printf("redirop block : ");
-	// print_block(ast->expr.redir.redir_op);
-	// printf("\n");
 	ft_lstiter(ast->expr.redir.file_name, NULL, (t_fun)print_str);
 	fname_str = text_string(ast->expr.redir.file_name);
 	asprintf(&str, "(fd: %d | op: \"%s\" | fname: \"%s\")",
@@ -79,15 +67,9 @@ static char *redir_string(t_ast *ast)
 	return (str);
 }
 
-static void *redir_string_ptr(void *ast_ptr)
-{
-	return (redir_string((t_ast *)ast_ptr));
-}
 
 static void	print_redir_ast(t_ast *ast)
 {
-	// op_str = charpointer_str(ast->expr.redir.redir_op);
-	// fname_str = charpointer_str(ast->expr.redir.file_name);
 	char *str;
 
 	str = redir_string(ast);
@@ -97,13 +79,15 @@ static void	print_redir_ast(t_ast *ast)
 
 void	print_command_ast(t_ast *ast)
 {
-	char *str_redirs;
-	t_list	*char_redirs;
+	char	*str_text;
+	t_list	*chars_text;
 
-	char_redirs = ft_lstmap(ast->expr.command.redir_list, redir_string_ptr, wrap_free);
-	str_redirs = ft_lststrjoin(char_redirs, " -> ", "", "");
-	ft_lstclear(&char_redirs, wrap_free);
-	wrap_free(str_redirs);
+	chars_text = ft_lstmap(ast->expr.command.text_list, block_string_ptr, wrap_free);
+	str_text = ft_lststrjoin(chars_text, " -> ", "", "");
+	ft_putstr_fd("[args] : ", STDOUT_FILENO);
+	ft_putstr_fd(str_text, STDOUT_FILENO);
+	ft_putstr_fd(", [redirs] : ", STDOUT_FILENO);
+	ft_lstiter(ast->expr.command.redir_list, NULL, (t_fun)print_redir_ast);
 }
 
 void	print_binary_ast(t_ast *ast)

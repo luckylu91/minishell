@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:02:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 19:20:33 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 14:49:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@
 # define ASSIGN_EQUAL	1
 # define ASSIGN_PEQUAL	2
 
-// typedef struct s_both_fd
-// {
-	// t_ast	*in;
-	// int		int_in;
-	// int		int_out;
-	// t_ast	*out;
-// }	int;
-//
 typedef struct s_fd_err
 {
 	char *ambi;
@@ -44,6 +36,7 @@ typedef struct s_fd_err
 	int descri;
 
 }				fd_err;
+
  typedef struct s_all_str
 {
 	char	**all_var;
@@ -124,6 +117,7 @@ void	close_and_dup(t_state_pipe sp, int *fd);
 void	closing(t_state_pipe sp, int *fd);
 int		is_slash(char *c);
 int		contains_slash(char *str);
+void	destroy_chemin(t_all_str chemin);
 
 void	replace_dot_dir(char **path_addr);
 

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 13:58:23 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 15:11:14 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 16:14:22 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	before_exit(void *ms_ptr)
 	t_minishell	*ms;
 
 	ms = ms_ptr;
-	terminal_done();
+	if (!ms->input_is_file)
+		terminal_done();
 	if (ms)
 	{
 		if (write_histfile(ms->h) == -1)

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 18:27:08 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/21 16:34:43 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:04:05 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_malloc_list_clear(void)
 {
 	t_list	**malloc_list;
 
+	setbuf(stdout, NULL);
 	malloc_list = ft_get_malloc_list();
 	ft_lstclear_nowrap(malloc_list);
 }

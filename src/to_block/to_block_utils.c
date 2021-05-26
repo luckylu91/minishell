@@ -46,15 +46,17 @@ char 	*list_to_string(t_list *l)
 
 void	temp_to_final(t_list **final_l, t_list **temp_l, enum e_flags f)
 {
-	char	*str;
 	t_list	*temp_lbis;
 	int		i;
+	t_block	*block;
 
 	temp_lbis = *temp_l;
 	i = 0;
-	str = list_to_string(temp_lbis);
 	*temp_l = NULL;
-	ft_lstadd_back(final_l, ft_lstnew(new_block(str, f)));
+	block = ft_calloc(1, sizeof(t_block *));
+	block->f = f;
+	block->str = list_to_string(temp_lbis);
+	ft_lstadd_back(final_l, ft_lstnew(block));
 }
 
 void	str_to_list(char *str, t_list **temp_l)

@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:39:09 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 11:23:01 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:02:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ int	main(int argc, char **argv, char **environ)
 	if (!isatty(STDIN_FILENO))
 	{
 		execute_with_file_input(ms);
-	}
-	if (argc >= 2)
-	{
-		ms->input_is_file = 1;
-		ft_get_set_exit_fun(&before_exit_file_input);
-		process_line(argv[1], ms);
-		exit(0);
 	}
 	init_termios();
 	init_termcaps();

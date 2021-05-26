@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:32:44 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/20 15:40:50 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 15:57:53 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	show_prompt(t_minishell *ms)
 	tputs(tparm(ms->termcaps[COLOR_CAP], DOLLAR_COLOR), 1, ft_putchar);
 	ft_putstr_fd("$ ", STDOUT_FILENO);
 	tputs(ms->termcaps[MODIF_ERASE_CAP], 1, ft_putchar);
+	wrap_free(cwd_str);
 }
