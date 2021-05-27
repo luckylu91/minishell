@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 15:49:36 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 14:54:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 14:18:28 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "hist.h"
 
-typedef struct	s_linebuffer
+typedef struct s_linebuffer
 {
 	char	*buffer;
 	int		i_max;
@@ -23,7 +23,7 @@ typedef struct	s_linebuffer
 	int		size;
 }				t_linebuffer;
 
-typedef struct		s_minishell
+typedef struct s_minishell
 {
 	t_hist			*h;
 	int				stop;
@@ -37,7 +37,7 @@ typedef struct		s_minishell
 	int				input_is_file;
 }	t_minishell;
 
-typedef struct	s_tabinfo
+typedef struct s_tabinfo
 {
 	char	*basedir;
 	char	*str_to_complete;

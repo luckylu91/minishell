@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:16:01 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 19:08:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:16:40 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "ast.h"
 # include "ast_add.h"
 # include "ast_alloc.h"
-# include "ast_print.h" // ne pas rendre
 # include "ast_parse.h"
 # include "errors.h"
 # include <stdio.h>

@@ -43,7 +43,7 @@ char	**from_list_to_str_tab(t_list *l)
 	return (res);
 }
 
-int	is_last(t_list *l, char c, int fildes, fd_err *err)
+int	is_last(t_list *l, char c, int fildes, t_fd_err *err)
 {
 	if (l == NULL)
 		return (1);

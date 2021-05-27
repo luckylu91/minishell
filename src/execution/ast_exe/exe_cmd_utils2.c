@@ -15,10 +15,10 @@ void	setup_var_exe(int *fd, t_state_pipe *sp, int state,
 	sp->both_pipe = both_pipe;
 }
 
-int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp)
+int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp, t_minishell *ms)
 {
-	int		child;
-	fd_err	err;
+	int			child;
+	t_fd_err	err;
 
 	fd[256] = get_redir_fd(fd, cmd_redir_list(cmd), &err);
 	if (fd[256] < 0)
@@ -29,8 +29,9 @@ int	setup_redir(t_ast *cmd, int *fd, t_state_pipe sp)
 			setup_all_fd(fd);
 			msg_redir_error(fd, &err);
 			closing(sp, fd);
-			exit(0);
+			exit(1);
 		}
+		ft_lstdupint_back(&ms->all_child, child);
 		return (-1);
 	}
 	if (cmd_text_list(cmd) == NULL)

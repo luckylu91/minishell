@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:06:41 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 20:14:20 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 19:12:56 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,11 @@ int	is_up_down_arrow(int c)
 
 static void	clear_current_line(t_minishell *ms)
 {
-	int	len_screen;
-	int	k;
-
 	if (!ms->lb->buffer)
 		return ;
-	while (ms->lb->i < ms->lb->i_max)
-	{
-		tputs(tparm(ms->termcaps[MOVE_RIGHT], 1), 1, ft_putchar);
-		ms->lb->i++;
-	}
-	len_screen = ft_strlen(ms->lb->buffer);
-	tputs(tparm(ms->termcaps[MOVE_LEFT], len_screen), 1, ft_putchar);
-	k = -1;
-	while (++k < len_screen)
+	while (ms->lb->i-- > 0)
+		tputs(ms->termcaps[MOVE_LEFT_ONE], 1, ft_putchar);
+	while (ms->lb->i_max-- > 0)
 		tputs(ms->termcaps[DELETE_CHAR], 1, ft_putchar);
 }
 

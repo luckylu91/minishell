@@ -6,14 +6,14 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 16:15:19 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/22 11:31:49 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 14:18:18 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REDIRECT_TAB_UTILS_H
 # define REDIRECT_TAB_UTILS_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 int		startswith(char *str, char *prefix);
 char	last_char(char *str);

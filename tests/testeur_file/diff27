@@ -1,4 +1,0 @@
-1c1
-< $cette_var_nexiste_pas
----
-> cette_var_nexiste_pas

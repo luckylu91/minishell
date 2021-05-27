@@ -1,6 +1,6 @@
 #include "execution.h"
 
-int	in_part(t_list *l, int *res, fd_err *err)
+int	in_part(t_list *l, int *res, t_fd_err *err)
 {
 	int	fd;
 
@@ -20,7 +20,7 @@ int	in_part(t_list *l, int *res, fd_err *err)
 	return (fd);
 }
 
-int	get_redir_fd(int *res, t_list *l, fd_err *err)
+int	get_redir_fd(int *res, t_list *l, t_fd_err *err)
 {
 	int	fd;
 

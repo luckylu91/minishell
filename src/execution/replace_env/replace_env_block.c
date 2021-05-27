@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:24:22 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/25 15:49:03 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 13:47:49 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	replace_unquoted(t_block *env_block, t_list **replacement,
 
 	*replacement = NULL;
 	our_getenv(env_block, &env_str, ms);
-	if (!env_str)
+	if (!env_str || !env_str[0])
 		return ;
+	fflush(stdout);
 	splitted = ft_split(env_str, " ");
 	wrap_free(env_str);
 	i = -1;

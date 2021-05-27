@@ -16,7 +16,7 @@ SRCS_REL +=	$(addprefix ast/access/, access_binary.c access_command.c \
 SRCS_REL +=	$(addprefix ast/parse/, identify_semicol.c parse_cmd.c \
 	parse_cmdchain.c parse_cmdseq.c parse_redir.c parse_text.c skip_spaces.c to_str.c)
 SRCS_REL +=	$(addprefix execution/ast_exe/, exe_cmd_utils.c exe_cmd_utils2.c \
-	exe_cmd_utils3.c ft_builtin.c redir.c exe_cmd.c exe_ast.c error_msg.c error_redir.c)
+	exe_cmd_utils3.c ft_builtin.c redir.c exe_cmd.c exe_ast.c error_msg.c error_redir.c pipe_exe.c)
 SRCS_REL += $(addprefix block_api/, block_at.c is_chainop.c is_eof.c is_redirop.c \
 	is_semicol.c is_space.c is_special.c is_wildcard.c parse_redirop.c is_text.c \
 	is_dollar.c is_rawtext.c is_tilde.c block_str_at.c)

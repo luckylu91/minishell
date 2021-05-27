@@ -253,7 +253,7 @@ i = 253
 i = 254
 i = 255
 ici3
-declare -x TERM_SESSION_ID=w2t0p0:318F7CB7-7801-4ABE-BE2A-363562C4DB30
+declare -x TERM_SESSION_ID=w2t0p0:8B720BEF-AEC2-4A2D-93BB-362202CA40AF
 declare -x SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.JDQr6CabRs/Listeners
 declare -x LC_TERMINAL_VERSION=3.4.5
 declare -x Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.gZ1ZLzZ5r2/Render
@@ -278,7 +278,7 @@ declare -x USER=hgallien
 declare -x XPC_SERVICE_NAME=0
 declare -x LOGNAME=hgallien
 declare -x __CF_USER_TEXT_ENCODING=0x0:0:0
-declare -x ITERM_SESSION_ID=w2t0p0:318F7CB7-7801-4ABE-BE2A-363562C4DB30
+declare -x ITERM_SESSION_ID=w2t0p0:8B720BEF-AEC2-4A2D-93BB-362202CA40AF
 declare -x SHLVL=1
 declare -x ZSH=/Users/hgallien/.oh-my-zsh
 declare -x PAGER=less
@@ -288,3 +288,6 @@ declare -x HOMEBREW_CACHE=/tmp/hgallien/Homebrew/Caches
 declare -x HOMEBREW_TEMP=/tmp/hgallien/Homebrew/Temp
 declare -x _=/Users/hgallien/goinfre/2/./minishell
 declare -x OLDPWD
+ici5
+ici4
+[34m/Volumes/Storage/goinfre/hgallien/2[31m$ [0m

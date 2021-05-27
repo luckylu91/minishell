@@ -66,8 +66,10 @@ void	remove_spaces(t_list *block_lst, t_list **new_block_lst)
 	while (block_lst)
 	{
 		skip_spaces(&block_lst);
-		new_block = ft_calloc(1, sizeof(t_block));
+		if (!block_lst)
+			return ;
 		text_to_string(&block_lst, &str);
+		new_block = ft_calloc(1, sizeof(t_block));
 		ft_lstadd_back_content(new_block_lst, new_block);
 		new_block->f = none;
 		new_block->str = str;

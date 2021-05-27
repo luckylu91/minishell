@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 10:30:32 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/26 17:00:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 19:12:12 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	set_linebuffer_to(char *str, t_minishell *ms)
 	t_linebuffer	*lb;
 
 	lb = ms->lb;
-	if (lb->buffer)
-		linebuffer_clear(ms);
+	linebuffer_clear(ms);
 	if (!str || !str[0])
 		return ;
 	str_len = ft_strlen(str);

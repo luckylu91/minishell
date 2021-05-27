@@ -6,38 +6,38 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:17:35 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/26 12:12:15 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 14:23:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERMINAL_H
-#define TERMINAL_H
+# define TERMINAL_H
 
-#include "libft.h"
-#include "hist.h"
-#include "minishell.h"
-#include <unistd.h>
-#include <termios.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <fcntl.h> // open
-#include <curses.h>
-#include <term.h>
-#include <string.h>
+# include "libft.h"
+# include "hist.h"
+# include "minishell.h"
+# include <unistd.h>
+# include <termios.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <curses.h>
+# include <term.h>
+# include <string.h>
 
-#define LINE_BUFFER_SIZE 80
+# define LINE_BUFFER_SIZE 80
 
-typedef struct	s_term
+typedef struct s_term
 {
-	struct termios terminal_original;
-	struct termios terminal_settings;
+	struct termios	terminal_original;
+	struct termios	terminal_settings;
 }	t_term;
 
-t_term	term;
+t_term	g_term;
 
-typedef enum	e_termcaps
+typedef enum e_termcaps
 {
 	COLOR_CAP,
 	COLOR_BACK_CAP,

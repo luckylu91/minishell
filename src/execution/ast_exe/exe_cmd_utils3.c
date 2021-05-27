@@ -6,7 +6,7 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:53:27 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/26 14:49:12 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 14:20:13 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	contains_slash(char *str)
 	return (ft_any(str, ft_strlen(str), 1, (t_bool_fun)is_slash));
 }
 
-int	overflow_fd(t_list *l, fd_err *err)
+int	overflow_fd(t_list *l, t_fd_err *err)
 {
 	if (redir_fd_at(l->content) > 255 || redir_fd_at(l->content) == -1)
 		return (set_error_three(l, err));

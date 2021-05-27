@@ -6,12 +6,11 @@
 /*   By: lzins <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 11:10:28 by lzins             #+#    #+#             */
-/*   Updated: 2021/05/24 17:30:16 by lzins            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:17:17 by lzins            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "block_api.h"
-#include "ast_print.h"
 
 int	is_text(t_block *block)
 {
